@@ -1,0 +1,8 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+quentins_wallet:
+  user: quentin
+
+aarons_wallet:
+  user: aaron
+	
