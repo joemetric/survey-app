@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Survey Administration</title>
+<link href="stylesheets/joemetric.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!--[if lte IE 7]><link type="text/css" rel="stylesheet" href="stylesheets/ie7.css" /><![endif]-->
+<!--[if lt IE 7]><script src="ie7/IE7.js" type="text/javascript"></script><![endif]-->
+</head>
+<body>
+	<div class="main">
+    	<div  class="wrapper">
+        	<!-- header starts-->
+        	<div class="header">
+            	<div class="logo">
+                	<img src="images/logo.png" alt="logo"/>
+                </div>
+                <div class="login">
+                	<div class="login_bg">
+                		<div class="login_content">
+                        	<a  href="#">HI <font color="#000000">Adam</font></a> |	
+                            <a  href="login.html">Logout</a>	
+                     	</div>
+                    </div>
+                </div>
+                <div class="cls"></div>
+            </div>
+            <!-- header ends-->
+            
+            <!-- main content starts here-->
+            <div class="content con1">
+            	<div class="menu1">
+                	<ul>
+                    	<li class="item"><a href="#">Dashboard</a></li>
+                        <li class="item"><a href="#">User Administration</a></li>
+                        <li class="selected"><a href="#">Survey Administration</a></li>
+                        <li class="item"><a href="#">Pricing Administration</a></li>
+                        <li class="item"><a href="#"> Administration</a></li>
+                    </ul>
+                </div>
+                <div class="main_content lar">
+                    <div class="tabs">
+                        <ul>
+                            <li class="item"><a href="#">Client</a></li>
+                            <li class="item"><a href="#">Reviewer</a></li>
+                            <li class="selected"><a href="#">Administrator</a></li>
+                        </ul>
+                        <div class="cls"></div>
+                    </div>
+                    <div class="form">
+                        <h3 class="heads1">Survey Administration</h3>
+                        <h4 class="head2">Pending Approvals</h4>
+                        <div class="survey_by"><b>Survey 1 by Adam Winter Submitted on 2009-08-7 at 12:56</b>                         <div class="questions">
+                        	<ul>
+                            	<li>#1 What is your favourite color</li>
+                                <li>#1 What color do you like on shoes</li>
+                                <li>#1 Take a picture of your favourite shoes</li>
+                            </ul>
+                            
+                        </div>
+                        	<div class="btns">
+                            	<a href="#" class="pos">Approve</a>
+                                <a href="#" class="neg" onclick="window.open('reason_deny.html','mywindow','menubar=1,resizable=1,width=350,height=290');">Deny</a>
+                                <div class="cls"></div>
+                            </div>
+                        </div>
+                        <div class="survey_by"><b>Survey 1 by Adam Winter Submitted on 2009-08-7 at 12:56 </b></div>
+                       <h4 class="head2">Historical Surveys</h4> 
+                    	<table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">						<thead>
+                            <tr>
+                                <th width="110"><h3>Survey Name</h3></th>
+                                <th width="90" class="nosort"><h3>Username</h3></th>
+                                <th width="100"><h3>Last name</h3></th>
+                                <th><h3>Date Submitted</h3></th>
+                                <th><h3>Issue Refund</h3></th>
+                            </tr>
+                       </thead>
+                    <tbody>
+                        <tr>
+                           
+                            <td>Survey1</td>
+                            
+                            <td>awinter</td>
+                            <td>Winter</td>
+                            
+                            <td>2009-09-06 5:06</td>
+                            <td><a href="#" onclick="window.open('refund_conf.html','mywindow','menubar=1,resizable=1,width=350,height=140');"><input type="checkbox" /></a></td>
+                            
+                        </tr>
+                        <tr>
+                           
+                            <td>Survey2</td>
+                            
+                            <td>awinter</td>
+                            <td>Winter</td>
+                            
+                            <td>2009-09-06 5:06</td>
+                            <td><a href="#" onclick="window.open('refund_conf.html','mywindow','menubar=1,resizable=1,width=350,height=140');"><input type="checkbox" /></a></td>
+                            
+                        </tr>
+                        <tr>
+                           
+                            <td>Survey3</td>
+                            
+                            <td>awinter</td>
+                            <td>Winter</td>
+                            
+                            <td>2009-09-06 5:06</td>
+                            <td><a href="#" onclick="window.open('refund_conf.html','mywindow','menubar=1,resizable=1,width=350,height=140');"><input type="checkbox" /></a></td>
+                            
+                        </tr>
+            		</tbody>
+      		</table> 
+	                </div>
+                </div>
+                
+                <div class="cls"></div>
+            </div>
+            <!--content ends -->
+            
+            <!-- footer starts -->
+            <div class="footer">
+            	© 2001 - 2009 JoeMetric All rights reserved.
+
+            </div>
+            <!-- footer ends -->
+            
+        </div>
+    </div>
+     <script type="text/javascript" src="javascripts/script.js"></script>
+	<script type="text/javascript">
+  var sorter = new TINY.table.sorter("sorter");
+	sorter.head = "head";
+	sorter.asc = "asc";
+	sorter.desc = "desc";
+	sorter.even = "evenrow";
+	sorter.odd = "oddrow";
+	sorter.evensel = "evenselected";
+	sorter.oddsel = "oddselected";
+	sorter.paginate = true;
+	sorter.currentid = "currentpage";
+	sorter.limitid = "pagelimit";
+	sorter.init("table",1);
+  </script>
+</body>
+</html>

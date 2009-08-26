@@ -1,19 +1,20 @@
-*:first-child + html .rnav {
-	background: #FF0000 url(../images/iphone.jpg) no-repeat left top;
-	width: 298px;
-	height: 509px;
-	margin-left: 556px;
+@charset "utf-8";
+/* CSS Document */
+.login_content{
+	padding-bottom:9px;
 }
-#footer ol {
-	position: absolute;
-	width: 420px;
-	top: 10px;
-	right: 10px;
+
+.main_content .form{
+	margin-top:-25px;	
 }
-*:first-child + html .button_div span {
-display:block;
-left:80px;
-position:relative;
-top:-41px;
-width:75px;
+
+.menu li{
+	padding:2px 15px 2px 2px;
 }
+
+.main_content .form{
+	min-height:620px;background:#fff;	
+
+}
+
+
