@@ -1,0 +1,12 @@
+development:
+  :address: smtp.gmail.com
+  :port: 465
+  :authentication: login
+  :user_name: noreply@joemetric.com
+  :password: odd71;humble
+production:
+  :address: smtp.gmail.com
+  :port: 465
+  :authentication: login
+  :user_name: noreply@joemetric.com
+  :password: odd71;humble
