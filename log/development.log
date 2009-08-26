@@ -4101,3 +4101,101 @@ Rendering template within layouts/application
 Rendering sessions/new
 Rendered shared/_header (0.00009)
 Completed in 0.00542 (184 reqs/sec) | Rendering: 0.00326 (60%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-08-26 17:30:42) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMWY2YWZhYjRjYWY4ZDJkOTE2MTY2M2NmOTgxZWY3
+YmY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--68f21dc18efc15b363c1785c1ca7439c76d641e6
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mSQL (0.000161)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mUser Columns (0.002563)[0m   [0mSHOW FIELDS FROM `users`[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered shared/_header (0.00011)
+Completed in 0.01489 (67 reqs/sec) | Rendering: 0.00881 (59%) | DB: 0.00272 (18%) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-08-26 17:30:53) [POST]
+  Session ID: BAh7CToMY3NyZl9pZCIlMWY2YWZhYjRjYWY4ZDJkOTE2MTY2M2NmOTgxZWY3
+YmY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--68f21dc18efc15b363c1785c1ca7439c76d641e6
+  Parameters: {"user"=>{"password_confirmation"=>"shweta", "login"=>"shweta", "password"=>"shweta", "email"=>"shweta@joemetric.com"}, "commit"=>"Sign up", "authenticity_token"=>"8a883e6a29ea1a7ddb2b5ccc393e7a354f44c208", "action"=>"create", "controller"=>"users"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;36;1mUser Columns (0.002637)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.060296)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000317)[0m   [0;1mSELECT `login` FROM `users` WHERE (`users`.login = 'shweta') [0m
+  [4;35;1mSQL (0.000151)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'shweta@joemetric.com') [0m
+  [4;36;1mSQL (0.000085)[0m   [0;1mCOMMIT[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered shared/_header (0.00002)
+Completed in 0.07434 (13 reqs/sec) | Rendering: 0.00212 (2%) | DB: 0.06349 (85%) | 200 OK [http://localhost/users]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-08-26 17:31:11) [POST]
+  Session ID: BAh7CToMY3NyZl9pZCIlMWY2YWZhYjRjYWY4ZDJkOTE2MTY2M2NmOTgxZWY3
+YmY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgplcnJvciJkV2Ug
+Y291bGRuJ3Qgc2V0IHVwIHRoYXQgYWNjb3VudCwgc29ycnkuICBQbGVhc2Ug
+dHJ5IGFnYWluLCBvciBjb250YWN0IGFuIGFkbWluIChsaW5rIGlzIGFib3Zl
+KS4GOgpAdXNlZHsGOwlG--0c2f7e904beaefcd5b4f6fadde95f96d04beed0e
+  Parameters: {"user"=>{"password_confirmation"=>"shweta", "login"=>"shweta", "password"=>"shweta", "email"=>"shweta@joemetric.com"}, "commit"=>"Sign up", "authenticity_token"=>"8a883e6a29ea1a7ddb2b5ccc393e7a354f44c208", "action"=>"create", "controller"=>"users"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;35;1mUser Columns (0.002402)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.000090)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000233)[0m   [0mSELECT `login` FROM `users` WHERE (`users`.login = 'shweta') [0m
+  [4;36;1mSQL (0.000144)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'shweta@joemetric.com') [0m
+  [4;35;1mUser Create (0.000265)[0m   [0mINSERT INTO `users` (`name`, `salt`, `updated_at`, `activated_at`, `crypted_password`, `birthdate`, `remember_token_expires_at`, `admin`, `activation_code`, `gender`, `remember_token`, `login`, `income`, `email`, `created_at`) VALUES('', '5289d2a3edff1fc9234ded2a6b294577df8ccfc4', '2009-08-26 21:31:11', NULL, 'bca0e892464457f8dbed76c756f12000c0d673a5', NULL, NULL, 0, 'c9e73e18631e779202c523cc371a63cfbee4294e', NULL, NULL, 'shweta', NULL, 'shweta@joemetric.com', '2009-08-26 21:31:11')[0m
+Sent mail to shweta@joemetric.com
+
+Date: Wed, 26 Aug 2009 17:31:11 -0400
+From: ADMINEMAIL
+To: shweta@joemetric.com
+Subject: [JoeMetric] Please activate your new account
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Your account has been created.
+
+  Username: shweta
+  Password: shweta
+
+Visit this url to activate your account:
+
+  http://YOURSITE/activate/c9e73e18631e779202c523cc371a63cfbee4294e
+  [4;36;1mWallet Load (0.000276)[0m   [0;1mSELECT * FROM `wallets` WHERE (`wallets`.user_id = 965482581) LIMIT 1[0m
+  [4;35;1mWallet Columns (0.001849)[0m   [0mSHOW FIELDS FROM `wallets`[0m
+  [4;36;1mWallet Create (0.000196)[0m   [0;1mINSERT INTO `wallets` (`updated_at`, `user_id`, `created_at`) VALUES('2009-08-26 21:31:14', 965482581, '2009-08-26 21:31:14')[0m
+  [4;35;1mWallet Load (0.000211)[0m   [0mSELECT * FROM `wallets` WHERE (`wallets`.user_id = 965482581) LIMIT 1[0m
+  [4;36;1mSQL (0.000346)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/users
+Completed in 3.03065 (0 reqs/sec) | DB: 0.00601 (0%) | 302 Found [http://localhost/users]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-08-26 17:31:14) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMWY2YWZhYjRjYWY4ZDJkOTE2MTY2M2NmOTgxZWY3
+YmY6DnJldHVybl90bzA6DHVzZXJfaWQwIgpmbGFzaElDOidBY3Rpb25Db250
+cm9sbGVyOjpGbGFzaDo6Rmxhc2hIYXNoewc6CmVycm9yImRXZSBjb3VsZG4n
+dCBzZXQgdXAgdGhhdCBhY2NvdW50LCBzb3JyeS4gIFBsZWFzZSB0cnkgYWdh
+aW4sIG9yIGNvbnRhY3QgYW4gYWRtaW4gKGxpbmsgaXMgYWJvdmUpLjoLbm90
+aWNlIlJUaGFua3MgZm9yIHNpZ25pbmcgdXAhICBXZSdyZSBzZW5kaW5nIHlv
+dSBhbiBlbWFpbCB3aXRoIHlvdXIgYWN0aXZhdGlvbiBjb2RlLgY6CkB1c2Vk
+ewc7CVQ7CkY=--1c86f88948bce13a0bd8cb741978e1877968f252
+  Parameters: {"action"=>"index", "controller"=>"users"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 0.00082 (1218 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://localhost/users]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-26 17:31:14) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMWY2YWZhYjRjYWY4ZDJkOTE2MTY2M2NmOTgxZWY3
+YmY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiUlRo
+YW5rcyBmb3Igc2lnbmluZyB1cCEgIFdlJ3JlIHNlbmRpbmcgeW91IGFuIGVt
+YWlsIHdpdGggeW91ciBhY3RpdmF0aW9uIGNvZGUuBjoKQHVzZWR7BjsJVA==--f1c04ccf11fe11aa8b04718f77a4237ceb8d179c
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00009)
+Completed in 0.00525 (190 reqs/sec) | Rendering: 0.00308 (58%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
