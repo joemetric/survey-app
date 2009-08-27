@@ -4199,3 +4199,406 @@ Rendering template within layouts/application
 Rendering sessions/new
 Rendered shared/_header (0.00009)
 Completed in 0.00525 (190 reqs/sec) | Rendering: 0.00308 (58%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-08-27 11:02:47) [GET]
+  Session ID: 08298197482b1a28178689c6ba969a6c
+  Parameters: {"action"=>"index", "controller"=>"users"}
+  [4;36;1mSQL (0.038935)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 0.00115 (871 reqs/sec) | DB: 0.03893 (3395%) | 302 Found [http://localhost/users]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:02:48) [GET]
+  Session ID: BAh7BzoOcmV0dXJuX3RvIgsvdXNlcnMiCmZsYXNoSUM6J0FjdGlvbkNvbnRy
+b2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7AAY6CkB1c2VkewA=--575137c829df3dcc6aadc770c6035f165c71fa8d
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00011)
+Completed in 0.02166 (46 reqs/sec) | Rendering: 0.01949 (89%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-08-27 11:02:55) [POST]
+  Session ID: BAh7CDoMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzIgpmbGFzaElDOidBY3Rpb25Db250cm9s
+bGVyOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA--fb7c41b4674a8c053aa0739d642e89d823b0a12c
+  Parameters: {"x"=>"0", "y"=>"0", "authenticity_token"=>"cb3ecbaf1317efb2ea27eae11896d9b591e3e3cb", "action"=>"create", "controller"=>"sessions", "password"=>"shweta", "login"=>"shweta"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;35;1mUser Load (0.037196)[0m   [0mSELECT * FROM `users` WHERE (login = 'shweta' and activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'shweta' from 127.0.0.1 at Thu Aug 27 15:02:55 UTC 2009
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00002)
+Completed in 0.04305 (23 reqs/sec) | Rendering: 0.00204 (4%) | DB: 0.03720 (86%) | 200 OK [http://localhost/session]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-08-27 11:02:58) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgplcnJvciIkQ291
+bGRuJ3QgbG9nIHlvdSBpbiBhcyAnc2h3ZXRhJwY6CkB1c2VkewY7CUY=--8cf7bfd1592a30651c9135b6b16f619855cfc5bc
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (0.002271)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered shared/_header (0.00009)
+Completed in 0.02435 (41 reqs/sec) | Rendering: 0.01880 (77%) | DB: 0.00227 (9%) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-08-27 11:03:12) [POST]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgplcnJvciIkQ291
+bGRuJ3QgbG9nIHlvdSBpbiBhcyAnc2h3ZXRhJwY6CkB1c2VkewY7CVQ=--e2e6a4dd99c87e20be67175f736e0e70e8ecc805
+  Parameters: {"user"=>{"password_confirmation"=>"shweta", "login"=>"shweta", "password"=>"shweta", "email"=>"shweta@joemetric.com"}, "commit"=>"Sign up", "authenticity_token"=>"cb3ecbaf1317efb2ea27eae11896d9b591e3e3cb", "action"=>"create", "controller"=>"users"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;35;1mUser Columns (0.002460)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.000102)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000257)[0m   [0mSELECT `login` FROM `users` WHERE (`users`.login = 'shweta') [0m
+  [4;36;1mSQL (0.000144)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'shweta@joemetric.com') [0m
+  [4;35;1mUser Create (0.000364)[0m   [0mINSERT INTO `users` (`name`, `salt`, `updated_at`, `activated_at`, `crypted_password`, `birthdate`, `remember_token_expires_at`, `admin`, `activation_code`, `gender`, `remember_token`, `login`, `income`, `email`, `created_at`) VALUES('', '3dced241b641c97c050a9900e7e86c7f1ea7daac', '2009-08-27 15:03:12', NULL, '40f40b3cfe4ffaca82a5424c014295f6e3decc17', NULL, NULL, 0, 'ada2715a35bab0afdef0901394db935addcbd422', NULL, NULL, 'shweta', NULL, 'shweta@joemetric.com', '2009-08-27 15:03:12')[0m
+Sent mail to shweta@joemetric.com
+
+Date: Thu, 27 Aug 2009 11:03:12 -0400
+From: ADMINEMAIL
+To: shweta@joemetric.com
+Subject: [JoeMetric] Please activate your new account
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Your account has been created.
+
+  Username: shweta
+  Password: shweta
+
+Visit this url to activate your account:
+
+  http://YOURSITE/activate/ada2715a35bab0afdef0901394db935addcbd422
+  [4;36;1mWallet Load (0.027268)[0m   [0;1mSELECT * FROM `wallets` WHERE (`wallets`.user_id = 965482543) LIMIT 1[0m
+  [4;35;1mWallet Columns (0.001635)[0m   [0mSHOW FIELDS FROM `wallets`[0m
+  [4;36;1mSQL (0.000634)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/users
+Completed in 4.17373 (0 reqs/sec) | DB: 0.03286 (0%) | 302 Found [http://localhost/users]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-08-27 11:03:17) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90bzA6DHVzZXJfaWQwIgpmbGFzaElDOidBY3Rpb25Db250
+cm9sbGVyOjpGbGFzaDo6Rmxhc2hIYXNoewY6C25vdGljZSJSVGhhbmtzIGZv
+ciBzaWduaW5nIHVwISAgV2UncmUgc2VuZGluZyB5b3UgYW4gZW1haWwgd2l0
+aCB5b3VyIGFjdGl2YXRpb24gY29kZS4GOgpAdXNlZHsGOwlG--a24eb98a43d680a95d7f4b0bf4ff0880fda862a3
+  Parameters: {"action"=>"index", "controller"=>"users"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 0.00076 (1324 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://localhost/users]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:03:17) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiUlRo
+YW5rcyBmb3Igc2lnbmluZyB1cCEgIFdlJ3JlIHNlbmRpbmcgeW91IGFuIGVt
+YWlsIHdpdGggeW91ciBhY3RpdmF0aW9uIGNvZGUuBjoKQHVzZWR7BjsJVA==--a8a30e53d18f63b76cdae978451072033c7c3aa6
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00008)
+Completed in 0.00384 (260 reqs/sec) | Rendering: 0.00173 (44%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:08:20) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--810a3ad9aac81e5b0f412cee93bc2eeee8193855
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mSQL (0.000171)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00010)
+Completed in 0.00733 (136 reqs/sec) | Rendering: 0.00507 (69%) | DB: 0.00017 (2%) | 200 OK [http://localhost/session/new]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-08-27 11:08:22) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--810a3ad9aac81e5b0f412cee93bc2eeee8193855
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;35;1mUser Columns (0.003286)[0m   [0mSHOW FIELDS FROM `users`[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered shared/_header (0.00009)
+Completed in 0.01314 (76 reqs/sec) | Rendering: 0.00656 (49%) | DB: 0.00329 (25%) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-08-27 11:08:37) [POST]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--810a3ad9aac81e5b0f412cee93bc2eeee8193855
+  Parameters: {"user"=>{"password_confirmation"=>"shweta", "login"=>"shweta", "password"=>"shweta", "email"=>"shweta@joemetric.com"}, "commit"=>"Sign up", "authenticity_token"=>"cb3ecbaf1317efb2ea27eae11896d9b591e3e3cb", "action"=>"create", "controller"=>"users"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;36;1mUser Columns (0.002507)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.000092)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000237)[0m   [0;1mSELECT `login` FROM `users` WHERE (`users`.login = 'shweta') [0m
+  [4;35;1mSQL (0.000149)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'shweta@joemetric.com') [0m
+  [4;36;1mUser Create (0.000229)[0m   [0;1mINSERT INTO `users` (`name`, `salt`, `updated_at`, `activated_at`, `crypted_password`, `birthdate`, `remember_token_expires_at`, `admin`, `activation_code`, `gender`, `remember_token`, `login`, `income`, `email`, `created_at`) VALUES('', 'd79c0aaca6f3ca2f0ccd2491eec06ff6252b59dd', '2009-08-27 15:08:37', NULL, '98804fe8b3a1a8fdf82e12b3691b8d30a84a0b71', NULL, NULL, 0, 'c9bb5c04569c35185c542d243e2451f5e8b777ce', NULL, NULL, 'shweta', NULL, 'shweta@joemetric.com', '2009-08-27 15:08:37')[0m
+Sent mail to shweta@joemetric.com
+
+Date: Thu, 27 Aug 2009 11:08:37 -0400
+From: ADMINEMAIL
+To: shweta@joemetric.com
+Subject: [JoeMetric] Please activate your new account
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Your account has been created.
+
+  Username: shweta
+  Password: shweta
+
+Visit this url to activate your account:
+
+  http://localhost:3000/activate/c9bb5c04569c35185c542d243e2451f5e8b777ce
+  [4;35;1mWallet Load (0.000283)[0m   [0mSELECT * FROM `wallets` WHERE (`wallets`.user_id = 965482544) LIMIT 1[0m
+  [4;36;1mWallet Columns (0.001185)[0m   [0;1mSHOW FIELDS FROM `wallets`[0m
+  [4;35;1mSQL (0.000306)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/users
+Completed in 13.85043 (0 reqs/sec) | DB: 0.00499 (0%) | 302 Found [http://localhost/users]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-08-27 11:08:51) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90bzA6DHVzZXJfaWQwIgpmbGFzaElDOidBY3Rpb25Db250
+cm9sbGVyOjpGbGFzaDo6Rmxhc2hIYXNoewY6C25vdGljZSJSVGhhbmtzIGZv
+ciBzaWduaW5nIHVwISAgV2UncmUgc2VuZGluZyB5b3UgYW4gZW1haWwgd2l0
+aCB5b3VyIGFjdGl2YXRpb24gY29kZS4GOgpAdXNlZHsGOwlG--a24eb98a43d680a95d7f4b0bf4ff0880fda862a3
+  Parameters: {"action"=>"index", "controller"=>"users"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 0.00077 (1302 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://localhost/users]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:08:51) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiUlRo
+YW5rcyBmb3Igc2lnbmluZyB1cCEgIFdlJ3JlIHNlbmRpbmcgeW91IGFuIGVt
+YWlsIHdpdGggeW91ciBhY3RpdmF0aW9uIGNvZGUuBjoKQHVzZWR7BjsJVA==--a8a30e53d18f63b76cdae978451072033c7c3aa6
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00009)
+Completed in 0.00403 (247 reqs/sec) | Rendering: 0.00182 (45%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing UsersController#activate (for 127.0.0.1 at 2009-08-27 11:09:08) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--810a3ad9aac81e5b0f412cee93bc2eeee8193855
+  Parameters: {"action"=>"activate", "activation_code"=>"c9bb5c04569c35185c542d243e2451f5e8b777ce", "controller"=>"users"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;36;1mUser Columns (0.002421)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000301)[0m   [0mSELECT * FROM `users` WHERE (`users`.`activation_code` = 'c9bb5c04569c35185c542d243e2451f5e8b777ce') LIMIT 1[0m
+  [4;36;1mSQL (0.000092)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Update (0.000383)[0m   [0mUPDATE `users` SET `activated_at` = '2009-08-27 15:09:08', `activation_code` = NULL, `updated_at` = '2009-08-27 15:09:08' WHERE `id` = 965482544[0m
+Sent mail to shweta@joemetric.com
+
+Date: Thu, 27 Aug 2009 11:09:08 -0400
+From: ADMINEMAIL
+To: shweta@joemetric.com
+Subject: [JoeMetric] Your account has been activated!
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+shweta, your account has been activated.  Welcome aboard!
+
+http://localhost:3000/
+  [4;36;1mSQL (0.001348)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/login
+Completed in 2.93091 (0 reqs/sec) | DB: 0.00455 (0%) | 302 Found [http://localhost/activate/c9bb5c04569c35185c542d243e2451f5e8b777ce]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:09:11) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiMVNp
+Z251cCBjb21wbGV0ZSEgUGxlYXNlIHNpZ24gaW4gdG8gY29udGludWUuBjoK
+QHVzZWR7BjsJRg==--7eb1059669a6a3a21ea27e2978719d3f54a3728e
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00008)
+Completed in 0.00392 (255 reqs/sec) | Rendering: 0.00179 (45%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-08-27 11:10:03) [POST]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90byILL3VzZXJzOgx1c2VyX2lkMCIKZmxhc2hJQzonQWN0
+aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiMVNp
+Z251cCBjb21wbGV0ZSEgUGxlYXNlIHNpZ24gaW4gdG8gY29udGludWUuBjoK
+QHVzZWR7BjsJVA==--258e4130c6245bd31b9167924f6543d8a12d1bed
+  Parameters: {"x"=>"0", "y"=>"0", "authenticity_token"=>"cb3ecbaf1317efb2ea27eae11896d9b591e3e3cb", "action"=>"create", "controller"=>"sessions", "password"=>"shweta", "login"=>"shweta"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;35;1mUser Load (0.000449)[0m   [0mSELECT * FROM `users` WHERE (login = 'shweta' and activated_at IS NOT NULL) LIMIT 1[0m
+  [4;36;1mUser Columns (0.002303)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.000106)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000080)[0m   [0;1mCOMMIT[0m
+Cookie set: auth_token=; path=/
+Redirected to http://localhost:3000/users
+Completed in 0.01048 (95 reqs/sec) | DB: 0.00294 (28%) | 302 Found [http://localhost/session]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2009-08-27 11:10:03) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90bzA6DHVzZXJfaWRpBDAYjDkiCmZsYXNoSUM6J0FjdGlv
+bkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7BjoLbm90aWNlIhtMb2dn
+ZWQgaW4gc3VjY2Vzc2Z1bGx5BjoKQHVzZWR7BjsJRg==--5b9270da48c2d63ce6065e3d9ed3c159905707fe
+  Parameters: {"action"=>"index", "controller"=>"users"}
+  [4;35;1mUser Columns (0.001698)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000290)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 965482544) LIMIT 1[0m
+  [4;35;1mWallet Load (0.000329)[0m   [0mSELECT `wallets`.* FROM `wallets` WHERE (`wallets`.user_id IN (965482544)) [0m
+  [4;36;1mWallet Columns (0.002582)[0m   [0;1mSHOW FIELDS FROM `wallets`[0m
+
+
+ActionController::UnknownAction (No action responded to index):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:579:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:572:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:201:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:529:in `send'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:529:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:568:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:130:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:389:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:149:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:107:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:104:in `synchronize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:104:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:120:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:35:in `dispatch'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/bin/../lib/mongrel/rails.rb:76:in `process'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/bin/../lib/mongrel/rails.rb:74:in `synchronize'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/bin/../lib/mongrel/rails.rb:74:in `process'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:282:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `each'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:128:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel/command.rb:212:in `run'
+    /Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:281
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:503:in `load'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:503:in `load'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:355:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:503:in `load'
+    /vendor/rails/railties/lib/commands/servers/mongrel.rb:64
+    /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:510:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:355:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:510:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+    ./script/server:3
+
+Rendering /Users/shweta/joemetric/survey-app/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing SurveysController#index (for 127.0.0.1 at 2009-08-27 11:10:29) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90bzA6DHVzZXJfaWRpBDAYjDkiCmZsYXNoSUM6J0FjdGlv
+bkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7BjoLbm90aWNlIhtMb2dn
+ZWQgaW4gc3VjY2Vzc2Z1bGx5BjoKQHVzZWR7BjsJVA==--848ce37b62737f78cadd4abe7e8d1452a8b152cf
+  Parameters: {"action"=>"index", "controller"=>"surveys"}
+  [4;35;1mUser Columns (0.001815)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000345)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 965482544) LIMIT 1[0m
+  [4;35;1mWallet Load (0.000501)[0m   [0mSELECT `wallets`.* FROM `wallets` WHERE (`wallets`.user_id IN (965482544)) [0m
+  [4;36;1mWallet Columns (0.001082)[0m   [0;1mSHOW FIELDS FROM `wallets`[0m
+  [4;35;1mSurvey Load (0.000334)[0m   [0mSELECT * FROM `surveys` WHERE (complete = 1) [0m
+  [4;36;1mSurvey Load (0.000244)[0m   [0;1mSELECT `surveys`.* FROM `surveys` INNER JOIN completions ON surveys.id = completions.survey_id WHERE ((`completions`.user_id = 965482544)) [0m
+  [4;35;1mSurvey Columns (0.001254)[0m   [0mSHOW FIELDS FROM `surveys`[0m
+Rendering template within layouts/application
+Rendering surveys/index
+Rendered shared/_header (0.00016)
+Completed in 0.04955 (20 reqs/sec) | Rendering: 0.02267 (45%) | DB: 0.01047 (21%) | 200 OK [http://localhost/]
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2009-08-27 11:10:38) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNDU5Nzk2ZWU4NGIxNjdhNTJiZTdkOGZlMWRjYTcx
+NWY6DnJldHVybl90bzA6DHVzZXJfaWRpBDAYjDkiCmZsYXNoSUM6J0FjdGlv
+bkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7AAY6CkB1c2VkewA=--2fac13d7bba51cdf4ce0b2db647981921f80d90f
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://localhost:3000/
+Completed in 0.01028 (97 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://localhost/logout]
+
+
+Processing SurveysController#index (for 127.0.0.1 at 2009-08-27 11:10:38) [GET]
+  Session ID: BAh7BzoOcmV0dXJuX3RvMCIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6
+Rmxhc2g6OkZsYXNoSGFzaHsGOgtub3RpY2UiHllvdSBoYXZlIGJlZW4gbG9n
+Z2VkIG91dC4GOgpAdXNlZHsGOwdG--d99c711b3063da0a3d20070e8c9ba3efbfb729cc
+  Parameters: {"action"=>"index", "controller"=>"surveys"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 0.00075 (1326 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://localhost/]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-08-27 11:10:38) [GET]
+  Session ID: BAh7BzoOcmV0dXJuX3RvIgYvIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy
+OjpGbGFzaDo6Rmxhc2hIYXNoewY6C25vdGljZSIeWW91IGhhdmUgYmVlbiBs
+b2dnZWQgb3V0LgY6CkB1c2VkewY7B1Q=--396b36047b1295d5b24e85d2513138a694896df2
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered shared/_header (0.00008)
+Completed in 0.00395 (253 reqs/sec) | Rendering: 0.00182 (45%) | DB: 0.00000 (0%) | 200 OK [http://localhost/session/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-08-27 11:10:43) [POST]
+  Session ID: BAh7CDoMY3NyZl9pZCIlNjljMDI5ZGZmMzJhZTNjODA2MTBkZDVlYmQzNmQ3
+NzE6DnJldHVybl90byIGLyIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6
+Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--c4b490c058adc176458210f11df1ed1dca5fda56
+  Parameters: {"x"=>"0", "y"=>"0", "authenticity_token"=>"1682bec50a4778a112baa20cc354660ef6b569f9", "action"=>"create", "controller"=>"sessions", "password"=>"shweta", "login"=>"shweta"}
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+  [4;36;1mUser Load (0.000389)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'shweta' and activated_at IS NOT NULL) LIMIT 1[0m
+  [4;35;1mUser Columns (0.002172)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.000105)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000080)[0m   [0mCOMMIT[0m
+Cookie set: auth_token=; path=/
+Redirected to http://localhost:3000/
+Completed in 0.01010 (98 reqs/sec) | DB: 0.00275 (27%) | 302 Found [http://localhost/session]
+
+
+Processing SurveysController#index (for 127.0.0.1 at 2009-08-27 11:10:43) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlNjljMDI5ZGZmMzJhZTNjODA2MTBkZDVlYmQzNmQ3
+NzE6DnJldHVybl90bzA6DHVzZXJfaWRpBDAYjDkiCmZsYXNoSUM6J0FjdGlv
+bkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7BjoLbm90aWNlIhtMb2dn
+ZWQgaW4gc3VjY2Vzc2Z1bGx5BjoKQHVzZWR7BjsJRg==--acd0e2fffb8594bb17a73640f4e2ebce51acbb2c
+  Parameters: {"action"=>"index", "controller"=>"surveys"}
+  [4;36;1mUser Columns (0.001730)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000280)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 965482544) LIMIT 1[0m
+  [4;36;1mWallet Load (0.000275)[0m   [0;1mSELECT `wallets`.* FROM `wallets` WHERE (`wallets`.user_id IN (965482544)) [0m
+  [4;35;1mWallet Columns (0.001296)[0m   [0mSHOW FIELDS FROM `wallets`[0m
+  [4;36;1mSurvey Load (0.000837)[0m   [0;1mSELECT * FROM `surveys` WHERE (complete = 1) [0m
+  [4;35;1mSurvey Load (0.000217)[0m   [0mSELECT `surveys`.* FROM `surveys` INNER JOIN completions ON surveys.id = completions.survey_id WHERE ((`completions`.user_id = 965482544)) [0m
+  [4;36;1mSurvey Columns (0.001257)[0m   [0;1mSHOW FIELDS FROM `surveys`[0m
+Rendering template within layouts/application
+Rendering surveys/index
+Rendered shared/_header (0.00015)
+Completed in 0.02961 (33 reqs/sec) | Rendering: 0.00280 (9%) | DB: 0.00589 (19%) | 200 OK [http://localhost/]
