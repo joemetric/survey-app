@@ -7,14 +7,13 @@ Rails::Initializer.run do |config|
   config.gem 'rspec', :lib => false, :version => '>= 1.2.0'
   config.gem 'rspec-rails', :lib => false, :version => '>= 1.2.0'
   config.gem 'giraffesoft-resource_controller', :lib => 'resource_controller', :source => 'http://gems.github.com'
+  config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
 
   # Let's try Remarkable instead of Shoulda.
   # Should be better
   config.gem "carlosbrando-remarkable", :lib => "remarkable", :source => "http://gems.github.com"
   # config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
   
-  # Same thing as the rakefile
-  #config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
   
   
   
