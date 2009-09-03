@@ -1,0 +1,21 @@
+%h1 Log In
+
+- form_for :user_session, :url => user_session_path, :id => "login_form" do |form|
+  = form.error_messages
+  .grey_box
+    .field
+      = form.label :login
+      = form.text_field :login
+    
+    .field
+      = form.label :password
+      = form.password_field :password
+    
+    .field.checkbox
+      = form.label :remember_me
+      = form.check_box :remember_me
+    
+    .submit
+      = form.submit "Login In"
+      or
+      = link_to "Sign Up!", new_user_path

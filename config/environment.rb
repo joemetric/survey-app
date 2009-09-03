@@ -8,6 +8,7 @@ Rails::Initializer.run do |config|
   config.gem 'rspec-rails', :lib => false, :version => '>= 1.2.0'
   config.gem 'giraffesoft-resource_controller', :lib => 'resource_controller', :source => 'http://gems.github.com'
   config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
+  config.gem 'haml'
 
   # Let's try Remarkable instead of Shoulda.
   # Should be better
@@ -25,7 +26,5 @@ Rails::Initializer.run do |config|
     :session_key => '_joemetric_session',
     :secret      => '980822280a99729e2048a23952bb3ca00671249d22563f466bed1eb310a800af7e38753d6ab006b28fb9d9ab40e7fb26a04c8d09291e3f244c087cef7c451c4e'
   }
-
-  config.active_record.observers = :user_observer # :cacher, :garbage_collector
-
+  
 end

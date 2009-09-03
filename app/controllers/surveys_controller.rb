@@ -1,4 +1,7 @@
 class SurveysController < ApplicationController
+  
+  before_filter :require_user
+
   # GET /surveys
   # GET /surveys.xml
   def index
