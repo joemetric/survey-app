@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   def activation_mail(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
-    @body[:url]  = ""
+    @body[:url]  = activation_url(:host => "localhost", :id => user.id, :key => user.perishable_token)
   end
 
   def activation(user)
