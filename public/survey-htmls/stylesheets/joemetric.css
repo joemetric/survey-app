@@ -458,6 +458,7 @@ p.cntrls .select1{
 	width:120px;
 	margin-left:20px;
 	margin-top:0px;
+	font-size:12px;
 }
 
 p.opt{
@@ -635,7 +636,7 @@ td a{color:#0554a3;}
 	font-size:14px;
 	padding-left:80px;
 	font-weight:bold;
-	margin-top:20px;
+	margin-top:10px;
 }
 
 .survey_by b{padding-bottom:10px;display:block;}
