@@ -5,12 +5,12 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Please activate your new account'
     @body[:url]  = activation_url(:host => HOST, :id => user.id, :key => user.perishable_token)
   end
-
-  def activation(user)
+  
+  def password_mail(user)
     setup_email(user)
-    @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://YOURSITE/"
+    @subject += "This is your new password!"
   end
+
 
   protected
     def setup_email(user)

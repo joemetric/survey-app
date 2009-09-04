@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     survey.resources :questions
   end
   map.resource :user_session
-  map.resources :users, :member => { :not_active => :get }
+  map.resources :users, :member => { :not_active => :get }, :collection => { :forgot_password => :get, :reset_password => :post }
 
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.login '/login', :controller => 'user_sessions', :action => 'new'

@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
     active?
   end
   
+  def reset_passwd
+    reset_password!
+    deliver_password_mail
+  end
+  
   private
   
   def setup_user
@@ -37,6 +42,10 @@ class User < ActiveRecord::Base
   
   def deliver_activation_mail
     UserMailer.deliver_activation_mail(self)
+  end
+  
+  def deliver_password_mail
+    UserMailer.deliver_password_mail(self)
   end
 
   def create_wallet
