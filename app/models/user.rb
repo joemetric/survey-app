@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  acts_as_authentic do |c|
-    c.disable_perishable_token_maintenance = false
+  acts_as_authentic do |authlogic|
+    authlogic.crypto_provider = Authlogic::CryptoProviders::Sha1
+    authlogic.perishable_token_valid_for = 1.month
   end
 
   has_one :wallet
@@ -22,8 +23,9 @@ class User < ActiveRecord::Base
     wallet.record_completed_survey(survey)
   end
   
-  def active?
-    perishable_token.blank?
+  def activate(token)
+    update_attribute(:active, true) if token == perishable_token
+    active?
   end
   
   private

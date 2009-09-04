@@ -13,6 +13,7 @@
 <body class="<%= "#{params[:controller]} #{params[:action]}" %>">
   <%= render :partial => 'shared/header' %>
   <div id="container">
+    <%= render_notice %>
     <%= yield %>
   </div>
 </body>

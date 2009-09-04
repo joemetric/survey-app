@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery # :secret => '7deb6181ff68b74ff1dda5b3afad30fe'
+  protect_from_forgery
   helper :all
   helper_method :current_user_session, :current_user
   filter_parameter_logging :password, :password_confirmation
