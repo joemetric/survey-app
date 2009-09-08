@@ -1,20 +1,19 @@
-RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
 
-  config.gem 'authlogic'
-  config.gem 'rspec', :lib => false, :version => '>= 1.2.0'
-  config.gem 'rspec-rails', :lib => false, :version => '>= 1.2.0'
-  config.gem 'giraffesoft-resource_controller', :lib => 'resource_controller', :source => 'http://gems.github.com'
-  config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
-  config.gem 'haml'
+  config.gem "authlogic"
+  config.gem "rspec", :lib => false
+  config.gem "rspec-rails", :lib => false
+  config.gem "giraffesoft-resource_controller", :lib => 'resource_controller', :source => 'http://gems.github.com'
+  config.gem "jscruggs-metric_fu", :lib => "metric_fu", :source => "http://gems.github.com"
+  config.gem "haml"
   config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"    
-
-  # Let's try Remarkable instead of Shoulda.
-  # Should be better
+  config.gem "webrat"
   config.gem "carlosbrando-remarkable", :lib => "remarkable", :source => "http://gems.github.com"
-  # config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
+  
+  
   
   config.load_paths += %W( #{RAILS_ROOT}/app/modules )
   config.time_zone = 'UTC'

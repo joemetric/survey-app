@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
     authlogic.perishable_token_valid_for = 1.month
     authlogic.disable_perishable_token_maintenance = true
   end
+  
+  validates_presence_of :name
 
   has_one :wallet
   has_many :completions
