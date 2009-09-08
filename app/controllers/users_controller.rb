@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   resource_controller
   
-  before_filter :require_user, :only => [ :update ]
+  before_filter :require_user, :only => [ :edit, :update ]
   
   create.wants.html do
     sign_in object

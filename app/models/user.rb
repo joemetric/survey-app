@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+
+  attr_accessor :old_password
+
   acts_as_authentic do |authlogic|
+    authlogic.check_passwords_against_database = true
     authlogic.crypto_provider = Authlogic::CryptoProviders::Sha1
     authlogic.perishable_token_valid_for = 1.month
     authlogic.disable_perishable_token_maintenance = true
@@ -11,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :answers
 
   after_create :setup_user
+
+  validate :check_old_password
   
   def age
     @age ||= birthdate.extend(Age)
@@ -55,6 +61,15 @@ class User < ActiveRecord::Base
 
   def create_wallet
     self.wallet = Wallet.create(:user => self) if self.wallet.nil?
+  end
+  
+  # This is not cool.
+  # Looking for a better way to do this: If it's a manual password change, require old password
+  # if it's reset password or new profile, ignore this check
+  def check_old_password
+    if old_password
+      errors.add(:old_password, "is invalid") unless valid_password?(old_password)
+    end
   end
   
 end
