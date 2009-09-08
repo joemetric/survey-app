@@ -6,11 +6,11 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = activation_url(:host => HOST, :id => user.id, :key => user.perishable_token)
   end
   
-  def password_mail(user)
+  def reset_instructions_mail(user)
     setup_email(user)
-    @subject += "This is your new password!"
+    @subject += "Here is the instructions to reset your password!"
+    @body[:url] = reset_password_url(:host => HOST, :id => user.id, :key => user.perishable_token)
   end
-
 
   protected
     def setup_email(user)

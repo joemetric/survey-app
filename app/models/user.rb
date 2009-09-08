@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |authlogic|
     authlogic.crypto_provider = Authlogic::CryptoProviders::Sha1
     authlogic.perishable_token_valid_for = 1.month
+    authlogic.disable_perishable_token_maintenance = true
   end
 
   has_one :wallet
@@ -28,9 +29,13 @@ class User < ActiveRecord::Base
     active?
   end
   
-  def reset_passwd
-    reset_password!
-    deliver_password_mail
+  def send_reset_instructions
+    reset_perishable_token!
+    deliver_reset_instructions_mail
+  end
+  
+  def valid_perishable_token?(token)
+    perishable_token == token
   end
   
   private
@@ -44,8 +49,8 @@ class User < ActiveRecord::Base
     UserMailer.deliver_activation_mail(self)
   end
   
-  def deliver_password_mail
-    UserMailer.deliver_password_mail(self)
+  def deliver_reset_instructions_mail
+    UserMailer.deliver_reset_instructions_mail(self)
   end
 
   def create_wallet
