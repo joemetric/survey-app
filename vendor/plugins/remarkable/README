@@ -1,0 +1,132 @@
+= Remarkable
+
+You can read this file nicely formatted at the Rubyforge project page:
+
+  http://remarkable.rubyforge.org/
+
+== Description
+
+Remarkable is a framework for rspec matchers that supports macros and I18n. It's
+constituted of three pieces:
+
+* Remarkable: the framework with helpers, DSL, I18n and rspec features;
+
+* Remarkable ActiveRecord: a collection of matchers for ActiveRecord. It
+  supports all ActiveRecord validations, associations and some extra matchers.
+
+* Remarkable Rails: a collection of matchers for ActionController. It also
+  includes MacroStubs, which is a clean DSL for stubbing your controller methods.
+
+In each folder above, you can find a README more detailed description of each piece.
+
+== Why use Remarkable for Rails?
+
+* The only one with matchers for all ActiveRecord validations, with support to
+  all options (except :on and the option :with in validates_format_of);
+
+* Matchers for all ActiveRecord associations. The only one which supports all
+  these options:
+
+    :through, :source, :source_type, :class_name, :foreign_key, :dependent,
+    :join_table, :uniq, :readonly, :validate, :autosave, :counter_cache, :polymorphic
+
+  Plus SQL options:
+
+    :select, :conditions, :include, :group, :having, :order, :limit, :offset
+
+  Besides in Remarkable 3.0 matchers became much smarter. Whenever :join_table
+  or :through is given as option, it checks if the given table exists. Whenever
+  :foreign_key or :counter_cache is given, it checks if the given column exists;
+
+* ActionController matchers:
+
+    :assign_to, :filter_params, :redirect_to, :render_with_layout, :respond_with, 
+    :render_template, :route, :set_session and :set_the_flash;
+
+* Macro stubs: make your controllers specs easier to main, more readable and DRY;
+
+* Tests and more tests. We have a huge tests suite ready to run and tested in
+  Rails 2.1.2, 2.2.2 and 2.3.2;
+
+* I18n and great documentation.
+
+* It has your style. You can choose between:
+
+    1) it { should validate_numericality_of(:age).greater_than(18).only_integer }
+
+    2) it { should validate_numericality_of(:age, :greater_than => 18, :only_integer => true) }
+
+    3) should_validate_numericality_of :age, :greater_than => 18, :only_integer => true
+
+    4) should_validate_numericality_of :age do |m|
+         m.only_integer
+         m.greater_than 18
+         # Or: m.greater_than = 18
+       end
+
+Remarkable Rails requires rspec >= 1.2.0 and rspec-rails >= 1.2.0.
+
+== Install on Rails
+
+Install the gem:
+
+  sudo gem install remarkable_rails
+
+This will install remarkable, remarkable_activerecord and remarkable_rails gems.
+
+Inside Rails you need to require just this gem. If you are using ActiveRecord,
+it will automatically require the remarkable_activerecord gem.
+
+== Rails 2.3
+
+In Rails 2.3, in order to rspec load properly, you have to use this configuration
+on your config/environments/test.rb
+
+  config.gem "rspec",            :lib => false
+  config.gem "rspec-rails",      :lib => false
+  config.gem "remarkable_rails", :lib => false
+
+And then require remarkable inside your spec_helper.rb, after "spec/rails":
+
+  require 'spec/rails'
+  require 'remarkable_rails'
+
+This is the safest way to avoid conflicts.
+
+Users who are upgrading to Remarkable 3.0, should not find any problem if their
+tests are running without deprecation warnings.
+
+== Developers
+
+If you are developing matchers, for example hpricot matchers, you need to install
+only the remarkable "core" gem:
+
+  sudo gem install remarkable
+
+If you stumble into any problem or have doubts while building your matchers,
+please drop us a line. We are currently searching for people who wants to join
+us and provide matchers for Datamapper, Sequel, Sinatra and all other possible
+options. :)
+
+== Browse the documentation
+
+Remarkable:
+  http://remarkable.rubyforge.org/core/
+
+Remarkable ActiveRecord:
+  http://remarkable.rubyforge.org/activerecord/
+  http://remarkable.rubyforge.org/activerecord/classes/Remarkable/ActiveRecord/Matchers.html
+
+Remarkable Rails:
+  http://remarkable.rubyforge.org/rails/
+  http://remarkable.rubyforge.org/rails/classes/Remarkable/ActionController/Matchers.html
+
+== More information
+
+Google group: http://groups.google.com/group/remarkable-core
+Bug tracking: http://carlosbrando.lighthouseapp.com/projects/19775-remarkable/overview
+
+== LICENSE
+
+All projects are under MIT LICENSE.
+
