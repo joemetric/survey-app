@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def activate
     if object.activate(params[:key])
       flash[:notice] = "Your account is active now! Please sign in!"
-      redirect_to user_session_new_path
+      redirect_to new_user_session_path
     else
      flash[:notice] = "Sorry, but this token is not valid!" 
      render :action => "not_active"

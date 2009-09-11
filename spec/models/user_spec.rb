@@ -56,6 +56,32 @@ describe User do
       @user.valid_perishable_token?(@user.perishable_token).should be(true)
       @user.valid_perishable_token?("AAA").should be(false)
     end
+    
+    it "should be able to validate old passwords" do 
+      @user.save
+      @user.old_password = "123456"
+      @user.old_password_valid?.should be(true)
+      @user.old_password = "123789"
+      @user.old_password_valid?.should be(false)
+    end
+    
+  end
+  
+  context "Security Measures" do
+    it "should always request password confirmation" do
+      @user.save
+      @user.password = "new_password"
+      @user.valid?.should be(false)
+      @user.errors.collect { |attr, msg| attr }.should include("password_confirmation") 
+    end
+
+    it "should be able to change password (without the old one) only with security token" do
+      @user.save
+      @user.password = @user.password_confirmation = "new_password"
+      @user.valid?.should be(false)
+      @user.errors.collect { |attr, msg| attr }.should include("old_password")
+    end
+    
   end
   
   context "Processes" do

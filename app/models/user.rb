@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
 
-  attr_accessor :old_password
+  attr_accessor :old_password, :security_token
 
   acts_as_authentic do |authlogic|
     authlogic.check_passwords_against_database = true
     authlogic.crypto_provider = Authlogic::CryptoProviders::Sha1
     authlogic.perishable_token_valid_for = 1.month
+    authlogic.disable_perishable_token_maintenance = true
   end
   
   validates_presence_of :name
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
 
   after_create :setup_user
 
-  validate :check_old_password
+  validate :password_change_security
   
   def age
     @age ||= birthdate.extend(Age)
@@ -45,9 +46,14 @@ class User < ActiveRecord::Base
     perishable_token == token
   end
   
+  def old_password_valid?
+    valid_password? old_password
+  end
+  
   private
   
   def setup_user
+    reset_perishable_token!
     deliver_activation_mail
     create_wallet
   end
@@ -57,6 +63,7 @@ class User < ActiveRecord::Base
   end
   
   def deliver_reset_instructions_mail
+    reset_perishable_token!
     UserMailer.deliver_reset_instructions_mail(self)
   end
 
@@ -64,12 +71,9 @@ class User < ActiveRecord::Base
     self.wallet = Wallet.create(:user => self) if self.wallet.nil?
   end
   
-  # This is not cool.
-  # Looking for a better way to do this: If it's a manual password change, require old password
-  # if it's reset password or new profile, ignore this check
-  def check_old_password
-    if old_password
-      errors.add(:old_password, "is invalid") unless valid_password?(old_password)
+  def password_change_security
+    unless new_record? or valid_perishable_token?(security_token) or old_password_valid?
+      errors.add(:old_password, "is invalid")
     end
   end
   

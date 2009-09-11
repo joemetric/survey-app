@@ -3,16 +3,10 @@
 - form_for :user, :url => user_path(object), :html => { :method => :put } do |form|
   
   = form.error_messages
-    
-  %p#link_change_password
-    = link_to_function "Change Password" do |page|
-      - page["link_change_password"].visual_effect :fade, :duration => 0.3
-      - page["change_password"].visual_effect :appear, :duration => 0.3
-      - page["submit"].visual_effect :appear, :duration => 0.3
-      - page["user_password_change"].value = 1
   
-  %fieldset#change_password{ :style => "display:none" }
-    = form.hidden_field :password_change, :value => 0  
+  %h2 Change Password
+  
+  %fieldset#change_password
     %p
       = form.label :old_password
       = form.password_field :old_password
@@ -26,5 +20,5 @@
       = form.password_field :password_confirmation
       
     
-  .submit#submit{ :style => "display:none" }
+  .submit#submit
     = form.submit "Update"
