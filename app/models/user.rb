@@ -10,11 +10,14 @@ class User < ActiveRecord::Base
   end
   
   validates_presence_of :name
-
+  has_many :created_surveys, :as => :owner, :class_name => "Surveys"
+  
   has_one :wallet
   has_many :completions
   has_many :surveys, :through => :completions
   has_many :answers
+
+  
 
   after_create :setup_user
 

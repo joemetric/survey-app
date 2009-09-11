@@ -1,10 +1,13 @@
 class Survey < ActiveRecord::Base
+  
+  belongs_to :owner, :class_name => "User"
+  
   has_many :questions
   has_many :completions
   has_many :users, :through => :completions
 
-  validates_presence_of :name, :amount
-  validates_uniqueness_of :name
+  validates_presence_of :name, :owner_id
+
 
   named_scope :complete, :conditions => ["complete = ?", true]
 

@@ -1,0 +1,4 @@
+survey_1:
+  id: 1
+  name: Example Survey
+  owner_id: 1 

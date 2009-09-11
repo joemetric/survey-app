@@ -1,4 +1,5 @@
 user_1:
+  id: 1
   login: anonymous
   name: Anonymous User
   email: anonymous@anonymous.com

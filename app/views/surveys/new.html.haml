@@ -1,0 +1,15 @@
+%h1 Create Survey
+
+- form_for :survey, :url => surveys_path do |form|
+  = form.error_messages
+  
+  .field
+    = form.label :name
+    = form.text_field :name
+    %p.note 
+      %span Example
+      iPod Feature Study for Apple
+  
+  .submit
+    = image_submit_tag "/images/create_survey_button.png"
+    = link_to "Cancel", surveys_path, :class => "cancel_button"
