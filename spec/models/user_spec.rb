@@ -72,7 +72,7 @@ describe User do
       @user.save
       @user.password = "new_password"
       @user.valid?.should be(false)
-      @user.errors.collect { |attr, msg| attr }.should include("password_confirmation") 
+      @user.errors.collect { |attr, msg| attr }.should include("password") 
     end
 
     it "should be able to change password (without the old one) only with security token" do
@@ -87,7 +87,11 @@ describe User do
   context "Processes" do
     it "should deliver reset instructions password" do 
       @user.save
+      ActionMailer::Base.deliveries = [ ]
       @user.send_reset_instructions.should be(true)
+      ActionMailer::Base.deliveries.should have(1).mail
+      ActionMailer::Base.deliveries.first.subject.should == "[JoeMetric] Here is the instructions to reset your password!"
+      ActionMailer::Base.deliveries.first.to.should include(@user.email)
     end
   end
   
