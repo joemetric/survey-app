@@ -3,7 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 module QuestionTypeHelperMethods
 
   def valid_attributes
-    { :name => "Short Text Response" }
+    { :name => "Short Text Response",
+      :field_type => "text_area"
+    }
   end
 
 end
@@ -19,6 +21,14 @@ describe QuestionType do
   context "Valid Attributes" do 
     should_validate_presence_of :name
     should_validate_uniqueness_of :name
+    
+    it "should be one of valid field types available" do
+      @question_type.save
+      @question_type.field_type = "single_text_huge"
+      @question_type.valid?.should be(false)
+      @question_type.errors.collect { |attr, msg| attr }.should include("field_type")
+    end
+    
   end
   
 end
