@@ -1,6 +1,6 @@
 %h1 Create Survey
 
-- form_for :survey, :url => surveys_path do |form|
+- form_for @survey, :url => surveys_path do |form|
   = form.error_messages
   
   .field
@@ -10,6 +10,11 @@
       %span Example
       iPod Feature Study for Apple
   
+  %h2 Questions
+  - form.fields_for :questions do |question_forms|
+    = render :partial => "/questions/form/question", :locals => { :form => question_forms }
+  
+      
   .submit
     = image_submit_tag "/images/create_survey_button.png"
     = link_to "Cancel", surveys_path, :class => "cancel_button"

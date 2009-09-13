@@ -1,7 +1,10 @@
-class SurveysController < ApplicationController
-  resource_controller
+class SurveysController < ResourceController::Base
   
   before_filter :require_user
+  
+  new_action.before do
+    2.times { object.questions.build }
+  end
   
   create.before do
     object.owner = current_user

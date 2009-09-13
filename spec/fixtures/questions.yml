@@ -1,0 +1,5 @@
+question_1:
+  id: 1
+  name: Do you like this code?
+  survey_id: 1
+  question_type_id: 1
