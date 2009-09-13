@@ -4,11 +4,6 @@ class CreateQuestionTypes < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    
-    QuestionType.create({ :name => "Short Text Response" })
-    QuestionType.create({ :name => "Multiple Choice" })
-    QuestionType.create({ :name => "Photo Upload" })
-    
   end
 
   def self.down
