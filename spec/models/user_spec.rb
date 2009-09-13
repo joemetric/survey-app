@@ -1,21 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-module UserHelperMethods
-  
-  def valid_attributes
-    { :name => "Valid User", 
-      :email => "another@email.com", 
-      :login => "valid",
-      :password => "123456",
-      :password_confirmation => "123456"
-    }
-  end
-    
-end
-
-
 describe User do
-  include UserHelperMethods
   fixtures :users
   
   before(:each) do 
@@ -93,6 +78,17 @@ describe User do
       ActionMailer::Base.deliveries.first.subject.should == "[JoeMetric] Here is the instructions to reset your password!"
       ActionMailer::Base.deliveries.first.to.should include(@user.email)
     end
+  end
+  
+  private
+  
+  def valid_attributes
+    { :name => "Valid User", 
+      :email => "another@email.com", 
+      :login => "valid",
+      :password => "123456",
+      :password_confirmation => "123456"
+    }
   end
   
 end

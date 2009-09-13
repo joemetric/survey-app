@@ -1,17 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-module QuestionTypeHelperMethods
-
-  def valid_attributes
-    { :name => "Short Text Response",
-      :field_type => "text_area"
-    }
-  end
-
-end
-
 describe QuestionType do
-  include QuestionTypeHelperMethods
   fixtures :question_types
   
   before(:each) do
@@ -29,6 +18,14 @@ describe QuestionType do
       @question_type.errors.collect { |attr, msg| attr }.should include("field_type")
     end
     
+  end
+  
+  private
+  
+  def valid_attributes
+    { :name => "Short Text Response",
+      :field_type => "text_area"
+    }
   end
   
 end
