@@ -1,4 +1,7 @@
-.field
+.field{ :id => field_id = random_string }
   = form.label :name
   = form.text_field :name
   = form.select :question_type_id, question_type_options
+  
+  = link_to_function "Remove" do |page|
+    - page[field_id].remove

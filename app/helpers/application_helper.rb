@@ -8,5 +8,9 @@ module ApplicationHelper
     QuestionType.all.collect { |qt| [qt.name, qt.id] }
   end
   
+  def random_string(maximum_size = 6)
+    (0...maximum_size).map{ ('a'..'z').to_a[rand(26)] }.join  
+  end
+  
   
 end
