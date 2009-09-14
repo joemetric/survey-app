@@ -8,8 +8,18 @@ class Survey < ActiveRecord::Base
   has_many :completions
   has_many :users, :through => :completions
 
-  validates_presence_of :name, :owner_id
-
+  validates_presence_of :name, :owner_id, :end_at
+  validate :valid_end_at
+  
+  private
+  
+  def valid_end_at
+    if end_at && end_at < Time.now.to_date 
+      errors.add(:end_at, "is invalid")
+    end
+  end
+  
+  
   #named_scope :complete, :conditions => ["complete = ?", true]
   #
   #def bundle

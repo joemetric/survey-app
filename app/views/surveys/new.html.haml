@@ -9,6 +9,9 @@
     %p.note 
       %span Example
       iPod Feature Study for Apple
+  .field
+    = form.label :end_at
+    = form.date_select :end_at, :order => [ :month, :day, :year ]
   
   %h2 Questions
   - form.fields_for :questions do |question_forms|
