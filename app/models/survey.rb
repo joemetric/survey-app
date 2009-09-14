@@ -11,6 +11,8 @@ class Survey < ActiveRecord::Base
   validates_presence_of :name, :owner_id, :end_at
   validate :valid_end_at
   
+  named_scope :active, { :conditions => ["end_at > ?", Time.now] }
+  
   private
   
   def valid_end_at

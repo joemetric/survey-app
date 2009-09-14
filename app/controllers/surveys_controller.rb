@@ -9,7 +9,13 @@ class SurveysController < ResourceController::Base
   create.before do
     object.owner = current_user
   end
-
+  
+  private
+  
+  def collection
+    @collection ||= end_of_association_chain.active
+  end
+  
   ## GET /surveys
   ## GET /surveys.xml
   #def index
