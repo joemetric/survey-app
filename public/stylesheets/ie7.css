@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+.login_content{
+	padding-bottom:9px;
+}
+
+.main_content .form{
+	margin-top:-25px;	
+}
+
+.menu li{
+	padding:2px 15px 2px 2px;
+}
+
+.main_content .form{
+	min-height:620px;background:#fff;	
+
+}
+
+
