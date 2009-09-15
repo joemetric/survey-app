@@ -12,6 +12,12 @@
   .field
     = form.label :end_at
     = form.date_select :end_at, :order => [ :month, :day, :year ]
+    
+  .field
+    = form.label :responses
+    = form.text_field :responses
+    %p.note
+      %span How many people is desired to reply your survey?
   
   %h2 Questions
   - form.fields_for :questions do |question_forms|

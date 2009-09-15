@@ -11,6 +11,8 @@ describe Survey do
     should_validate_presence_of :name
     should_validate_presence_of :owner_id
     should_validate_presence_of :end_at
+    should_validate_presence_of :responses
+    should_validate_numericality_of :responses
     
     it "End at should be posterior to current day" do
       @survey.valid?.should be(true)
@@ -26,7 +28,8 @@ describe Survey do
   def valid_attributes
     { :name => "New Survey",
       :owner_id => 1,
-      :end_at => Time.now + 1.month
+      :end_at => Time.now + 1.month,
+      :responses => 10
     }
   end
   

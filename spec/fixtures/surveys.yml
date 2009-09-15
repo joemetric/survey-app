@@ -3,3 +3,4 @@ survey_1:
   name: Example Survey
   owner_id: 1 
   end_at: 2010-08-01
+  responses: 10

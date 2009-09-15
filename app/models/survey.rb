@@ -8,7 +8,8 @@ class Survey < ActiveRecord::Base
   has_many :completions
   has_many :users, :through => :completions
 
-  validates_presence_of :name, :owner_id, :end_at
+  validates_presence_of :name, :owner_id, :end_at, :responses
+  validates_numericality_of :responses
   validate :valid_end_at
   
   named_scope :active, { :conditions => ["end_at > ?", Time.now] }
