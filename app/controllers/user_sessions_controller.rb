@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
   resource_controller  
+  layout false
 
   create do 
     flash "Successfully logged!"

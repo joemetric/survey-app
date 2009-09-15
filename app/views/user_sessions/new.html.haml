@@ -1,24 +1,49 @@
-%h1 Log In
-
-- form_for :user_session, :url => user_session_path, :id => "login_form" do |form|
-  = form.error_messages
-  .grey_box
-    .field
-      = form.label :login
-      = form.text_field :login
-    
-    .field
-      = form.label :password
-      = form.password_field :password
-    
-    .field.checkbox
-      = form.label :remember_me
-      = form.check_box :remember_me
-    
-    .submit
-      = form.submit "Login In"
-      or
-      = link_to "Sign Up!", new_user_path
-      
-    .forgot
-      = link_to "Forgot your password?", forgot_password_users_path
+!!!
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %title Login
+    = javascript_include_tag :defaults
+    = stylesheet_link_tag "joemetric"
+    /[if IE7]
+      = stylesheet_link_tag "ie7"
+  %body
+    .main
+      .wrapper
+        .header
+          .logo= image_tag "logo.png", :alt => "Logo"
+          .login  
+            .login_bg 
+              .login_content
+                = link_to "Login", new_user_session_path
+                |
+                = link_to "Sign in", new_user_path
+          .cls
+        .content
+          .form
+            %h3.heads Log In
+            .rounded
+              .top
+              .form_content
+                %h4 Please Enter Your name and password
+                - form_for :user_session, :url => user_session_path, :id => "login_form" do |form|
+                  = form.label :login
+                  = form.text_field :login
+                  = form.label :password
+                  = form.password_field :password
+                  %br
+                  .remember
+                    = check_box_tag :remember_me
+                    Remember Me
+                    = form.submit "LOGIN", :class => "button button_bl"
+                  %span.sigin
+                    or
+                    = link_to "Sign Up!", new_user_path
+                    %br
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    = link_to "Forgot Password", forgot_password_users_path
+                  .cls
+              .bottom
+                  
+        .footer
+          
