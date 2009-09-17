@@ -12,6 +12,9 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :not_active => :get }, 
     :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get }
 
+  map.resources :payments, 
+    :member => {:authorize => :get, :capture => :get, :cancel => :get}
+  
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'

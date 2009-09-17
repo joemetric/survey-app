@@ -53,6 +53,11 @@ class User < ActiveRecord::Base
     valid_password? old_password
   end
   
+  def has_permission_for?(args)
+    requested_item = args[:class].constantize.find(args[:object_id])
+    requested_item.send(args[:attribute_id]).eql?(args[:current_user].id) ? true : false
+  end
+  
   private
   
   def setup_user

@@ -1,5 +1,7 @@
 class Survey < ActiveRecord::Base
-  
+
+  include AASM
+
   belongs_to :owner, :class_name => "User"
   
   has_many :questions
@@ -7,35 +9,66 @@ class Survey < ActiveRecord::Base
   
   has_many :completions
   has_many :users, :through => :completions
+  
+#  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
+  has_one :payment
 
-  validates_presence_of :name, :owner_id, :end_at, :responses
-  validates_numericality_of :responses
-  validate :valid_end_at
+#  named_scope :complete, :conditions => ["complete = ?", true]
+
+  validates_presence_of :name, :owner_id
+ 
+  aasm_column :payment_status
+  aasm_initial_state :pending
   
-  named_scope :active, { :conditions => ["end_at > ?", Time.now] }
+  aasm_state :pending
+  aasm_state :authorized
+  aasm_state :paid
+  aasm_state :declined
+  aasm_state :cancelled
   
-  private
-  
-  def valid_end_at
-    if end_at && end_at < Time.now.to_date 
-      errors.add(:end_at, "is invalid")
-    end
+  aasm_event :pending do
+    transitions :to => :pending, :from => [:pending]
   end
   
+  aasm_event :authorized do
+    transitions :to => :authorized, :from => [:pending, :cancelled]
+  end
   
-  #named_scope :complete, :conditions => ["complete = ?", true]
-  #
-  #def bundle
-  #  attributes_hash = attributes.dup
-  #  attributes_hash["updated_at"] = attributes_hash["updated_at"].to_i
-  #  attributes_hash["created_at"] = attributes_hash["created_at"].to_i
-  #  attributes_hash["questions"] = []
-  #  
-  #  questions.each do |question|
-  #    attributes_hash["questions"] << question.attributes
-  #  end
-  #  
-  #  attributes_hash
-  #end
+  aasm_event :paid do
+    transitions :to => :paid, :from => [:pending, :authorized, :cancelled]
+  end
+
+  aasm_event :declined do
+    transitions :to => :declined, :from => [:authorized, :pending, :declined, :cancelled]
+  end
+  
+  # We may not require this but still its better to keep this in order to differentiate between 
+  # payment_status as declined(error in payment process/invalid account details)  
+  # and cancelled (user proactively cancelled the payment)
+  
+  aasm_event :cancelled do 
+    transitions :to => :cancelled, :from => [:pending, :declined, :authorized, :cancelled]
+  end
+   
+  def save_payment_details(params)
+    pd = payment.new # pd means payment_details
+    pd.token = params['token_id']
+    pd.payer_id = params['Payer_id']
+    pd.amount = amount
+    pd.save
+  end
+ 
+#  def bundle
+#    attributes_hash = attributes.dup
+#    attributes_hash["updated_at"] = attributes_hash["updated_at"].to_i
+#    attributes_hash["created_at"] = attributes_hash["created_at"].to_i
+#    attributes_hash["questions"] = []
+#    
+#    questions.each do |question|
+#      attributes_hash["questions"] << question.attributes
+#    end
+#    
+#    attributes_hash
+#  end
   
 end

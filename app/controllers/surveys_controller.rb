@@ -2,6 +2,16 @@ class SurveysController < ResourceController::Base
   
   before_filter :require_user
   
+#  This will be used in future to prevent user from editing other user's record
+#  before_filter :require_correct_user 
+#  
+#  def require_correct_user
+#    check_authorization(:current_user => current_user, 
+#                        :class => 'Survey', 
+#                        :object_id => params[:id],
+#                        :attribute_id => 'owner_id')
+#  end  
+  
   new_action.before do
     2.times { object.questions.build }
   end
@@ -9,6 +19,8 @@ class SurveysController < ResourceController::Base
   create.before do
     object.owner = current_user
   end
+  
+  create.wants.html { redirect_to authorize_payment_url(object.id) }
   
   private
   

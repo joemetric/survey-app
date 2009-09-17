@@ -36,5 +36,14 @@ Rails::Initializer.run do |config|
     :password       => "123survey" 
   }  
   
-  
+  config.after_initialize do 
+    ActiveMerchant::Billing::Base.gateway_mode = :test
+  end
+
 end
+
+PAYPAL_API_CREDENTIALS = {
+  :login      => "dev_1252207951_biz_api1.joemetric.com", 
+  :password   => "QY557JKYHNW5D5ZQ",
+  :signature  => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54"
+}
