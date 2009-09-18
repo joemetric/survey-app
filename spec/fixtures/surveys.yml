@@ -1,5 +1,33 @@
-survey_1:
+one:
   id: 1
+  name: Test Survey One
+  owner_id: 2
+  end_at: 2011-08-01
+  responses: 25
+
+two:
+  id: 2
+  name: Incomplete Survey
+  owner_id: 1 
+  end_at: 2010-08-01
+  responses: 10
+
+three:
+  id: 3
+  name: Test Survey Two
+  owner_id: 3 
+  end_at: 2010-08-04
+  responses: 20
+
+four:
+  id: 4
+  name: Test Survey Three
+  owner_id: 2 
+  end_at: 2010-09-01
+  responses: 15
+
+survey_1:
+  id: 5
   name: Example Survey
   owner_id: 1 
   end_at: 2010-08-01

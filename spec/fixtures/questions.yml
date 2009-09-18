@@ -1,5 +1,41 @@
-question_1:
+one:
   id: 1
+  survey_id: 1
+  name: Free Text Question
+  question_type_id: 1
+ 
+two:
+  id: 2
+  survey_id: 1
+  name: Picture Question
+  question_type_id: 2
+
+three:
+  id: 3
+  survey_id: 3
+  name: How many children do you have?
+  question_type_id: 1
+
+four:
+  id: 4
+  survey_id: 3
+  name: Take a picture of your work space
+  question_type_id: 2
+
+five:
+  id: 5
+  survey_id: 4
+  name: Do you like this app?
+  question_type_id: 1
+
+six:
+  id: 6
+  survey_id: 4
+  name: Take a picture of your pet
+  question_type_id: 2
+
+question_1:
+  id: 7
   name: Do you like this code?
   survey_id: 1
   question_type_id: 1
