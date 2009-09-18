@@ -51,10 +51,11 @@ class Survey < ActiveRecord::Base
   end
    
   def save_payment_details(params)
-    pd = payment.new # pd means payment_details
+    pd = Payment.new # pd means payment_details
+    pd.survey_id = id
     pd.token = params['token_id']
     pd.payer_id = params['Payer_id']
-    pd.amount = amount
+    pd.amount = 50 # This value will be as per the package selected
     pd.save
   end
  
