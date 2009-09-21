@@ -5,7 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys do |survey|
     survey.resources :questions
+    survey.resources :restrictions
   end
+  map.resources :restrictions
   map.resource :user_session
 
   map.resources :users, 
