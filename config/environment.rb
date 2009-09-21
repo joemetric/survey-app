@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"    
   config.gem "webrat"
+  config.gem "cucumber", :source => "http://gems.github.com"
   
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.
