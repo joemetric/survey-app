@@ -5,15 +5,14 @@ class Survey < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   
   has_many :questions
-  accepts_nested_attributes_for :questions
-  
+  has_many :restrictions
   has_many :completions
   has_many :users, :through => :completions
-  
-#  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
-  has_one :payment
 
-#  named_scope :complete, :conditions => ["complete = ?", true]
+  accepts_nested_attributes_for :questions, :restrictions
+  
+  #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
+  has_one :payment
 
   validates_presence_of :name, :owner_id
  
@@ -59,18 +58,5 @@ class Survey < ActiveRecord::Base
     pd.amount = 50 # This value will be as per the package selected
     pd.save
   end
- 
-#  def bundle
-#    attributes_hash = attributes.dup
-#    attributes_hash["updated_at"] = attributes_hash["updated_at"].to_i
-#    attributes_hash["created_at"] = attributes_hash["created_at"].to_i
-#    attributes_hash["questions"] = []
-#    
-#    questions.each do |question|
-#      attributes_hash["questions"] << question.attributes
-#    end
-#    
-#    attributes_hash
-#  end
   
 end

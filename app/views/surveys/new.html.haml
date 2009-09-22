@@ -16,8 +16,13 @@
   .field
     = form.label :responses
     = form.text_field :responses
-    %p.note
-      %span How many people is desired to reply your survey?
+  
+  #restrictions 
+    
+  .field
+    = link_to_function "Add a demographic restriction" do |page|
+      - page.insert_html :bottom, "restrictions", :partial => "/restrictions/type", :locals => { :survey => @survey }
+    
   
   %h2 Questions
   - form.fields_for :questions do |question_forms|

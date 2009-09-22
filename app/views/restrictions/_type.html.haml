@@ -1,0 +1,4 @@
+.field{ :id => field_id = random_string }
+  %label Type
+  = select_tag "type", options_for_select(demographic_restrictions_options)
+  = link_to_remote "Select", :url => new_restriction_path, :with => "'type=' + $('type').value + '&container=#{field_id}'"
