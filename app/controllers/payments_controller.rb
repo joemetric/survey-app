@@ -1,55 +1,70 @@
 class PaymentsController < ApplicationController
   
   before_filter :require_user
+  before_filter :initialize_gateway
+
+# NOTE - Amount passed to Paypal will be in CENTS
+# TODO - Amount is considered as 500 CENTS for now which will be later according to the package selected
    
   def authorize
-    survey = Survey.find(params[:id])
-    gateway = get_gateway 
-    response = gateway.setup_purchase( 
-      # This amount will be dynamic which will be as per the selected or default package as 
-      # added by Administrator for Admin Panel
-      50,
-      :currency => "USD",
-      :order_id => "Survey:#{survey.id} - #{survey.name}",
-      :return_url => capture_payment_url(survey), 
-      :cancel_return_url => cancel_payment_url(survey), 
-      :description => "Payment for Survey - #{survey.name} (http://joemetric.com)"
+    response = @gateway.setup_purchase( 
+      500,
+      :order_id => "Survey:#{@survey.id} - #{@survey.name}",
+      :return_url => capture_payment_url(@survey), 
+      :cancel_return_url => cancel_payment_url(@survey), 
+      :description => "Payment for Survey - #{@survey.name} (http://joemetric.com)"
     ) 
     if response.success? 
-      survey.authorized!
-      redirect_to gateway.redirect_url_for(response.params["token"])                 
+      @survey.authorized!
+      redirect_to @gateway.redirect_url_for(response.params["token"])
     else 
-     error_in_payment(survey) 
+     error_in_payment(@survey) 
     end
   end    
 
   def capture
-    gateway = get_gateway
-    response = gateway.details_for(params["token"]) 
-    survey = Survey.find(params[:id])
+    response = @gateway.details_for(params["token"]) 
     if response.success? 
-      survey.paid!
-      survey.save_payment_details(params)
-      response = gateway.purchase(params["amount"].to_i, :token => params["token"], :payer_id => params["PayerID"])
+      @survey.paid!
+      response = @gateway.purchase(500, :token => params["token"], :payer_id => params["PayerID"])
+      @survey.save_payment_details(params, response)
       flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
-      redirect_to survey_url(survey.id) and return
+      redirect_to survey_url(@survey) and return
     else
-      error_in_payment(survey) 
+      error_in_payment(@survey) 
     end 
   end
   
+  def refund
+    payment_info = @survey.payment
+    response = @gateway.details_for(payment_info.token)
+    if response.success?
+      response = @gateway.credit(400, 
+                                 payment_info.transaction_id,
+                                 {:note => 'Payment Refund for Survey #ID:#{@survey.id} - #{@survey.name}'})
+      flash[:notice] = response.message
+      redirect_to survey_url(@survey) and return
+    else
+      error_in_payment(@survey) 
+    end
+  end
+  
   def cancel
-    survey = Survey.find(params[:id])
-    survey.cancelled!
+    @survey.cancelled!
     flash[:notice] = "You have cancelled to make the payment for Survey: #{survey.name}"
-    redirect_to survey_url(survey)
+    redirect_to survey_url(@survey)
   end
 
 private
   
-  def get_gateway()
-     ActiveMerchant::Billing::Base.gateway(:paypal_express).new(PAYPAL_API_CREDENTIALS) 
-  end  
+  def initialize_gateway
+    @survey = Survey.find(params[:id])
+    if RAILS_ENV == 'development'
+      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
+      redirect_to survey_url(@survey) and return
+    end
+    @gateway = GATEWAY
+  end
   
   def error_in_payment(survey)
     survey.declined!

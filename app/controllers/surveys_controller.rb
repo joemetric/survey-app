@@ -25,7 +25,9 @@ class SurveysController < ResourceController::Base
   private
   
   def collection
-    @collection ||= end_of_association_chain.active
+    @collection ||= end_of_association_chain.find(:all, 
+                                                  :include => [:owner], 
+                                                  :conditions => ['users.active = ?', true])
   end
   
   ## GET /surveys

@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"    
   config.gem "webrat"
+  config.gem "activemerchant", :lib => "active_merchant"
   
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.
@@ -38,12 +39,9 @@ Rails::Initializer.run do |config|
   
   config.after_initialize do 
     ActiveMerchant::Billing::Base.gateway_mode = :test
+    GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
+                                                                         :password => "QY557JKYHNW5D5ZQ",
+                                                                         :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
   end
 
 end
-
-PAYPAL_API_CREDENTIALS = {
-  :login      => "dev_1252207951_biz_api1.joemetric.com", 
-  :password   => "QY557JKYHNW5D5ZQ",
-  :signature  => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54"
-}

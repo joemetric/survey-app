@@ -50,11 +50,12 @@ class Survey < ActiveRecord::Base
     transitions :to => :cancelled, :from => [:pending, :declined, :authorized, :cancelled]
   end
    
-  def save_payment_details(params)
+  def save_payment_details(params, response)
     pd = Payment.new # pd means payment_details
     pd.survey_id = id
-    pd.token = params['token_id']
-    pd.payer_id = params['Payer_id']
+    pd.token = params['token']
+    pd.payer_id = params['PayerID']
+    pd.transaction_id = response.params['transaction_id']
     pd.amount = 50 # This value will be as per the package selected
     pd.save
   end
