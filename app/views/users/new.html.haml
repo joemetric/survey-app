@@ -1,28 +1,22 @@
-%h1 Sign up as a new user
-
-- form_for :user, :url => users_path do |form|
-  = form.error_messages
-  %p
-    = form.label :login
-    = form.text_field :login
-  
-  %p
-    = form.label :name
-    = form.text_field :name
-  
-  %p
-    = form.label :email
-    = form.text_field :email
-    
-  %p
-    = form.label :password
-    = form.password_field :password
-    
-  %p
-    = form.label :password_confirmation
-    = form.password_field :password_confirmation
-  
-  .submit 
-    = form.submit "Sign up"
-    or 
-    = link_to "Cancel", login_path
+.form
+  %h3.heads Create a new user
+  .rounded
+    .top
+    .form_content
+      - form_for :user, :url => users_path do |form|
+        = form.error_messages
+        = form.label :login
+        = form.text_field :login
+        = form.label :name
+        = form.text_field :name
+        = form.label :email
+        = form.text_field :email
+        = form.label :password
+        = form.password_field :password
+        = form.label :password_confirmation
+        = form.password_field :password_confirmation
+        %p.btns{ :align => "right" }
+          = form.submit "OK", :class => "button button_bl"
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          = link_to "Cancel", login_path, :class => "button button_gr"
+    .bottom
