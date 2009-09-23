@@ -10,15 +10,7 @@
   %body
     .main
       .wrapper
-        .header
-          .logo= image_tag "logo.png", :alt => "Logo"
-          .login  
-            .login_bg 
-              .login_content
-                = link_to "Login", new_user_session_path
-                |
-                = link_to "Sign in", new_user_path
-          .cls
+        = render :partial => "/layouts/header"
         .content
           .form
             %h3.heads Log In

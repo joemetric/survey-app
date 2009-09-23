@@ -1,0 +1,7 @@
+.header
+  .logo= image_tag "/images/logo.png", :alt => "Logo"
+  .login
+    .login_bg
+      .login_content
+        = @current_user ? render_profile_and_signout : render_signin_and_login
+  .cls
