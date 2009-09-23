@@ -1,34 +1,57 @@
-%h1 Create Survey
-
-- form_for @survey, :url => surveys_path do |form|
-  = form.error_messages
-  
-  .field
-    = form.label :name
-    = form.text_field :name
-    %p.note 
-      %span Example
-      iPod Feature Study for Apple
-  .field
-    = form.label :end_at
-    = form.date_select :end_at, :order => [ :month, :day, :year ]
-    
-  .field
-    = form.label :responses
-    = form.text_field :responses
-  
-  #restrictions 
-    
-  .field
-    = link_to_function "Add a demographic restriction" do |page|
-      - page.insert_html :bottom, "restrictions", :partial => "/restrictions/type", :locals => { :survey => @survey }
-    
-  
-  %h2 Questions
-  - form.fields_for :questions do |question_forms|
-    = render :partial => "/questions/form/question", :locals => { :form => question_forms }
-  
+= render :partial => "/layouts/menu"
+.main_content
+  .tabs
+    %ul
+      %li{ :class => tab_selected?(["surveys_new", "surveys_create", "surveys_edit", "surveys_update"]) }= link_to "Customize", ""
+      %li{ :class => tab_selected?(["surveys_show"]) }= link_to "Preview", ""
+    .cls
+  .form
+    - form_for @survey, :url => surveys_path do |form|
+      %h3.heads Create a Survey
+      .quick_select{ :style => "margin-top: -58px" }
+        Quick Create - Copy
+        %br
+        = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
+      .rounded
+        .top
+        .form_content1
+          %h4 Survey Name
+          = form.label :name
+          = form.text_field :name
+        .bottom
       
-  .submit
-    = image_submit_tag "/images/create_survey_button.png"
-    = link_to "Cancel", surveys_path, :class => "cancel_button"
+
+//%h1 Create Survey
+//
+//- form_for @survey, :url => surveys_path do |form|
+//  = form.error_messages
+//  
+//  .field
+//    = form.label :name
+//    = form.text_field :name
+//    %p.note 
+//      %span Example
+//      iPod Feature Study for Apple
+//  .field
+//    = form.label :end_at
+//    = form.date_select :end_at, :order => [ :month, :day, :year ]
+//    
+//  .field
+//    = form.label :responses
+//    = form.text_field :responses
+//  
+//  #restrictions 
+//    
+//  .field
+//    = link_to_function "Add a demographic restriction" do |page|
+//      - page.insert_html :bottom, "restrictions", :partial => "/restrictions/type", :locals => { :survey => @survey }
+//    
+//  
+//  %h2 Questions
+//  - form.fields_for :questions do |question_forms|
+//    = render :partial => "/questions/form/question", :locals => { :form => question_forms }
+//  
+//      
+//  .submit
+//    = image_submit_tag "/images/create_survey_button.png"
+//    = link_to "Cancel", surveys_path, :class => "cancel_button"

@@ -28,5 +28,12 @@ module ApplicationHelper
     link_to("Login", new_user_session_path) + " | " + link_to("Sign in", new_user_path)
   end
   
+  def menu_selected?(actions)
+    actions.include?("#{params[:controller]}_#{params[:action]}") ? "selected" : "item"
+  end
+  
+  def tab_selected?(actions)
+    actions.include?("#{params[:controller]}_#{params[:action]}") ? "selected" : "item"
+  end
   
 end
