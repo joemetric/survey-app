@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Client  Administration</title>
+<link href="stylesheets/joemetric.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!--[if lte IE 7]><link type="text/css" rel="stylesheet" href="stylesheets/ie7.css" /><![endif]-->
+<!--[if lt IE 7]><script src="ie7/IE7.js" type="text/javascript"></script><![endif]-->
+</head>
+<body>
+	<div class="main">
+    	<div  class="wrapper">
+        	<!-- header starts-->
+        	<div class="header">
+            	<div class="logo">
+                	<img src="images/logo.png" alt="logo"/>
+                </div>
+                <div class="login">
+                	<div class="login_bg">
+                		<div class="login_content">
+                        	<a  href="#">HI <font color="#000000">Adam</font></a> |	
+                            <a  href="login.html">Logout</a>	
+                     	</div>
+                    </div>
+                </div>
+                <div class="cls"></div>
+            </div>
+            <!-- header ends-->
+            
+            <!-- main content starts here-->
+            <div class="content con1">
+            	<div class="menu1">
+                	<ul>
+                    	<li class="item"><a href="#">Dashboard</a></li>
+                        <li class="item"><a href="#">User Administration</a></li>
+                        <li class="item"><a href="#">Survey Administration</a></li>
+                        <li class="item"><a href="#">Pricing Administration</a></li>
+                        <li class="selected"><a href="#">Client Administration</a></li>
+                    </ul>
+                </div>
+                <div class="main_content lar">
+                    <div class="tabs">
+                        <ul>
+                            <li class="item"><a href="#">Client</a></li>
+                            <li class="item"><a href="#">Reviewer</a></li>
+                            <li class="selected"><a href="#">Administrator</a></li>
+                        </ul>
+                        <div class="cls"></div>
+                    </div>
+                    <div class="form">
+                        <h3 class="heads1">Client Administration</h3>
+                        <div class="survey_by"><b>Schedule System Downtime</b>                         <div class="cols">
+                        	<div class="cal">
+                            	On:
+                                <input type="text"  value="Feb 2009"/>                           
+                            </div>
+                            <div class="time_f">
+                            	From<br />
+                                <input type="text"  value="Feb 2009"/>                           
+                            </div>
+                            <div class="time_t">
+                            	To:<br />
+                                <input type="text"  value="Feb 2009"/>                           
+                            </div>
+                            <div class="cls"></div>
+                         </div>
+                        	<div class="btns" align="left">
+                            	<a href="#" class="pos fl_right">Schedule</a>
+                            <div class="cls"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="survey_by"><b>Warn Older iPhone Clients</b>
+                        	<p class="net1"><label>The Current iPhone app version is:</label>
+                            	<input type="text" value="1.2"/>
+                            </p>
+                            <p class="net1"></p>
+                            <p class="net1"><label>Custom Text: </label>
+                            	<textarea class="l_text" rows="1">Your version is out of date Please go to <a href="http:www.xyz">itunes</a></textarea>
+                            </p>
+                            <p class="net1">
+                            	<input type="radio" /> Always
+                            </p>
+                            <p class="net1">
+                                <input type="radio" /> Once
+                            </p>
+                            <div class="btns" align="left">
+                            	<a href="#" class="pos">Enable Warning</a>
+                            <div class="cls"></div>
+                            </div>
+                        </div>
+                        <br />
+                       	<div class="survey_by"><b>Disable Older iPhone Clients</b>
+                        	<p class="net1"><label>The Current iPhone app version is:</label>
+                            	<input type="text" value="1.2"/>
+                            </p>
+                            <p class="net1"></p>
+                            <p class="net1">
+                            	<label>Disable client id  app version is less than:</label>
+                            	<input type="text" value="1.15"/>
+                            </p>
+                            <p class="net1"></p>
+                            <p class="net1"><label>Custom Text: </label>
+                            	<textarea class="l_text" rows="1">You need to update your software.Please go to <a href="http:www.xyz">itunes</a></textarea>
+                            </p>
+                            <p class="net1">
+                            	<input type="radio" /> Always
+                            </p>
+                            <p class="net1">
+                                <input type="radio" /> Once
+                            </p>
+                            <div class="btns" align="left">
+                            	<a href="#" class="pos">Enable</a>
+                            <div class="cls"></div>
+                            </div>
+                        </div>
+                        <br />
+                    	<div class="survey_by"><b>Black Listing: </b>
+                        	<p class="net1 btns" style="width:460px;">
+                            	<label>Blacklist user by Email:</label>
+                            	<input type="text" value="bagjoe@somewhere.com" class="ltext"/>
+                                <a href="#" class="neg" onclick="confirm('Do you really want to ban this user');">GoodBye</a>                                          
+                            </p>
+                            <p class="net1"></p>
+                            <p class="net1 btns" style="width:460px;"><label>Blacklist device by MAC Address:</label>
+                            	<input type="text" value="ABCDEFG123" class="ltext2"/>
+                                <a href="#" class="neg" onclick="confirm('Do you really want to ban this user');">GoodBye</a>
+                            </p>
+                            
+                        </div>
+	                </div>
+                </div>
+                
+                <div class="cls"></div>
+            </div>
+            <!--content ends -->
+            
+            <!-- footer starts -->
+            <div class="footer">
+            	© 2001 - 2009 JoeMetric All rights reserved.
+
+            </div>
+            <!-- footer ends -->
+            
+        </div>
+    </div>
+     <script type="text/javascript" src="javascripts/script.js"></script>
+	<script type="text/javascript">
+  var sorter = new TINY.table.sorter("sorter");
+	sorter.head = "head";
+	sorter.asc = "asc";
+	sorter.desc = "desc";
+	sorter.even = "evenrow";
+	sorter.odd = "oddrow";
+	sorter.evensel = "evenselected";
+	sorter.oddsel = "oddselected";
+	sorter.paginate = true;
+	sorter.currentid = "currentpage";
+	sorter.limitid = "pagelimit";
+	sorter.init("table",1);
+  </script>
+</body>
+</html>
