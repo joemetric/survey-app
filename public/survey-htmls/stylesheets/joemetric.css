@@ -83,7 +83,7 @@ body{
 }
 
 .form{
-	background:#f1f1f1 url(../images/box_bg.png) repeat-x;
+	background:#f1f1f1 url(../images/fr_bg.png) repeat-x;
 	padding:15px 15px 0 15px;
 	margin-top:50px;
 	margin-left:120px;
@@ -326,7 +326,7 @@ hr{color:#000;}
 	margin-top:75px;
 	background:url(../images/side_bar.png) repeat-x;
 	text-align:right;
-	font-size:12px;
+	font-size:11px;
 	
 }
 
@@ -661,7 +661,7 @@ td a{color:#0554a3;}
 .demog{padding-left:60px;margin:12px 0;}
 .demog label{ float:left;font-size:10px;width:40px;}
 .demog select{float:left;margin-left:20px;color:#fff;font-size:10px;}
-.demo_dis{border-bottom:solid 1px #cccccc;}
+.demo_dis{border-bottom:solid 1px #cccccc;margin-left:10px;}
 
 /*popup*/	
 
@@ -705,6 +705,7 @@ body.popup{background:none;}
 }
 
 .gross tbody{ border:solid 1px #000033;}
+.gross h3{font-size:14px !important;}
 
 .survey_sum{border-bottom:solid 1px #ccc;}
 
