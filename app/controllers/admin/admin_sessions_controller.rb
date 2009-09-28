@@ -8,7 +8,7 @@ class Admin::AdminSessionsController < AdminController
   
   create do 
     flash "Successfully logged!"
-    wants.html { redirect_to(:controller => "admin", :action => "index") }
+    wants.html { redirect_to admin_surveys_path }
   end
   
   def destroy

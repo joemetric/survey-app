@@ -1,52 +1,28 @@
 class Survey < ActiveRecord::Base
 
-  include AASM
-
   belongs_to :owner, :class_name => "User"
   
   has_many :questions
   has_many :restrictions
   has_many :completions
   has_many :users, :through => :completions
-
-  accepts_nested_attributes_for :questions, :restrictions
-  
-  #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
-  has_one :payment
+  has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
 
   validates_presence_of :name, :owner_id
- 
-  aasm_column :payment_status
-  aasm_initial_state :pending
-  
-  aasm_state :pending
-  aasm_state :authorized
-  aasm_state :paid
-  aasm_state :declined
-  aasm_state :cancelled
-  
-  aasm_event :pending do
-    transitions :to => :pending, :from => [:pending]
-  end
-  
-  aasm_event :authorized do
-    transitions :to => :authorized, :from => [:pending, :cancelled]
-  end
-  
-  aasm_event :paid do
-    transitions :to => :paid, :from => [:pending, :authorized, :cancelled]
-  end
 
-  aasm_event :declined do
-    transitions :to => :declined, :from => [:authorized, :pending, :declined, :cancelled]
+  accepts_nested_attributes_for :questions, :restrictions
+ 
+  named_scope :pending, { :conditions => ["published_at is null"] }
+  named_scope :by_time, :order => :created_at 
+  
+  concerned_with :state_machine
+ 
+  def published?
+    !published_at.blank?
   end
   
-  # We may not require this but still its better to keep this in order to differentiate between 
-  # payment_status as declined(error in payment process/invalid account details)  
-  # and cancelled (user proactively cancelled the payment)
-  
-  aasm_event :cancelled do 
-    transitions :to => :cancelled, :from => [:pending, :declined, :authorized, :cancelled]
+  def publish!
+    update_attribute(:published_at, Time.now)
   end
    
   def save_payment_details(params, response)
