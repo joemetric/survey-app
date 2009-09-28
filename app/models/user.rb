@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
     authlogic.disable_perishable_token_maintenance = true
   end
   
+  validates_uniqueness_of :login
   validates_presence_of :name
   has_many :created_surveys, :as => :owner, :class_name => "Surveys"
   
@@ -16,8 +17,6 @@ class User < ActiveRecord::Base
   has_many :completions
   has_many :surveys, :through => :completions
   has_many :answers
-
-  
 
   after_create :setup_user
 
@@ -80,8 +79,10 @@ class User < ActiveRecord::Base
   end
   
   def password_change_security
-    unless new_record? or valid_perishable_token?(security_token) or old_password_valid?
-      errors.add(:old_password, "is invalid")
+    if password
+      unless new_record? or valid_perishable_token?(security_token) or old_password_valid?
+        errors.add(:old_password, "is invalid")
+      end
     end
   end
   

@@ -13,6 +13,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, 
     :member => { :not_active => :get }, 
     :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get }
+    
+  map.namespace(:admin) do |admin|
+    admin.resource :admin_session
+  end
 
   map.resources :payments, 
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
@@ -26,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password 'users/:id/reset_password/:key', :controller => "users", :action => "reset_password"
 
   map.root :controller => 'surveys'
-
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

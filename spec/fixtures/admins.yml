@@ -1,0 +1,5 @@
+admin_1:
+  id: 1
+  login: admin
+  name: Super Admin
+  email: admin@anonymous.com
