@@ -30,13 +30,13 @@ Rails::Initializer.run do |config|
   
   config.action_mailer.delivery_method = :smtp  
   config.action_mailer.smtp_settings = {
-    :address        => "smtp.gmail.com",
-    :port           => 25,
-    :domain         => "gmail.com",
-    :authentication => :plain,
-    :user_name      => "87621a41@gmail.com",
-    :password       => "123survey" 
-  }  
+  :address => 'smtp.gmail.com',
+  :port => 25,
+  :domain => 'joemetric.com',
+  :user_name => 'noreply@joemetric.com',
+  :password => 'odd71;humble',
+  :authentication => :plain
+  }
   
   config.after_initialize do 
     ActiveMerchant::Billing::Base.gateway_mode = :test
