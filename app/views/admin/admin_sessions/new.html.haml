@@ -1,8 +1,32 @@
-- form_for :admin_session, :url => admin_admin_session_path do |form|
-  = form.label :login
-  = form.text_field :login
-  
-  = form.label :password
-  = form.password_field :password
-  
-  = form.submit "Sign in"
+!!!
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %title Login
+    = javascript_include_tag :defaults
+    = stylesheet_link_tag "joemetric"
+    /[if IE7]
+      = stylesheet_link_tag "ie7"
+  %body
+    .main
+      .wrapper
+        = render :partial => "/layouts/admin/header"
+        .content
+          .form
+            %h3.heads Log In
+            .rounded
+              .top
+              .form_content
+                %h4 Please Enter Your name and password
+                - form_for :admin_session, :url => admin_admin_session_path do |form|
+                  = form.label :login
+                  = form.text_field :login
+                  = form.label :password
+                  = form.password_field :password
+                  %br
+                  %br
+                  = form.submit "LOGIN", :class => "button button_bl"
+                  .cls
+              .bottom
+                  
+        .footer

@@ -1,6 +1,7 @@
 class Admin::SurveysController < ApplicationController
+  
   before_filter :require_admin
-  layout false
+  layout 'admin'
   
   def index
     @surveys = Survey.by_time
