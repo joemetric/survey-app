@@ -11,6 +11,7 @@ class SurveysController < ResourceController::Base
   end
   
   create.wants.html { redirect_to authorize_payment_url(object.id) }
+  show.wants.json { render :json => @object }
   
   private
   
