@@ -1,32 +1,32 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+default_run_options[:pty] = true
+set :application, "survey"
+set :deploy_to, "/var/apps/survey"
+set :use_sudo, false
 
-# If you have previously been relying upon the code to start, stop 
-# and restart your mongrel application, or if you rely on the database
-# migration code, please uncomment the lines you require below
+set :scm, :git
+set :scm_verbose, true
+set :repository, "git@github.com:joemetric/survey-app.git"
+ssh_options[:forward_agent] = true
+set :branch, "master"
+set :deploy_via, :remote_cache
 
-# If you are deploying a rails app you probably need these:
+set :user, "allerin"
 
-# load 'ext/rails-database-migrations.rb'
-# load 'ext/rails-shared-directories.rb'
+role :web, "www.allerin.com"
+role :app, "www.allerin.com", :primary => true
+role :db,  "www.allerin.com", :primary => true
 
-# There are also new utility libaries shipped with the core these 
-# include the following, please see individual files for more
-# documentation, or run `cap -vT` with the following lines commented
-# out to see what they make available.
+after "deploy:update_code", 'database:link'
 
-# load 'ext/spinner.rb'              # Designed for use with script/spin
-# load 'ext/passenger-mod-rails.rb'  # Restart task for use with mod_rails
-# load 'ext/web-disable-enable.rb'   # Gives you web:disable and web:enable
+namespace :database do
+  desc "Link database.yml to the current app"
+  task :link do
+    run "ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml"
+  end
+end
 
-# If you aren't deploying to /u/apps/#{application} on the target
-# servers (which is the default), you can specify the actual location
-# via the :deploy_to variable:
-# set :deploy_to, "/var/www/#{application}"
-
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
-# see a full list by running "gem contents capistrano | grep 'scm/'"
-
-role :web, "your web-server here"
+namespace :deploy do
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end
