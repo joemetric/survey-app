@@ -1,5 +1,6 @@
-%h2 Pending Surveys
-= link_to "All Surveys", admin_surveys_path
+%div{:class => 'form lar'}
+  %h2 Pending Surveys
+  = link_to "All Surveys", admin_surveys_path
 
-%ul
-  = render :partial => "/admin/surveys/survey", :collection => @surveys
+  %ul
+    = render :partial => "/admin/surveys/survey", :collection => @surveys

@@ -1,0 +1,28 @@
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    = stylesheet_link_tag "joemetric"
+    = javascript_include_tag "jrails"
+    = javascript_include_tag "application"
+    = javascript_include_tag "jquery"
+    %title Create New Package
+  %body.popup
+    .popup_d
+      %h3 Create a New Package
+      %span{:id => 'errors'}
+      - form_remote_for :package, :url => admin_packages_path, :html => {:method => :post, :id => "package_form"} do |form|
+        %p.normal
+          %label Package Name:
+          %br
+          = form.text_field :name, :class => 'ltext3'
+        %p.normal
+          %label Package Code:
+          %br
+          = form.text_field :code, :class => 'ltext3'
+        .cls
+        %span{:class => 'btns', :align => 'center'}
+          = submit_tag 'Yes', :class => 'but_da', :id => 'submit_package'
+        %span or
+        %span{:class => 'normal'}
+          = link_to_function 'Cancel', 'window.close();'
+      .cls

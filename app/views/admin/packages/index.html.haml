@@ -1,0 +1,17 @@
+%div{:class => 'form lar1'}
+  %h3.heads1 Pricing Administration
+
+  %p.normal
+    %label Pricing
+    = select ("package", "code", @packages.map {|p| [p.name, p.id]})
+    = link_to_function 'Create New Package', "window.open('#{new_admin_package_path}','popUpWindow','height=220,width=350resizable=no,scrollbars=yes,toolbar=false,menubar=no,location=no,directories=no,status=no');"
+
+  %p.normal
+    The URL for this package is:
+    - 'To be Implemented'
+
+  = render :partial => 'admin/packages/pricing/costs'
+  
+  = render :partial => 'admin/packages/pricing/payouts'
+  
+  

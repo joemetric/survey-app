@@ -4,10 +4,6 @@ def load_survey
   @survey = Factory(:survey)
 end
 
-def survey_payment_status(payment_status)
-  @survey.payment_status.should == payment_status
-end
-
 Given /I am logged in as (.*) and I am on Create Survey Page/i do |login|
    visit '/surveys/new'
 end 
@@ -40,4 +36,8 @@ Then /^survey payment status should be (.*)$/i do |payment_status|
     when 'cancelled'; @survey.cancelled!  
   end
   survey_payment_status(payment_status)
+end
+
+def survey_payment_status(payment_status)
+  @survey.payment_status.should == payment_status
 end

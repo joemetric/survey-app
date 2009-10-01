@@ -5,6 +5,7 @@ class Admin::SurveysController < ApplicationController
   
   def index
     @surveys = Survey.by_time
+    @tab = 'Survey Administration'
   end
   
   def pending
