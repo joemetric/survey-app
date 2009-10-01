@@ -35,13 +35,17 @@ module ApplicationHelper
   def render_admin_signout
     link_to("Logout", admin_admin_session_path, :method => :delete)
   end
-  
+ 
   def menu_selected?(actions)
     actions.include?("#{params[:controller]}_#{params[:action]}") ? "selected" : "item"
   end
   
   def tab_selected?(actions)
     actions.include?("#{params[:controller]}_#{params[:action]}") ? "selected" : "item"
+  end
+  
+  def current_tab_is?(tab_name)
+    @tab == tab_name ? 'selected' : 'item'
   end
   
 end

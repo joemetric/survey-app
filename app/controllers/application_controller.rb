@@ -49,5 +49,24 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+  
+  def ajax_redirect(redirect_url)
+    render :update do |page|
+      page.redirect_to redirect_url
+    end
+  end
+  
+  def show_error_messages(item, options={})
+    render :update do |page|
+      page.replace_html "errors", error_messages_for(item, options)
+    end
+  end
+  
+  def alert_message(message)
+    render :update do |page|
+      page.alert(message)
+    end
+  end
+  
 
 end
