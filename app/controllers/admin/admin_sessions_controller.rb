@@ -2,9 +2,8 @@ class Admin::AdminSessionsController < AdminController
   resource_controller
   layout false
   
-  index do
-    wants.html { redirect_to(:action => "new")}
-  end
+  index.wants.html { redirect_to(:action => "new")}
+  show.wants.html { redirect_to(:action => "new")}
   
   create do 
     flash "Successfully logged!"
