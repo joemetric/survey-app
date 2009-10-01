@@ -13,11 +13,11 @@
         = render :partial => "/layouts/admin/header"
         .content
           .form
-            %h3.heads Log In
+            %h3.heads Administration Log In
             .rounded
               .top
               .form_content
-                %h4 Please Enter Your name and password
+                %h4 Please enter your name and password
                 - form_for :admin_session, :url => admin_admin_session_path do |form|
                   = form.label :login
                   = form.text_field :login
