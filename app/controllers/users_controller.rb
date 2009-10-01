@@ -3,10 +3,16 @@ class UsersController < ApplicationController
   
   before_filter :require_user, :only => [ :edit, :update ]
   
-  create.wants.html do
-    sign_in object
-    flash[:notice] = "Thanks for Signing Up! We're sending you an email with your activation code."
-    render :action => "not_active"
+  create do
+    wants.html do
+      sign_in object
+      flash[:notice] = "Thanks for Signing Up! We're sending you an email with your activation code."
+      render :action => "not_active"
+    end
+    wants.json { head :created, :location => user_path(object) }
+    failure do
+      wants.json { render :json => object.errors.to_json, :status => 422 }
+    end  
   end
   
   def activate
