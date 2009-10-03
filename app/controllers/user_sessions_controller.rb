@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   create do
     flash "Successfully logged!"
     wants.html { redirect_to "/" }
-    wants.json { head :created, render :json => object.user }
+    wants.json { render :json => object.user, :status => 201 }
     failure do
       wants.json { render :json => object.errors.to_json, :status => 422 }
     end
