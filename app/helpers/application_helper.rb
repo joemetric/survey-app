@@ -8,6 +8,10 @@ module ApplicationHelper
     QuestionType.all.collect { |qt| [qt.name, qt.id] }
   end
   
+  def select_integer(limit=50)
+    (1..limit).map {|i| [i, i]}
+  end
+  
   def demographic_restrictions_options
     Restriction::Kinds.collect { |kind| [kind.to_s.titleize, kind] }
   end

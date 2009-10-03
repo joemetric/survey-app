@@ -1,0 +1,19 @@
+- form_remote_for @package, :url => admin_package_url(@package), :html => {:method => :put} do |f|
+  %p.normal
+    The URL for this package is:
+    %i 'To be Implemented'
+	
+  %span#errors
+	
+  = render :partial => 'admin/packages/pricing/costs'
+   
+  = render :partial => 'admin/packages/pricing/payouts'
+  
+  %br
+  
+  %div{:align => 'center', :class => 'center normal'}
+    %span
+      = submit_tag 'Save', :class => 'but_bl', :id => 'update_package'
+    %span
+      or
+      = link_to 'Cancel', admin_packages_url, :confirm => 'Are You sure ?', :style => "color: rgb(0, 0, 255);"   
