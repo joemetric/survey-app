@@ -3,19 +3,19 @@
 
 %p.normal
   %label.label3 Standard Questions (T/F, MC, Free Text)
-  = text_field_tag 'price', '0.50'
+  = text_field 'payouts[1]', 'amount', :value => @payouts[0].try(:amount)
   
 %p.normal
   %label.label3 Premium Questions (photo response, GPS location)
-  = text_field_tag 'price', '0.75'  
+  = text_field 'payouts[2]', 'amount', :value => @payouts[1].try(:amount)
 
 %p.normal
   %label.label3 Premium Demographic Restrictions (location, prev. survey resp)
-  = text_field_tag 'price', '2.50'
+  = text_field 'payouts[3]', 'amount', :value => @payouts[2].try(:amount)
 
 %p.normal
   %label.label3 Standard Questions (T/F, MC, Free Text)
-  = text_field_tag 'price', '2.50'                                  
+  = text_field 'payouts[4]', 'amount', :value => @payouts[3].try(:amount)                                
 
 %br
 %br

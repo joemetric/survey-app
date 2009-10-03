@@ -10,19 +10,20 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restrictions
   map.resource :user_session
 
-  map.resources :users, 
-    :member => { :not_active => :get }, 
+  map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
+  map.resources :users,
+    :member => { :not_active => :get },
     :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get }
-    
+
   map.namespace(:admin) do |admin|
     admin.resource :admin_session
     admin.resources :surveys, :collection => { :pending => :get }, :member => { :publish => :post }
-    admin.resources :packages
+    admin.resources :packages, :collection => {:update_form => :get}
   end
   
   map.resources :payments, 
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
-  
+
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'

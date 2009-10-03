@@ -1,54 +1,43 @@
 %p.normal
   %label.label2 Base Cost:
-  = text_field_tag 'price', '1.50'
+  = text_field :package, :base_cost
+
+%p.normal
+  %label.label2 Responses:
+  = select(:package, :total_responses, select_integer)
 
 %p.normal
   %label Upto:
-  %select
-    %option 1
-    %option 2
-    %option 3
-    %option 4
+  = select('pricings[1]', 'total_questions', select_integer)
   %label.label2 Standard Questions priced at:
-  = text_field_tag 'price', '1.50'
+  = text_field 'pricings[1]', 'standard_price', :value => @pricings[0].try(:normal_price)
   %label.label2 Normally:
-  = text_field_tag 'price', '2.50'
+  = text_field 'pricings[1]', 'normal_price', :value => @pricings[0].try(:standard_price)
 
 %p.normal
   %label With Upto:
-  %select
-    %option 1
-    %option 2
-    %option 3
-    %option 4
+  = select('pricings[2]', 'total_questions', select_integer)
   %label.label2 Premium Questions priced at:
-  = text_field_tag 'price', '2.50'
+  = text_field 'pricings[2]', 'standard_price', :value => @pricings[1].try(:normal_price)
   %label.label2 Normally:
-  = text_field_tag 'price', '3.50'
+  = text_field 'pricings[2]', 'normal_price', :value => @pricings[1].try(:standard_price)
 
 %p.normal
   %label With Upto:
-  %select
-    %option 1
-    %option 2
-    %option 3
-    %option 4
+  = select('pricings[3]', 'total_questions', select_integer)
   %label.label2 Domographic(profile) restrictions priced at:
-  = text_field_tag 'price', '2.50'
+  = text_field 'pricings[3]', 'standard_price', :value => @pricings[2].try(:normal_price)
   %label.label2 Normally:
-  = text_field_tag 'price', '3.50'
+  = text_field 'pricings[3]', 'normal_price', :value => @pricings[2].try(:standard_price)
   
 %p.normal
   %label With Upto:
-  %select
-    %option 1
-    %option 2
-    %option 3
-    %option 4
+  = select('pricings[4]', 'total_questions', select_integer)
   %label.label2 Locations restrictions priced at:
-  = text_field_tag 'price', '2.50'
+  = text_field 'pricings[4]', 'normal_price', :value => @pricings[3].try(:normal_price)
   %label.label2 Normally:
-  = text_field_tag 'price', '3.50'
+  = text_field 'pricings[4]', 'standard_price', :value => @pricings[3].try(:standard_price)
+  
 %br
 %br
 %br

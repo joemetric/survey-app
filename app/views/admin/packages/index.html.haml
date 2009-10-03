@@ -3,15 +3,10 @@
 
   %p.normal
     %label Pricing
-    = select ("package", "code", @packages.map {|p| [p.name, p.id]})
+    
+    = select_tag :package, options_for_select(@packages.collect{|n|n.name}, @package.name), {:onChange=> remote_function(:url => update_form_admin_packages_url, :with => "'name='+value" )}
+    
     = link_to_function 'Create New Package', "window.open('#{new_admin_package_path}','popUpWindow','height=220,width=350resizable=no,scrollbars=yes,toolbar=false,menubar=no,location=no,directories=no,status=no');"
-
-  %p.normal
-    The URL for this package is:
-    - 'To be Implemented'
-
-  = render :partial => 'admin/packages/pricing/costs'
-  
-  = render :partial => 'admin/packages/pricing/payouts'
-  
-  
+    
+  #package_form
+    = render :partial => 'admin/packages/update_form'
