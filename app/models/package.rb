@@ -49,4 +49,10 @@ class Package < ActiveRecord::Base
     end
   end
   
+  def cancel
+    lifetime.cancelled = true
+    lifetime.validity_type_id = 1
+    lifetime.save
+  end
+  
 end

@@ -2,12 +2,13 @@ class Admin::PackagesController < ApplicationController
   
   layout 'admin', :except => [:new, :create]
   before_filter :require_admin
+  before_filter :find_package, :only => [:update, :destroy]
   before_filter :adjust_dates, :only => :update
   
   def index
     @packages = Package.find(:all)
     @package = params[:package] ? Package.find_by_name(params[:package]) : Package.find(:first) 
-    package_information
+    package_information if @package
     @tab = 'Pricing Administration' # This variable can be also used while setting Page Title
   end
    
@@ -20,16 +21,7 @@ class Admin::PackagesController < ApplicationController
     end
   end
   
-  def update_form
-    @package = Package.find_by_name(params[:name])
-    package_information
-    render :update do |page|
-      page.replace_html 'package_form', :partial => 'admin/packages/update_form'
-    end
-  end
-  
   def update
-    @package = Package.find(params[:id])
     payouts_and_pricing_errors = @package.pricings_and_payouts_valid?(params)
     if @package.update_attributes(params[:package]) && payouts_and_pricing_errors.empty?
       @package.save_pricing_and_payouts(params)
@@ -40,7 +32,17 @@ class Admin::PackagesController < ApplicationController
     end
   end
   
+  def destroy
+    @package.cancel
+    lifetime = @package.lifetime
+    ajax_redirect(admin_packages_url(:package => @package.name))
+  end
+  
 private
+  
+  def find_package
+    @package = Package.find(params[:id])
+  end
   
   def package_information
     @pricings = @package.pricings

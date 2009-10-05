@@ -7,6 +7,7 @@
     %span
       = l.radio_button 'validity_type_id', 1
       Valid Until Cancelled
+    = link_to_remote 'Cancel this package', :url => admin_package_url(@package), :method => :delete, :confirm => 'Are you sure you want to cancel this pricing plan ?', :html => {:class => 'neg'}
 
   %p.normal &nbsp;
 
