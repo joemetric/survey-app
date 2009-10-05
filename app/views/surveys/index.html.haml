@@ -1,1 +1,21 @@
 = render :partial => "/layouts/menu"
+.m_content
+  .form
+    %h3.heads View Saved Surveys
+    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th{ :width => 170 }
+            %h3 Name
+
+          %th{ :width => 120 }
+            %h3 Created On
+
+          %th{ :width => 120 }
+            %h3 Last Modified
+            
+          %th
+            %h3 # of Questions
+      %tbody
+        = render :partial => "/surveys/saved_survey", :collection => @surveys
+.cls

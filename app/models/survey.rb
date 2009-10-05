@@ -15,6 +15,8 @@ class Survey < ActiveRecord::Base
  
   named_scope :pending, { :conditions => ["published_at is null"] }
   named_scope :by_time, :order => :created_at 
+  named_scope :saved, { :conditions => { :draft => true }}
+  named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
   
   concerned_with :state_machine
  
