@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper :all
-  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin
+  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :convert_date_format
   filter_parameter_logging :password, :password_confirmation
   
   private
@@ -74,5 +74,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def convert_date_format(date)
+    date.to_s.gsub('-', '/').split('/').reverse.join('/') unless date.nil?
+  end
 
 end

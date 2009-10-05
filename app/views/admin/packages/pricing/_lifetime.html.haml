@@ -1,3 +1,29 @@
-%p.normal
-  %b Package Lifetime:
-  
+- f.fields_for :lifetime do |l|
+
+  %p.normal
+    %b Package Lifetime:
+
+  %p.normal
+    %span
+      = l.radio_button 'validity_type_id', 1
+      Valid Until Cancelled
+
+  %p.normal &nbsp;
+
+  %p.normal
+    %span
+      = l.radio_button 'validity_type_id', 2
+      Valid for following # of uses
+    = l.text_field 'total_uses'  
+
+  %p.normal &nbsp;
+
+  %p.normal  
+    %span
+      =  l.radio_button 'validity_type_id', 3
+    %label.label Valid From
+    = text_field 'package[lifetime_attributes]', '[valid_from]', :class => 'valid_from date-pick dp-applied'
+    %label.label until
+    = text_field 'package[lifetime_attributes]', '[valid_until]', :class => 'valid_until date-pick dp-applied'
+
+%br

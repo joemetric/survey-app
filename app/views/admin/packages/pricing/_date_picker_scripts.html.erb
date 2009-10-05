@@ -1,0 +1,22 @@
+<%# 'Inline Javascript was not working properly with .html.haml. So html.erb extension is used for this partial' %>
+<%= javascript_include_tag 'date-select/date' %> 
+<%= javascript_include_tag 'date-select/jquery-1.3.2.min' %> 
+<%= javascript_include_tag 'date-select/jquery.datePicker' %> 
+<%= stylesheet_link_tag 'date-select/date-picker' %> 
+
+<script type='text/javascript'>
+  //<![CDATA[
+    $(function()
+      {
+        $('.valid_from').datePicker().dpSetSelected('<%= convert_date_format(@package.lifetime.valid_from) %>');
+      }
+    ); 
+    $(function()
+      {
+        $('.valid_until').datePicker().dpSetSelected('<%= convert_date_format(@package.lifetime.valid_until) %>');
+      }
+    ); 
+  //]]>
+</script>
+
+ 

@@ -13,11 +13,20 @@ class Package < ActiveRecord::Base
                             :only_integer => true,
                             :if => Proc.new {|b| !b.base_cost.blank?},
                             :on => :update
-  
+                            
+  has_one :lifetime, :class_name => 'PackageLifetime'
   has_many :payouts
   has_many :pricings, :class_name => 'PackagePricing'
   has_many :package_question_types, :through => :pricings
-
+  
+  accepts_nested_attributes_for :lifetime
+  
+  after_create :create_lifetime
+  
+  def create_lifetime
+    PackageLifetime.create(:package_id => id, :cancelled => false, :validity_type_id => 1)
+  end
+  
   def before_validation
     write_attribute(:code, code.strip)
   end

@@ -868,3 +868,12 @@ p.net1 input[type="text"]{
 	float:left;
 	padding:2px 25px;
 	}
+
+/* Error Messages */
+	
+.errorExplanation{border:solid 1px #A3c02a;padding-bottom:10px;margin:10px 0;}
+.errorExplanation h2{text-align:center;background-color:#A3c02a;color:#fff;}
+.errorExplanation ul{list-style:inside decimal;padding:0 10px;}
+.errorExplanation p{padding:10px;}
+
+.msg{color:#A3c02a;padding:10px 10px;font-weight:bold;margin-left:40px;font-size:14px;}
