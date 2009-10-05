@@ -1,6 +1,7 @@
 class Admin::PackagesController < ApplicationController
   
   layout 'admin', :except => [:new, :create]
+  before_filter :require_admin
   before_filter :adjust_dates, :only => :update
   
   def index
