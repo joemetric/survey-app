@@ -9,6 +9,7 @@ class Survey < ActiveRecord::Base
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
 
   validates_presence_of :name, :owner_id
+  validates_numericality_of :responses
 
   accepts_nested_attributes_for :questions, :restrictions
  
@@ -23,6 +24,11 @@ class Survey < ActiveRecord::Base
   
   def publish!
     update_attribute(:published_at, Time.now)
+  end
+  
+  def as_draft!
+    self.draft = true
+    save
   end
    
   def save_payment_details(params, response)

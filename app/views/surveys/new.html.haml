@@ -8,6 +8,7 @@
   .form
     - form_for @survey, :url => surveys_path do |form|
       %h3.heads Create a Survey
+      = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }
         Quick Create - Copy
         %br
@@ -15,43 +16,30 @@
       .rounded
         .top
         .form_content1
-          %h4 Survey Name
+          %h4 Survey Details
           = form.label :name
           = form.text_field :name
+          = form.label :end_at
+          = form.date_select :end_at, :order => [:month, :day, :year], :start_year => Time.now.year
+          = form.label :responses
+          = form.text_field :responses
         .bottom
       
+      .rounded
+        .top
+        .form_content1
+          %h4 Restrictions
+        .bottom
+      
+      .rounded
+        .top
+        .form_content1
+          %h4 Questions
+        .bottom
+      
+      = form.submit "Create", :class => "button button_bl"
+      
+      = link_to_function "Save", :class => "button button_gr" do |page|
+        - page << '$("#new_survey").attr("action", "/surveys/save");'
+        - page << '$("#new_survey").submit();'
 
-//%h1 Create Survey
-//
-//- form_for @survey, :url => surveys_path do |form|
-//  = form.error_messages
-//  
-//  .field
-//    = form.label :name
-//    = form.text_field :name
-//    %p.note 
-//      %span Example
-//      iPod Feature Study for Apple
-//  .field
-//    = form.label :end_at
-//    = form.date_select :end_at, :order => [ :month, :day, :year ]
-//    
-//  .field
-//    = form.label :responses
-//    = form.text_field :responses
-//  
-//  #restrictions 
-//    
-//  .field
-//    = link_to_function "Add a demographic restriction" do |page|
-//      - page.insert_html :bottom, "restrictions", :partial => "/restrictions/type", :locals => { :survey => @survey }
-//    
-//  
-//  %h2 Questions
-//  - form.fields_for :questions do |question_forms|
-//    = render :partial => "/questions/form/question", :locals => { :form => question_forms }
-//  
-//      
-//  .submit
-//    = image_submit_tag "/images/create_survey_button.png"
-//    = link_to "Cancel", surveys_path, :class => "cancel_button"
