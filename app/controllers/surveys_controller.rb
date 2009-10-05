@@ -10,19 +10,17 @@ class SurveysController < ResourceController::Base
     object.owner = current_user
   end
   
-  create.wants.html { redirect_to authorize_payment_url(object.id) }
-  
-  def save
-    @survey = Survey.new params[:survey]
-    @survey.owner = current_user
+  def activate
+    @survey = params[:id].blank? ? Survey.new(params[:survey]) : Survey.find(params[:id])
+    @survey.owner = current_user if @survey.owner.blank?
     if @survey.valid?
-      @survey.as_draft!
-      redirect_to survey_path(@survey)
+      @survey.draft = false
+      @survey.save
+      redirect_to authorize_payment_url(@survey.id)
     else
       render :action => "new"
     end
   end
-  
   
   show.wants.json { render :json => @object }
   

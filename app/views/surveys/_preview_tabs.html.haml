@@ -1,0 +1,5 @@
+.tabs
+  %ul
+    %li{ :class => tab_selected?(["surveys_new", "surveys_create", "surveys_edit", "surveys_update"]) }= link_to "Customize", ""
+    %li{ :class => tab_selected?(["surveys_show"]) }= link_to "Preview", ""
+  .cls

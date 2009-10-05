@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :pictures
   map.resources :completions
   map.resources :answers
-  map.resources :surveys, :collection => { :save => :post } do |survey|
+  map.resources :surveys, :collection => { :activate => :post } do |survey|
     survey.resources :questions
     survey.resources :restrictions
   end

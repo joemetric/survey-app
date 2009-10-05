@@ -2,8 +2,8 @@
 .main_content
   = render :partial => "/surveys/preview_tabs"
   .form
-    - form_for @survey, :url => surveys_path do |form|
-      %h3.heads Create a Survey
+    - form_for @survey do |form|
+      %h3.heads Edit a Survey
       = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }
         Quick Create - Copy
@@ -31,9 +31,6 @@
         .bottom
       
       = link_to_function "Activate", :class => "button button_bl" do |page|
-        - page << '$("#new_survey").attr("action", "/surveys/activate");'
-        - page << '$("#new_survey").submit();'
+        - page << "call_activate_form('#{@survey.id}');"
       
-      = form.submit "Save", :class => "button button_gr"
-      
-
+      = form.submit "Update", :class => "button button_gr"
