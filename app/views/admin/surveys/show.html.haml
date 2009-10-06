@@ -1,0 +1,22 @@
+.m_content
+  .form
+    %h3.heads= "Survey: #{@survey.name}"
+    %label Status
+    = @survey.published? ? "Published" : "Pending"
+    
+    %label= "Questions (#{@survey.questions.size})"
+    %ul
+      = render :partial => "/admin/questions/question", :collection => @survey.questions
+      
+    %label= "Restrictions (#{@survey.restrictions.size})"
+    %ul
+      = render :partial => "/admin/restrictions/restriction", :collection => @survey.restrictions
+    
+    #rejection{ :style => "display:none" }
+    
+    #actions
+      = link_to "Approve", publish_admin_survey_path(@survey), :class => "button button_gr" 
+      = link_to_function "Reject", :class => "button button_bl" do |page|
+        - page.insert_html :bottom, "rejection", :partial => "/admin/surveys/rejection", :locals => { :survey => @survey }
+        - page["rejection"].toggle
+        - page["actions"].toggle

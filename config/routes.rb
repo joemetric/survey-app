@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :pictures
   map.resources :completions
   map.resources :answers
-  map.resources :surveys, :collection => { :activate => :post } do |survey|
+  map.resources :surveys, :collection => { :activate => :post, :progress => :get } do |survey|
     survey.resources :questions
     survey.resources :restrictions
   end
@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:admin) do |admin|
     admin.resource :admin_session
-    admin.resources :surveys, :collection => { :pending => :get }, :member => { :publish => :post }
+    admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
   end
   

@@ -1,0 +1,4 @@
+- form_for @survey, :url => reject_admin_survey_path(@survey) do |form|
+  = form.label :reject_reason
+  = form.select :reject_reason, reject_options
+  = form.submit "Reject", :class => "button button_bl"

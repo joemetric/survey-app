@@ -11,6 +11,13 @@ class UserMailer < ActionMailer::Base
     @subject += "Here is the instructions to reset your password!"
     @body[:url] = reset_password_url(:host => HOST, :id => user.id, :key => user.perishable_token)
   end
+  
+  def survey_rejection_mail(survey)
+    setup_email(survey.owner)
+    @subject += "Your survey was rejected!"
+    @body[:survey] = survey
+    @body[:reason] = survey.reject_reason
+  end
 
   protected
     def setup_email(user)

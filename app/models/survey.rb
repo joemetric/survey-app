@@ -13,7 +13,7 @@ class Survey < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions, :restrictions
  
-  named_scope :pending, { :conditions => ["published_at is null"] }
+  named_scope :pending, { :conditions => { :publish_status => "pending" }}
   named_scope :by_time, :order => :created_at 
   named_scope :saved, { :conditions => { :publish_status => "saved" }}
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
@@ -30,6 +30,11 @@ class Survey < ActiveRecord::Base
     published!
     update_attribute(:published_at, Time.now)
   end
+  
+  def reject!
+    rejected!
+    deliver_rejection_mail
+  end
 
   def save_payment_details(params, response)
     pd = Payment.new # pd means payment_details
@@ -39,6 +44,12 @@ class Survey < ActiveRecord::Base
     pd.transaction_id = response.params['transaction_id']
     pd.amount = 50 # This value will be as per the package selected
     pd.save
+  end
+  
+  private
+  
+  def deliver_rejection_mail
+    UserMailer.deliver_survey_rejection_mail(self)
   end
   
 end

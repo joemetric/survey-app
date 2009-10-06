@@ -2,6 +2,6 @@
   %ul 
     %li{:class => ""}= link_to 'Dashboard', '#'
     %li{:class => "item"}= link_to 'User Administration', '#'
-    %li{:class => current_tab_is?('Survey Administration')}= link_to 'Survey Administration', admin_surveys_path
+    %li{:class => menu_selected?(["admin/surveys_index","admin/surveys_show"])}= link_to 'Survey Administration', admin_surveys_path
     %li{:class => current_tab_is?('Pricing Administration')}= link_to 'Pricing Administration', admin_packages_path
     %li{:class => "item"}= link_to 'Administration', '#'
