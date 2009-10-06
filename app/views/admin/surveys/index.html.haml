@@ -1,6 +1,21 @@
-%div{:class => 'form lar'}
-  %h2 Surveys
-  = link_to "Pending Surveys", pending_admin_surveys_path
+.m_content
+  .form
+    %h3.heads Pending Approval Surveys
+    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th{ :width => 170 }
+            %h3 Name
 
-  %ul
-    = render :partial => "/admin/surveys/survey", :collection => @surveys
+          %th{ :width => 120 }
+            %h3 Last Modified
+
+          %th{ :width => 120 }
+            %h3 Owner
+            
+          %th
+            %h3 Actions
+      
+      %tbody
+        = render :partial => "/admin/surveys/survey", :collection => @surveys
+        

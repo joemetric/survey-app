@@ -1,6 +1,5 @@
-%li
-  %span.name= link_to survey.name, admin_survey_path(survey)
-  %span.created_at= "created " + time_ago_in_words(survey.created_at)
-  %span.owner= "by " + survey.owner.login
-  - unless survey.published?
-    %span.publish= link_to "Publish", publish_admin_survey_path(survey), :method => :post
+%tr
+  %td= link_to survey.name, admin_survey_path(survey)
+  %td= survey.updated_at.strftime("%b/%m/%Y")
+  %td= survey.owner.login
+  %td= link_to "Approve", publish_admin_survey_path(survey), :method => :post
