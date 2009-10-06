@@ -19,9 +19,8 @@
 
   %p.normal &nbsp;
 
-  %p.normal  
-    %span
-      =  l.radio_button 'validity_type_id', 3
+  %p{:class => 'normal date'}
+    =  l.radio_button 'validity_type_id', 3
     %label.label Valid From
     = text_field 'package[lifetime_attributes]', '[valid_from]', :class => 'valid_from date-pick dp-applied'
     %label.label until

@@ -877,3 +877,7 @@ p.net1 input[type="text"]{
 .errorExplanation p{padding:10px;}
 
 .msg{color:#A3c02a;padding:10px 10px;font-weight:bold;margin-left:40px;font-size:14px;}
+
+.date input[type="text"]{width:65px !important;float:left;}
+.date input[type="radio"]{float:left;}
+.date label{float:left;min-width:50px;width:auto !important}
