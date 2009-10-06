@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
+    admin.resources :users
   end
   
   map.resources :payments, 
