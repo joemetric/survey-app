@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
     authlogic.disable_perishable_token_maintenance = true
   end
   
-  validates_uniqueness_of :login
   validates_presence_of :name
   has_many :created_surveys, :as => :owner, :class_name => "Surveys"
   
