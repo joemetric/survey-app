@@ -1,0 +1,20 @@
+.popup
+  .popup_d
+    %h3 Create a New Package
+    %span{:id => 'package_errors'}
+    - form_remote_for :package, :url => admin_packages_path, :html => {:method => :post, :id => "package_form"} do |form|
+      %p.normal
+        %label Package Name:
+        %br
+        = form.text_field :name, :value => '', :class => 'ltext3'
+      %p.normal
+        %label Package Code:
+        %br
+        = form.text_field :code, :value => '', :class => 'ltext3'
+      .cls
+      %span{:class => 'btns', :align => 'center'}
+        = submit_tag 'Yes', :class => 'but_da', :id => 'submit_package'
+      %span or
+      %span{:class => 'normal'}
+        = link_to 'Cancel', '#', :class => 'close'
+    .cls

@@ -15,9 +15,9 @@ class Admin::PackagesController < ApplicationController
   def create
     @package = Package.new(params[:package])
     if @package.save
-      ajax_redirect(admin_packages_url)
+      ajax_redirect(admin_packages_url(:package => @package.name))
     else
-      show_error_messages(:package)
+      show_error_messages(:package, {:div => 'package_errors'})
     end
   end
   

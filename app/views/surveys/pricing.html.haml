@@ -1,0 +1,22 @@
+= render :partial => "/layouts/menu"
+
+#div{:class => 'form lar1'}
+  .lnav
+    %h3.heads1
+      Survey Options
+    %p{:class => 'style05 normal'}
+      Our
+      = @packages.flatten.size
+      standard packages are designed to work for whatever size research your company may need. For companies who purchase research frequently, we also offer custom quotes – just contact us and we’ll help find the right solution for you.
+    %table.survey_table{:width => '515', :cellspacing => '25', :cellpadding => '0', :border => '0'}
+      %tbody
+        - @packages.each do |packages|
+          %tr
+            - packages.each do |p|          
+              %td
+                %dl
+                  %dt
+                    = "#{p.name}: Starting at &#36;#{p.base_cost}"
+                  %dd
+                    = package_info(p).flatten.to_sentence
+                = link_to 'Get Started', new_survey_path(:package => p.code), :class => 'buynow_btn'

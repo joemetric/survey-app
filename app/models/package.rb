@@ -23,6 +23,25 @@ class Package < ActiveRecord::Base
   
   after_create :create_lifetime
   
+  def self.valid_packages
+    find(:all, 
+         :joins => ['LEFT JOIN package_lifetimes ON packages.id = package_lifetimes.package_id'],
+         :conditions => ['package_lifetimes.cancelled = FALSE'])
+  end
+  
+  def pricing_info
+    pricings.find(:all, 
+                  :select => ['package_pricings.*, package_question_types.*'],
+                  :joins => ['LEFT JOIN package_question_types ON package_pricings.package_question_type_id = package_question_types.id'],
+                  :order => 'package_question_types.id ASC')
+  end
+  
+  def questions_info
+    returning questions = [] do 
+      pricing_info.each {|i| questions << "#{i.total_questions} #{i.name}(#{i.info})"}
+    end
+  end
+  
   def create_lifetime
     PackageLifetime.create(:package_id => id, :cancelled => false, :validity_type_id => 1)
   end

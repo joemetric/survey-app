@@ -14,6 +14,10 @@ class SurveysController < ResourceController::Base
     object.saved!
   end
   
+  def pricing
+    @packages = Package.valid_packages.in_groups_of(2, false)
+  end
+  
   def activate
     @survey = params[:id].blank? ? Survey.new(params[:survey]) : Survey.find(params[:id])
     @survey.owner = current_user if @survey.owner.blank?

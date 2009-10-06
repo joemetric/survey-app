@@ -6,10 +6,15 @@
     
     = select_tag :package, options_for_select(@packages.collect{|n|n.name}, @package.name), {:onChange => 'loadSelectedPackage();'}
     
-    = link_to_function 'Create New Package', "window.open('#{new_admin_package_path}','popUpWindow','height=220,width=350resizable=no,scrollbars=yes,toolbar=false,menubar=no,location=no,directories=no,status=no');"
+    = link_to 'Create New Package', '#dialog', :name => 'modal'
     
   #package_form
     = render :partial => 'admin/packages/update_form'
 
 = render :partial => 'admin/packages/pricing/date_picker_scripts'
-      
+
+#mask
+
+#boxes
+  #dialog.window
+    = render :partial => 'new'      
