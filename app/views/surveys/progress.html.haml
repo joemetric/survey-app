@@ -1,0 +1,22 @@
+= render :partial => "/layouts/menu"
+.m_content
+  .form
+    %h3.heads Monitor Progress
+    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th{ :width => 170 }
+            %h3 Name
+
+          %th{ :width => 120 }
+            %h3 Published At
+
+          %th{ :width => 120 }
+            %h3 Desired Responses
+
+          %th
+            %h3 Resposes Registered
+            
+      %tbody
+        = render :partial => "/surveys/progress_survey", :collection => @surveys
+.cls

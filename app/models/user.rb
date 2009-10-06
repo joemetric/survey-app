@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   end
   
   validates_presence_of :name
-  has_many :created_surveys, :as => :owner, :class_name => "Surveys"
+  has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
   
   has_one :wallet
   has_many :completions

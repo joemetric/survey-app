@@ -26,6 +26,13 @@ class SurveysController < ResourceController::Base
     end
   end
   
+  def progress
+    @surveys = @current_user.created_surveys.published
+  end
+  
+  def finished
+  end
+  
   show.wants.json { render :json => @object }
   
   private
@@ -33,5 +40,5 @@ class SurveysController < ResourceController::Base
   def collection
     @collection ||= end_of_association_chain.saved.by(@current_user)
   end
-  
+    
 end

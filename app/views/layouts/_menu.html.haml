@@ -2,6 +2,6 @@
   %ul
     %li{ :class => menu_selected?(["surveys_new", "surveys_create"])}= link_to "Create Survey", new_survey_path
     %li{ :class => menu_selected?(["surveys_index"])}= link_to "Saved Surveys", surveys_path
-    %li{ :class => menu_selected?([ ])}= link_to "Monitor Progress", new_survey_path
+    %li{ :class => menu_selected?(["surveys_progress" ])}= link_to "Monitor Progress", progress_surveys_path
     %li{ :class => menu_selected?([ ])}= link_to "Reports", new_survey_path
     %li{ :class => menu_selected?([ ])}= link_to "Account History", new_survey_path

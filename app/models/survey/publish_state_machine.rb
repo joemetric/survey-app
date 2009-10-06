@@ -7,6 +7,7 @@ class Survey < ActiveRecord::Base
   aasm_state :saved
   aasm_state :published
   aasm_state :rejected
+  aasm_state :finished
   
   aasm_event :pending do
     transitions :to => :pending, :from => [ :pending, :saved ]
@@ -22,6 +23,10 @@ class Survey < ActiveRecord::Base
   
   aasm_event :rejected do
     transitions :to => :rejected, :from => [ :pending, :saved ]
+  end
+  
+  aasm_event :finished do
+    transitions :to => :finished, :from => [ :published ]
   end
     
 end
