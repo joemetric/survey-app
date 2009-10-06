@@ -10,12 +10,16 @@ class SurveysController < ResourceController::Base
     object.owner = current_user
   end
   
+  create.after do
+    object.saved!
+  end
+  
   def activate
     @survey = params[:id].blank? ? Survey.new(params[:survey]) : Survey.find(params[:id])
     @survey.owner = current_user if @survey.owner.blank?
     if @survey.valid?
-      @survey.draft = false
       @survey.save
+      @survey.pending!
       redirect_to authorize_payment_url(@survey.id)
     else
       render :action => "new"

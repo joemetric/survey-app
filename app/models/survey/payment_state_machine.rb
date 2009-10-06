@@ -1,7 +1,5 @@
 class Survey < ActiveRecord::Base
   
-  include AASM
-  
   aasm_column :payment_status
   aasm_initial_state :pending
   

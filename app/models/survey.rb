@@ -15,24 +15,22 @@ class Survey < ActiveRecord::Base
  
   named_scope :pending, { :conditions => ["published_at is null"] }
   named_scope :by_time, :order => :created_at 
-  named_scope :saved, { :conditions => { :draft => true }}
+  named_scope :saved, { :conditions => { :publish_status => "saved" }}
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
   
-  concerned_with :state_machine
+  include AASM
+  concerned_with :payment_state_machine
+  concerned_with :publish_state_machine
  
   def published?
     !published_at.blank?
   end
   
   def publish!
+    published!
     update_attribute(:published_at, Time.now)
   end
-  
-  def as_draft!
-    self.draft = true
-    save
-  end
-   
+
   def save_payment_details(params, response)
     pd = Payment.new # pd means payment_details
     pd.survey_id = id
