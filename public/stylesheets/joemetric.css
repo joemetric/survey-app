@@ -330,7 +330,7 @@ hr{color:#000;}
 
 .menu{
 	margin-top:75px;
-	background:url(../images/side_bar.png) repeat-x;
+	background:url(../images/side_bar1.png) repeat-x;
 	text-align:right;
 	font-size:11px;
 	
@@ -678,17 +678,16 @@ demo_dis{border-bottom:solid 1px #cccccc;margin-left:10px;}
 
 /*popup*/	
 
-body.popup{background:none;}
+body.popup{background:#fff;}
 
-.popup h3
-{	color:#0d558a;
-	padding-left:32px;
-	padding-bottom:10px;
-	margin-bottom:20px;
-	letter-spacing:1px;
-	font-size:20px;
-	text-align:center;
-}
+.popup h3 {
+    color:#0D558A;
+    font-size:20px;
+    letter-spacing:1px;
+    margin-bottom:20px;
+    padding-bottom:10px;
+    text-align:center;
+    }
 
 .popup_d{
     margin:auto;
@@ -699,16 +698,18 @@ body.popup{background:none;}
     border:solid 2px #9cb8cd;
     padding-bottom:20px;
     background:url(../images/fr_bg.png) repeat-x;
-}
+    }
 
 .popup select, .select_bg{
 	background-color:#58768b;color:#fff;
-}
+    }
 
-.popup .btns{margin-left:20px;}
-.popup .btns a{font-size:12px}
+.popup .btns{margin-left:40px;}
+.popup .btns a{font-size:12px;}
+.popup h2{color:#55646e;margin-top:0px;}
 
-.popup h2{color:#55646e;margin-top:-20px;}
+#package_errors{text-align:left;}
+
 .sm{margin-left:82px !IMPORTANT;}
 .sm a{width:50px;}
 .lar .large{width:600px !important;}
@@ -878,6 +879,107 @@ p.net1 input[type="text"]{
 
 .msg{color:#A3c02a;padding:10px 10px;font-weight:bold;margin-left:40px;font-size:14px;}
 
+/* Date Selector */
+
 .date input[type="text"]{width:65px !important;float:left;}
 .date input[type="radio"]{float:left;}
 .date label{float:left;min-width:50px;width:auto !important}
+
+
+/*pricing*/
+
+
+.gallery dt a, .gallery dt a:visited {display:block; color:#444;}
+.gallery dd a, .gallery dd a:visited {
+	color:#fff;
+	text-decoration:none;
+	display:block;
+	padding:4px 12px 4px 13px;
+	background: #e7e9ec;
+    }
+
+.gallery dd a:hover {
+	background: #fff;
+	color:#9cf;
+	display:block;
+	padding:4px 12px 4px 13px;
+    }
+    
+.style05 {
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:12px;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:700;
+    line-height:18px;
+    }
+    
+/*Survey table*/
+.survey_table {
+    margin-left:15px;
+    width:650px;
+    }
+
+.survey_table td {
+	background:#e7e9ec;
+	vertical-align:top;
+	width:50%;
+    }
+
+.survey_table dl {
+	width:83%;
+	margin:18px;
+    }
+
+.survey_table dt, .survey_table dd {
+    font-family:Helvetica,Arial,sans-serif;
+    font-weight:700;
+    line-height:18px;
+    margin:0;
+    padding-bottom:2px;
+    padding-top:2px;
+    margin:0px;
+    }
+.survey_table dt {
+    color:#0c273b;
+    }
+    
+a.buynow_btn {
+    background:transparent url(../images/getstarted.png) no-repeat scroll left top;
+    display:block;
+    height:35px;
+    margin-bottom:10px;
+    margin-left:180px;
+    text-indent:-999px;
+    width:96px;
+    }
+
+#mask {
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+    }
+  
+#boxes .window {
+    position:absolute;
+    left:0;
+    top:0;
+    width:440px;
+    height:200px;
+    display:none;
+    z-index:9999;
+    padding:20px;
+    }
+
+#boxes #dialog {
+    width:375px; 
+    min-height:203px;
+    height:auto;
+    padding:10px;
+    background-color:#ffffff;
+    }

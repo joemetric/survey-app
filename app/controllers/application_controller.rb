@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
   
   def show_error_messages(item, options={})
     render :update do |page|
-      page.replace_html 'errors', error_messages_for(item, options)
+      page.replace_html options.empty? ? 'errors' : options[:div], error_messages_for(item)
     end
   end
   
