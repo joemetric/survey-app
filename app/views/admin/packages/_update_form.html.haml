@@ -1,7 +1,8 @@
 - form_remote_for @package, :url => admin_package_url(@package), :html => {:method => :put} do |f|
   %p.normal
     The URL for this package is:
-    %i 'To be Implemented'
+    %i 
+      = "/survey/new?package=#{@package.code}"
 	
   %span#errors
 	
