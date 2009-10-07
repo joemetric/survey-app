@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     survey.resources :questions
     survey.resources :restrictions
   end
+  map.resources :questions, :collection => { :choose_type => :post }
   map.resources :restrictions
   map.resource :user_session
 

@@ -1,14 +1,32 @@
-class QuestionsController < ResourceController::Base
-  belongs_to :survey
+class QuestionsController < ApplicationController
   before_filter :require_user
+  before_filter :parent_object, :except => [ :choose_type, :new ]
   
-  index.wants.json { render :json => parent_object.questions  }
-  show.wants.json { render :json => object }
+  def new
+    @question = Question.new
+  end
+  
+  def choose_type
+    @question = Question.new({ :question_type_id => params[:question_type] })
+  end
+  
+  def index
+    respond_to do |wants|
+      wants.json { render :json => @survey.questions }
+    end
+  end
+  
+  def show
+    @question = @survey.questions.find(params[:id])
+    respond_to do |wants|
+      wants.json { render :json => @question }
+    end
+  end
   
   protected
   
   def parent_object
-    Survey.find(params[:survey_id])
+    @survey = Survey.find(params[:survey_id])
   end
   
 end

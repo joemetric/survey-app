@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
   
   def require_user
     unless current_user 
-      flash[:notice] = "Please log in first and we will send you right along ;)"
       redirect_to new_user_session_url
       return false
     end
@@ -36,7 +35,6 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     unless current_admin
-      flash[:notice] = "Please log in first and we will send you right along ;)"
       redirect_to new_admin_admin_session_url
     end
   end

@@ -1,0 +1,7 @@
+%p.cntrls
+  #questions
+    = render :partial => "/questions/choose_type", :collection => survey.questions
+  %br
+  %p
+    = link_to_function "EXPAND", "", :class => "button button_la"
+    = link_to_remote "ADD ANOTHER QUESTION", :url => new_question_path, :method => :get, :html => { :class => "button button_la" }

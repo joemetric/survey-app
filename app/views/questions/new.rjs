@@ -1,0 +1,1 @@
+page.insert_html :bottom, "questions", :partial => "/questions/choose_type"
