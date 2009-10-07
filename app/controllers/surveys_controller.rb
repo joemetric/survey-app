@@ -14,6 +14,8 @@ class SurveysController < ResourceController::Base
     object.saved!
   end
   
+  create.wants.html { redirect_to surveys_path }
+  
   def pricing
     @packages = Package.valid_packages.in_groups_of(2, false)
   end

@@ -21,14 +21,14 @@
         .top
         .form_content1
           %h4 Questions
-          = render :partial => "/surveys/form_questions", :locals => { :form => form }
+          = render :partial => "/surveys/form_questions", :locals => { :form => form, :survey => @survey }
         .bottom
       
       .rounded
         .top
         .form_content1
           %h4 Survey Distribution
-          = render :partial => "/surveys/form_distribution", :locals => { :form => form }
+          = render :partial => "/surveys/form_distribution", :locals => { :form => form, :survey => @survey }
         .bottom
       
       = form.submit "Save for Later", :class => "button button_la"

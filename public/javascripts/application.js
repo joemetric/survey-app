@@ -10,4 +10,4 @@ function loadSelectedPackage(){
   var index = dropdown.selectedIndex;
   var location_url = '/admin/packages?package=' + dropdown.options[index].value;
   window.location.href = location_url
-  }
+}
