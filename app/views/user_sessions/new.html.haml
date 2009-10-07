@@ -19,6 +19,8 @@
               .form_content
                 %h4 Please Enter Your name and password
                 - form_for :user_session, :url => user_session_path, :id => "login_form" do |form|
+                  = render_notice
+                  = form.error_messages
                   = form.label :login
                   = form.text_field :login
                   = form.label :password
