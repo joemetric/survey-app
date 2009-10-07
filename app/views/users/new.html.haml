@@ -16,7 +16,7 @@
         = form.label :password_confirmation
         = form.password_field :password_confirmation
         %p.btns{ :align => "right" }
-          = form.submit "OK", :class => "button button_bl"
-          &nbsp;&nbsp;&nbsp;&nbsp;
           = link_to "Cancel", login_path, :class => "button button_gr"
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          = form.submit "OK", :class => "button button_bl"
     .bottom

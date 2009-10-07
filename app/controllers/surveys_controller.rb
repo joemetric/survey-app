@@ -1,6 +1,7 @@
 class SurveysController < ResourceController::Base
   
   before_filter :require_user
+  before_filter :get_package, :only => [:new, :create]
     
   new_action.before do
     2.times { object.questions.build }
@@ -43,6 +44,10 @@ class SurveysController < ResourceController::Base
   
   def collection
     @collection ||= end_of_association_chain.saved.by(@current_user)
+  end
+  
+  def get_package
+    @package = Package.find_by_code(params[:package] ?  params[:package] : 'default')
   end
     
 end

@@ -77,5 +77,15 @@ class ApplicationController < ActionController::Base
   def convert_date_format(date)
     date.to_s.gsub('-', '/').split('/').reverse.join('/') unless date.nil?
   end
+  
+end
+
+class String
+  
+  def plural_form(count, add_text=''); 
+     "#{count || 0} " + add_text + ((count == 1 || count == '1') ? self[0..length-2] : self)
+  end
+  
+  def skip_info; gsub(/[(].*[)]/, '') end
 
 end

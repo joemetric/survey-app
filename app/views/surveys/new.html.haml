@@ -35,5 +35,5 @@
         - page << '$("#new_survey").submit();'
       
       = form.submit "Save", :class => "button button_gr"
-      
 
+= render :partial => 'pricing_details', :locals => { :package => @package}

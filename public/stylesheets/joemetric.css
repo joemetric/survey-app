@@ -207,6 +207,14 @@ hr{color:#000;}
 	margin-right:70px;
 }
 
+.btns a.button_gr{
+    float:right;
+    margin:0 0 0 10px;
+    min-width:40px;
+    padding:3px 0;
+    font-size:12px;
+    }
+
 
 .form .button_bl{
 	background:#0c273c;

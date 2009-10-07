@@ -23,6 +23,14 @@ class Package < ActiveRecord::Base
   
   after_create :create_lifetime
   
+  def create_lifetime
+    PackageLifetime.create(:package_id => id, :cancelled => false, :validity_type_id => 1)
+  end
+  
+  def before_validation
+    write_attribute(:code, code.strip)
+  end
+  
   def self.valid_packages
     find(:all, 
          :joins => ['LEFT JOIN package_lifetimes ON packages.id = package_lifetimes.package_id'],
@@ -38,16 +46,8 @@ class Package < ActiveRecord::Base
   
   def questions_info
     returning questions = [] do 
-      pricing_info.each {|i| questions << "#{i.total_questions} #{i.name}(#{i.info})"}
+      pricing_info.each {|i| questions << "#{i.name.plural_form(i.total_questions)}(#{i.info})"}
     end
-  end
-  
-  def create_lifetime
-    PackageLifetime.create(:package_id => id, :cancelled => false, :validity_type_id => 1)
-  end
-  
-  def before_validation
-    write_attribute(:code, code.strip)
   end
   
   def pricings_and_payouts_valid?(params)
@@ -74,4 +74,4 @@ class Package < ActiveRecord::Base
     lifetime.save
   end
   
-end
+end 
