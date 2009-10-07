@@ -1,0 +1,11 @@
+= form.label "Maximum # of respondents"
+%p.corr
+  = form.text_field :responses, :class => "small_l"
+  %p.cls
+
+%br
+  
+= form.label :end_at
+%p.corr
+  = form.date_select :end_at, :order => [ :month, :day, :year ], :start_year => Time.now.year
+  %p.cls

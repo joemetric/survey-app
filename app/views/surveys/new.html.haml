@@ -12,17 +12,11 @@
       .rounded
         .top
         .form_content1
-          %h4 Survey Details
-          = render :partial => "/surveys/form_details", :locals => { :form => form }
+          %h4 Survey Name
+          = form.label :name
+          = form.text_field :name
         .bottom
-      
-      .rounded
-        .top
-        .form_content1
-          %h4 Restrictions
-          = render :partial => "/surveys/form_restrictions", :locals => { :form => form }
-        .bottom
-      
+
       .rounded
         .top
         .form_content1
@@ -30,10 +24,19 @@
           = render :partial => "/surveys/form_questions", :locals => { :form => form }
         .bottom
       
-      = link_to_function "Activate", :class => "button button_bl" do |page|
+      .rounded
+        .top
+        .form_content1
+          %h4 Survey Distribution
+          = render :partial => "/surveys/form_distribution", :locals => { :form => form }
+        .bottom
+      
+      = form.submit "Save for Later", :class => "button button_la"
+      
+      = link_to_function "Continue", :class => "button button_la" do |page|
         - page << '$("#new_survey").attr("action", "/surveys/activate");'
         - page << '$("#new_survey").submit();'
       
-      = form.submit "Save", :class => "button button_gr"
+      
       
 
