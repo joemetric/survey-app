@@ -48,6 +48,7 @@ class UsersController < ApplicationController
   end
 
   update.wants.html { redirect_to "/" }
+  show.wants.json   { render :json => @object }
 
   def show_current
     render :json => current_user.to_json(:include => {:wallet => {:methods => :balance, :include => :wallet_transactions}})
