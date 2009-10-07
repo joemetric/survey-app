@@ -3,6 +3,7 @@
   = render :partial => "/surveys/preview_tabs"
   .form
     - form_for @survey, :url => surveys_path do |form|
+      = hidden_field_tag 'package', params[:package] || @package.code
       %h3.heads Create a Survey
       = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }

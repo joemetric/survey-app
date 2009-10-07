@@ -1,7 +1,7 @@
 class SurveysController < ResourceController::Base
   
   before_filter :require_user
-  before_filter :get_package, :only => [:new, :create]
+  before_filter :get_package, :only => [:new, :create, :activate]
     
   new_action.before do
     2.times { object.questions.build }
