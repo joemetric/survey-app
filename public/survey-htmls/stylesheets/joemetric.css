@@ -88,10 +88,11 @@ body{
 	margin-top:50px;
 	margin-left:120px;
 	border:solid 2px #FFFFFF;
-	width:400px;
 	color:#31434f;
+	width:400px;
 	
 }
+
 
 .form h3.heads, p h3{
 	background:url(../images/formlogo.png) no-repeat left;
@@ -189,6 +190,8 @@ hr{color:#000;}
 	font-size:10px;
 }
 
+.btns a.button_gr{float:right;margin:0px;font-size:12px;min-width:40px !important;}
+
 .form .button_gr{
 	background:#a3bf29;
 	border:solid 1px #72a108;
@@ -199,6 +202,12 @@ hr{color:#000;}
 	margin-top:10px;
 	margin-right:70px;
 }
+
+.but_bl{background:#539AC8;padding:2px 25px;
+	color:#fff;font-weight:bold;border:medium none;float:left;}
+
+.but_da{background:#0c273c;
+	color:#fff;font-weight:bold;border:medium none;float:left;padding:2px 25px;}
 
 
 .form .button_bl{
@@ -258,8 +267,8 @@ hr{color:#000;}
 
 }
 
-.lar .form{width:580px !important;	overflow:auto !important;#fff background:url(../images/fr_bg.png) repeat-x !important;}
-.lar1 .form{width:680px !important;	overflow:auto !important;#fff background:url(../images/fr_bg.png) repeat-x !important;}
+.lar{width:580px !important;	overflow:auto !important;#fff background:url(../images/fr_bg.png) repeat-x !important;}
+.lar1, .m_content lar1{width:680px !important;	overflow:auto !important;#fff background:url(../images/fr_bg.png) repeat-x !important;}
 
 
 .head2{margin-left:40px;border:none !important;margin-bottom:0px !important;font-weight:bold;}
@@ -270,6 +279,7 @@ hr{color:#000;}
 	min-height:580px;
 	background:#fff url(../images/fr_bg.png) repeat-x;
 }
+
 
 .main_content .form{
 	margin-left:0px;
@@ -374,7 +384,7 @@ hr{color:#000;}
 
 .menu1{
 	margin-top:75px;
-	background:url(../images/side_bar.png) repeat-x;
+	background:url(../images/side_bar1.png) repeat-x;
 	text-align:right;
 	font-size:11px;
 
@@ -517,9 +527,10 @@ h4 span{
 }
 
 .sur_details
-{
-	
+{	
 	padding:20px 10px;
+	height:40%;
+	overflow:scroll;
 }
 
 .sur_details p{
@@ -810,7 +821,7 @@ p.net1 input[type="text"]{
 	margin-left:40px;
 }
 .ltext3{width:180px !important;}
-.normal span{float:left;margin-right:20px;}
+.normal span{float:left;margin-right:20px;display:block;}
 .normal a.neg{
 	background:#0c273c;
 	color:#fff;
@@ -829,3 +840,83 @@ p.net1 input[type="text"]{
 .btns{display:block;}
 .center{margin-left:200px;}
 .normal img{float:left;margin-right:10px;}
+
+
+.errorExplanation{border:solid 1px #A3c02a;padding-bottom:10px;margin:10px 0;}
+.errorExplanation h2{text-align:center;background-color:#A3c02a;color:#fff;}
+.errorExplanation ul{list-style:inside square;padding:0 10px;}
+.errorExplanation p{padding:10px;}
+
+.msg{color:#A3c02a;padding:10px 10px;font-weight:bold;margin-left:40px;font-size:14px;}
+
+/*pricing*/
+
+
+.gallery dt a, .gallery dt a:visited {display:block; color:#444;}
+.gallery dd a, .gallery dd a:visited {
+	color:#fff;
+	text-decoration:none;
+	display:block;
+	padding:4px 12px 4px 13px;
+	background: #e7e9ec;
+
+
+}
+.gallery dd a:hover {
+	background: #fff;
+	color:#9cf;
+	display:block;
+	padding:4px 12px 4px 13px;
+}
+/*DOWNLOAD APP Styles*/
+
+.style05 {
+font-family:Helvetica,Arial,sans-serif;
+font-size:12px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:700;
+line-height:18px;
+}
+/*Survey table*/
+.survey_table {
+
+width:559px;
+margin-left:15px;
+}
+
+.survey_table td {
+	background:#e7e9ec;
+	height:157px;
+	vertical-align:top;
+	width:50%;
+}
+
+.survey_table dl {
+	width:83%;
+	margin:18px;
+	height: 99px;
+}
+
+.survey_table dt,.survey_table dd {
+font-weight:700;
+font-family:Helvetica, Arial, sans-serif;
+padding-top:2px;
+padding-bottom:2px;
+line-height:18px;
+}
+
+.survey_table dt {
+color:#0c273b;
+}
+a.buynow_btn {
+	background:transparent url(../images/buy_btn.png) no-repeat scroll left top;
+	display:block;
+	height:30px;
+	margin-bottom:10px;
+	margin-left:150px;
+	text-indent:-999px;
+	width:79px;
+}
