@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: package_question_types
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(255)
+#  info       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PackageQuestionType do

@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: questions
+#
+#  id               :integer(4)      not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  survey_id        :integer(4)
+#  name             :string(255)
+#  question_type_id :integer(4)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Question do

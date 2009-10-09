@@ -2,13 +2,10 @@ class PaymentsController < ApplicationController
   
   before_filter :require_user
   before_filter :initialize_gateway
-
-# NOTE - Amount passed to Paypal will be in CENTS
-# TODO - Amount is considered as 500 CENTS for now which will be later according to the package selected
    
   def authorize
     response = @gateway.setup_purchase( 
-      500,
+      @survey.cost_in_cents,
       :order_id => "Survey:#{@survey.id} - #{@survey.name}",
       :return_url => capture_payment_url(@survey), 
       :cancel_return_url => cancel_payment_url(@survey), 
@@ -26,7 +23,7 @@ class PaymentsController < ApplicationController
     response = @gateway.details_for(params["token"]) 
     if response.success? 
       @survey.paid!
-      response = @gateway.purchase(500, :token => params["token"], :payer_id => params["PayerID"])
+      response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
       @survey.save_payment_details(params, response)
       flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
       redirect_to survey_url(@survey) and return
@@ -39,7 +36,7 @@ class PaymentsController < ApplicationController
     payment_info = @survey.payment
     response = @gateway.details_for(payment_info.token)
     if response.success?
-      response = @gateway.credit(400, 
+      response = @gateway.credit(@survey.cost_in_cents, 
                                  payment_info.transaction_id,
                                  {:note => 'Payment Refund for Survey #ID:#{@survey.id} - #{@survey.name}'})
       flash[:notice] = response.message

@@ -521,6 +521,8 @@ h4 span{
 	font-size:12px;
 	width:200px;
 	background:url(../images/sur_bar.png) repeat-y;
+	height:560px;
+	overflow:hidden;
 }
 
 .survey_details h4{
@@ -536,10 +538,10 @@ h4 span{
 	border-bottom:solid 2px #d8d8d8;
 }
 
-.sur_details
-{
-	
-	padding:20px 10px;
+.sur_details {
+    height:200px;
+    overflow:scroll;
+    padding:20px 10px;
 }
 
 .sur_details p{

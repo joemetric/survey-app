@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: wallets
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Wallet do

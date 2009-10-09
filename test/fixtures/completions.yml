@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: completions
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  survey_id  :integer(4)
+#  paid_on    :date
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:

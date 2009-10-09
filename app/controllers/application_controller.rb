@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :convert_date_format
   filter_parameter_logging :password, :password_confirmation
   
+  ActiveRecord::Base.send(:extend, ConcernedWith)
+  
   private
   
   def current_admin_session
@@ -86,4 +88,16 @@ class String
   
   def skip_info; gsub(/[(].*[)]/, '') end
 
+end
+
+class Array
+  
+#  Gets record of particular Question Type from package_pricings table for selected package of survey
+  
+  Survey::QUESTION_TYPES.each_pair { |key, value|
+    define_method(key.singularize) do
+      select {|p| p.package_question_type_id == value}.compact.first
+    end
+  }
+  
 end

@@ -19,3 +19,17 @@
 #
 # two:
 #   column: value
+
+planA:
+  id: 1
+  name: Plan A
+  code: planA
+  base_cost: 50
+  total_responses: 20  
+  
+planB:
+  id: 2
+  name: Plan B
+  code: planb
+  base_cost: 150
+  total_responses: 20 

@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: package_pricings
+#
+#  id                       :integer(4)      not null, primary key
+#  package_id               :integer(4)
+#  package_question_type_id :integer(4)
+#  total_questions          :integer(4)
+#  standard_price           :float
+#  normal_price             :float
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
 class PackagePricing < ActiveRecord::Base
   
   belongs_to :package
@@ -5,7 +20,7 @@ class PackagePricing < ActiveRecord::Base
   
   validates_presence_of :package_id, :package_question_type_id, :total_questions, :standard_price, :normal_price
   
-  # TODO - Piyush - Check If following validation blocks can be reduced.
+  # TODO - Piyush - Check If following validation blocks can be reduced. define_method can work.
   
   validates_numericality_of :total_questions, 
                             :greater_than => 0,
@@ -22,7 +37,5 @@ class PackagePricing < ActiveRecord::Base
                             :greater_than => 0,
                             :only_integer => false,
                             :if => Proc.new {|n| !n.normal_price.blank?}                            
-                              
-
   
 end

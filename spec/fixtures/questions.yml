@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: questions
+#
+#  id               :integer(4)      not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  survey_id        :integer(4)
+#  name             :string(255)
+#  question_type_id :integer(4)
+#
+
 one:
   id: 1
   survey_id: 1
@@ -39,3 +52,222 @@ question_1:
   name: Do you like this code?
   survey_id: 1
   question_type_id: 1
+  
+
+# Questions for Survey - Comparison of Android Phones and Iphones
+# Contains Additional Standard Questions and Extra Responses
+
+survey_planA_6_q1:
+  id: 8
+  name: Do You think user interface of Iphone is better than Android Phones ?
+  survey_id: 6
+  question_type_id: 1
+
+survey_planA_6_q2:
+  id: 9
+  name: Screen Touch feature of which device is better and why ?
+  survey_id: 6
+  question_type_id: 1
+
+survey_planA_6_q3:
+  id: 10
+  name: Battery life of which device is better ?
+  survey_id: 6
+  question_type_id: 1
+
+survey_planA_6_q4:
+  id: 11
+  name: Sound Quality of which device is better ?
+  survey_id: 6
+  question_type_id: 1
+
+survey_planA_6_q5:
+  id: 12
+  name: Do You want such devices to have in-built GPS system ?
+  survey_id: 6
+  question_type_id: 1
+  
+
+survey_planA_6_q5:
+  id: 12
+  name: Do You want such devices to have in-built GPS system ?
+  survey_id: 6
+  question_type_id: 1
+  
+# Questions for Survey - Nokia Phones
+# Everything Included
+
+survey_planA_7_q1:
+  id: 13
+  name: Survey_7_Standard_Question_1
+  survey_id: 7
+  question_type_id: 1
+
+survey_planA_7_q2:
+  id: 14
+  name: Survey_7_Standard_Question_2
+  survey_id: 7
+  question_type_id: 1
+
+survey_planA_7_q3:
+  id: 15
+  name: Survey_7_Standard_Question_3
+  survey_id: 7
+  question_type_id: 1
+  
+survey_planA_7_q4:
+  id: 16
+  name: Survey_7_Standard_Question_4
+  survey_id: 7
+  question_type_id: 1
+  
+survey_planA_7_q5:
+  id: 17
+  name: Survey_7_Premium_Question_1
+  survey_id: 7
+  question_type_id: 3
+  
+survey_planA_7_q6:
+  id: 18
+  name: Survey_7_Premium_Question_2
+  survey_id: 7
+  question_type_id: 3
+  
+survey_planA_7_q7:
+  id: 19
+  name: Survey_7_Premium_Question_3
+  survey_id: 7
+  question_type_id: 3
+
+survey_planA_7_q8:
+  id: 20
+  name: Survey_7_Demographic_Question_1
+  survey_id: 7
+  question_type_id: 4
+
+survey_planA_7_q9:
+  id: 21
+  name: Survey_7_Demographic_Question_2
+  survey_id: 7
+  question_type_id: 4 
+
+# Questions for Survey - LCD Televisions
+# Contains Extra Standard Questions
+
+survey_planA_8_q1:
+  id: 22
+  name: Survey_8_Standard_Question_1
+  survey_id: 8
+  question_type_id: 1
+
+survey_planA_8_q2:
+  id: 23
+  name: Survey_8_Standard_Question_2
+  survey_id: 8
+  question_type_id: 1
+
+survey_planA_8_q3:
+  id: 24
+  name: Survey_8_Standard_Question_3
+  survey_id: 8
+  question_type_id: 1
+  
+survey_planA_8_q4:
+  id: 25
+  name: Survey_8_Standard_Question_4
+  survey_id: 8
+  question_type_id: 1
+  
+survey_planA_8_q5:
+  id: 26
+  name: Survey_8_Standard_Question_5
+  survey_id: 8
+  question_type_id: 1  
+  
+survey_planA_8_q6:
+  id: 27
+  name: Survey_8_Premium_Question_1
+  survey_id: 8
+  question_type_id: 3
+  
+survey_planA_8_q7:
+  id: 28
+  name: Survey_8_Premium_Question_2
+  survey_id: 8
+  question_type_id: 3
+  
+survey_planA_8_q8:
+  id: 29
+  name: Survey_8_Premium_Question_3
+  survey_id: 8
+  question_type_id: 3
+
+survey_planA_8_q9:
+  id: 30
+  name: Survey_8_Demographic_Question_1
+  survey_id: 8
+  question_type_id: 4
+
+survey_planA_8_q10:
+  id: 31
+  name: Survey_8_Demographic_Question_2
+  survey_id: 8
+  question_type_id: 4    
+  
+  
+# Questions for Survey - Plasma Televisions
+# Contains Extra Responses
+
+survey_planA_9_q1:
+  id: 32
+  name: Survey_8_Standard_Question_1
+  survey_id: 9
+  question_type_id: 1
+
+survey_planA_9_q2:
+  id: 33
+  name: Survey_8_Standard_Question_2
+  survey_id: 9
+  question_type_id: 1
+
+survey_planA_9_q3:
+  id: 34
+  name: Survey_8_Standard_Question_3
+  survey_id: 9
+  question_type_id: 1
+  
+survey_planA_9_q4:
+  id: 35
+  name: Survey_8_Standard_Question_4
+  survey_id: 9
+  question_type_id: 1
+  
+survey_planA_9_q5:
+  id: 36
+  name: Survey_8_Premium_Question_1
+  survey_id: 9
+  question_type_id: 2
+  
+survey_planA_9_q6:
+  id: 37
+  name: Survey_8_Premium_Question_2
+  survey_id: 9
+  question_type_id: 2
+  
+survey_planA_9_q7:
+  id: 38
+  name: Survey_8_Premium_Question_3
+  survey_id: 9
+  question_type_id: 2
+
+survey_planA_9_q8:
+  id: 39
+  name: Survey_8_Demographic_Question_1
+  survey_id: 9
+  question_type_id: 3
+
+survey_planA_9_q9:
+  id: 40
+  name: Survey_8_Demographic_Question_2
+  survey_id: 9
+  question_type_id: 3 

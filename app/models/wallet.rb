@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: wallets
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Wallet < ActiveRecord::Base
   belongs_to :user 
   has_many :wallet_transactions

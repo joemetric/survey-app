@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: packages
+#
+#  id              :integer(4)      not null, primary key
+#  name            :string(255)
+#  code            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  base_cost       :float
+#  total_responses :integer(4)
+#
+
 class Package < ActiveRecord::Base
   
   validates_presence_of :name, :code
@@ -18,6 +32,7 @@ class Package < ActiveRecord::Base
   has_many :payouts
   has_many :pricings, :class_name => 'PackagePricing'
   has_many :package_question_types, :through => :pricings
+  has_many :surveys
   
   accepts_nested_attributes_for :lifetime
   

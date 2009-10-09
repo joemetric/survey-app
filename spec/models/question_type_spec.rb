@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: question_types
+#
+#  id                       :integer(4)      not null, primary key
+#  name                     :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  field_type               :string(255)
+#  package_question_type_id :integer(4)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe QuestionType do

@@ -1,4 +1,38 @@
+# == Schema Information
+# Schema version: 20091008131247
+#
+# Table name: question_types
+#
+#  id                       :integer(4)      not null, primary key
+#  name                     :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  field_type               :string(255)
+#  package_question_type_id :integer(4)
+#
+
 question_type_1:
   id: 1
+  name: Short Text Response
+  field_type: text_area
+  package_question_type_id: 1
+
+question_type_2:
+  id: 2
   name: Multiple Choice
+  field_type: check_box
+  package_question_type_id: 1
+
+question_type_3:
+  id: 3
+  name: Photo Upload
+  field_type: file_field
+  package_question_type_id: 2    
+
+question_type_4:
+  id: 4
+  name: Drop Down
+  field_type: select
+  package_question_type_id: 3  
+  
   
