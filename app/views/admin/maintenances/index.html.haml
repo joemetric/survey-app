@@ -1,0 +1,20 @@
+.m_content
+  .form
+    %h3.heads System Maintenances
+
+    %h4 Schedule
+    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th
+            %h3 Start
+          %th 
+            %h3 Duration
+          %th
+            %h3 End
+          %th{ :width => 200 } 
+            %h3 Actions
+      %tbody
+        = render :partial => "/admin/maintenances/maintenance", :collection => @maintenances
+    
+    = link_to "New Maintenance Schedule", new_admin_maintenance_path, :class => "button button_gr"

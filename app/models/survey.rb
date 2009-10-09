@@ -41,7 +41,7 @@ class Survey < ActiveRecord::Base
   named_scope :by_time, :order => :created_at 
   named_scope :saved, { :conditions => { :publish_status => "saved" }}
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
-  named_scope :in_progress, { :conditions => { :publish_status => "published" }}
+  named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   

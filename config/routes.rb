@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :maintenances
+
 
   map.resources :pictures
   map.resources :completions
@@ -21,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
     admin.resources :users
+    admin.resources :maintenances
   end
   
   map.resources :payments, 

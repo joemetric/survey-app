@@ -1,5 +1,5 @@
 %tr
   %td= progress_survey.name
-  %td= progress_survey.published_at.strftime("%b/%d/%Y")
-  %td= progress_survey.responses
-  %td= "0"
+  %td= progress_survey.published? ? progress_survey.published_at.strftime("%b/%d/%Y") : "Not Yet"
+  %td= "0 of #{progress_survey.responses}"
+  %td= progress_survey.publish_status

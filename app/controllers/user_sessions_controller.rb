@@ -1,11 +1,14 @@
 class UserSessionsController < ApplicationController
   resource_controller
+  
   layout false
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  
+  skip_before_filter :verify_authenticity_token, :only => [ :create ]
 
   index.wants.html { redirect_to :action => "new" }
+  
   show.wants.html { redirect_to :action => "new" }
-
+  
   create do
     flash "Successfully logged!"
     wants.html { redirect_to "/" }

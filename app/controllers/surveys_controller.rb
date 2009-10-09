@@ -4,6 +4,7 @@ class SurveysController < ResourceController::Base
   before_filter :get_package, :only => [:new, :create, :activate]
     
   new_action.before do
+    object.end_at = Time.now + 7.days
     2.times { object.questions.build }
   end
   
@@ -34,13 +35,24 @@ class SurveysController < ResourceController::Base
   end
   
   def progress
-    @surveys = @current_user.created_surveys.published
+    @surveys = @current_user.created_surveys.in_progress
   end
   
   def finished
   end
   
   show.wants.json { render :json => @object }
+  
+  def index
+    respond_to do |format|
+      format.html do
+        @surveys = Survey.saved.by(@current_user)
+      end
+      format.json do
+        @surveys = Survey.all
+      end
+    end
+  end
   
   private
   
