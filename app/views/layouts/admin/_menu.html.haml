@@ -4,4 +4,5 @@
     %li{:class => menu_selected?(["admin/users_index"])}= link_to 'User Administration', admin_users_path
     %li{:class => menu_selected?(["admin/surveys_index","admin/surveys_show"])}= link_to 'Survey Administration', admin_surveys_path
     %li{:class => current_tab_is?('Pricing Administration')}= link_to 'Pricing Administration', admin_packages_path
-    %li{:class => "item"}= link_to 'Administration', '#'
+    %li{:class => menu_selected?(["admin/maintenance_index", "admin/maintenance_new", "admin/maintenance_edit"])}
+      = link_to "Client Administration", admin_maintenances_path

@@ -1,0 +1,11 @@
+.m_content
+  .form
+    %h3.heads System Maintenances
+    - form_for @maintenance, :url => admin_maintenance_path(@maintenance), :method => :put do |form|
+        
+      = render :partial => "form", :locals => { :form => form }
+      
+      %p
+        = form.submit "Update", :class => "buttom button_gr"
+        = link_to "Remove", admin_maintenance_path(@maintenance), :method => :delete, :class => "button button_bl"
+        = link_to "Cancel", admin_maintenances_path, :class => "button button_bl"

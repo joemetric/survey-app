@@ -1,0 +1,19 @@
+.m_content
+  .form
+    %h3.heads System Maintenances
+    - form_for :maintenance, :url => admin_maintenances_path do |form|
+      
+      = form.error_messages
+      
+      %p
+        = form.label :start
+        = form.datetime_select :start
+      
+      %p
+        = form.label :duration
+        = form.text_field :duration
+        minutes
+      
+      %p
+        = form.submit "Schedule", :class => "buttom button_gr"
+        = link_to "Cancel", admin_maintenances_path, :class => "button button_bl"
