@@ -4,6 +4,7 @@ class SurveysController < ResourceController::Base
   before_filter :get_package, :only => [:new, :create, :activate]
     
   new_action.before do
+    object.end_at = Time.now + 7.days
     2.times { object.questions.build }
   end
   
