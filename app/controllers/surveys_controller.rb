@@ -34,13 +34,24 @@ class SurveysController < ResourceController::Base
   end
   
   def progress
-    @surveys = @current_user.created_surveys.published
+    @surveys = @current_user.created_surveys.in_progress
   end
   
   def finished
   end
   
   show.wants.json { render :json => @object }
+  
+  def index
+    respond_to do |format|
+      format.html do
+        @surveys = Survey.saved.by(@current_user)
+      end
+      format.json do
+        @surveys = Survey.all
+      end
+    end
+  end
   
   private
   
