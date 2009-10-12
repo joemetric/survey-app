@@ -21,7 +21,7 @@
 class Survey < ActiveRecord::Base
  
   include AASM
-  concerned_with :payment_state_machine, :publish_state_machine, :cost_calculation
+  concerned_with :publish_state_machine, :cost_calculation
   
   belongs_to :owner, :class_name => "User"
   
@@ -44,6 +44,7 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   
+  after_create :create_payment
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   
   def published?
@@ -61,14 +62,16 @@ class Survey < ActiveRecord::Base
   end
 
   def save_payment_details(params, response)
-    pd = Payment.new # pd refers to payment_details
-    pd.survey_id = id
-    pd.owner_id = owner_id
+    pd = payment # pd refers to payment_details
     pd.token = params['token']
     pd.payer_id = params['PayerID']
     pd.transaction_id = response.params['transaction_id']
     pd.amount = chargeable_amount
     pd.save
+  end
+  
+  def create_payment
+    Payment.create(:survey_id => id, :owner_id => owner_id)
   end
   
   private
