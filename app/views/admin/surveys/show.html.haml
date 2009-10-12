@@ -15,7 +15,7 @@
     #rejection{ :style => "display:none" }
     
     #actions
-      = link_to "Approve", publish_admin_survey_path(@survey), :class => "button button_gr" 
+      = link_to "Approve", publish_admin_survey_path(@survey), :method => :put, :class => "button button_gr" 
       = link_to_function "Reject", :class => "button button_bl" do |page|
         - page.insert_html :bottom, "rejection", :partial => "/admin/surveys/rejection", :locals => { :survey => @survey }
         - page["rejection"].toggle
