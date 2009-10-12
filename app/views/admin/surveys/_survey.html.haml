@@ -1,5 +1,5 @@
 %tr
   %td= link_to survey.name, admin_survey_path(survey)
-  %td= survey.updated_at.strftime("%b/%m/%Y")
+  %td= survey.updated_at.strftime("%b/%d/%Y")
   %td= survey.owner.login
   %td= link_to "Approve", publish_admin_survey_path(survey), :method => :put
