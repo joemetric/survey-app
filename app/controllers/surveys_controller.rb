@@ -49,7 +49,8 @@ class SurveysController < ResourceController::Base
         @surveys = Survey.saved.by(@current_user)
       end
       format.json do
-        @surveys = Survey.all
+        @surveys = Survey.published
+        render :json => @surveys
       end
     end
   end
