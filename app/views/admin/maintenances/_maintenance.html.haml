@@ -1,7 +1,7 @@
 %tr
-  %td= maintenance.start.strftime("%b/%m/%Y %H:%M")
+  %td= maintenance.start.strftime("%b/%d/%Y %H:%M")
   %td= maintenance.duration
-  %td= ( maintenance.start + maintenance.duration.minutes ).strftime("%b/%m/%Y %H:%M")
+  %td= ( maintenance.start + maintenance.duration.minutes ).strftime("%b/%d/%Y %H:%M")
   %td
     = link_to "Edit", edit_admin_maintenance_path(maintenance)
     = link_to "Remove", admin_maintenance_path(maintenance), :method => :delete, :confirm => "Are you sure?"
