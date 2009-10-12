@@ -29,6 +29,7 @@ class SurveysController < ResourceController::Base
       @survey.save
       @survey.pending!
       #redirect_to authorize_payment_url(@survey.id)
+      redirect_to progress_surveys_path
     else
       render :action => "new"
     end
