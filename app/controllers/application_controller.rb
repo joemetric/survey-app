@@ -101,3 +101,7 @@ class Array
   }
   
 end
+
+class NilClass  
+  def to_date;  end 
+end

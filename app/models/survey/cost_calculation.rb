@@ -45,14 +45,16 @@ class Survey < ActiveRecord::Base
   def cost_in_cents; chargeable_amount * 100 end
   
   def total_cost
-    total_payable = 0.0
-    total_payable += package.base_cost
-    total_payable += standard_questions_cost
-    total_payable += premium_questions_cost
-    total_payable += standard_demographic_cost
-    total_payable += premium_demographic_cost
-    connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};");
-    return total_payable
+    if package
+      total_payable = 0.0
+      total_payable += package.base_cost
+      total_payable += standard_questions_cost
+      total_payable += premium_questions_cost
+      total_payable += standard_demographic_cost
+      total_payable += premium_demographic_cost
+      connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};");
+      return total_payable
+    end
   end
    
 end

@@ -13,6 +13,8 @@ Rails::Initializer.run do |config|
   config.gem "webrat"
   config.gem "cucumber", :source => "http://gems.github.com"
   config.gem "activemerchant", :lib => "active_merchant"
+  config.gem "will_paginate"
+
   
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.

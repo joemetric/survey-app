@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091008131247
+# Schema version: 20091012054719
 #
 # Table name: payments
 #
@@ -11,10 +11,12 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  transaction_id :string(255)
+#  owner_id       :integer(4)
 #
 
 class Payment < ActiveRecord::Base
   
   belongs_to :survey
+  belongs_to :user, :foreign_key => "owner_id"
   
 end

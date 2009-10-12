@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091012054719
+#
+# Table name: maintenances
+#
+#  id         :integer(4)      not null, primary key
+#  start      :datetime
+#  duration   :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#  passed     :boolean(1)
+#
+
 class Maintenance < ActiveRecord::Base
   validates_presence_of :start, :duration
   validates_numericality_of :duration

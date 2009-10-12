@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091008131247
+# Schema version: 20091012054719
 #
 # Table name: surveys
 #
@@ -60,8 +60,9 @@ class Survey < ActiveRecord::Base
   end
 
   def save_payment_details(params, response)
-    pd = Payment.new # pd means payment_details
+    pd = Payment.new # pd refers to payment_details
     pd.survey_id = id
+    pd.owner_id = owner_id
     pd.token = params['token']
     pd.payer_id = params['PayerID']
     pd.transaction_id = response.params['transaction_id']

@@ -28,7 +28,11 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :payments, 
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
-
+  
+  map.with_options :controller => 'payments' do |p|
+    p.account_history 'account-history', :action => 'index'
+  end
+  
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
   map.login '/login', :controller => 'user_sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'

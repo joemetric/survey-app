@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091008131247
+# Schema version: 20091012054719
 #
 # Table name: wallet_transactions
 #

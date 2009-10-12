@@ -974,7 +974,7 @@ a.buynow_btn {
     background-color:#000;
     display:none;
     }
-  
+   
 #boxes .window {
     position:absolute;
     left:0;
@@ -993,3 +993,40 @@ a.buynow_btn {
     padding:10px;
     background-color:#ffffff;
     }
+
+/* Pagination Starts */
+
+.pagination {
+    padding: 3px;
+    margin: 3px auto;
+		text-align:center;
+		font-size:11px;
+  }
+  .pagination a {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #0C273C;
+    text-decoration: none;
+    color: #0C273C;
+		font-weight:100;
+  }
+  .pagination a:hover, .pagination a:active {
+    border: 1px solid #A3BF29;
+    color: #000;
+  }
+  .pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid;
+    background-color: #0C273C;
+    color: #fff;
+  }
+  .pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #C6D5E1;
+    color: #ddd;
+  }
+
+/* Pagination Ends */
+    

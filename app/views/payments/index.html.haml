@@ -1,0 +1,41 @@
+= render :partial => "/layouts/menu"
+
+.m_content
+  .form
+    %h3.heads Account History
+    %table.sortable{:cellpadding => '0', :cellspacing => '0', :border => '0', :id => 'table'}
+      %thead
+        %tr
+          %th{:width => 100}
+            %h3 Transaction ID
+          %th.nosort
+            %h3 Survey Name
+          %th{:width => 85}
+            %h3 Number of Questions
+          %th{:width => 78}
+            %h3 Date Created
+          %th{:width => 76}
+            %h3 Date Live
+          %th{:width => 86}
+            %h3 Date Completed
+          %th{:width => 72}
+            %h3 Amount
+        %tbody
+          - @payments.each do |payment|
+            %tr
+              %td 
+                = payment.transaction_id
+              %td 
+                = payment.survey.name
+              %td 
+                = payment.survey.questions.size
+              %td 
+                = payment.survey.created_at.to_date
+              %td 
+                = payment.survey.published_at.to_date
+              %td 
+                = payment.survey.end_at
+              %td 
+                = payment.survey.chargeable_amount
+    = will_paginate @payments, :prev_label => 'Previous', :next_label => 'Next'            
+.cls

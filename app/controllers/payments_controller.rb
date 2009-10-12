@@ -1,7 +1,11 @@
 class PaymentsController < ApplicationController
   
   before_filter :require_user
-  before_filter :initialize_gateway
+  before_filter :initialize_gateway, :except => :index
+  
+  def index
+    @payments = current_user.payments.paginate(:all, :page => params[:page], :per_page => 20)
+  end
    
   def authorize
     response = @gateway.setup_purchase( 
@@ -15,7 +19,7 @@ class PaymentsController < ApplicationController
       @survey.authorized!
       redirect_to @gateway.redirect_url_for(response.params["token"])
     else 
-     error_in_payment(@survey) 
+     error_in_payment(response, @survey) 
     end
   end    
 
@@ -28,7 +32,7 @@ class PaymentsController < ApplicationController
       flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
       redirect_to survey_url(@survey) and return
     else
-      error_in_payment(@survey) 
+      error_in_payment(response, @survey) 
     end 
   end
   
@@ -42,7 +46,7 @@ class PaymentsController < ApplicationController
       flash[:notice] = response.message
       redirect_to survey_url(@survey) and return
     else
-      error_in_payment(@survey) 
+      error_in_payment(response, @survey) 
     end
   end
   
@@ -56,16 +60,16 @@ private
   
   def initialize_gateway
     @survey = Survey.find(params[:id])
-    if RAILS_ENV == 'development'
-      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
-      redirect_to survey_url(@survey) and return
-    end
+#    if RAILS_ENV == 'development'
+#      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
+#      redirect_to survey_url(@survey) and return
+#    end
     @gateway = GATEWAY
   end
   
-  def error_in_payment(survey)
+  def error_in_payment(response, survey)
     survey.declined!
-    flash[:error] = 'Payment Process could not be completed due to some unknown reasons.'
+    flash[:error] = response.message
     redirect_to survey_url(survey)
   end
   
