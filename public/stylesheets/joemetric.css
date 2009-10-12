@@ -174,7 +174,7 @@ hr{color:#000;}
 .form input[type="text"]
 {
 	width:254px;
-	height:14px;
+	height:15px;
 	font-size:12px;
 	padding:5px 0 5px 5px;
 }
@@ -835,7 +835,7 @@ p.net1 input[type="text"]{
 .normal b{font-size:14px;}
 .normal label{float:left;text-align:right;width:112px;font-size:12px;}
 .normal select{float:left;margin:0 5px;}
-.normal input[type="text"]{float:left;margin:0 5px;width:30px;padding:3px !important}
+.normal input[type="text"]{float:left;margin:0 5px;width:30px;padding:2px !important}
 .normal .label2{text-align:right;width:auto;}
 .normal .label3{text-align:left;width:450px;margin-left:40px;}
 .normal a{color:#0000FF;font-weight:normal;font-weight:12px;text-decoration:underline;margin-left:10px;}

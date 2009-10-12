@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
   before_filter :initialize_gateway, :except => :index
   
   def index
-    @payments = current_user.payments.paginate(:all, :page => params[:page], :per_page => 20)
+    @payments = current_user.payments.paginate(:all, :page => params[:page], :per_page => 10)
   end
    
   def authorize
@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
       :description => "Payment for Survey - #{@survey.name} (http://joemetric.com)"
     ) 
     if response.success? 
-      @survey.authorized!
+      @survey.payment.authorized!
       redirect_to @gateway.redirect_url_for(response.params["token"])
     else 
      error_in_payment(response, @survey) 
@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
   def capture
     response = @gateway.details_for(params["token"]) 
     if response.success? 
-      @survey.paid!
+      @survey.payment.paid!
       response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
       @survey.save_payment_details(params, response)
       flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
@@ -51,7 +51,7 @@ class PaymentsController < ApplicationController
   end
   
   def cancel
-    @survey.cancelled!
+    @survey.payment.cancelled!
     flash[:notice] = "You have cancelled to make the payment for Survey: #{survey.name}"
     redirect_to survey_url(@survey)
   end
@@ -60,15 +60,15 @@ private
   
   def initialize_gateway
     @survey = Survey.find(params[:id])
-#    if RAILS_ENV == 'development'
-#      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
-#      redirect_to survey_url(@survey) and return
-#    end
+    if RAILS_ENV == 'development'
+      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
+      redirect_to survey_url(@survey) and return
+    end
     @gateway = GATEWAY
   end
   
   def error_in_payment(response, survey)
-    survey.declined!
+    survey.payment.declined!
     flash[:error] = response.message
     redirect_to survey_url(survey)
   end

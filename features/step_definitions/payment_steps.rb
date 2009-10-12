@@ -30,10 +30,10 @@ end
 Then /^survey payment status should be (.*)$/i do |payment_status|
   load_survey
   case payment_status
-    when 'pending'; @survey.pending! 
-    when 'authorized'; @survey.authorized!
-    when 'paid'; @survey.paid!
-    when 'cancelled'; @survey.cancelled!  
+    when 'pending'; @survey.payment.pending! 
+    when 'authorized'; @survey.payment.authorized!
+    when 'paid'; @survey.payment.paid!
+    when 'cancelled'; @survey.payment.cancelled!  
   end
   survey_payment_status(payment_status)
 end
