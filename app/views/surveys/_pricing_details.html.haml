@@ -9,7 +9,7 @@
     responses
     %br
     %b
-      - package.questions_info.each do |q|
+      - package.try(:questions_info).each do |q|
         %i 
           = q.skip_info
           %br
@@ -18,7 +18,7 @@
     = "&#36;#{package.base_cost}"
   .sur_details
     - total_price = 0
-    - package.pricing_info.each do |q|
+    - package.try(:pricing_info).each do |q|
       %p
         %b
           %i 
