@@ -1,13 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.resources :maintenances
-
-
   map.resources :pictures
   map.resources :completions
   map.resources :answers
   map.resources :surveys, :collection => { :pricing => :get, :activate => :post, :progress => :get } do |survey|
     survey.resources :questions
     survey.resources :restrictions
+    survey.resources :replies
   end
   map.resources :questions, :collection => { :choose_type => :post }
   map.resources :restrictions
