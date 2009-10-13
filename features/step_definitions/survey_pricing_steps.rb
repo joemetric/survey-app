@@ -1,4 +1,5 @@
-#rake features FEATURE=features/survey_pricings.feature
+# rake features FEATURE=features/survey_pricings.feature
+# survey records are fetched from surveys.yml && questions.yml
 
 Given /I am logged in as (.*)/i do |login|
   User.exists?(:login => login).should equal true

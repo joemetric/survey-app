@@ -15,9 +15,43 @@
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+  
+payment_for_survey_1: # Everything Included
+  id: 1
+  amount: 340
+  survey_id: 7
+  payer_id: YP8JHQBKXAXEW
+  token: EC-1XS04647AT2672516
+  transaction_id: 7U483785Y7248991U
+  owner_id: 2
+  status: paid
+  
+payment_for_survey_2: # Contains Extra Standard Questions
+  id: 2
+  amount: 370
+  survey_id: 8
+  payer_id: YP8JHQBKXAXEW
+  token: EC-1XS04647AT2672516
+  transaction_id: 6JX391520V805474G
+  owner_id: 2
+  status: paid
+  
+payment_for_survey_3:  # Contains Additional Standard Questions and Extra Responses
+  id: 3
+  amount: 235
+  survey_id: 6
+  payer_id: YP8JHQBKXAXEW
+  token: EC-24S44102S57614005
+  transaction_id: 39G85313J49898409
+  owner_id: 2
+  status: paid
+  
+payment_for_survey_4: # Contains Extra Responses
+  id: 4 	
+  amount: 235
+  survey_id: 9
+  payer_id: YP8JHQBKXAXEW
+  token: EC-9B2248941V526003F
+  transaction_id: 0FP85519WK958345V
+  owner_id: 2
+  status: paid         

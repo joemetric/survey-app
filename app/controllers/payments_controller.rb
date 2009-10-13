@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
   before_filter :initialize_gateway, :except => :index
   
   def index
-    @payments = current_user.payments.paginate(:all, :page => params[:page], :per_page => 10)
+    @payments = current_user.payments.complete.paginate(:all, :page => params[:page], :per_page => 10)
   end
    
   def authorize

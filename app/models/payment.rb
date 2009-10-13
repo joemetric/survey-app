@@ -22,4 +22,6 @@ class Payment < ActiveRecord::Base
   include AASM
   concerned_with :payment_state_machine
   
+  named_scope :complete, :conditions => ['status = ?', 'paid']
+  
 end

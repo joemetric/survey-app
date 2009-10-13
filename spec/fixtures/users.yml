@@ -34,3 +34,12 @@ quentin:
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
   created_at:                <%= 5.days.ago.to_s :db  %>
+
+james:
+  id: 3
+  login:                     james
+  name:                      James Anderson
+  email:                     james@anderson.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>  
