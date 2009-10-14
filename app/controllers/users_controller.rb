@@ -46,8 +46,20 @@ class UsersController < ApplicationController
       redirect_to new_user_session_path
     end
   end
+  
+  update.before do
+    check_ownership
+  end
 
-  update.wants.html { redirect_to "/" }
+  update do
+    wants.html { redirect_to "/" }
+    wants.json { render :json => object, :header => 202 }
+    failure do
+      wants.html { render :action => "edit" }
+      wants.json { render :json => object.errors.to_json, :header => 304 }
+    end
+  end
+  
   show.wants.json   { render :json => @object }
 
   def show_current
@@ -62,6 +74,10 @@ class UsersController < ApplicationController
 
   def sign_in_without_password(object)
     UserSession.create(object)
+  end
+  
+  def check_ownership
+    object = @current_user
   end
 
 end

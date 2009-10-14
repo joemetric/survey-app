@@ -30,6 +30,7 @@ class Survey < ActiveRecord::Base
   has_many :completions
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
+  has_many :replies
   belongs_to :package
   
   validates_presence_of :name, :owner_id, :package_id

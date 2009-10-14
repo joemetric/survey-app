@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   has_many :surveys, :through => :completions
   has_many :answers
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"
+  has_many :replies
 
   after_create :setup_user
 
