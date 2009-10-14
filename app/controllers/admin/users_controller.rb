@@ -18,6 +18,7 @@ class Admin::UsersController < ApplicationController
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password_confirmation]
       if @user.save
+        @user.deliver_new_password_email(params[:user][:password])
         redirect_to admin_users_path
       else
         render :action => 'reset_password'

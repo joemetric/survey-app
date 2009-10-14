@@ -89,6 +89,10 @@ class User < ActiveRecord::Base
     update_attribute(:type, type_name)
   end
   
+  def deliver_new_password_email(new_password)
+    UserMailer.deliver_new_password_email(self, new_password)
+  end
+  
   private
   
   def setup_user
