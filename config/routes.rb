@@ -22,7 +22,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
-    admin.resources :users
+    admin.resources :users,
+      :member => {:reset_password => :any, :change_type => :post}
     admin.resources :maintenances
   end
   
@@ -30,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
   
   map.with_options :controller => 'payments' do |p|
-    p.account_history 'account-history', :action => 'index'
+    p.account_history '/account-history', :action => 'index'
   end
   
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'

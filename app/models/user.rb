@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 
   validate :password_change_security
   
+  TYPES = ['Admin', 'User', 'Reviewer']
+  
   def age
     @age ||= birthdate.extend(Age)
   end
@@ -77,6 +79,14 @@ class User < ActiveRecord::Base
   def has_permission_for?(args)
     requested_item = args[:class].constantize.find(args[:object_id])
     requested_item.send(args[:attribute_id]).eql?(args[:current_user].id) ? true : false
+  end
+  
+  def is_admin?
+    type == 'Admin'
+  end
+  
+  def change_type(type_name)
+    update_attribute(:type, type_name)
   end
   
   private
