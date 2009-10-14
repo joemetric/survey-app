@@ -2,6 +2,9 @@ class PaymentsController < ApplicationController
   
   before_filter :require_user
   before_filter :initialize_gateway, :except => :index
+
+# TODO for Piyush - Refactor - Move Paypal related methods in separate class file/module and 
+# only use their return value in the methods defined below
   
   def index
     @payments = current_user.payments.complete.paginate(:all, :page => params[:page], :per_page => 10)

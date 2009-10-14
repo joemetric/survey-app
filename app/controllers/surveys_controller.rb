@@ -28,8 +28,11 @@ class SurveysController < ResourceController::Base
     if @survey.valid?
       @survey.save
       @survey.pending!
-      #redirect_to authorize_payment_url(@survey.id)
-      redirect_to progress_surveys_path
+      if RAILS_ENV == 'development' 
+        redirect_to progress_surveys_path
+      else
+        redirect_to authorize_payment_url(@survey.id)
+      end
     else
       render :action => "new"
     end

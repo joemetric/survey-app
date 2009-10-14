@@ -9,30 +9,30 @@
     responses
     %br
     %b
-      //- package.try(:questions_info).each do |q|
-      //  %i 
-      //    = q.skip_info
-      //    %br
+      - package.try(:questions_info).each do |q|
+        %i 
+          = q.skip_info
+          %br
     %br
     Starting at
     = "&#36;#{package.base_cost}"
   .sur_details
     - total_price = 0
-    //- package.try(:pricing_info).each do |q|
-    //  %p
-    //    %b
-    //      %i 
-    //        = q.name.plural_form(1, 'Additional ')
-    //    %br
-    //    = package.total_responses
-    //    responses
-    //    %p 
-    //      = "&#36;#{q.normal_price}"
-    //      per response
-    //    %hr{:size => 1, :width => 105, :align => 'left'}
-    //    %strong 
-    //      - total_price += q.normal_price * package.total_responses
-    //      = "&#36;#{q.normal_price * package.total_responses}"
+    - package.try(:pricing_info).each do |q|
+      %p
+        %b
+          %i 
+            = q.name.plural_form(1, 'Additional ')
+        %br
+        = package.total_responses
+        responses
+        %p 
+          = "&#36;#{q.normal_price}"
+          per response
+        %hr{:size => 1, :width => 105, :align => 'left'}
+        %strong 
+          - total_price += q.normal_price * package.total_responses
+          = "&#36;#{q.normal_price * package.total_responses}"
   .total
     %br
     %strong

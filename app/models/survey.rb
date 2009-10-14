@@ -45,7 +45,7 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   
-  #after_create :create_payment
+  after_create :create_payment
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   
   def published?
@@ -72,7 +72,11 @@ class Survey < ActiveRecord::Base
   end
   
   def create_payment
-    Payment.create(:survey_id => id, :owner_id => owner_id)
+    Payment.create(:survey_id => id, :owner_id => owner_id, :created_at => Time.now)
+  end
+  
+  def unreceived_responses
+    responses - replies.size
   end
   
   private

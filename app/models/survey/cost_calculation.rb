@@ -24,7 +24,7 @@ class Survey < ActiveRecord::Base
       survey_package = package
       total_questions = send(key).size # Total Questions added by User in a Survey
       extra_questions, extra_responses, cost = 0, 0, 0.0
-      concerned_question_type = survey_package.pricing_info.send(key.singularize) 
+      concerned_question_type = survey_package.pricing_info.send(key.singularize)
       extra_responses = responses - survey_package.total_responses if responses > survey_package.total_responses
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions
@@ -39,22 +39,39 @@ class Survey < ActiveRecord::Base
       end
       cost
     end
- 
+    
+    define_method("refund_for_#{key}") do
+      extra_questions, refund_cost = 0, 0.0
+      total_questions = send(key).size
+      concerned_question_type = package.pricing_info.send(key.singularize)
+      if concerned_question_type
+        if total_questions > concerned_question_type.total_questions
+          extra_questions = total_questions - concerned_question_type.total_questions
+        end
+        refund_cost += unreceived_responses * (total_questions - extra_questions) * concerned_question_type.standard_price
+        if extra_questions > 0
+          refund_cost += unreceived_responses * extra_questions * concerned_question_type.normal_price
+        end
+      end
+      return refund_cost
+    end
   }
   
   def cost_in_cents; chargeable_amount * 100 end
   
   def total_cost
     if package
-      total_payable = 0.0
-      total_payable += package.base_cost
-      total_payable += standard_questions_cost
-      total_payable += premium_questions_cost
-      total_payable += standard_demographic_cost
-      total_payable += premium_demographic_cost
+      total_payable = package.base_cost
+      QUESTION_TYPES.keys.each {|k| total_payable += send("#{k}_cost") }
       connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};");
       return total_payable
     end
+  end
+  
+  def refundable_amount
+    total_refundable = 0.0
+    QUESTION_TYPES.keys.each {|k| total_refundable += send("refund_for_#{k}")} if unreceived_responses > 0
+    total_refundable 
   end
    
 end
