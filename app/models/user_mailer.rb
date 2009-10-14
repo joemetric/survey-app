@@ -18,6 +18,13 @@ class UserMailer < ActionMailer::Base
     @body[:survey] = survey
     @body[:reason] = survey.reject_reason
   end
+  
+  def new_password_email(user, new_password)
+     setup_email(user)
+     @subject += "Your account password has been changed"
+     @body[:login] = user.login
+     @body[:new_password] = new_password
+  end
 
   protected
     def setup_email(user)

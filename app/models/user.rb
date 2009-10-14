@@ -25,13 +25,14 @@ class User < ActiveRecord::Base
   attr_accessor :old_password, :security_token
 
   acts_as_authentic do |authlogic|
-    authlogic.check_passwords_against_database = true
+    authlogic.check_passwords_against_database = false
     authlogic.crypto_provider = Authlogic::CryptoProviders::Sha1
     authlogic.perishable_token_valid_for = 1.month
     authlogic.disable_perishable_token_maintenance = true
   end
   
-  validates_presence_of :name
+  validates_presence_of :name, :password
+  validates_confirmation_of :password
   has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
   
   has_one :wallet
@@ -42,8 +43,8 @@ class User < ActiveRecord::Base
   has_many :replies
 
   after_create :setup_user
-
-  validate :password_change_security
+  
+  TYPES = ['Admin', 'User', 'Reviewer']
   
   def age
     @age ||= birthdate.extend(Age)
@@ -78,6 +79,18 @@ class User < ActiveRecord::Base
   def has_permission_for?(args)
     requested_item = args[:class].constantize.find(args[:object_id])
     requested_item.send(args[:attribute_id]).eql?(args[:current_user].id) ? true : false
+  end
+  
+  def is_admin?
+    type == 'Admin'
+  end
+  
+  def change_type(type_name)
+    update_attribute(:type, type_name)
+  end
+  
+  def deliver_new_password_email(new_password)
+    UserMailer.deliver_new_password_email(self, new_password)
   end
   
   private
