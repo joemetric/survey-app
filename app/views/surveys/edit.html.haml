@@ -9,13 +9,8 @@
         Quick Create - Copy
         %br
         = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
-      .rounded
-        .top
-        .form_content1
-          %h4 Survey Name
-          = form.label :name
-          = form.text_field :name
-        .bottom
+      
+      = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
       
       .rounded
         .top

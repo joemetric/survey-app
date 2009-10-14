@@ -3,22 +3,19 @@
   = render :partial => "/surveys/preview_tabs"
   .form
     - form_for @survey, :url => surveys_path do |form|
+  
       = hidden_field_tag 'package', params[:package] || @package.code
       = form.hidden_field :package_id, :value => @package.id
+  
       %h3.heads Create a Survey
       = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }
         Quick Create - Copy
         %br
         = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
-      .rounded
-        .top
-        .form_content1
-          %h4 Survey Name
-          = form.label :name
-          = form.text_field :name
-        .bottom
 
+      = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
+        
       .rounded
         .top
         .form_content1
