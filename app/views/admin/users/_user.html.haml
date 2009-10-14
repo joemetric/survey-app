@@ -2,4 +2,4 @@
   %td= user.name
   %td= user.login
   %td= select_tag :type, options_for_select(User::TYPES, user.type), {:onChange=> remote_function(:url => change_type_admin_user_path(user), :with => "'type='+value" ) }
-  %td= link_to_function 'Reset Password', "alert('Under Development');"
+  %td= link_to 'Reset Password', reset_password_admin_user_path(user)
