@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   resource_controller
 
   before_filter :require_user, :only => [ :edit, :update, :show_current ]
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  skip_before_filter :verify_authenticity_token, :only => [:create, :update]
 
   create do
     wants.html do
@@ -46,20 +46,20 @@ class UsersController < ApplicationController
       redirect_to new_user_session_path
     end
   end
-  
+
   update.before do
     check_ownership
   end
 
   update do
     wants.html { redirect_to "/" }
-    wants.json { render :json => object, :header => 202 }
+    wants.json { render :json => object, :status => 202 }
     failure do
       wants.html { render :action => "edit" }
-      wants.json { render :json => object.errors.to_json, :header => 304 }
+      wants.json { render :json => object.errors.to_json, :status => 304 }
     end
   end
-  
+
   show.wants.json   { render :json => @object }
 
   def show_current
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
   def sign_in_without_password(object)
     UserSession.create(object)
   end
-  
+
   def check_ownership
     object = @current_user
   end

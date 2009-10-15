@@ -30,11 +30,9 @@ class User < ActiveRecord::Base
     authlogic.perishable_token_valid_for = 1.month
     authlogic.disable_perishable_token_maintenance = true
   end
-  
-  validates_presence_of :name, :password
-  validates_confirmation_of :password
+
   has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
-  
+
   has_one :wallet
   has_many :completions
   has_many :surveys, :through => :completions
@@ -43,9 +41,9 @@ class User < ActiveRecord::Base
   has_many :replies
 
   after_create :setup_user
-  
+
   TYPES = ['Admin', 'User', 'Reviewer']
-  
+
   def age
     @age ||= birthdate.extend(Age)
   end
@@ -57,54 +55,54 @@ class User < ActiveRecord::Base
   def complete_survey(survey)
     wallet.record_completed_survey(survey)
   end
-  
+
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
   end
-  
+
   def send_reset_instructions
     reset_perishable_token!
     deliver_reset_instructions_mail
   end
-  
+
   def valid_perishable_token?(token)
     perishable_token == token
   end
-  
+
   def old_password_valid?
     valid_password? old_password
   end
-  
+
   def has_permission_for?(args)
     requested_item = args[:class].constantize.find(args[:object_id])
     requested_item.send(args[:attribute_id]).eql?(args[:current_user].id) ? true : false
   end
-  
+
   def is_admin?
     type == 'Admin'
   end
-  
+
   def change_type(type_name)
     update_attribute(:type, type_name)
   end
-  
+
   def deliver_new_password_email(new_password)
     UserMailer.deliver_new_password_email(self, new_password)
   end
-  
+
   private
-  
+
   def setup_user
     reset_perishable_token!
     deliver_activation_mail
     create_wallet
   end
-  
+
   def deliver_activation_mail
     UserMailer.deliver_activation_mail(self)
   end
-  
+
   def deliver_reset_instructions_mail
     reset_perishable_token!
     UserMailer.deliver_reset_instructions_mail(self)
@@ -113,7 +111,7 @@ class User < ActiveRecord::Base
   def create_wallet
     self.wallet = Wallet.create(:user => self) if self.wallet.nil?
   end
-  
+
   def password_change_security
     if password
       unless new_record? or valid_perishable_token?(security_token) or old_password_valid?
@@ -121,5 +119,5 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
 end
