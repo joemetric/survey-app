@@ -15,6 +15,13 @@ class RepliesController < ApplicationController
     end
   end
   
+  update do
+    wants.json { render :json => object, :header => 202 }
+    failure do
+      wants.json { render :json => object.errors.to_json, :header => 422 }
+    end
+  end
+  
   private
   
   def find_survey
