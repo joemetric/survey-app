@@ -1,0 +1,11 @@
+%p
+  - fields_for "survey[questions_attributes][]", question do |form|
+    %label 
+      Photo Upload 
+    %small
+    = form.hidden_field :question_type_id, :value => question.question_type_id
+    = form.label :name
+    = form.text_field :name
+    
+    = form.label :description
+    = form.text_field :description
