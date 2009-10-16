@@ -1,1 +1,1 @@
-page.replace_html params[:container], :partial => partial_for(params[:question_type]), :locals => { :question => @question }
+page.replace_html params[:container], :partial => "/questions/types/#{@question.question_type.valid_name}", :locals => { :question => @question }

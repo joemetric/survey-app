@@ -22,4 +22,8 @@ class QuestionType < ActiveRecord::Base
   belongs_to :package_question_type
   has_many :questions
   
+  def valid_name
+    name.downcase.gsub(" ", "_")
+  end
+  
 end

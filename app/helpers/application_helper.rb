@@ -52,10 +52,4 @@ module ApplicationHelper
     @tab == tab_name ? 'selected' : 'item'
   end
   
-  def partial_for(question_type_id)
-    case question_type_id
-      when "1": "/questions/types/short_answer"
-    end
-  end
-  
 end

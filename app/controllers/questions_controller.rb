@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   end
 
   def choose_type
-    @question = Question.new({ :question_type_id => params[:question_type] })
+    @question = Question.new({ :question_type => QuestionType.find(params[:question_type]) })
   end
 
   def index
