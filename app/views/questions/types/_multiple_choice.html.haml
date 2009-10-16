@@ -1,0 +1,16 @@
+%p
+  - fields_for "survey[questions_attributes][]", question do |form|
+    %label 
+      Multiple Choice 
+    %small
+      Temporary: please insert options in comma separated. Ex: Green, Yellow, Blue
+    = form.hidden_field :question_type_id, :value => question.question_type_id
+    = form.label :name
+    = form.text_field :name
+    
+    = form.label :description
+    = form.text_field :description
+    
+    = form.label :options
+    = form.text_field :options
+    

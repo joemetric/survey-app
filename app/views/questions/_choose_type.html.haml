@@ -1,4 +1,4 @@
-%p.cntrls{ :id => "container_#{temp_id = random_string }"}
+%p.cntrls{ :id => "container_#{temp_id = random_string }", :style => "margin:10px 0" }
 
   %label Question Type:
   = select_tag "question_type_#{temp_id}", options_for_select([""] + question_type_options)

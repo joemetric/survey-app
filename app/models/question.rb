@@ -19,6 +19,18 @@ class Question < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :survey_id
   
-  def text; name end
+  def options=(options_attributes)
+    self.complement = options_attributes.split(",")
+  end
+  
+  def options
+    complement.blank? ? "" : complement.join(",")
+  end
+
+  serialize :complement, Array
+  
+  def question_type_name
+    question_type.name
+  end
   
 end
