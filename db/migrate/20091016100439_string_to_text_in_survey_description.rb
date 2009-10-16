@@ -1,6 +1,6 @@
 class StringToTextInSurveyDescription < ActiveRecord::Migration
   def self.up
-    remove_column :surveys, :description, :string
+    remove_column :surveys, :description
     add_column :surveys, :description, :text
   end
 
