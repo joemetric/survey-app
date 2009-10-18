@@ -1,31 +1,16 @@
-class RepliesController < ApplicationController
-  resource_controller  
+class RepliesController < ResourceController::Base
+  before_filter :require_user
+  before_filter :find_survey
   
-  before_filter :require_user, :find_survey
-  
-  create.before do
-    object.user = @current_user
-    object.survey = @survey
-  end    
-  
-  create do 
-    wants.json { render :json => object, :header => 201 }
-    failure do
-      wants.json { rendon :json => object.errors.to_json, :header => 422 }
-    end
-  end
-  
-  update do
-    wants.json { render :json => object, :header => 202 }
-    failure do
-      wants.json { render :json => object.errors.to_json, :header => 422 }
-    end
+  def index
+    @reply = Reply.find(:first, :conditions => { :user_id => @current_user.id, :survey_id => @survey.id })
+    render :json => @reply.to_json(:include => :answers)
   end
   
   private
   
   def find_survey
-    @survey = Survey.find params[:survey_id]
+    @survey = Survey.find(params[:survey_id])
   end
   
 end
