@@ -1,0 +1,14 @@
+:backgroundrb: 
+  :ip: localhost
+  :port: 21000
+  :log: foreground
+
+:schedules:
+  :refund_worker: # Worker Name
+    :refund_payment: # Method Name
+      :trigger_args: 0 1 1 * * * *
+
+      
+# Scheduling:
+# */10 * * * * * *  - Executes worker methods after every 10 seconds
+# 0 1 1 * * * *     - Executes worker methods after every 24 hours
