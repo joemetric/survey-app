@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
 
   def index
     respond_to do |wants|
-      wants.json { render :json => @survey.questions.to_json(:methods => :question_type_name), :status => :created }
+      wants.json { render :json => @survey.questions.to_json(:methods => :question_type_name) }
     end
   end
 
