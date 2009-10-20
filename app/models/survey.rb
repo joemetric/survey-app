@@ -31,6 +31,7 @@ class Survey < ActiveRecord::Base
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
   has_many :replies
+  has_many :refunds # While refunding from Paypal, transaction may fail. Failed transactions are also logged. So survey can have multiple transactions 
   belongs_to :package
   
   validates_presence_of :name, :owner_id, :package_id
@@ -79,10 +80,33 @@ class Survey < ActiveRecord::Base
     responses - replies.size
   end
   
+  def self.expired_surveys
+    all(:conditions => ['end_at < ?', Date.today])
+  end
+  
+  def refund_complete(response); set_up_refund(response, true) end
+  
+  def refund_incomplete(response); set_up_refund(response, false) end
+  
+  def refund_pending?
+    refunds.first(:conditions => ['complete = ?', true]).blank?
+  end
+  
   private
   
   def deliver_rejection_mail
     UserMailer.deliver_survey_rejection_mail(self)
+  end
+  
+  def set_up_refund(response, status)
+    refund = refunds.new
+    refund.owner_id = owner_id
+    refund.amount = refundable_amount
+    refund.paypal_response = response.message
+    refund.refund_transaction_id = response.params['refund_transaction_id']
+    refund.error_code = response.params['error_codes']
+    refund.complete = status
+    refund.save
   end
   
 end
