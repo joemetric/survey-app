@@ -16,6 +16,8 @@ class Question < ActiveRecord::Base
   belongs_to :survey
   belongs_to :question_type
   
+  has_many :answers
+  
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :survey_id
   
@@ -33,4 +35,12 @@ class Question < ActiveRecord::Base
     question_type.name
   end
   
+  def answered_by(user)
+    @user = user
+  end
+  
+  def answers
+    survey.replies.by_user(@user).first.answers.by_question(self)
+  end
+    
 end

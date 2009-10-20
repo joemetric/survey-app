@@ -11,15 +11,18 @@ class QuestionsController < ApplicationController
   end
 
   def index
+    @questions = @survey.questions
+    @questions.each { |q| q.answered_by(@current_user) }
     respond_to do |wants|
-      wants.json { render :json => @survey.questions.to_json(:methods => :question_type_name) }
+      wants.json { render :json => @survey.questions.to_json(:methods => [ :question_type_name, :answers ] ) }
     end
   end
 
   def show
     @question = @survey.questions.find(params[:id])
+    @question.answered_by(@current_user)
     respond_to do |wants|
-      wants.json { render :json => @question }
+      wants.json { render :json => @question.to_json(:methods => [ :question_type_name, :answers ] ) }
     end
   end
 

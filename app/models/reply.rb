@@ -10,4 +10,6 @@ class Reply < ActiveRecord::Base
   
   accepts_nested_attributes_for :answers
   
+  named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
+  
 end
