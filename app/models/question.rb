@@ -40,7 +40,7 @@ class Question < ActiveRecord::Base
   end
   
   def answers
-    survey.replies.by_user(@user).first.answers.by_question(self)
+    @user ? survey.replies.by_user(@user).first.answers.by_question(self) : nil
   end
     
 end
