@@ -21,6 +21,8 @@ class Question < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :survey_id
 
+  attr_accessor :answer_by_user
+
   def options=(options_attributes)
     self.complement = options_attributes.split(",")
   end
@@ -35,11 +37,9 @@ class Question < ActiveRecord::Base
     question_type.name
   end
 
-  def answered_by(user)
-    @user = user
-  end
-
-  def answer
-    survey.replies.by_user(@user).first.answers.by_question(self).first rescue nil
+  def to_json(options = {})
+    self.answer_by_user = survey.replies.by_user(options[:user]).first.answers.by_question(self).first if options[:user]
+    options.merge!(:methods => [:question_type_name, :answer_by_user])
+    super
   end
 end
