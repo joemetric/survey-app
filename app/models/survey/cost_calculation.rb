@@ -55,6 +55,14 @@ class Survey < ActiveRecord::Base
       end
       return refund_cost
     end
+    
+    define_method("payout_for_#{key}") do
+      concerned_question_type = package.payout_info.send(key.singularize)
+      payout = 0.0
+      # send(key).size => Total Questions set in the survey
+      payout += send(key).size * concerned_question_type.amount if concerned_question_type 
+    end
+    
   }
   
   def cost_in_cents; chargeable_amount * 100 end
@@ -72,6 +80,12 @@ class Survey < ActiveRecord::Base
     total_refundable = 0.0
     QUESTION_TYPES.keys.each {|k| total_refundable += send("refund_for_#{k}")} if unreceived_responses > 0
     total_refundable 
+  end
+  
+  def total_payout
+    rewarded_amount = 0.0
+    QUESTION_TYPES.keys.each {|k| rewarded_amount += send("payout_for_#{k}")}
+    rewarded_amount
   end
    
 end

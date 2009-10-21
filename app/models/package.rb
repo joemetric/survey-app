@@ -59,6 +59,13 @@ class Package < ActiveRecord::Base
                   :order => 'package_question_types.id ASC')
   end
   
+  def payout_info
+    payouts.find(:all, 
+                 :select => ['payouts.*, package_question_types.*'],
+                 :joins => ['LEFT JOIN package_question_types ON payouts.package_question_type_id = package_question_types.id'],
+                 :order => 'package_question_types.id ASC')
+  end
+  
   def questions_info
     returning questions = [] do 
       pricing_info.each {|i| questions << "#{i.name.plural_form(i.total_questions)}(#{i.info})"}
