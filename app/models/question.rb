@@ -15,32 +15,31 @@ class Question < ActiveRecord::Base
 
   belongs_to :survey
   belongs_to :question_type
-  
+
   has_many :answers
-  
+
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :survey_id
-  
+
   def options=(options_attributes)
     self.complement = options_attributes.split(",")
   end
-  
+
   def options
     complement.blank? ? "" : complement.join(",")
   end
 
   serialize :complement, Array
-  
+
   def question_type_name
     question_type.name
   end
-  
+
   def answered_by(user)
     @user = user
   end
-  
-  def answers
-    @user ? survey.replies.by_user(@user).first.answers.by_question(self) : nil
+
+  def answer
+    survey.replies.by_user(@user).first.answers.by_question(self).first rescue nil
   end
-    
 end
