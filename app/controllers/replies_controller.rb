@@ -4,7 +4,6 @@ class RepliesController < ResourceController::Base
   
   def index
     @reply = Reply.find(:first, :conditions => { :user_id => @current_user.id, :survey_id => @survey.id })
-    render :json => @reply.to_json(:include => :answers)
   end
   
   private

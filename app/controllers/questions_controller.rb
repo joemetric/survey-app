@@ -13,14 +13,14 @@ class QuestionsController < ApplicationController
   def index
     @questions = @survey.questions
     respond_to do |wants|
-      wants.json { render :json => @survey.questions.to_json(:user => current_user), :status => :created }
+      wants.json { render :json => @survey.questions.to_json(:user => current_user), :status => 201 }
     end
   end
 
   def show
     @question = @survey.questions.find(params[:id])
     respond_to do |wants|
-      wants.json { render :json => @question.to_json(:user => current_user) }
+      wants.json { render :json => @question.to_json(:user => current_user), :status => 200 }
     end
   end
 

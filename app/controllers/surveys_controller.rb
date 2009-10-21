@@ -54,7 +54,7 @@ class SurveysController < ResourceController::Base
       end
       format.json do
         @surveys = Survey.published
-        render :json => @surveys, :status => :created
+        render :json => @surveys, :status => 200
       end
     end
   end
