@@ -42,4 +42,50 @@ james:
   email:                     james@anderson.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
-  created_at:                <%= 4.days.ago.to_s :db  %>  
+  created_at:                <%= 4.days.ago.to_s :db  %> 
+  
+mark:
+  id: 4
+  login:                     mark
+  name:                      Mark Waugh
+  email:                     mark@waugh.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+
+
+adam:
+  id: 5
+  login:                     adam
+  name:                      Adam Gilchrist
+  email:                     adam@gilchrist.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  
+brain:
+  id: 6
+  login:                     brain
+  name:                      Brain Lara
+  email:                     brain@lara.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %> 
+  
+brett:
+  id: 7
+  login:                     brett
+  name:                      Brett Lee
+  email:                     brett@lee.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %> 
+
+louis:
+  id: 8
+  login:                     louis
+  name:                      Louis Duckworth
+  email:                     louis@duckworth.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>           

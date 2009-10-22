@@ -1,0 +1,285 @@
+# == Schema Information
+# Schema version: 20091012054719
+#
+# Table name: restrictions
+#
+#  id         :integer(4)      not null, primary key
+#  survey_id  :integer(4)
+#  user_id     :text
+#  created_at :datetime
+#  updated_at :datetime
+
+reply1_for_survey_planA_1:
+  id: 1
+  survey_id: 7
+  user_id: 3
+  
+reply2_for_survey_planA_1:
+  id: 2
+  survey_id: 7
+  user_id: 3
+  
+reply3_for_survey_planA_1:
+  id: 3
+  survey_id: 7
+  user_id: 3
+  
+reply4_for_survey_planA_1:
+  id: 4
+  survey_id: 7
+  user_id: 3
+  
+reply5_for_survey_planA_1:
+  id: 5
+  survey_id: 7
+  user_id: 3
+  
+reply6_for_survey_planA_1:
+  id: 6
+  survey_id: 7
+  user_id: 3
+  
+reply7_for_survey_planA_1:
+  id: 7
+  survey_id: 7
+  user_id: 3
+  
+reply8_for_survey_planA_1:
+  id: 8
+  survey_id: 7
+  user_id: 3
+  
+reply9_for_survey_planA_1:
+  id: 9
+  survey_id: 7
+  user_id: 3
+  
+reply10_for_survey_planA_1:
+  id: 10
+  survey_id: 7
+  user_id: 3
+  
+reply11_for_survey_planA_1:
+  id: 11
+  survey_id: 7
+  user_id: 3
+  
+reply12_for_survey_planA_1:
+  id: 12
+  survey_id: 7
+  user_id: 3
+  
+reply13_for_survey_planA_1:
+  id: 13
+  survey_id: 7
+  user_id: 3
+  
+reply14_for_survey_planA_1:
+  id: 14
+  survey_id: 7
+  user_id: 3
+  
+reply15_for_survey_planA_1:
+  id: 15
+  survey_id: 7
+  user_id: 3                          
+  
+reply16_for_survey_planA_1:
+  id: 16
+  survey_id: 7
+  user_id: 3
+  
+reply17_for_survey_planA_1:
+  id: 17
+  survey_id: 7
+  user_id: 3
+  
+reply18_for_survey_planA_1:
+  id: 18
+  survey_id: 7
+  user_id: 3
+  
+reply19_for_survey_planA_1:
+  id: 19
+  survey_id: 7
+  user_id: 3
+  
+reply20_for_survey_planA_1:
+  id: 20
+  survey_id: 7
+  user_id: 3
+  
+reply1_for_survey_planA_2:
+  id: 21
+  survey_id: 6
+  user_id: 3
+
+reply2_for_survey_planA_2:
+  id: 22
+  survey_id: 6
+  user_id: 3
+  
+reply3_for_survey_planA_2:
+  id: 23
+  survey_id: 6
+  user_id: 3
+
+reply4_for_survey_plan_A_2:
+  id: 24
+  survey_id: 6
+  user_id: 3
+
+reply5_for_survey_plan_A_2:
+  id: 25
+  survey_id: 6
+  user_id: 3
+
+reply6_for_survey_plan_A_2:
+  id: 26
+  survey_id: 6
+  user_id: 3
+
+reply7_for_survey_plan_A_2:
+  id: 27
+  survey_id: 6
+  user_id: 3
+
+reply8_for_survey_plan_A_2:
+  id: 28
+  survey_id: 6
+  user_id: 3
+
+reply9_for_survey_plan_A_2:
+  id: 29
+  survey_id: 6
+  user_id: 3
+
+reply10_for_survey_plan_A_2:
+  id: 30
+  survey_id: 6
+  user_id: 3
+
+reply11_for_survey_plan_A_2:
+  id: 31
+  survey_id: 6
+  user_id: 3
+
+reply12_for_survey_plan_A_2:
+  id: 32
+  survey_id: 6
+  user_id: 3
+
+reply13_for_survey_plan_A_2:
+  id: 33
+  survey_id: 6
+  user_id: 3
+
+reply14_for_survey_plan_A_2:
+  id: 34
+  survey_id: 6
+  user_id: 3
+
+reply15_for_survey_plan_A_2:
+  id: 35
+  survey_id: 6
+  user_id: 3
+
+reply16_for_survey_plan_A_2:
+  id: 36
+  survey_id: 6
+  user_id: 3
+
+reply17_for_survey_plan_A_2:
+  id: 37
+  survey_id: 6
+  user_id: 3
+
+reply18_for_survey_plan_A_2:
+  id: 38
+  survey_id: 6
+  user_id: 3
+
+reply19_for_survey_plan_A_2:
+  id: 39
+  survey_id: 6
+  user_id: 3
+
+reply20_for_survey_plan_A_2:
+  id: 40
+  survey_id: 6
+  user_id: 3                                          
+
+reply1_for_survey_planA_3:
+  id: 41
+  survey_id: 8
+  user_id: 3
+  
+reply2_for_survey_planA_3:
+  id: 42
+  survey_id: 8
+  user_id: 3
+
+reply3_for_survey_planA_3:
+  id: 43
+  survey_id: 8
+  user_id: 3
+
+reply4_for_survey_planA_3:
+  id: 44
+  survey_id: 8
+  user_id: 3
+
+reply5_for_survey_planA_3:
+  id: 45
+  survey_id: 8
+  user_id: 3
+
+reply6_for_survey_planA_3:
+  id: 46
+  survey_id: 8
+  user_id: 3
+
+reply7_for_survey_planA_3:
+  id: 47
+  survey_id: 8
+  user_id: 3
+
+reply8_for_survey_planA_3:
+  id: 48
+  survey_id: 8
+  user_id: 3
+
+reply9_for_survey_planA_3:
+  id: 49
+  survey_id: 8
+  user_id: 3
+
+reply10_for_survey_planA_3:
+  id: 50
+  survey_id: 8
+  user_id: 3
+
+reply11_for_survey_planA_3:
+  id: 51
+  survey_id: 8
+  user_id: 3
+
+reply12_for_survey_planA_3:
+  id: 52
+  survey_id: 8
+  user_id: 3
+
+reply13_for_survey_planA_3:
+  id: 53
+  survey_id: 8
+  user_id: 3
+
+reply14_for_survey_planA_3:
+  id: 54
+  survey_id: 8
+  user_id: 3
+
+reply15_for_survey_planA_3:
+  id: 55
+  survey_id: 8
+  user_id: 3
