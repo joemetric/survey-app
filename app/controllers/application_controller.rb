@@ -6,6 +6,26 @@ class ApplicationController < ActionController::Base
   
   ActiveRecord::Base.send(:extend, ConcernedWith)
   
+  def rescue_action_in_public(exception)
+    case exception
+    when ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.json { render :json => "Object Not Found", :header => 404 }
+        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :header => 404 }
+      end
+    when NoMethodError
+      respond_to do |format|
+        format.json { render :json => "No Method Found", :header => 500 }
+        format.html { render :file => "#{RAILS_ROOT}/public/500.html", :header => 500 }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => "Not Identified Error", :header => 500 }
+        format.html { render :text => "#{RAILS_ROOT}/public/500.html", :header => 500 }
+      end
+    end
+  end
+  
   private
   
   def current_admin_session
