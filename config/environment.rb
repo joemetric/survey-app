@@ -16,6 +16,7 @@ Rails::Initializer.run do |config|
   config.gem "will_paginate"
   config.gem "chronic"
   config.gem "packet"
+  config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com"
 
   
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
