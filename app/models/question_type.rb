@@ -22,6 +22,8 @@ class QuestionType < ActiveRecord::Base
   belongs_to :package_question_type
   has_many :questions
   
+  named_scope :accept_files, { :conditions => { :field_type => "file_field" } }
+  
   def valid_name
     name.downcase.gsub(" ", "_")
   end
