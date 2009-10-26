@@ -38,7 +38,7 @@ class Question < ActiveRecord::Base
   end
 
   def to_json(options = {})
-    self.answer_by_user = survey.replies.by_user(options[:user]).first.answers.by_question(self).first if options[:user]
+    self.answer_by_user = (survey.replies.by_user(options[:user]).first.answers.by_question(self).first rescue nil) if options[:user]
     options.merge!(:methods => [:question_type_name, :answer_by_user])
     super
   end
