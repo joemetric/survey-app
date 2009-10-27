@@ -21,7 +21,7 @@
 #
 
 class User < ActiveRecord::Base
-
+  
   attr_accessor :old_password, :security_token
 
   acts_as_authentic do |authlogic|
@@ -43,19 +43,26 @@ class User < ActiveRecord::Base
   after_create :setup_user
 
   TYPES = ['Admin', 'User', 'Reviewer']
-
-  def age
-    @age ||= birthdate.extend(Age)
+  
+  Incomes = { 
+    0 => "Under $15,000",
+    1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
+    3 => "$30,000 - $34,999", 4 => "$35,000 - $39,999",
+    5 => "$40,000 - $44,999", 6 => "$45,000 - $49,999",
+    7 => "$50,000 - $59,999", 
+    8 => "$60,000 - $74,999", 9 => "$75,000 - $99,999",
+    10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
+    12 => "$200,000 or more"
+  } 
+  
+  def income=(income_string)
+    self.income_id = Incomes.invert[income_string]
   end
-
+  
   def income
-    @income ||= self[:income].to_s.extend(Income)
+    Incomes[income_id]
   end
-
-  def complete_survey(survey)
-    wallet.record_completed_survey(survey)
-  end
-
+  
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
@@ -72,11 +79,6 @@ class User < ActiveRecord::Base
 
   def old_password_valid?
     valid_password? old_password
-  end
-
-  def has_permission_for?(args)
-    requested_item = args[:class].constantize.find(args[:object_id])
-    requested_item.send(args[:attribute_id]).eql?(args[:current_user].id) ? true : false
   end
 
   def is_admin?
