@@ -4,6 +4,16 @@
   
   = form.error_messages
   
+  %h2 User Information
+    
+    %p 
+      = form.label :name
+      = form.select :name
+    
+    %p 
+      = form.label :income
+      = form.select :income_id, income_options
+  
   %h2 Change Password
   
   %fieldset#change_password

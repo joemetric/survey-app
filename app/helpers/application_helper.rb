@@ -20,6 +20,10 @@ module ApplicationHelper
     Gender::Values.collect { |kind| [kind.to_s.titleize, kind] }
   end
   
+  def income_options
+    User::Incomes.sort_by { |id, label| id }.collect { |id, label| [label, id] }
+  end
+  
   def random_string(maximum_size = 6)
     (0...maximum_size).map{ ('a'..'z').to_a[rand(26)] }.join  
   end
