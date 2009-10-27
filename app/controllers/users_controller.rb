@@ -65,6 +65,10 @@ class UsersController < ApplicationController
   def show_current
     render :json => current_user.to_json(:include => {:wallet => {:methods => :balance, :include => :wallet_transactions}}, :status => 200)
   end
+  
+  def incomes
+    render :json => User::Incomes
+  end
 
   private
 

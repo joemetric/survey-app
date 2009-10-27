@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
   map.resources :users,
     :member => { :not_active => :get },
-    :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get }
+    :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get, :incomes => :get }
 
   map.namespace(:admin) do |admin|
     admin.resource :admin_session
