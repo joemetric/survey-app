@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
   has_many :replies
 
   after_create :setup_user
+  
+  validates_numericality_of :zip_code
 
   TYPES = ['Admin', 'User', 'Reviewer']
   
