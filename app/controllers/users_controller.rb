@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   end
   
   def incomes
-    render :json => User::Incomes
+    render :json => User::Incomes.sort_by { |key, vlu| key }
   end
 
   private
