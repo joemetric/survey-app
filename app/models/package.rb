@@ -48,14 +48,14 @@ class Package < ActiveRecord::Base
   
   def self.default_package; find(:first) end
   
-  def new?
+  def new_package?
     lifetime.blank? || payouts.blank? || pricings.blank?
   end
   
   def self.load_package(package_name)
     if package_name
       requested_package = package_in_question(package_name)
-      requested_package.new? ? default_package : requested_package
+      requested_package.new_package? ? default_package : requested_package
     else
       default_package
     end
