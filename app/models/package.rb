@@ -54,11 +54,15 @@ class Package < ActiveRecord::Base
   
   def self.load_package(package_name)
     if package_name
-      package_in_question = find_by_name(package_name)
-      package_in_question.new? ? default_package : package_in_question
+      requested_package = package_in_question(package_name)
+      requested_package.new? ? default_package : requested_package
     else
       default_package
     end
+  end
+  
+  def self.package_in_question(package_name)
+    find_by_name(package_name)
   end
   
   def self.valid_packages
