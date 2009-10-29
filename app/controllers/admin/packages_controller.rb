@@ -2,6 +2,7 @@ class Admin::PackagesController < ApplicationController
   
   layout 'admin', :except => [:new, :create]
   before_filter :require_admin
+  before_filter :check_params_package, :only => :index
   before_filter :find_package, :only => [:update, :destroy]
   before_filter :adjust_dates, :only => :update
   
@@ -58,6 +59,10 @@ private
   
   def correct_date(date)
     date.gsub('/', '-').split('-').reverse.join('-')
+  end
+  
+  def check_params_package
+    redirect_to admin_packages_url(:package => 'Default') and return unless Package.exists?(:name => params[:package])
   end
   
 end
