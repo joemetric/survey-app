@@ -32,7 +32,7 @@
       
       = form.submit "Save for Later", :class => "button button_la"
       
-      = link_to_function "Continue", :class => "button button_la" do |page|
+      = button_to_function "Purchase via Paypal", :class => "button button_la" do |page|
         - page << '$("#new_survey").attr("action", "/surveys/activate");'
         - page << '$("#new_survey").submit();'
 

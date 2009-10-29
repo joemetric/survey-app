@@ -27,7 +27,7 @@
                 = payment.transaction_id
               %td 
                 = payment.survey.name
-              %td 
+              %td
                 = payment.survey.questions.size
               %td 
                 = payment.survey.created_at.to_date
@@ -35,8 +35,8 @@
                 = payment.survey.published_at.to_date
               %td 
                 = payment.survey.end_at
-              %td 
-                = payment.survey.chargeable_amount
+              %td
+                = payment.amount.us_dollar
     = will_paginate @payments, :prev_label => 'Previous', :next_label => 'Next'            
 .cls
 

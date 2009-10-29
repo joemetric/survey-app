@@ -23,8 +23,8 @@ class Package < ActiveRecord::Base
   validates_format_of :code, :with => /^[\S]*$/, :if => Proc.new{|c| !c.blank? }
   
   validates_numericality_of :base_cost,
+                            :only_integer => false,
                             :greater_than => 0,
-                            :only_integer => true,
                             :if => Proc.new {|b| !b.base_cost.blank?},
                             :on => :update
                             

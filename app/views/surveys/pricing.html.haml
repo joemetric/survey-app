@@ -16,7 +16,7 @@
               %td
                 %dl
                   %dt
-                    = "#{p.name}: Starting at &#36;#{p.base_cost}"
+                    = "#{p.name}: Starting at #{p.base_cost.us_dollar}"
                   %dd
                     = package_info(p).flatten.to_sentence
                 = link_to 'Get Started', new_survey_path(:package => p.code), :class => 'buynow_btn'

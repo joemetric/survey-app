@@ -100,6 +100,8 @@ class ApplicationController < ActionController::Base
   
 end
 
+# If there are more methods to be added in the following classes create separate class files
+
 class String
   
   def plural_form(count, add_text=''); 
@@ -108,6 +110,18 @@ class String
   
   def skip_info; gsub(/[(].*[)]/, '') end
 
+end
+
+class Float
+  
+  def us_dollar
+    Money.us_dollar(self * 100).format
+  end
+  
+  def to_decimal 
+    us_dollar.gsub!('$', '')
+  end
+  
 end
 
 class Array
@@ -123,5 +137,10 @@ class Array
 end
 
 class NilClass  
-  def to_date;  end 
+  
+  ['to_date', 'us_dollar', 'to_decimal'].each do |name|
+    define_method name do 
+    end
+  end
+  
 end

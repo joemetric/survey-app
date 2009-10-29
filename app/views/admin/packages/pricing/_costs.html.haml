@@ -1,6 +1,6 @@
 %p.normal
   %label.label2 Base Cost:
-  = text_field :package, :base_cost
+  = text_field :package, :base_cost, :value => @package.base_cost.to_decimal
 
 %p.normal
   %label.label2 Responses:
@@ -10,33 +10,33 @@
   %label Upto:
   = select('pricings[1]', 'total_questions', select_integer)
   %label.label2 Standard Questions priced at:
-  = text_field 'pricings[1]', 'standard_price', :value => @pricings[0].try(:normal_price)
+  = text_field 'pricings[1]', 'standard_price', :value => @pricings[0].try(:normal_price).to_decimal
   %label.label2 Normally:
-  = text_field 'pricings[1]', 'normal_price', :value => @pricings[0].try(:standard_price)
+  = text_field 'pricings[1]', 'normal_price', :value => @pricings[0].try(:standard_price).to_decimal
 
 %p.normal
   %label With Upto:
   = select('pricings[2]', 'total_questions', select_integer)
   %label.label2 Premium Questions priced at:
-  = text_field 'pricings[2]', 'standard_price', :value => @pricings[1].try(:normal_price)
+  = text_field 'pricings[2]', 'standard_price', :value => @pricings[1].try(:normal_price).to_decimal
   %label.label2 Normally:
-  = text_field 'pricings[2]', 'normal_price', :value => @pricings[1].try(:standard_price)
+  = text_field 'pricings[2]', 'normal_price', :value => @pricings[1].try(:standard_price).to_decimal
 
 %p.normal
   %label With Upto:
   = select('pricings[3]', 'total_questions', select_integer)
   %label.label2 Domographic(profile) restrictions priced at:
-  = text_field 'pricings[3]', 'standard_price', :value => @pricings[2].try(:normal_price)
+  = text_field 'pricings[3]', 'standard_price', :value => @pricings[2].try(:normal_price).to_decimal
   %label.label2 Normally:
-  = text_field 'pricings[3]', 'normal_price', :value => @pricings[2].try(:standard_price)
+  = text_field 'pricings[3]', 'normal_price', :value => @pricings[2].try(:standard_price).to_decimal
   
 %p.normal
   %label With Upto:
   = select('pricings[4]', 'total_questions', select_integer)
   %label.label2 Locations restrictions priced at:
-  = text_field 'pricings[4]', 'normal_price', :value => @pricings[3].try(:normal_price)
+  = text_field 'pricings[4]', 'standard_price', :value => @pricings[3].try(:normal_price).to_decimal
   %label.label2 Normally:
-  = text_field 'pricings[4]', 'standard_price', :value => @pricings[3].try(:standard_price)
+  = text_field 'pricings[4]', 'normal_price', :value => @pricings[3].try(:standard_price).to_decimal
   
 %br
 %br
