@@ -7,7 +7,7 @@ class Admin::PackagesController < ApplicationController
   
   def index
     @packages = Package.find(:all)
-    @package = params[:package] ? Package.find_by_name(params[:package]) : Package.find(:first) 
+    @package = Package.load_package(params[:package]) 
     package_information if @package
     @tab = 'Pricing Administration' # This variable can be also used while setting Page Title
   end

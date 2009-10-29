@@ -46,6 +46,21 @@ class Package < ActiveRecord::Base
     write_attribute(:code, code.strip)
   end
   
+  def self.default_package; find(:first) end
+  
+  def new?
+    lifetime.blank? || payouts.blank? || pricings.blank?
+  end
+  
+  def self.load_package(package_name)
+    if package_name
+      package_in_question = find_by_name(package_name)
+      package_in_question.new? ? default_package : package_in_question
+    else
+      default_package
+    end
+  end
+  
   def self.valid_packages
     find(:all, 
          :joins => ['LEFT JOIN package_lifetimes ON packages.id = package_lifetimes.package_id'],

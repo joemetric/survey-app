@@ -4,7 +4,7 @@
   %p.normal
     %label Pricing
     
-    = select_tag :package, options_for_select(@packages.collect{|n|n.name}, @package.name), {:onChange => 'loadSelectedPackage();'}
+    = select_tag :package, options_for_select(@packages.collect{|n|n.name}, params[:package]), {:onChange => 'loadSelectedPackage();'}
     
     = link_to 'Create New Package', '#dialog', :name => 'modal'
     
