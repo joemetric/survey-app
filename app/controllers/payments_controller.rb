@@ -33,7 +33,7 @@ class PaymentsController < ApplicationController
       @survey.payment.paid!
       @survey.save_payment_details(params, response)
       flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
-      redirect_to survey_url(@survey) and return
+      redirect_to progress_surveys_path and return
     else
       error_in_payment(response, @survey) 
     end 
