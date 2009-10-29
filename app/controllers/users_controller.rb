@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     wants.json { render :json => object, :status => 202 }
     failure do
       wants.html { render :action => "edit" }
-      wants.json { render :json => object.errors.to_json, :status => 304 }
+      wants.json { render :json => object.errors.to_json, :status => 422 }
     end
   end
 
@@ -65,9 +65,9 @@ class UsersController < ApplicationController
   def show_current
     render :json => current_user.to_json(:include => {:wallet => {:methods => :balance, :include => :wallet_transactions}}, :status => 200)
   end
-  
+
   def incomes
-    render :json => User::Incomes.sort_by { |key, vlu| key }
+    render :json => User::Incomes.sort_by { |key, vlu| key }, :status => 201
   end
 
   private

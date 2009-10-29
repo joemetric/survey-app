@@ -21,7 +21,7 @@
 #
 
 class User < ActiveRecord::Base
-  
+
   attr_accessor :old_password, :security_token
 
   acts_as_authentic do |authlogic|
@@ -41,30 +41,30 @@ class User < ActiveRecord::Base
   has_many :replies
 
   after_create :setup_user
-  
-  validates_numericality_of :zip_code
+
+  validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
 
   TYPES = ['Admin', 'User', 'Reviewer']
-  
-  Incomes = { 
+
+  Incomes = {
     0 => "Under $15,000",
     1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
     3 => "$30,000 - $34,999", 4 => "$35,000 - $39,999",
     5 => "$40,000 - $44,999", 6 => "$45,000 - $49,999",
-    7 => "$50,000 - $59,999", 
+    7 => "$50,000 - $59,999",
     8 => "$60,000 - $74,999", 9 => "$75,000 - $99,999",
     10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
     12 => "$200,000 or more"
-  } 
-  
+  }
+
   def income=(income_string)
     self.income_id = Incomes.invert[income_string]
   end
-  
+
   def income
     Incomes[income_id]
   end
-  
+
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
@@ -93,6 +93,12 @@ class User < ActiveRecord::Base
 
   def deliver_new_password_email(new_password)
     UserMailer.deliver_new_password_email(self, new_password)
+  end
+
+  def to_json(options = {})
+    options[:methods] ||= []
+    options[:methods] << :income unless options[:methods].include? :income
+    super
   end
 
   private
