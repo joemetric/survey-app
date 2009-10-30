@@ -62,7 +62,9 @@ private
   end
   
   def check_params_package
-    redirect_to admin_packages_url(:package => 'Default') and return unless Package.exists?(:name => params[:package])
+    if params[:package] && !Package.exists?(:name => params[:package])
+      redirect_to admin_packages_url(:package => 'Default') and return
+    end
   end
   
 end

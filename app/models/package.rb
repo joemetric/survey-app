@@ -62,7 +62,7 @@ class Package < ActiveRecord::Base
   end
   
   def self.package_in_question(package_name)
-    find_by_name(package_name)
+    package_name ? find_by_name(package_name) : default_package
   end
   
   def self.valid_packages
@@ -115,4 +115,6 @@ class Package < ActiveRecord::Base
     lifetime.save
   end
   
-end 
+end
+
+
