@@ -49,6 +49,8 @@ class Survey < ActiveRecord::Base
   after_create :create_payment
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   
+  attr_accessor :unsaved, :question_attributes
+  
   def published?
     !published_at.blank?
   end

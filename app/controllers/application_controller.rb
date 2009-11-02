@@ -126,14 +126,35 @@ end
 
 class Array
   
-#  Gets record of particular Question Type from package_pricings table for selected package of survey
+#  Gets record of particular Question Type from package_pricings table, form parameters for selected package of survey
   
   Survey::QUESTION_TYPES.each_pair { |key, value|
+    
+    define_method("total_#{key}") do |p_question_id|
+      package_question_type_ids = []
+      self.each { |hash|
+        hash['package_question_type_id'] = QuestionType::PackageQuestionTypes[hash['question_type_id']]
+        package_question_type_ids <<  hash.values_at('package_question_type_id')
+      }
+      if package_question_type_ids.flatten.include?(p_question_id)
+        package_question_type_ids.flatten.count {|x| x = p_question_id}
+      else
+        0
+      end
+    end
+    
     define_method(key.singularize) do
       select {|p| p.package_question_type_id == value}.compact.first
     end
   }
   
+  
+  def count(&action)
+     count = 0
+     self.each { |x| count = count + 1 if action.call(x) }
+     return count
+   end
+     
 end
 
 class NilClass  

@@ -58,6 +58,10 @@ class SurveysController < ResourceController::Base
       end
     end
   end
+  
+  def update_pricing    
+    render :text => Survey.total_price(params).us_dollar
+  end
 
   private
 

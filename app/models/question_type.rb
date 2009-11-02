@@ -15,6 +15,12 @@ class QuestionType < ActiveRecord::Base
     
   FieldTypes = [ "text_field", "text_area", "select_field", "check_box", "file_field" ]
   
+  PackageQuestionTypes = {
+                          '1' => 1,  # question_type_id => package_question_type_id
+                          '2' => 1,
+                          '3' => 2
+                          }
+  
   validates_presence_of :name, :field_type
   validates_inclusion_of :field_type, :in => FieldTypes
   validates_uniqueness_of :name

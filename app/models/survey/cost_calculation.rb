@@ -22,7 +22,7 @@ class Survey < ActiveRecord::Base
     
     define_method("#{key}_cost") do
       survey_package = package
-      total_questions = send(key).size # Total Questions added by User in a Survey
+      total_questions = unsaved ? question_attributes.send("total_#{key}", value) : send(key).size
       extra_questions, extra_responses, cost = 0, 0, 0.0
       concerned_question_type = survey_package.pricing_info.send(key.singularize)
       extra_responses = responses - survey_package.total_responses if responses > survey_package.total_responses
@@ -67,11 +67,19 @@ class Survey < ActiveRecord::Base
   
   def cost_in_cents; chargeable_amount * 100 end
   
+  def self.total_price(params) # This method is used to calculate price of unsaved survey object    
+    survey = Survey.new(params[:survey])
+    survey.unsaved = true
+    survey.question_attributes = params[:survey][:questions_attributes]
+    survey.package = Package.find(params[:survey][:package_id])
+    survey.total_cost
+  end
+  
   def total_cost
     if package
       total_payable = package.base_cost
       QUESTION_TYPES.keys.each {|k| total_payable += send("#{k}_cost") }
-      connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};");
+      connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};") if id
       return total_payable
     end
   end
