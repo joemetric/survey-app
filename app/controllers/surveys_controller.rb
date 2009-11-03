@@ -45,7 +45,7 @@ class SurveysController < ResourceController::Base
   def finished
   end
 
-  show.wants.json { render :json => @object }
+  show.wants.json { render :json => @object.to_json(:methods => [ :total_payout ]) }
 
   def index
     respond_to do |format|
@@ -54,7 +54,7 @@ class SurveysController < ResourceController::Base
       end
       format.json do
         @surveys = Survey.published
-        render :json => @surveys, :status => 200
+        render :json => @surveys.to_json(:methods => [ :total_payout ]), :status => 200
       end
     end
   end
