@@ -20,8 +20,12 @@ class Payment < ActiveRecord::Base
   belongs_to :user, :foreign_key => "owner_id"
   
   include AASM
-  concerned_with :payment_state_machine
+  concerned_with :payment_state_machine, :payment_processing
   
   named_scope :complete, :conditions => ['status = ?', 'paid']
+  
+  def paid? 
+    status == 'paid'
+  end
   
 end

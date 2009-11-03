@@ -11,48 +11,32 @@ class PaymentsController < ApplicationController
   end
    
   def authorize
-    response = @gateway.setup_purchase( 
+    authorization = GATEWAY.setup_purchase( 
       @survey.cost_in_cents,
       :order_id => "Survey:#{@survey.id} - #{@survey.name}",
       :return_url => capture_payment_url(@survey), 
       :cancel_return_url => cancel_payment_url(@survey), 
       :description => "Payment for Survey - #{@survey.name} (http://joemetric.com)"
     ) 
-    if response.success? 
+    if authorization.success? 
       @survey.payment.authorized!
-      redirect_to @gateway.redirect_url_for(response.params["token"])
+      redirect_to GATEWAY.redirect_url_for(authorization.params["token"])
     else 
-     error_in_payment(response, @survey) 
+     error_in_payment(authorization, @survey) 
     end
   end    
 
   def capture
-    response = @gateway.details_for(params["token"]) 
-    if response.success? 
-      response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
-      @survey.payment.paid!
-      @survey.save_payment_details(params, response)
-      flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
+    verification = Payment.verify_token(params['token'])
+    if verification.success? 
+      Payment.capture(@survey, params)
+      flash[:notice] = "Thank You. You have successfully made the payment for Your Survey."
       redirect_to progress_surveys_path and return
     else
-      error_in_payment(response, @survey) 
+      error_in_payment(verification, @survey) 
     end 
   end
-  
-  def refund
-    payment_info = @survey.payment
-    response = @gateway.details_for(payment_info.token)
-    if response.success?
-      response = @gateway.credit(@survey.cost_in_cents, 
-                                 payment_info.transaction_id,
-                                 {:note => 'Payment Refund for Survey #ID:#{@survey.id} - #{@survey.name}'})
-      flash[:notice] = response.message
-      redirect_to survey_url(@survey) and return
-    else
-      error_in_payment(response, @survey) 
-    end
-  end
-  
+
   def cancel
     @survey.payment.cancelled!
     flash[:notice] = "You have cancelled to make the payment for Survey: #{survey.name}"
@@ -67,7 +51,6 @@ private
       flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
       redirect_to survey_url(@survey) and return
     end
-    @gateway = GATEWAY
   end
   
   def error_in_payment(response, survey)
