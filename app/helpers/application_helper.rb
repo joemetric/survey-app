@@ -57,7 +57,7 @@ module ApplicationHelper
   end
   
   def percent_of(ammount, total)
-    (ammount * 100 ) / total
+    total.zero? ? 0 : ((ammount * 100 ) / total)
   end
   
 end

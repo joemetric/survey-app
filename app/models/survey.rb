@@ -125,7 +125,7 @@ class Survey < ActiveRecord::Base
   private
   
   def percent_of(ammount, total)
-    (ammount * 100 ) / total
+    total.zero? ? 0 : ((ammount * 100 ) / total)
   end
   
   def deliver_rejection_mail
