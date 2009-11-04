@@ -23,7 +23,7 @@
             %tbody
               - @survey.questions.each do |question|
                 %tr
-                  %td= question.name
+                  %td{ :style => "text-align:left;" }= question.name
                   %td
                     = @survey.responses - question.answers.size
                     = "(#{percent_of((@survey.responses - question.answers.size), @survey.responses)}%)"
