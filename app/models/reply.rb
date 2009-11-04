@@ -12,4 +12,8 @@ class Reply < ActiveRecord::Base
   
   named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
   
+  def complete?
+    (survey.questions.size == answers.size) 
+  end
+  
 end

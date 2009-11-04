@@ -3,6 +3,6 @@
     %li{ :class => menu_selected?(["surveys_pricing"])}= link_to "Pricing", pricing_surveys_path
     %li{ :class => menu_selected?(["surveys_new", "surveys_create"])}= link_to "Create Survey", new_survey_path(:package => 'default')
     %li{ :class => menu_selected?(["surveys_index"])}= link_to "Saved Surveys", surveys_path
-    %li{ :class => menu_selected?(["surveys_progress" ])}= link_to "Monitor Progress", progress_surveys_path
+    %li{ :class => menu_selected?(["surveys_progress", "surveys_show" ])}= link_to "Monitor Progress", progress_surveys_path
     %li{ :class => menu_selected?([ ])}= link_to_function "Reports", "alert('Under Development');"
     %li{ :class => menu_selected?(["payments_index"])}= link_to "Account History", account_history_path

@@ -18,7 +18,6 @@ Rails::Initializer.run do |config|
   config.gem "packet"
   config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com"
   config.gem "money"
-
   
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.

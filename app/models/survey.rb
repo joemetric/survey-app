@@ -94,7 +94,39 @@ class Survey < ActiveRecord::Base
     refunds.first(:conditions => ['complete = ?', true]).blank?
   end
   
+  def finished?
+    (publish_status == "finished")
+  end
+  
+  def graph
+    graph = Graph.new
+    graph.add_data("#{to_be_taken}% Remaining to be taken", to_be_taken )
+    graph.add_data("#{in_progress}% In Progress", in_progress )
+    graph.add_data("#{completed}% Completed", completed )
+    graph.to_url
+  end
+  
+  def to_be_taken
+    percent_of((responses - replies.size), responses)
+  end
+  
+  def in_progress
+    pending = [ ]
+    replies.each { |reply| pending.push(reply) unless reply.complete? }
+    percent_of(pending.size, replies.size)
+  end
+  
+  def completed
+    completes = [ ]
+    replies.each { |reply| completes.push(reply) if reply.complete? }
+    percent_of(completes.size, responses.size)
+  end
+  
   private
+  
+  def percent_of(ammount, total)
+    (ammount * 100 ) / total
+  end
   
   def deliver_rejection_mail
     UserMailer.deliver_survey_rejection_mail(self)

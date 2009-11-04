@@ -56,4 +56,8 @@ module ApplicationHelper
     @tab == tab_name ? 'selected' : 'item'
   end
   
+  def percent_of(ammount, total)
+    (ammount * 100 ) / total
+  end
+  
 end

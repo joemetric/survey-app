@@ -42,10 +42,9 @@ class SurveysController < ResourceController::Base
     @surveys = @current_user.created_surveys.in_progress
   end
 
-  def finished
+  show do
+    wants.json { render :json => @object.to_json(:methods => [ :total_payout ]) }
   end
-
-  show.wants.json { render :json => @object.to_json(:methods => [ :total_payout ]) }
 
   def index
     respond_to do |format|
