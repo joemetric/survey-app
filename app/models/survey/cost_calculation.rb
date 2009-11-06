@@ -58,9 +58,10 @@ class Survey < ActiveRecord::Base
          :normal_price =>  concerned_question_type.normal_price.us_dollar,
          :extra_questions_cost => extra_questions_cost.us_dollar,
          :extra_responses_cost => extra_responses_cost.us_dollar,
-         :extra_responses_questions_cost => extra_responses_questions_cost.us_dollar,
+         :extra_responses_questions_cost => (extra_responses_cost + extra_responses_questions_cost).us_dollar,
          :cost_with_discount => standard_cost.us_dollar,
          :total_cost => cost, 
+         :responses => responses,
          :discounted_responses => responses - extra_responses,
          :extra_responses => extra_responses
         }
