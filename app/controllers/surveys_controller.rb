@@ -2,7 +2,7 @@ class SurveysController < ResourceController::Base
 
   before_filter :require_user
   before_filter :get_package, :only => [:new, :create, :activate]
-
+   
   new_action.before do
     object.end_at = Time.now + 7.days
     2.times { object.questions.build }
@@ -58,8 +58,8 @@ class SurveysController < ResourceController::Base
     end
   end
   
-  def update_pricing    
-    render :text => Survey.total_price(params).us_dollar
+  def update_pricing
+    render :json => Survey.pricing_details(params).to_json   
   end
 
   private

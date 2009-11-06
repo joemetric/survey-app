@@ -119,7 +119,7 @@ class Float
   end
   
   def to_decimal 
-    us_dollar.gsub!('$', '')
+    us_dollar.remove_dollar_sym
   end
   
 end
@@ -130,17 +130,13 @@ class Array
   
   Survey::QUESTION_TYPES.each_pair { |key, value|
     
-    define_method("total_#{key}") do |p_question_id|
+    define_method("total_#{key}") do
       package_question_type_ids = []
       self.each { |hash|
         hash['package_question_type_id'] = QuestionType::PackageQuestionTypes[hash['question_type_id']]
         package_question_type_ids <<  hash.values_at('package_question_type_id')
       }
-      if package_question_type_ids.flatten.include?(p_question_id)
-        package_question_type_ids.flatten.count {|x| x = p_question_id}
-      else
-        0
-      end
+      package_question_type_ids.flatten.count {|x| x == value}
     end
     
     define_method(key.singularize) do
@@ -155,6 +151,14 @@ class Array
      return count
    end
      
+end
+
+class String
+  
+  def to_decimal; remove_dollar_sym end
+  
+  def remove_dollar_sym; gsub!('$', '').to_f end
+  
 end
 
 class NilClass  
