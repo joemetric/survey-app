@@ -6,9 +6,20 @@ function call_activate_form(id) {
 }
 
 $(document).ready(function(){
+    
     $('#survey_responses').change(function() {
        updatePricing();
     });
+    
+    
+    $('#loader').hide()
+    .ajaxStart(function() {
+        $(this).show();
+    })
+    .ajaxStop(function() {
+        $(this).hide();
+    });
+    
 });
 
 function updatePricing(){
