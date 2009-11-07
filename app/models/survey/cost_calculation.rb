@@ -1,10 +1,4 @@
-
 class Survey < ActiveRecord::Base
-  
-  # This file includes methods used in calculating total cost of survey according to the following data:
-  # 1. Survey Package Configuration
-  # 2. Total Responses to be collected
-  # 3. Total Questions set for each category
   
   QUESTION_TYPES  = {'standard_questions' => 1,
                      'premium_questions' => 2,
@@ -24,8 +18,6 @@ class Survey < ActiveRecord::Base
     define_method("#{key}_cost") do
       survey_package = package
       total_questions = unsaved ? (question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")) : send(key).size  
-#     TODO - Piyush - Set following variables as attr_accessors(Default values as defined) 
-#     Due to this Line#51 can be moved to new instance method
       standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
       extra_responses, extra_responses_cost, extra_responses_questions_cost = 0, 0.00, 0.00
       concerned_question_type = survey_package.pricing_info.send(key.singularize)
@@ -48,7 +40,7 @@ class Survey < ActiveRecord::Base
         end
       end    
       discounted_questions = total_questions - extra_questions
-      if unsaved # This block can be re-factored for more clarity
+      if unsaved
         {
          :normal => concerned_question_type.name.plural_form(extra_questions), 
          :standard => concerned_question_type.name.plural_form(discounted_questions),
@@ -58,7 +50,7 @@ class Survey < ActiveRecord::Base
          :normal_price =>  concerned_question_type.normal_price.us_dollar,
          :extra_questions_cost => extra_questions_cost.us_dollar,
          :extra_responses_cost => extra_responses_cost.us_dollar,
-         :extra_responses_questions_cost => (extra_responses_cost + extra_responses_questions_cost).us_dollar,
+         :extra_responses_questions_cost => (responses * extra_questions * concerned_question_type.normal_price).us_dollar,
          :cost_with_discount => standard_cost.us_dollar,
          :total_cost => cost, 
          :responses => responses,
