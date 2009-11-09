@@ -1031,3 +1031,12 @@ a.buynow_btn {
 
 /* Pagination Ends */
     
+.total_bar{float:left;}
+
+.loader{
+    width:36px;
+    height:36px;
+    float:right;
+    margin-right:14px; 
+    margin-top:-6px;
+    }    

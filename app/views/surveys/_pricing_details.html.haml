@@ -14,30 +14,18 @@
           = q.skip_info
           %br
     %br
-    Starting at
+    Base Cost
     = package.base_cost.us_dollar
-  .sur_details
-    - total_price = 0
-    - package.try(:pricing_info).each do |q|
-      %p
-        %b
-          %i 
-            = q.name.plural_form(1, 'Additional ')
-        %br
-        = package.total_responses
-        responses
-        %p 
-          = q.normal_price.us_dollar
-          per response
-        %hr{:size => 1, :width => 105, :align => 'left'}
-        %strong 
-          - total_price += q.normal_price * package.total_responses
-          = (q.normal_price * package.total_responses).us_dollar
+  .sur_details{:id => 'pricing_details'}
   .total
     %br
-    %strong
-      Total
-      %em{:id => 'total_amount'} 
-        = total_price.us_dollar
-    %b &nbsp;&nbsp;
+    .total_bar
+      %strong
+        Total
+        %em{:id => 'total_amount'} 
+          = package.base_cost.us_dollar
+      %b &nbsp;&nbsp;
+    .loader
+      = image_tag('loader.gif', :alt => 'Loading...', :style => 'display:none;', :id => 'loader')
+    .cls
 .cls

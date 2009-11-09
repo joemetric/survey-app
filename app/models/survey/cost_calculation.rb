@@ -1,10 +1,5 @@
 class Survey < ActiveRecord::Base
   
-  # This file includes methods used in calculating total cost of survey according to the following data:
-  # 1. Survey Package Configuration
-  # 2. Total Responses to be collected
-  # 3. Total Questions set for each category
-  
   QUESTION_TYPES  = {'standard_questions' => 1,
                      'premium_questions' => 2,
                      'standard_demographic' => 3,
@@ -22,22 +17,49 @@ class Survey < ActiveRecord::Base
     
     define_method("#{key}_cost") do
       survey_package = package
-      total_questions = unsaved ? question_attributes.send("total_#{key}", value) : send(key).size
-      extra_questions, extra_responses, cost = 0, 0, 0.0
+      total_questions = unsaved ? (question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")) : send(key).size  
+      standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
+      extra_responses, extra_responses_cost, extra_responses_questions_cost = 0, 0.00, 0.00
       concerned_question_type = survey_package.pricing_info.send(key.singularize)
       extra_responses = responses - survey_package.total_responses if responses > survey_package.total_responses
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions
           extra_questions = total_questions - concerned_question_type.total_questions
         end
-        cost = concerned_question_type.standard_price * (total_questions - extra_questions) * (responses - extra_responses) 
-        cost += concerned_question_type.normal_price * extra_questions * (responses - extra_responses) if extra_questions > 0
-        if extra_responses > 0
-          cost += concerned_question_type.normal_price * (total_questions - extra_questions) * extra_responses
-          cost += concerned_question_type.normal_price * extra_questions * extra_responses
+        standard_cost += concerned_question_type.standard_price * (total_questions - extra_questions) * (responses - extra_responses) 
+        cost += standard_cost
+        if extra_questions > 0
+          extra_questions_cost += concerned_question_type.normal_price * extra_questions * (responses - extra_responses) 
+          cost += extra_questions_cost
         end
+        if extra_responses > 0
+          extra_responses_cost += concerned_question_type.normal_price * (total_questions - extra_questions) * extra_responses
+          cost += extra_responses_cost
+          extra_responses_questions_cost += concerned_question_type.normal_price * extra_questions * extra_responses
+          cost += extra_responses_questions_cost
+        end
+      end    
+      discounted_questions = total_questions - extra_questions
+      if unsaved
+        {
+         :normal => concerned_question_type.name.plural_form(extra_questions), 
+         :standard => concerned_question_type.name.plural_form(discounted_questions),
+         :discounted_questions => discounted_questions,
+         :extra_questions => extra_questions,
+         :standard_price => concerned_question_type.standard_price.us_dollar,
+         :normal_price =>  concerned_question_type.normal_price.us_dollar,
+         :extra_questions_cost => extra_questions_cost.us_dollar,
+         :extra_responses_cost => extra_responses_cost.us_dollar,
+         :extra_responses_questions_cost => (responses * extra_questions * concerned_question_type.normal_price).us_dollar,
+         :cost_with_discount => standard_cost.us_dollar,
+         :total_cost => cost, 
+         :responses => responses,
+         :discounted_responses => responses - extra_responses,
+         :extra_responses => extra_responses
+        }
+      else
+        cost
       end
-      cost
     end
     
     define_method("refund_for_#{key}") do
@@ -67,12 +89,21 @@ class Survey < ActiveRecord::Base
   
   def cost_in_cents; chargeable_amount * 100 end
   
-  def self.total_price(params) # This method is used to calculate price of unsaved survey object    
+  def self.pricing_details(params)
     survey = Survey.new(params[:survey])
+    survey.responses = 0 if survey.responses.nil?
     survey.unsaved = true
     survey.question_attributes = params[:survey][:questions_attributes]
     survey.package = Package.find(params[:survey][:package_id])
-    survey.total_cost
+    survey_configuration = {}
+    survey_configuration[:total_cost] = survey.package.base_cost
+    QUESTION_TYPES.keys.each {|k| 
+      survey_configuration[k.to_sym] = survey.send("#{k}_cost")
+      survey_configuration[:total_cost] += survey_configuration[k.to_sym][:total_cost]
+      survey_configuration[k.to_sym][:total_cost] = survey_configuration[k.to_sym][:total_cost].us_dollar 
+    }
+    survey_configuration[:total_cost] = survey_configuration[:total_cost].us_dollar
+    survey_configuration
   end
   
   def total_cost
