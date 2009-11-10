@@ -57,7 +57,7 @@ class Survey < ActiveRecord::Base
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   
-  attr_accessor :unsaved, :question_attributes, :package_id
+  attr_accessor :return_hash, :question_attributes, :package_id
   
   def published?
     !published_at.blank?
@@ -135,6 +135,13 @@ class Survey < ActiveRecord::Base
     package.pricings.each {|p| SurveyPricing.create(:survey_id => id, :package_pricing_id => p.id)}
     package.payouts.each {|p| SurveyPayout.create(:survey_id => id, :payout_id => p.id)}
     SurveyPackage.copy_package(self, package)
+  end
+  
+  def pricing_data
+    package_pricings.find(:all, 
+      :select => 'package_pricings.*, package_question_types.*',
+      :joins => ['LEFT JOIN package_question_types ' + 
+                 'ON package_pricings.package_question_type_id = package_question_types.id'])
   end
   
   private  

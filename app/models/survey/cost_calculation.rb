@@ -16,14 +16,14 @@ class Survey < ActiveRecord::Base
     end
     
     define_method("#{key}_cost") do
-      if unsaved # This block was added for #767
+      if new_record? # This block was added for #767
         survey_package = Package.find(package_id)
         total_questions = question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")
         concerned_question_type = survey_package.pricing_info.send(key.singularize)
       else
         survey_package = package
         total_questions = send(key).size
-        concerned_question_type = package_pricings.send(key.singularize)
+        concerned_question_type = pricing_data.send(key.singularize)
       end
       standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
       extra_responses, extra_responses_cost, extra_responses_questions_cost = 0, 0.00, 0.00
@@ -46,7 +46,7 @@ class Survey < ActiveRecord::Base
         end
       end    
       discounted_questions = total_questions - extra_questions
-      if unsaved
+      if new_record? || return_hash
         {
          :normal => concerned_question_type.name.plural_form(extra_questions), 
          :standard => concerned_question_type.name.plural_form(discounted_questions),
@@ -95,12 +95,17 @@ class Survey < ActiveRecord::Base
   def cost_in_cents; chargeable_amount * 100 end
   
   def self.pricing_details(params)
-    survey = Survey.new(params[:survey])
+    if params[:survey][:id]
+      survey = Survey.find(params[:survey][:id])  
+      survey_package = survey.package
+    else
+      survey = Survey.new(params[:survey])
+      survey.package_id = params[:survey][:package_id]
+      survey_package = Package.find(survey.package_id)
+    end
+    survey.return_hash = true
     survey.responses = 0 if survey.responses.nil?
-    survey.unsaved = true
     survey.question_attributes = params[:survey][:questions_attributes]
-    survey.package_id = params[:survey][:package_id]
-    survey_package = Package.find(survey.package_id)
     survey_configuration = {}
     survey_configuration[:total_cost] = survey_package.base_cost
     QUESTION_TYPES.keys.each {|k| 

@@ -25,7 +25,7 @@ $(document).ready(function(){
 });
 
 function updatePricing(){
-    $.post("/surveys/update_pricing", $('#new_survey').serialize(), 
+    $.post("/surveys/update_pricing", $('#survey_form').serialize(), 
     function(data, textStatus) {
     var html = ''
     jQuery.each(data, function(i, question) {

@@ -2,7 +2,7 @@
 .main_content
   = render :partial => "/surveys/preview_tabs"
   .form
-    - form_for @survey do |form|
+    - form_for @survey, :html => {:id => 'survey_form'}  do |form|
       %h3.heads Edit a Survey
       = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }
@@ -11,7 +11,7 @@
         = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
       
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
-      
+      = form.hidden_field :id
       .rounded
         .top
         .form_content1
@@ -30,3 +30,7 @@
         - page << "call_activate_form('#{@survey.id}');"
       
       = form.submit "Update", :class => "button button_gr"
+
+= render :partial => 'pricing_details', :locals => { :package => @survey.package}
+
+= javascript_tag('updatePricing();')

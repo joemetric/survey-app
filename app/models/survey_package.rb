@@ -25,4 +25,10 @@ class SurveyPackage < ActiveRecord::Base
     survey_package.save
   end
   
+  def questions_info
+    returning questions = [] do 
+      survey.pricing_data.each {|i| questions << "#{i.name.plural_form(i.total_questions)}(#{i.info})"}
+    end
+  end
+  
 end
