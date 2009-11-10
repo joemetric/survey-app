@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: questions
 #
@@ -9,6 +9,8 @@
 #  survey_id        :integer(4)
 #  name             :string(255)
 #  question_type_id :integer(4)
+#  complement       :text
+#  description      :string(255)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

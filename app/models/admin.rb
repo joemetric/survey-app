@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: users
 #
@@ -11,13 +11,14 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #  birthdate         :date
-#  income            :integer(4)
 #  gender            :string(255)
 #  password_salt     :string(255)
 #  persistence_token :string(255)
 #  perishable_token  :string(255)
 #  active            :boolean(1)
 #  type              :string(255)     default("User")
+#  income_id         :integer(4)
+#  zip_code          :string(255)
 #
 
 class Admin < User

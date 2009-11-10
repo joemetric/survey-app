@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: payments
 #
@@ -12,6 +12,7 @@
 #  updated_at     :datetime
 #  transaction_id :string(255)
 #  owner_id       :integer(4)
+#  status         :string(255)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: payments
 #
@@ -13,6 +13,7 @@
 #  transaction_id :string(255)
 #  owner_id       :integer(4)
 #  status         :string(255)
+#
 
 class Payment < ActiveRecord::Base
   

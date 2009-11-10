@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: package_lifetimes
 #

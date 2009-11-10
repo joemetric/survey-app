@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091110082101
+#
+# Table name: survey_packages
+#
+#  id              :integer(4)      not null, primary key
+#  survey_id       :integer(4)
+#  name            :string(255)
+#  code            :string(255)
+#  base_cost       :float
+#  total_responses :integer(4)
+#
+
 class SurveyPackage < ActiveRecord::Base
   
   belongs_to :survey

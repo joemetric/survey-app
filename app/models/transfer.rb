@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20091110082101
+#
+# Table name: transfers
+#
+#  id            :integer(4)      not null, primary key
+#  reply_id      :integer(4)
+#  status        :string(100)     default("pending")
+#  amount        :float
+#  paypal_params :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Transfer < ActiveRecord::Base
   
 # This model will handle transfering of payout amount to users who completed 

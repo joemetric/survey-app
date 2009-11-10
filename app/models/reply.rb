@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20091110082101
+#
+# Table name: replies
+#
+#  id         :integer(4)      not null, primary key
+#  survey_id  :integer(4)
+#  user_id    :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#  paid       :boolean(1)
+#
+
 class Reply < ActiveRecord::Base
   
   belongs_to :survey

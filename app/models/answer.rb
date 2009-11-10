@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20091110082101
+#
+# Table name: answers
+#
+#  id                 :integer(4)      not null, primary key
+#  reply_id           :integer(4)
+#  question_id        :integer(4)
+#  answer             :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  image_file_name    :string(255)
+#  image_content_type :string(255)
+#  image_file_size    :integer(4)
+#  image_updated_at   :datetime
+#
+
 class Answer < ActiveRecord::Base
   
   has_attached_file :image

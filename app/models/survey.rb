@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: surveys
 #
@@ -14,8 +14,9 @@
 #  published_at      :datetime
 #  publish_status    :string(255)
 #  reject_reason     :string(255)
-#  package_id        :integer(4)      not null
+#  package_id        :integer(4)
 #  chargeable_amount :float
+#  description       :text
 #
 
 class Survey < ActiveRecord::Base
@@ -127,21 +128,6 @@ class Survey < ActiveRecord::Base
     completes = [ ]
     replies.each { |reply| completes.push(reply) if reply.complete? }
     percent_of(completes.size, responses.size)
-  end
-  
-  def pricing_info
-    survey_pricings.find(:all,
-    :select => ['survey_pricings.*, package_question_types.*, package_pricings.*'],
-    :joins =>  ['LEFT JOIN package_pricings ON package_pricings.id = survey_pricings.package_pricing_id' +
-               ' LEFT JOIN package_question_types ON package_question_types.id = package_pricings.package_question_type_id'],
-    :order =>  'package_question_types.id ASC')
-  end
-  
-  def payout_info
-    payouts.find(:all, 
-      :select => ['survey_payouts.*, payouts.*'],
-      :joins =>  ['LEFT JOIN payouts ON survey_payouts.payout_id = payouts.id'],
-      :order =>  'payouts.package_question_type_id ASC')
   end
   
   def save_pricing_info

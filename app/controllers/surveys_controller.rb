@@ -63,7 +63,7 @@ class SurveysController < ResourceController::Base
   end
   
   def update_pricing
-    render :json => Survey.pricing_details(params).to_json   
+    render :json => Survey.pricing_details(params).to_json
   end
 
   private

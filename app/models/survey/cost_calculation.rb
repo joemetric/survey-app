@@ -23,7 +23,7 @@ class Survey < ActiveRecord::Base
       else
         survey_package = package
         total_questions = send(key).size
-        concerned_question_type = pricing_info.send(key.singularize)
+        concerned_question_type = package_pricings.send(key.singularize)
       end
       standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
       extra_responses, extra_responses_cost, extra_responses_questions_cost = 0, 0.00, 0.00
@@ -71,7 +71,7 @@ class Survey < ActiveRecord::Base
     define_method("refund_for_#{key}") do
       extra_questions, refund_cost = 0, 0.0
       total_questions = send(key).size
-      concerned_question_type = pricing_info.send(key.singularize)
+      concerned_question_type = package_pricings.send(key.singularize)
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions
           extra_questions = total_questions - concerned_question_type.total_questions

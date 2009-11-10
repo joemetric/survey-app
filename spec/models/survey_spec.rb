@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091012054719
+# Schema version: 20091110082101
 #
 # Table name: surveys
 #
@@ -14,8 +14,9 @@
 #  published_at      :datetime
 #  publish_status    :string(255)
 #  reject_reason     :string(255)
-#  package_id        :integer(4)      not null
+#  package_id        :integer(4)
 #  chargeable_amount :float
+#  description       :text
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
