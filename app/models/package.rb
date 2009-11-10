@@ -32,7 +32,6 @@ class Package < ActiveRecord::Base
   has_many :payouts
   has_many :pricings, :class_name => 'PackagePricing'
   has_many :package_question_types, :through => :pricings
-  has_many :surveys
   
   accepts_nested_attributes_for :lifetime
   

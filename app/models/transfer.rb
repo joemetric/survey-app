@@ -1,0 +1,47 @@
+class Transfer < ActiveRecord::Base
+  
+# This model will handle transfering of payout amount to users who completed 
+# answering all the questions of Survey.
+  
+  include AASM
+  aasm_column :status
+  aasm_initial_state :pending
+  
+  aasm_state :pending
+  aasm_state :complete
+  aasm_state :failed
+  
+  aasm_event :pending do
+    transitions :to => :pending, :from => [ :pending, :failed ]
+  end
+  
+  aasm_event :complete do
+    transitions :to => :complete, :from => [ :pending, :failed ]
+  end
+  
+  aasm_event :failed do
+    transitions :to => :failed, :from => [ :pending, :failed ]
+  end
+  
+  serialize :paypal_params
+  
+  belongs_to :reply
+  
+  def self.pending
+    Reply.find(:all, :conditions => ['paid = ? AND created_at < ?', false, 1.week.ago])
+  end 
+  
+  def self.process(reply)
+    amount = reply.total_payout   
+    response = Payment.transfer(amount * 100, reply.user.email)
+    transfer = Transfer.new({:reply_id => reply.id, :amount => amount, :paypal_params => response.params})
+    if response.success?
+      transfer.complete!
+      reply.update_attribute(:paid, true)
+    else
+      transfer.failed!
+    end
+    transfer.save
+  end
+ 
+end

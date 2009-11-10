@@ -100,15 +100,23 @@ class ApplicationController < ActionController::Base
   
 end
 
-# If there are more methods to be added in the following classes create separate class files
-
 class String
   
   def plural_form(count, add_text=''); 
      "#{count || 0} " + add_text + ((count == 1 || count == '1') ? self[0..length-2] : self)
   end
   
-  def skip_info; gsub(/[(].*[)]/, '') end
+  def skip_info 
+    gsub(/[(].*[)]/, '') 
+  end
+
+  def to_decimal
+    remove_dollar_sym
+  end
+  
+  def remove_dollar_sym
+    gsub!('$', '').to_f
+  end
 
 end
 
@@ -125,9 +133,7 @@ class Float
 end
 
 class Array
-  
-#  Gets record of particular Question Type from package_pricings table, form parameters for selected package of survey
-  
+
   Survey::QUESTION_TYPES.each_pair { |key, value|
     
     define_method("total_#{key}") do
@@ -143,25 +149,16 @@ class Array
       select {|p| p.package_question_type_id == value}.compact.first
     end
   }
-  
-  
+ 
   def count(&action)
      count = 0
      self.each { |x| count = count + 1 if action.call(x) }
      return count
    end
-     
+    
 end
 
-class String
-  
-  def to_decimal; remove_dollar_sym end
-  
-  def remove_dollar_sym; gsub!('$', '').to_f end
-  
-end
-
-class NilClass  
+class NilClass
   
   ['to_date', 'us_dollar', 'to_decimal'].each do |name|
     define_method name do 

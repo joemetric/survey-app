@@ -18,6 +18,9 @@ class PackagePricing < ActiveRecord::Base
   belongs_to :package
   belongs_to :package_question
   
+  has_many :survey_pricings
+  has_many :surveys, :through => :survey_pricings
+  
   validates_presence_of :package_id, :package_question_type_id, :total_questions, :standard_price, :normal_price
    
   validates_numericality_of :total_questions, 

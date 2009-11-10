@@ -4,8 +4,10 @@
   :log: foreground
 
 :schedules:
-  :refund_worker: # Worker Name
-    :refund_payment: # Method Name
+  :paypal_processor_worker: # Worker Name
+    :refund: # Method Name
+      :trigger_args: 0 1 1 * * * *
+    :transfer:
       :trigger_args: 0 1 1 * * * *
 
       

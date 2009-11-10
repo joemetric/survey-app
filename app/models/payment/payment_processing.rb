@@ -18,4 +18,8 @@ class Payment < ActiveRecord::Base
    )
   end
   
+  def self.transfer(amount, email)
+    GATEWAY.transfer [amount, email], :subject => "JoeSurvey cash", :note => "Thank you for completing one or more surveys."
+  end
+  
 end

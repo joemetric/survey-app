@@ -36,6 +36,10 @@ class Question < ActiveRecord::Base
   def question_type_name
     question_type.name
   end
+  
+  def package_question_type
+    Survey::QUESTION_TYPES.invert[question_type.package_question_type_id].singularize
+  end
 
   def to_json(options = {})
     self.answer_by_user = (survey.replies.by_user(options[:user]).first.answers.by_question(self).first rescue nil) if options[:user]

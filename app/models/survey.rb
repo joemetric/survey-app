@@ -32,11 +32,18 @@ class Survey < ActiveRecord::Base
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
   has_many :replies
   has_many :refunds # While refunding from Paypal, transaction may fail. Failed transactions are also logged. So survey can have multiple transactions 
-  belongs_to :package
   
-  validates_presence_of :name, :owner_id, :package_id
+  has_one :package, :class_name => 'SurveyPackage'
+  
+  has_many :survey_pricings
+  has_many :package_pricings, :through => :survey_pricings
+  
+  has_many :survey_payouts
+  has_many :payouts, :through => :survey_payouts
+  
+  validates_presence_of :name, :owner_id
   validates_numericality_of :responses
-
+  
   accepts_nested_attributes_for :questions, :restrictions
  
   named_scope :pending, { :conditions => { :publish_status => "pending" }}
@@ -46,10 +53,10 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   
-  after_create :create_payment
+  after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
   
-  attr_accessor :unsaved, :question_attributes
+  attr_accessor :unsaved, :question_attributes, :package_id
   
   def published?
     !published_at.blank?
@@ -122,7 +129,29 @@ class Survey < ActiveRecord::Base
     percent_of(completes.size, responses.size)
   end
   
-  private
+  def pricing_info
+    survey_pricings.find(:all,
+    :select => ['survey_pricings.*, package_question_types.*, package_pricings.*'],
+    :joins =>  ['LEFT JOIN package_pricings ON package_pricings.id = survey_pricings.package_pricing_id' +
+               ' LEFT JOIN package_question_types ON package_question_types.id = package_pricings.package_question_type_id'],
+    :order =>  'package_question_types.id ASC')
+  end
+  
+  def payout_info
+    payouts.find(:all, 
+      :select => ['survey_payouts.*, payouts.*'],
+      :joins =>  ['LEFT JOIN payouts ON survey_payouts.payout_id = payouts.id'],
+      :order =>  'payouts.package_question_type_id ASC')
+  end
+  
+  def save_pricing_info
+    package = Package.find(package_id)
+    package.pricings.each {|p| SurveyPricing.create(:survey_id => id, :package_pricing_id => p.id)}
+    package.payouts.each {|p| SurveyPayout.create(:survey_id => id, :payout_id => p.id)}
+    SurveyPackage.copy_package(self, package)
+  end
+  
+  private  
   
   def percent_of(ammount, total)
     (total == 0) ? 0 : ((ammount * 100 ) / total)

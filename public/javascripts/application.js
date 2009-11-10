@@ -7,6 +7,8 @@ function call_activate_form(id) {
 
 $(document).ready(function(){
     
+    $("input:text:visible:first").focus();
+    
     $('#survey_responses').change(function() {
        updatePricing();
     });

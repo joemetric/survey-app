@@ -16,6 +16,9 @@ class Payout < ActiveRecord::Base
   belongs_to :package
   belongs_to :package_question_type
   
+  has_many :survey_payouts
+  has_many :surveys, :through => :survey_payouts
+  
   validates_presence_of :amount
   
   validates_numericality_of :amount, 

@@ -12,6 +12,10 @@ class Answer < ActiveRecord::Base
   
   named_scope :by_question, lambda { |q| { :conditions => { :question_id => q.id }}}
   
+  def reward # Reward for answering each question
+    question.survey.payouts.send(question.package_question_type).amount
+  end
+    
   private
   
   def presence_of_file_only_if_allowed

@@ -21,6 +21,10 @@ class SurveysController < ResourceController::Base
   def pricing
     @packages = Package.valid_packages.in_groups_of(2, false)
   end
+  
+  def reward
+    amount = Survey.find(params[:id]).replies.by_user(current_user).first.total_payout
+  end
 
   def activate
     @survey = params[:id].blank? ? Survey.new(params[:survey]) : Survey.find(params[:id])

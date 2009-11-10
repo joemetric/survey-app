@@ -16,12 +16,18 @@ class Survey < ActiveRecord::Base
     end
     
     define_method("#{key}_cost") do
-      survey_package = package
-      total_questions = unsaved ? (question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")) : send(key).size  
+      if unsaved # This block was added for #767
+        survey_package = Package.find(package_id)
+        total_questions = question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")
+        concerned_question_type = survey_package.pricing_info.send(key.singularize)
+      else
+        survey_package = package
+        total_questions = send(key).size
+        concerned_question_type = pricing_info.send(key.singularize)
+      end
       standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
       extra_responses, extra_responses_cost, extra_responses_questions_cost = 0, 0.00, 0.00
-      concerned_question_type = survey_package.pricing_info.send(key.singularize)
-      extra_responses = responses - survey_package.total_responses if responses > survey_package.total_responses
+      extra_responses += responses - survey_package.total_responses if responses > survey_package.total_responses
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions
           extra_questions = total_questions - concerned_question_type.total_questions
@@ -65,7 +71,7 @@ class Survey < ActiveRecord::Base
     define_method("refund_for_#{key}") do
       extra_questions, refund_cost = 0, 0.0
       total_questions = send(key).size
-      concerned_question_type = package.pricing_info.send(key.singularize)
+      concerned_question_type = pricing_info.send(key.singularize)
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions
           extra_questions = total_questions - concerned_question_type.total_questions
@@ -79,9 +85,8 @@ class Survey < ActiveRecord::Base
     end
     
     define_method("payout_for_#{key}") do
-      concerned_question_type = package.payout_info.send(key.singularize)
+      concerned_question_type = payouts.send(key.singularize)
       payout = 0.0
-      # send(key).size => Total Questions set in the survey
       payout += send(key).size * concerned_question_type.amount if concerned_question_type 
     end
     
@@ -94,9 +99,10 @@ class Survey < ActiveRecord::Base
     survey.responses = 0 if survey.responses.nil?
     survey.unsaved = true
     survey.question_attributes = params[:survey][:questions_attributes]
-    survey.package = Package.find(params[:survey][:package_id])
+    survey.package_id = params[:survey][:package_id]
+    survey_package = Package.find(survey.package_id)
     survey_configuration = {}
-    survey_configuration[:total_cost] = survey.package.base_cost
+    survey_configuration[:total_cost] = survey_package.base_cost
     QUESTION_TYPES.keys.each {|k| 
       survey_configuration[k.to_sym] = survey.send("#{k}_cost")
       survey_configuration[:total_cost] += survey_configuration[k.to_sym][:total_cost]
