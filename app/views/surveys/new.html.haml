@@ -33,7 +33,7 @@
       = form.submit "Save for Later", :class => "button button_la"
       
       = button_to_function "Purchase via Paypal", :class => "button button_la" do |page|
-        - page << '$("#new_survey").attr("action", "/surveys/activate");'
-        - page << '$("#new_survey").submit();'
+        - page << '$("#survey_form").attr("action", "/surveys/activate");'
+        - page << '$("#survey_form").submit();'
 
 = render :partial => 'pricing_details', :locals => { :package => @package}      
