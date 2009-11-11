@@ -38,7 +38,7 @@ class PaymentsController < ApplicationController
   
   def cancel
     @survey.payment.cancelled!
-    flash[:notice] = "You have cancelled to make the payment for Survey: #{survey.name}"
+    flash[:notice] = "You have cancelled to make the payment for Survey: #{@survey.name}"
     redirect_to survey_url(@survey)
   end
 
