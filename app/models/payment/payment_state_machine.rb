@@ -14,7 +14,7 @@ class Payment < ActiveRecord::Base
   end
   
   aasm_event :authorized do
-    transitions :to => :authorized, :from => [:incomplete, :cancelled]
+    transitions :to => :authorized, :from => [:incomplete, :cancelled, :authorized]
   end
   
   aasm_event :paid do
