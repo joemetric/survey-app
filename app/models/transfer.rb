@@ -41,6 +41,10 @@ class Transfer < ActiveRecord::Base
   
   belongs_to :reply
   
+  def survey
+    reply.survey
+  end
+    
   def self.pending
     Reply.find(:all, :conditions => ['paid = ? AND created_at < ?', false, 1.week.ago])
   end 

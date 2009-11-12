@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"
   has_many :replies
+  has_many :transfers, :through => :replies
 
   after_create :setup_user
 
