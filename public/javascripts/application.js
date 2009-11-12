@@ -5,16 +5,47 @@ function call_activate_form(id) {
 	$('form.edit_survey').submit();
 }
 
+function loadSelectedPackage(){  
+    var dropdown = document.getElementById("package");  
+    var index = dropdown.selectedIndex;
+    var location_url = '/admin/packages?package=' + dropdown.options[index].value;
+    window.location.href = location_url
+}
+
+function showLoader(){
+	$("#wait").fadeIn("slow");
+}
+
+function addEvent(a,e,o)
+{
+    if(document.addEventListener)
+    {
+        a.removeEventListener(e,o,false);
+        a.addEventListener(e,o,false);
+    }
+    else
+    {
+        a.detachEvent('on'+e,o);
+        a.attachEvent('on'+e,o);
+    }
+}
+
 $(document).ready(function(){
     
     $("input:text:visible:first").focus();
     
-    $('#survey_responses').change(function() {
+    var links = document.getElementsByTagName('a');
+    
+    for (var i=0, end=links.length; i<end; i++) 
+    {
+      addEvent(links[i], 'click', showLoader);
+    } 
+    
+    $('#survey_responses').keyup(function() {
        updatePricing();
     });
     
-    
-    $('#loader').hide()
+    $('#wait').hide()
     .ajaxStart(function() {
         $(this).show();
     })
@@ -93,11 +124,4 @@ function pricingText(question, question_type, scenario){
         para += '<strong>' + question[cost] + ' </strong></p>'
     }
     return para;
-}
-
-function loadSelectedPackage(){  
-  var dropdown = document.getElementById("package");  
-  var index = dropdown.selectedIndex;
-  var location_url = '/admin/packages?package=' + dropdown.options[index].value;
-  window.location.href = location_url
 }

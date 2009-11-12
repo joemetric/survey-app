@@ -60,4 +60,8 @@ module ApplicationHelper
     (total == 0) ? 0 : ((ammount * 100 ) / total)
   end
   
+  def loader_image
+    content_tag(:div, image_tag('wait.gif'), :id => 'wait')
+  end
+  
 end

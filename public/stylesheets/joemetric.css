@@ -1039,4 +1039,11 @@ a.buynow_btn {
     float:right;
     margin-right:14px; 
     margin-top:-6px;
-    }    
+    }
+    
+#wait {
+    display:none;
+    position:fixed;
+    left:10px;
+    bottom:10px;
+}     
