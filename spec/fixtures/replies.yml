@@ -11,10 +11,25 @@
 #  paid       :boolean(1)
 #
 
-reply1_for_survey_planA_1:
+reply1_for_survey_planA_1: # Reply by james for Nokia Phones Survey
   id: 1
   survey_id: 7
   user_id: 3
+  
+reply15_for_survey_planA_3: # Reply by james for Plasma Televisions Survey
+  id: 55
+  survey_id: 9
+  user_id: 3
+
+reply1_for_survey_planA_2: # Reply by james for Comparison of Android Phones and Iphones
+  id: 21
+  survey_id: 6
+  user_id: 3
+  
+reply1_for_survey_planA_3: # Reply by james for  LCD Telivisions
+  id: 41
+  survey_id: 8
+  user_id: 3   
   
 reply2_for_survey_planA_1:
   id: 2
@@ -110,11 +125,6 @@ reply20_for_survey_planA_1:
   id: 20
   survey_id: 7
   user_id: 3
-  
-reply1_for_survey_planA_2:
-  id: 21
-  survey_id: 6
-  user_id: 3
 
 reply2_for_survey_planA_2:
   id: 22
@@ -209,11 +219,6 @@ reply19_for_survey_plan_A_2:
 reply20_for_survey_plan_A_2:
   id: 40
   survey_id: 6
-  user_id: 3                                          
-
-reply1_for_survey_planA_3:
-  id: 41
-  survey_id: 8
   user_id: 3
   
 reply2_for_survey_planA_3:
@@ -278,10 +283,5 @@ reply13_for_survey_planA_3:
 
 reply14_for_survey_planA_3:
   id: 54
-  survey_id: 8
-  user_id: 3
-
-reply15_for_survey_planA_3:
-  id: 55
   survey_id: 8
   user_id: 3

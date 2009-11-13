@@ -12,3 +12,51 @@
 #
 
 
+1_plan_A:
+  id: 1
+  package_id: 1
+  package_question_type_id: 1
+  amount: 0.50
+
+2_plan_A:
+  id: 2
+  package_id: 1
+  package_question_type_id: 2
+  amount: 0.75
+
+3_plan_A:
+  id: 3
+  package_id: 1
+  package_question_type_id: 3
+  amount: 1.00
+
+4_plan_A:
+  id: 4
+  package_id: 1
+  package_question_type_id: 4
+  amount: 2.50
+
+1_plan_B:
+  id: 5
+  package_id: 2
+  package_question_type_id: 1
+  amount: 0.50
+
+2_plan_B:
+  id: 6
+  package_id: 2
+  package_question_type_id: 2
+  amount: 0.75
+
+3_plan_B:
+  id: 7
+  package_id: 2
+  package_question_type_id: 3
+  amount: 1.00
+
+4_plan_B:
+  id: 8
+  package_id: 2
+  package_question_type_id: 4
+  amount: 2.50      
+  

@@ -1,0 +1,205 @@
+# == Schema Information
+# Schema version: 20091110082101
+#
+# Table name: answers
+#
+#  id               :integer(4)      not null, primary key
+#  reply_id         :integer(4)
+#  question_id      :integer(4)
+#  answer           :text
+
+
+1_survey_6:
+  id: 1
+  reply_id: 21
+  question_id: 8
+  answer: Answer for Question 8 by James
+
+2_survey_6:
+  id: 2
+  reply_id: 21
+  question_id: 9
+  answer: Answer for Question 9 by James
+
+3_survey_6:
+  id: 3
+  reply_id: 21
+  question_id: 10
+  answer: Answer for Question 10 by James
+
+4_survey_6:
+  id: 4
+  reply_id: 21
+  question_id: 11
+  answer: Answer for Question 11 by James
+
+5_survey_8:
+  id: 5
+  reply_id: 41
+  question_id: 22
+  answer: Answer for Question 22 by James
+
+6_survey_8:
+  id: 6
+  reply_id: 41
+  question_id: 23
+  answer: Answer for Question 23 by James
+
+7_survey_8:
+  id: 7
+  reply_id: 41
+  question_id: 24
+  answer: Answer for Question 24 by James
+
+8_survey_8:
+  id: 8
+  reply_id: 41
+  question_id: 25
+  answer: Answer for Question 25 by James
+  
+9_survey_8:
+  id: 9
+  reply_id: 41
+  question_id: 26
+  answer: Answer for Question 26 by James
+  
+
+10_survey_8:
+  id: 10
+  reply_id: 41
+  question_id: 27
+  answer: Answer for Question 27 by James
+
+11_survey_8:
+  id: 11
+  reply_id: 41
+  question_id: 28
+  answer: Answer for Question 28 by James
+
+12_survey_8:
+  id: 12
+  reply_id: 41
+  question_id: 29
+  answer: Answer for Question 29 by James
+
+13_survey_8:
+  id: 13
+  reply_id: 41
+  question_id: 30
+  answer: Answer for Question 30 by James
+  
+14_survey_8:
+  id: 14
+  reply_id: 41
+  question_id: 31
+  answer: Answer for Question 31 by James   
+
+15_survey_7:
+  id: 15
+  reply_id: 1
+  question_id: 13
+  answer: Answer for Question 13 by James
+
+16_survey_7:
+  id: 16
+  reply_id: 1
+  question_id: 14
+  answer: Answer for Question 14 by James
+
+17_survey_7:
+  id: 17
+  reply_id: 1
+  question_id: 15
+  answer: Answer for Question 15 by James
+  
+18_survey_7:
+  id: 18
+  reply_id: 1
+  question_id: 16
+  answer: Answer for Question 16 by James
+  
+
+19_survey_7:
+  id: 19
+  reply_id: 1
+  question_id: 17
+  answer: Answer for Question 17 by James
+
+20_survey_7:
+  id: 20
+  reply_id: 1
+  question_id: 18
+  answer: Answer for Question 18 by James
+
+21_survey_7:
+  id: 21
+  reply_id: 1
+  question_id: 19
+  answer: Answer for Question 19 by James
+
+22_survey_7:
+  id: 22
+  reply_id: 1
+  question_id: 20
+  answer: Answer for Question 20 by James
+  
+23_survey_7:
+  id: 23
+  reply_id: 1
+  question_id: 21
+  answer: Answer for Question 21 by James
+  
+24_survey_9:
+  id: 24
+  reply_id: 55
+  question_id: 32
+  answer: Answer for Question 32 by James
+
+25_survey_9:
+  id: 25
+  reply_id: 55
+  question_id: 33
+  answer: Answer for Question 33 by James
+
+26_survey_9:
+  id: 26
+  reply_id: 55
+  question_id: 34
+  answer: Answer for Question 34 by James
+  
+27_survey_9:
+  id: 27
+  reply_id: 55
+  question_id: 35
+  answer: Answer for Question 35 by James
+  
+
+28_survey_9:
+  id: 28
+  reply_id: 55
+  question_id: 36
+  answer: Answer for Question 36 by James
+
+29_survey_9:
+  id: 29
+  reply_id: 55
+  question_id: 37
+  answer: Answer for Question 37 by James
+
+30_survey_9:
+  id: 30
+  reply_id: 55
+  question_id: 38
+  answer: Answer for Question 38 by James
+
+31_survey_9:
+  id: 31
+  reply_id: 55
+  question_id: 39
+  answer: Answer for Question 39 by James
+  
+32_survey_9:
+  id: 32
+  reply_id: 55
+  question_id: 40
+  answer: Answer for Question 40 by James       

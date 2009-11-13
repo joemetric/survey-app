@@ -12,3 +12,83 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+1_survey_6:
+  id:
+  survey_id: 6
+  payout_id: 1
+
+2_survey_6:
+  id:
+  survey_id: 6
+  payout_id: 2
+
+3_survey_6:
+  id:
+  survey_id: 6
+  payout_id: 3
+
+4_survey_6:
+  id:
+  survey_id: 6
+  payout_id: 4
+
+5_survey_7:
+  id:
+  survey_id: 7
+  payout_id: 1
+
+6_survey_7:
+  id:
+  survey_id: 7
+  payout_id: 2
+
+7_survey_7:
+  id:
+  survey_id: 7
+  payout_id: 3
+
+8_survey_7:
+  id:
+  survey_id: 7
+  payout_id: 4
+
+9_survey_8:
+  id:
+  survey_id: 8
+  payout_id: 1
+
+10_survey_8:
+  id:
+  survey_id: 8
+  payout_id: 2
+
+11_survey_8:
+  id:
+  survey_id: 8
+  payout_id: 3
+
+12_survey_8:
+  id:
+  survey_id: 8
+  payout_id: 4
+
+
+13_survey_9:
+  id:
+  survey_id: 9
+  payout_id: 1
+
+14_survey_9:
+  id:
+  survey_id: 9
+  payout_id: 2
+
+15_survey_9:
+  id:
+  survey_id: 9
+  payout_id: 3
+
+16_survey_9:
+  id:
+  survey_id: 9
+  payout_id: 4
