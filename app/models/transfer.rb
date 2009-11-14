@@ -17,6 +17,9 @@ class Transfer < ActiveRecord::Base
 # This model will handle transfering of payout amount to users who completed 
 # answering all the questions of Survey.
   
+  named_scope :pending, { :conditions => { :status => "pending" } }
+  named_scope :paid, { :conditions => { :status => "paid" } }
+  
   include AASM
   aasm_column :status
   aasm_initial_state :pending
