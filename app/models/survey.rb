@@ -57,7 +57,7 @@ class Survey < ActiveRecord::Base
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
 
-  attr_accessor :return_hash, :question_attributes
+  attr_accessor :return_hash, :question_attributes, :reply_by_user
 
   def published?
     !published_at.blank?
@@ -142,6 +142,12 @@ class Survey < ActiveRecord::Base
       :select => 'package_pricings.*, package_question_types.*',
       :joins => ['LEFT JOIN package_question_types ' +
                  'ON package_pricings.package_question_type_id = package_question_types.id'])
+  end
+  
+  def to_json(options = {})
+    self.reply_by_user = ( replies.by_user(options[:user]).first rescue nil ) if options[:user]
+    options.merge!(:methods => [ :reply_by_user, :total_payout ])
+    super
   end
 
   private

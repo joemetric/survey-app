@@ -32,14 +32,33 @@ class Reply < ActiveRecord::Base
     (survey.questions.size == answers.size)    
   end
   
+  def have_answer?
+    !answers.size.zero?
+  end
+  
+  def completed_at
+    last_answer.created_at if complete?
+  end
+  
   def total_payout # Returns sum of rewards for answering all questions of survey
     complete? ? reward_for_all_answers : 0.00
   end
   
+  def last_answer
+    last, time = nil, created_at
+    answers.each { |answer| last, time = answer, answer.created_at if (answer.created_at > time) }
+    last
+  end
+    
   def reward_for_all_answers
     sum_of_rewards = 0.00
     answers.each {|a| sum_of_rewards += a.reward}
     sum_of_rewards
+  end
+  
+  def to_json(options = {})
+    options.merge!(:methods => [ :completed_at ])
+    super
   end
 
 end
