@@ -14,9 +14,19 @@ rake db:questions_types (Load Default Questions Types)
 rake db:default_packages (Load Default Package Data)
 rake db:survey_pricings - (Set Survey Pricing Data - This task is not required if surveys table of app db is empty)
 
-Backgroundrb Configuration:
+Cron job Configuration:
 
-Following commands are required to executed from app directory to start these processes:
+Following commands are required to executed on hosting server to start cron jobs that will handle periodic refunds
+and payout transfers:
 
-1) ruby script/backgroundrb start e production (Starts backgroundrb process)
-2) ruby script/backgroundrb stop e production (Stops backgroundrb process)
+1) Start Cron Job
+
+Execute: crontab -e 
+
+Add following entry in crontab file:
+
+0 0 * * 0-6 /usr/bin/ruby APPLICATION_PATH/script/runner -e production PaypalProcessor.execute
+
+2) Restart cron jobs: /etc/init.d/cron restart
+
+
