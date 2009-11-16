@@ -1,11 +1,16 @@
-class PaypalProcessorWorker < BackgrounDRb::MetaWorker
-  set_worker_name :paypal_processor_worker
+class PaypalProcessor
   
-  def create(args = nil)
-    # this method is called, when worker is loaded for the first time
+  # This is added to include class Array defined in application_controller.rb
+  # Methods from application_controller.rb are not included when we run
+  # ruby script/runner PaypalProcessor.execute
+  require 'application_controller'
+  
+  def self.execute
+     refund
+     transfer
   end
   
-  def refund
+  def self.refund
     Survey.expired_surveys.each do |survey|
       payment = survey.payment
       if payment.paid? && survey.refund_pending?
@@ -22,10 +27,8 @@ class PaypalProcessorWorker < BackgrounDRb::MetaWorker
     end
   end
   
-  def transfer
+  def self.transfer
     Transfer.pending.each {|r| Transfer.process(t) if r.complete?}
   end
   
-  
 end
-
