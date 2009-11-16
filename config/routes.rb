@@ -6,11 +6,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys, 
     :member => {:reward => :get},
-    :collection => { :pricing => :get, :activate => :post, :progress => :get, :update_pricing => :get } do |survey|
+    :collection => { :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :get } do |survey|
     survey.resources :questions
     survey.resources :restrictions
     survey.resources :replies
   end
+  map.resources :reports
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end

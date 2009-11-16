@@ -31,6 +31,7 @@ class Survey < ActiveRecord::Base
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
   has_many :replies
+  has_many :answers, :through => :replies
   has_many :refunds # While refunding from Paypal, transaction may fail. Failed transactions are also logged. So survey can have multiple transactions
 
   has_one :package, :class_name => 'SurveyPackage'
@@ -107,8 +108,15 @@ class Survey < ActiveRecord::Base
     refunds.first(:conditions => ['complete = ?', true]).blank?
   end
 
-  def finished?
-    (publish_status == "finished")
+  def completed?
+    replies.size == responses or end_at < Time.now.to_date
+  end
+  
+  def status
+    status = "Pending" if ( !published? )
+    status = "In Progress" if ( published? and !completed? )
+    status = "Completed" if ( published? and completed? )
+    status
   end
 
   def graph

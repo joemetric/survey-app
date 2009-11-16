@@ -26,15 +26,15 @@ class Question < ActiveRecord::Base
   attr_accessor :answer_by_user, :reward_available
 
   def options=(options_attributes)
-    self.complement = options_attributes.split(",")
+    self.complement = options_attributes.split(",").collect { |o| o.strip }
   end
 
   def options
     complement.blank? ? "" : complement.join(",")
   end
-
+  
   serialize :complement, Array
-
+  
   def question_type_name
     question_type.name
   end
