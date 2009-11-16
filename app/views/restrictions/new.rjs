@@ -1,1 +1,1 @@
-page[@container].replace_html(:partial => "/restrictions/form/#{@partial}") if @container and @partial
+page.insert_html :bottom, "restrictions", :partial => "/restrictions/choose_type"

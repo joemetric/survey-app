@@ -1,0 +1,1 @@
+page.replace_html params[:container], :partial => "/restrictions/types/#{@restriction.type.to_s.downcase}", :locals => { :restriction => @restriction }

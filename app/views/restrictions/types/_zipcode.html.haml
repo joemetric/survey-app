@@ -1,0 +1,5 @@
+%p.cntrls
+  - fields_for "survey[zipcodes_attributes][]", restriction do |form|
+    %label Zipcode:
+    = form.hidden_field :type, :value => "Zipcode"
+    = form.text_field :value

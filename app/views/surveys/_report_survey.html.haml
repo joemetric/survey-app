@@ -1,0 +1,6 @@
+%tr
+  %td
+    = link_to report_survey.name, ( ( report_survey.completed? ) ? report_path(report_survey) : survey_path(report_survey)  )  
+  %td= report_survey.published_at.strftime("%b/%d/%Y")
+  %td= "#{report_survey.replies.size} of #{report_survey.responses}"
+  %td= report_survey.status

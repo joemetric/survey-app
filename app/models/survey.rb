@@ -27,11 +27,11 @@ class Survey < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
 
   has_many :questions
-  has_many :restrictions
   has_many :completions
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
   has_many :replies
+  has_many :answers, :through => :replies
   has_many :refunds # While refunding from Paypal, transaction may fail. Failed transactions are also logged. So survey can have multiple transactions
 
   has_one :package, :class_name => 'SurveyPackage'
@@ -42,10 +42,16 @@ class Survey < ActiveRecord::Base
   has_many :survey_payouts
   has_many :payouts, :through => :survey_payouts
 
+  has_many :restrictions
+  # Restrictions
+  has_many :genders
+  has_many :zipcodes
+
+
   validates_presence_of :name, :owner_id
   validates_numericality_of :responses
 
-  accepts_nested_attributes_for :questions, :restrictions
+  accepts_nested_attributes_for :questions, :genders, :zipcodes 
 
   named_scope :pending, { :conditions => { :publish_status => "pending" }}
   named_scope :by_time, :order => :created_at
@@ -102,8 +108,15 @@ class Survey < ActiveRecord::Base
     refunds.first(:conditions => ['complete = ?', true]).blank?
   end
 
-  def finished?
-    (publish_status == "finished")
+  def completed?
+    replies.size == responses or end_at < Time.now.to_date
+  end
+  
+  def status
+    status = "Pending" if ( !published? )
+    status = "In Progress" if ( published? and !completed? )
+    status = "Completed" if ( published? and completed? )
+    status
   end
 
   def graph

@@ -45,6 +45,10 @@ class SurveysController < ResourceController::Base
   def progress
     @surveys = @current_user.created_surveys.in_progress
   end
+  
+  def reports
+    @surveys = @current_user.created_surveys.published
+  end
 
   show do
     wants.json { render :json => @object.to_json(:user => current_user), :status => 200 }

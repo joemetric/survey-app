@@ -1,0 +1,57 @@
+= render :partial => "/layouts/menu"
+.m_content
+  .form
+    %h3.heads= "#{@survey.name} Summary"
+    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th{ :width => 170 }
+            %h3 Survey Title
+
+          %th{ :width => 120 }
+            %h3 # of Questions
+
+          %th{ :width => 120 }
+            %h3 # of Responses
+          
+          %th{ :width => 120 }
+            %h3 End date
+            
+      %tbody
+        %tr
+          %td= @survey.name
+          %td= @survey.questions.size
+          %td= @survey.replies.size
+          %td= @survey.end_at.strftime("%b/%d %Y")
+          
+    
+    %table#table.sortable{ :cellpadding => 0, :cellspacing => 0, :border => 0}
+      %thead
+        %tr
+          %th{ :width => 50  }
+            %h3 #
+          %th{ :width => 170 }
+            %h3 Question Name
+          
+          %th{ :width => 120 }
+            %h3 Type
+        
+      %tbody
+        - @survey.questions.each do |q|
+          %tr
+            %td= q.id
+            %td= q.name
+            %td= q.question_type.name
+              
+    - @survey.questions.each do |q|
+      .que_list
+        .total{ :style => "margin-bottom:10px" }
+          = content_tag(:strong, "Question <em>#{q.id}</em>")
+          = "<b><br /></b>"
+        = render :partial => "/questions/report/#{q.question_type.valid_name}", :object => q, :locals => { :survey => @survey }
+          
+            
+        
+.cls
+
+= sortable_table_js

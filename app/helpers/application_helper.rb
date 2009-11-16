@@ -12,7 +12,7 @@ module ApplicationHelper
     (1..limit).map {|i| [i, i]}
   end
   
-  def demographic_restrictions_options
+  def restriction_type_options
     Restriction::Kinds.collect { |kind| [kind.to_s.titleize, kind] }
   end
   
