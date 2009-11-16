@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end
-  map.resources :restrictions
+  map.resources :restrictions, :collection => { :choose_type => :post }
   map.resource :user_session
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
