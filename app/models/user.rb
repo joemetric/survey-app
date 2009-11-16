@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
 
   has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
 
-  has_one :wallet
   has_many :completions
   has_many :surveys, :through => :completions
   has_many :answers
@@ -108,7 +107,6 @@ class User < ActiveRecord::Base
   def setup_user
     reset_perishable_token!
     deliver_activation_mail
-    create_wallet
   end
 
   def deliver_activation_mail
@@ -118,10 +116,6 @@ class User < ActiveRecord::Base
   def deliver_reset_instructions_mail
     reset_perishable_token!
     UserMailer.deliver_reset_instructions_mail(self)
-  end
-
-  def create_wallet
-    self.wallet = Wallet.create(:user => self) if self.wallet.nil?
   end
 
   def password_change_security
