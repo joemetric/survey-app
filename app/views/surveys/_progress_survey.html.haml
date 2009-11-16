@@ -2,4 +2,4 @@
   %td= link_to progress_survey.name, survey_path(progress_survey)
   %td= progress_survey.published? ? progress_survey.published_at.strftime("%b/%d/%Y") : "Not Yet"
   %td= "#{progress_survey.replies.size} of #{progress_survey.responses}"
-  %td= progress_survey.publish_status
+  %td= progress_survey.status

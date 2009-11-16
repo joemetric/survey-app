@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :convert_date_format
   filter_parameter_logging :password, :password_confirmation
   
+  include ExceptionNotifiable
   ActiveRecord::Base.send(:extend, ConcernedWith)
   
   def rescue_action_in_public(exception)

@@ -13,7 +13,7 @@
 
 class Restriction < ActiveRecord::Base
   
-  Kinds = [ :gender ]
+  Kinds = [ :gender, :zipcode ]
   
   belongs_to :survey
   

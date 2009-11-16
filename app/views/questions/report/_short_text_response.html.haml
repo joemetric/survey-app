@@ -1,0 +1,14 @@
+.cls
+.ques
+  .que_des= short_text_response.description
+  .que_details
+    %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
+      %thead
+        %tr
+          %th{ :width => "100%" }
+            %h3 Individual Responses
+      %tbody
+        - @survey.answers.by_question(short_text_response).each do |a|
+          %tr
+            %td{ :style => "text-align:left; text-indent:5px" }= a.answer
+            

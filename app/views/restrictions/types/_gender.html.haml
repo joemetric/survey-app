@@ -1,0 +1,5 @@
+%p.cntrls
+  - fields_for "survey[genders_attributes][]", restriction do |form|
+    %label Gender:
+    = form.select :value, restriction.options.collect { |r| [ r.to_s.titleize, r] }
+  

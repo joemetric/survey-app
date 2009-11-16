@@ -17,4 +17,8 @@ class Gender < Restriction
   
   belongs_to :survey
     
+  def options
+    Values
+  end
+    
 end

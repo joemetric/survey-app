@@ -1,0 +1,18 @@
+.cls
+.ques
+  .que_des= multiple_choice.description
+  .que_details
+    %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
+      %thead
+        %tr
+          %th{ :width => "20%" }
+            %h3 # of Responses
+          %th{ :width => "80%" }
+            %h3 Choice
+
+      %tbody
+        - multiple_choice.complement.each do |option|
+          %tr
+            %td= count_responses_for(option, @survey.answers.by_question(multiple_choice))
+            %td{ :style => "text-align:left; text-indent:5px;" }= option
+        
