@@ -102,6 +102,12 @@ class User < ActiveRecord::Base
     super
   end
 
+  def pending_amount
+    transfers.pending.inject(0) do |amount, transfer|
+      amount += transfer.survey.total_payout
+    end
+  end
+
   private
 
   def setup_user
