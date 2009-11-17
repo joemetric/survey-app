@@ -37,16 +37,16 @@
             %h3 Type
         
       %tbody
-        - @survey.questions.each do |q|
+        - @survey.questions.each_with_index do |q, i|
           %tr
-            %td= q.id
+            %td= i + 1
             %td= q.name
             %td= q.question_type.name
               
-    - @survey.questions.each do |q|
+    - @survey.questions.each_with_index do |q, i|
       .que_list
         .total{ :style => "margin-bottom:10px" }
-          = content_tag(:strong, "Question <em>#{q.id}</em>")
+          = content_tag(:strong, "Question <em>#{i +1}</em>")
           = "<b><br /></b>"
         = render :partial => "/questions/report/#{q.question_type.valid_name}", :object => q, :locals => { :survey => @survey }
           

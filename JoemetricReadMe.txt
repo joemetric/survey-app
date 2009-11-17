@@ -25,7 +25,7 @@ Execute: crontab -e
 
 Add following entry in crontab file:
 
-0 0 * * 0-6 /usr/bin/ruby APPLICATION_PATH/script/runner -e production PaypalProcessor.execute
+* 0,12 * * * *  cd APPLICATION_PATH && rake survey:payment:start_paypal_process RAILS_ENV=production
 
 2) Restart cron jobs: /etc/init.d/cron restart
 
