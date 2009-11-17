@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
   def convert_date_format(date)
     date.to_s.gsub('-', '/').split('/').reverse.join('/') unless date.nil?
   end
-
+  
 end
 
 class String
@@ -149,13 +149,23 @@ class Array
       select {|p| p.package_question_type_id == value}.compact.first
     end
   }
-
+  
+  def attribute_values(attr)
+    collect {|a| a.send(attr)}
+  end
+  
+  def to_array # Return array of answers for each question
+    returning values = [] do
+      self.each {|a| values << (a.question_type_id.eql?(3) ? "http://#{HOST}#{a.image.url}" : a.answer)}
+    end
+  end
+  
   def count(&action)
-     count = 0
-     self.each { |x| count = count + 1 if action.call(x) }
-     return count
-   end
-
+    count = 0
+    self.each { |x| count = count + 1 if action.call(x) }
+    return count
+  end
+  
 end
 
 class NilClass

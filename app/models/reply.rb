@@ -28,6 +28,11 @@ class Reply < ActiveRecord::Base
   
   named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
   
+  def answers_with_question_type
+    answers.all(:select => 'answers.*, questions.question_type_id AS question_type_id',
+                 :joins => ['INNER JOIN questions ON answers.question_id = questions.id'])
+  end
+  
   def complete?
     (survey.questions.size == answers.size)    
   end

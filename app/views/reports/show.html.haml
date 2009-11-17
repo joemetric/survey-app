@@ -42,6 +42,8 @@
             %td= i + 1
             %td= q.name
             %td= q.question_type.name
+    
+    = link_to "<font color='#000000'>Download Survey Analysis Data in CSV</font>", csv_report_url(@survey)
               
     - @survey.questions.each_with_index do |q, i|
       .que_list
