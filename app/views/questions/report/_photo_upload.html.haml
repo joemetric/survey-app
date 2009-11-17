@@ -13,4 +13,4 @@
           - @survey.answers.by_question(photo_upload).each do |a|
             %tr
               %td{ :style => "text-align:left; text-indent:5px" }
-                = link_to a.image_url, a.image_url, :title => "Q:#{photo_upload.name}<br/>A:#{a.answer}"
+                = link_to image_tag(a.image_url, :width => 119, :height => 119), a.image_url, :title => a.answer
