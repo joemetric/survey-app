@@ -156,7 +156,7 @@ class Array
   
   def to_array # Return array of answers for each question
     returning values = [] do
-      self.each {|a| values << (a.question_type_id.eql?(3) ? "http://#{HOST}#{a.image.url}" : a.answer)}
+      self.each {|a| values << (a.question_type_id.eql?(3) ? a.image_url : a.answer)}
     end
   end
   

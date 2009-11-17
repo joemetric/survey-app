@@ -61,7 +61,7 @@ module ApplicationHelper
   end
   
   def loader_image
-    content_tag(:div, image_tag('wait.gif'), :id => 'wait')
+    content_tag(:div, image_tag('wait.gif'), :id => 'wait') unless params[:controller] == 'reports'
   end
   
 end

@@ -20,4 +20,12 @@ module InlineScriptsHelper
     }
   end
   
+  def init_lightbox(object_id)
+    %Q{
+      <script type="text/javascript">
+        $(function() {$('#gallery_#{object_id} a').lightBox();});
+      </script>
+    }
+  end
+  
 end

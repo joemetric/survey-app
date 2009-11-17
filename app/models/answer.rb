@@ -32,6 +32,10 @@ class Answer < ActiveRecord::Base
   def reward # Reward for answering each question
     question.survey.payouts.send(question.package_question_type).amount
   end
+  
+  def image_url
+    "http://#{HOST}#{image.url}"
+  end
 
   private
 

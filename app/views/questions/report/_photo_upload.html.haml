@@ -1,4 +1,16 @@
-.cls
-.ques
-  .que_des= photo_upload.description
-  .que_details
+= init_lightbox(photo_upload.id)
+%div{:id => "gallery_#{photo_upload.id}"}
+  .cls
+  .ques
+    .que_des= photo_upload.description
+    .que_details
+      %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
+        %thead
+          %tr
+            %th{ :width => "100%" }
+              %h3 Individual Responses
+        %tbody
+          - @survey.answers.by_question(photo_upload).each do |a|
+            %tr
+              %td{ :style => "text-align:left; text-indent:5px" }
+                = link_to a.image_url, a.image_url, :title => "Q:#{photo_upload.name}<br/>A:#{a.answer}"
