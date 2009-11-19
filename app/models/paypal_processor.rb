@@ -28,7 +28,7 @@ class PaypalProcessor
   end
   
   def self.transfer
-    Transfer.pending.each {|r| Transfer.process(t) if r.complete?}
+    Transfer.pending.each {|r| Transfer.process(r) if r.complete?}
   end
   
 end

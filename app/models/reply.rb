@@ -15,11 +15,8 @@ class Reply < ActiveRecord::Base
   
   belongs_to :survey
   belongs_to :user
-  
-  has_many :answers
-#  Since transfer of total payout amount through Paypal
-#  can fail so more than one attempts can be made hence reply has_many transfers
-  has_many :transfers 
+  has_many   :answers
+  has_one    :transfer
   
   validates_presence_of :user_id, :survey_id
   validates_uniqueness_of :user_id, :scope => "survey_id"
@@ -27,6 +24,10 @@ class Reply < ActiveRecord::Base
   accepts_nested_attributes_for :answers
   
   named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
+  
+  def validate_on_create
+    errors.add_to_base('You cannot take this survey. It has expired.') if survey.reached_max_respondents?
+  end
   
   def answers_with_question_type
     answers.all(:select => 'answers.*, questions.question_type_id AS question_type_id',

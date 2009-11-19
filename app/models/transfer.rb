@@ -50,12 +50,20 @@ class Transfer < ActiveRecord::Base
     
   def self.pending
     Reply.find(:all, :conditions => ['paid = ? AND created_at < ?', false, 1.week.ago])
-  end 
+  end
+  
+  def self.create_for(reply) 
+    Transfer.create({:reply_id => reply.id, :amount => reply.total_payout})
+  end
+  
+  def self.find_or_create_for(reply)
+    reply.transfer || create_for(reply) 
+  end
   
   def self.process(reply)
-    amount = reply.total_payout   
-    response = Payment.transfer(amount * 100, reply.user.email)
-    transfer = Transfer.new({:reply_id => reply.id, :amount => amount, :paypal_params => response.params})
+    transfer = find_or_create_for(reply)
+    response = Payment.transfer(transfer.amount * 100, reply.user.email)
+    transfer.paypal_params = response.params
     if response.success?
       transfer.complete!
       reply.update_attribute(:paid, true)

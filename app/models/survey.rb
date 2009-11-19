@@ -95,6 +95,22 @@ class Survey < ActiveRecord::Base
   def unreceived_responses
     responses - replies.size
   end
+  
+  def reached_max_respondents?
+    responses == complete_replies_count
+  end
+  
+  def complete_replies_count # Returns count of replies that contains answers to all the questions
+    i = 0
+    question_ids_of_answers.each{|q_ids| i += 1 if q_ids == question_ids}
+    i
+  end
+  
+  def question_ids_of_answers
+    returning [] do |question_ids|
+      replies.each {|r| question_ids << r.answers.attribute_values(:question_id)}
+    end 
+  end
 
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])
