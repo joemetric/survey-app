@@ -53,11 +53,13 @@ class Transfer < ActiveRecord::Base
   end
   
   def self.create_for(reply) 
-    Transfer.create({:reply_id => reply.id, :amount => reply.total_payout})
+    Transfer.create({:reply_id => reply.id})
   end
   
   def self.find_or_create_for(reply)
-    reply.transfer || create_for(reply) 
+    transfer = reply.transfer || create_for(reply)
+    transfer.amount = reply.total_payout 
+    transfer.save
   end
   
   def self.process(reply)

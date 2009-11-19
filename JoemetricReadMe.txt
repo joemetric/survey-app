@@ -9,10 +9,21 @@ rake db:create
 rake db:migrate
 
 3) Rake Tasks
-rake db:default_users (Load Default Users)
-rake db:questions_types (Load Default Questions Types)
-rake db:default_packages (Load Default Package Data)
-rake db:survey_pricings - (Set Survey Pricing Data - This task is not required if surveys table of app db is empty)
+
+1) rake survey:db:default_users 
+Load Default Users
+
+2) rake db:questions_types
+Load Default Questions Types
+
+3) rake survey:survey:db:default_packages
+Load Default Package Data
+
+4) rake survey:db:survey_pricings 
+Set Survey Pricing Data - This task is not required if surveys table of app db is empty
+
+5) rake survey:db:create_transfers
+Creates transfer objects for existing replies. Not required when Web app is deployed for the first time.
 
 Cron job Configuration:
 
