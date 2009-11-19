@@ -9,13 +9,17 @@ class AnswersController < ApplicationController
   end
 
   def create
-    if @question and @reply
+    if @question && @reply.save
       @answer = Answer.new params[:answer]
       @answer.reply, @answer.question = @reply, @question
       response, header = @answer.save ? [@answer.to_json, 201] : [@answer.errors.to_json, 422]
       render :json => response, :status => header
     else
-      render :json => nil, :status => 404
+      if @reply.errors.any?
+        render :json => @reply.errors.to_json, :status => 404
+      else
+        render :json => [["base", "internal error."]].to_json, :status => 404
+      end
     end
   end
 
@@ -29,5 +33,4 @@ class AnswersController < ApplicationController
     parameters = { :user_id => @current_user.id, :survey_id => @question.survey.id }
     @reply = Reply.find(:first, :conditions => parameters) || Reply.create(parameters)
   end
-
 end

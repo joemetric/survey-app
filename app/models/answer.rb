@@ -23,28 +23,28 @@ class Answer < ActiveRecord::Base
   belongs_to :question
 
   validates_uniqueness_of :question_id, :scope => "reply_id"
-  validates_presence_of :answer
+  validates_presence_of :answer, :reply_id, :question_id
   validates_attachment_content_type :image, :content_type => [ "image/gif", "image/jpeg", "image/png" ]
   validate :presence_of_file_only_if_allowed
-  
+
   named_scope :by_question, lambda { |q| { :conditions => { :question_id => q.id }}}
-  
+
   named_scope :answers_for, lambda { |r| { :conditions => { :reply_id => r.id }}}
-  
+
   after_create :create_transfer, :if => Proc.new { |a| a.final_answer? }
-  
+
   def final_answer?
     self.class.answers_for(reply).size == reply.survey.question_ids.size
   end
-  
+
   def create_transfer
     Transfer.create_for(reply)
   end
-  
+
   def reward # Reward for answering each question
     question.survey.payouts.send(question.package_question_type).amount
   end
-  
+
   def image_url
     "http://#{HOST}#{image.url}"
   end

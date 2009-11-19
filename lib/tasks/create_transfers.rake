@@ -6,7 +6,7 @@ namespace :survey do
       if existing_replies.blank?
         puts "replies table is empty !!!"
       else
-        existing_replies.each { |r| Transfer.find_or_create_for(r)}
+        existing_replies.each { |r| Transfer.find_or_create_for(r) if r.complete? }
         puts "Rake task completed successfully..."
       end
     end
