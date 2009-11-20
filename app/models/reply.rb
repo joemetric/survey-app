@@ -43,7 +43,7 @@ class Reply < ActiveRecord::Base
   end
   
   def completed_at
-    last_answer.created_at if complete?
+    last_answer.created_at if last_answer && complete?
   end
   
   def total_payout # Returns sum of rewards for answering all questions of survey
