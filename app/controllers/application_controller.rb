@@ -166,6 +166,10 @@ class Array
     return count
   end
   
+  def ids
+    attribute_values(:id)
+  end
+  
 end
 
 class NilClass

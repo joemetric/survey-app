@@ -60,7 +60,8 @@ class SurveysController < ResourceController::Base
         @surveys = Survey.saved.by(@current_user)
       end
       format.json do
-        @surveys = Survey.published
+        current_user.device = params[:device]
+        @surveys = Survey.not_taken_by(current_user)
         render :json => @surveys.to_json(:user => current_user), :status => 200
       end
     end

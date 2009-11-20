@@ -27,6 +27,7 @@ class Survey < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
 
   has_many :questions
+  has_many :question_types, :through => :questions
   has_many :completions
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
@@ -59,12 +60,13 @@ class Survey < ActiveRecord::Base
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
-
+  named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
+  
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
 
   attr_accessor :return_hash, :question_attributes, :reply_by_user
-
+  
   def published?
     !published_at.blank?
   end
@@ -77,6 +79,10 @@ class Survey < ActiveRecord::Base
   def reject!
     rejected!
     deliver_rejection_mail
+  end
+  
+  def self.surveys_for(user)
+    user.has_camera? ? published : published.collect {|s| s unless s.question_type_ids.include?(3)}
   end
 
   def save_payment_details(params, response)
@@ -116,9 +122,13 @@ class Survey < ActiveRecord::Base
     all(:conditions => ['end_at < ?', Date.today])
   end
 
-  def refund_complete(response); set_up_refund(response, true) end
+  def refund_complete(response)
+    set_up_refund(response, true) 
+  end
 
-  def refund_incomplete(response); set_up_refund(response, false) end
+  def refund_incomplete(response) 
+    set_up_refund(response, false) 
+  end
 
   def refund_pending?
     refunds.first(:conditions => ['complete = ?', true]).blank?

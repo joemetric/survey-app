@@ -23,7 +23,7 @@
 
 class User < ActiveRecord::Base
 
-  attr_accessor :old_password, :security_token
+  attr_accessor :old_password, :security_token, :device
 
   acts_as_authentic do |authlogic|
     authlogic.check_passwords_against_database = false
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"
   has_many :replies
   has_many :transfers, :through => :replies
-
+  
   after_create :setup_user
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
@@ -106,6 +106,27 @@ class User < ActiveRecord::Base
     transfers.pending.inject(0) do |amount, transfer|
       amount += transfer.survey.total_payout
     end
+  end
+  
+  def completed_surveys
+    replies.find(:all, :select => 'replies.survey_id AS id',
+      :conditions => ['surveys.end_at > ?', Date.today],
+      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id INNER JOIN questions ON surveys.id = questions.survey_id INNER JOIN answers ON replies.id = answers.reply_id'],
+      :group => 'replies.id',
+      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')  
+  end
+  
+  def has_camera?
+    /iphone/.match(device).nil? ? false : true
+  end
+  
+  # Returns ids of un-replied and un-expired surveys
+  # and those surveys that can be completed by user
+  # Do not include surveys with photo-response-questions if user.has_camera? == false
+  
+  def unreplied_surveys
+    unreplied_survey_ids = Survey.surveys_for(self).collect{|s| s.id if s.try(:id)}.compact - completed_surveys.ids
+    unreplied_survey_ids.empty? ? nil : unreplied_survey_ids
   end
 
   private
