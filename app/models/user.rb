@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   end
   
   def has_camera?
-     [/iphone/.match(device), /ipod/.match(device)].compact.empty? ? false : true
+    /iphone/.match(device).nil? ? false : true
   end
   
   # Returns ids of un-replied and un-expired surveys
