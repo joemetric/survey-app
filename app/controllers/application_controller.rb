@@ -174,8 +174,9 @@ end
 
 class NilClass
 
-  ['to_date', 'us_dollar', 'to_decimal', 'strftime'].each do |name|
+  ['to_date', 'us_dollar', 'to_decimal', 'strftime', 'downcase'].each do |name|
     define_method name do
+      ''
     end
   end
 
