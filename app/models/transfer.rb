@@ -44,12 +44,14 @@ class Transfer < ActiveRecord::Base
   
   belongs_to :reply
   
-  def survey
-    reply.survey
+  ['pending', 'complete', 'failed'].each do |s|
+    define_method "#{s}?" do
+      status == s
+    end
   end
     
   def self.pending
-    Reply.find(:all, :conditions => ['paid = ? AND created_at < ?', false, 1.week.ago])
+    Reply.all(:conditions => ['status = ? AND created_at < ?', 'complete', 1.week.ago])
   end
   
   def self.create_for(reply) 
@@ -60,6 +62,7 @@ class Transfer < ActiveRecord::Base
     transfer = reply.transfer || create_for(reply)
     transfer.amount = reply.total_payout 
     transfer.save
+    transfer
   end
   
   def self.process(reply)
@@ -68,11 +71,15 @@ class Transfer < ActiveRecord::Base
     transfer.paypal_params = response.params
     if response.success?
       transfer.complete!
-      reply.update_attribute(:paid, true)
+      reply.paid!
     else
       transfer.failed!
     end
     transfer.save
   end
+  
+  def survey
+    reply.survey
+  end  
  
 end

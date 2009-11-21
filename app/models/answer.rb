@@ -31,14 +31,18 @@ class Answer < ActiveRecord::Base
 
   named_scope :answers_for, lambda { |r| { :conditions => { :reply_id => r.id }}}
 
-  after_create :create_transfer, :if => Proc.new { |a| a.final_answer? }
+  after_create :create_transfer, :mark_reply_as_complete, :if => Proc.new { |a| a.final_answer? }
 
   def final_answer?
-    self.class.answers_for(reply).size == reply.survey.question_ids.size
+    reply.all_answers_given?
   end
-
+  
   def create_transfer
     Transfer.create_for(reply)
+  end
+  
+  def mark_reply_as_complete
+    reply.complete!
   end
 
   def reward # Reward for answering each question

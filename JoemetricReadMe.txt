@@ -25,6 +25,9 @@ Set Survey Pricing Data - This task is not required if surveys table of app db i
 5) rake survey:db:create_transfers
 Creates transfer objects for existing replies. Not required when Web app is deployed for the first time.
 
+6) rake survey:set_reply_status
+Update status of existing reply objects.  Not required when Web app is deployed for the first time.
+
 Cron job Configuration:
 
 1) Prepare Cron Job

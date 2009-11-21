@@ -108,12 +108,18 @@ class User < ActiveRecord::Base
     end
   end
   
+#  def completed_surveys
+#    replies.find(:all, :select => 'replies.survey_id AS id',
+#      :conditions => ['surveys.end_at > ?', Date.today],
+#      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id INNER JOIN questions ON surveys.id = questions.survey_id INNER JOIN answers ON replies.id = answers.reply_id'],
+#      :group => 'replies.id',
+#      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')  
+#  end
+   
   def completed_surveys
-    replies.find(:all, :select => 'replies.survey_id AS id',
-      :conditions => ['surveys.end_at > ?', Date.today],
-      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id INNER JOIN questions ON surveys.id = questions.survey_id INNER JOIN answers ON replies.id = answers.reply_id'],
-      :group => 'replies.id',
-      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')  
+    replies.all(:select => 'replies.survey_id AS id',
+      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id'],
+      :conditions => ['replies.status IN (?, ?) AND surveys.end_at > ?', 'paid', 'complete', Date.today])
   end
   
   def has_camera?

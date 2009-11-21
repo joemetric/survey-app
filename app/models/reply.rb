@@ -13,6 +13,9 @@
 
 class Reply < ActiveRecord::Base
   
+  include AASM
+  concerned_with :reply_state_machine
+  
   belongs_to :survey
   belongs_to :user
   has_many   :answers
@@ -34,8 +37,18 @@ class Reply < ActiveRecord::Base
                  :joins => ['INNER JOIN questions ON answers.question_id = questions.id'])
   end
   
-  def complete?
-    (survey.questions.size == answers.size)    
+  ['incomplete', 'complete', 'paid'].each do |s|
+    define_method "#{s}?" do
+      status == s
+    end
+  end
+  
+  def paid
+    paid?
+  end
+  
+  def all_answers_given?
+    survey.questions.size == answers.size
   end
   
   def have_answer?
@@ -65,6 +78,10 @@ class Reply < ActiveRecord::Base
   def to_json(options = {})
     options.merge!(:methods => [ :completed_at ])
     super
+  end
+  
+  def set_status # This method is invoked from lib/tasks/set_reply_status.rake
+    transfer.try(:complete?) ? paid! : (all_answers_given? ? complete! : incomplete!)
   end
 
 end
