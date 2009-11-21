@@ -27,16 +27,19 @@ Creates transfer objects for existing replies. Not required when Web app is depl
 
 Cron job Configuration:
 
-Following commands are required to executed on hosting server to start cron jobs that will handle periodic refunds
-and payout transfers:
-
-1) Start Cron Job
+1) Prepare Cron Job
 
 Execute: crontab -e 
 
-Add following entry in crontab file:
+Add following entries in crontab file:
 
+Handle periodic refunds, payout transfers
 * 0,12 * * * *  cd APPLICATION_PATH && rake survey:payment:start_paypal_process RAILS_ENV=production
+
+
+Expire Surveys
+0 0 * * * cd APPLICATION_PATH && rake survey:expire_surveys RAILS_ENV=production
+
 
 2) Restart cron jobs: /etc/init.d/cron restart
 

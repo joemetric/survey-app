@@ -62,10 +62,32 @@ class Survey < ActiveRecord::Base
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
   
+  named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
+  
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
 
   attr_accessor :return_hash, :question_attributes, :reply_by_user
+  
+  def self.expired_surveys
+    all(:conditions => ['end_at < ?', Date.today])
+  end
+  
+  def self.not_to_be_given
+    published_and_finished.expired_surveys
+  end
+  
+  def self.mark_as_epxired
+    not_to_be_given.each {|s| 
+      Survey.skip_callback(:total_cost) do
+        s.expired!
+      end
+    }
+  end
+  
+  def self.surveys_for(user)
+    user.has_camera? ? published : published.collect {|s| s unless s.question_type_ids.include?(3)}
+  end
   
   def published?
     !published_at.blank?
@@ -79,10 +101,6 @@ class Survey < ActiveRecord::Base
   def reject!
     rejected!
     deliver_rejection_mail
-  end
-  
-  def self.surveys_for(user)
-    user.has_camera? ? published : published.collect {|s| s unless s.question_type_ids.include?(3)}
   end
 
   def save_payment_details(params, response)
@@ -116,10 +134,6 @@ class Survey < ActiveRecord::Base
     returning [] do |question_ids|
       replies.each {|r| question_ids << r.answers.attribute_values(:question_id)}
     end 
-  end
-
-  def self.expired_surveys
-    all(:conditions => ['end_at < ?', Date.today])
   end
 
   def refund_complete(response)
