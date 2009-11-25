@@ -8,7 +8,7 @@ class UserSession < Authlogic::Session::Base
       errors.add_to_base("A validation email has been sent to your email account. Please use that to activate your JoeSurvey account.")
       return false
     end
-  end  
+  end 
   
   private
   

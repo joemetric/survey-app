@@ -21,11 +21,15 @@
 #  zip_code          :string(255)
 #
 
-user_1:
+admin:
   id: 1
-  login: anonymous
-  name: Anonymous User
-  email: anonymous@anonymous.com
+  login:                     admin
+  name:                      Joemetric Admin
+  email:                     admin@joemetric.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      Admin
   
 quentin:
   id: 2
@@ -35,6 +39,7 @@ quentin:
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
   created_at:                <%= 5.days.ago.to_s :db  %>
+  type:                      User
 
 james:
   id: 3
@@ -43,7 +48,8 @@ james:
   email:                     james@anderson.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
-  created_at:                <%= 4.days.ago.to_s :db  %> 
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User 
   
 mark:
   id: 4
@@ -53,6 +59,7 @@ mark:
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
   created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User
 
 
 adam:
@@ -63,6 +70,7 @@ adam:
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
   created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User
   
 brain:
   id: 6
@@ -71,7 +79,8 @@ brain:
   email:                     brain@lara.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
-  created_at:                <%= 4.days.ago.to_s :db  %> 
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User
   
 brett:
   id: 7
@@ -80,7 +89,8 @@ brett:
   email:                     brett@lee.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
-  created_at:                <%= 4.days.ago.to_s :db  %> 
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User 
 
 louis:
   id: 8
@@ -89,4 +99,5 @@ louis:
   email:                     louis@duckworth.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
-  created_at:                <%= 4.days.ago.to_s :db  %>           
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User         

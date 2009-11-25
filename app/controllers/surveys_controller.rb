@@ -72,7 +72,15 @@ class SurveysController < ResourceController::Base
   end
 
   private
-
+  
+  def object
+    if ['show', 'edit', 'update'].include?(params[:action])
+      object = current_user.admin? ? super : Survey.by(current_user).find(params[:id])
+    else
+      super      
+    end
+  end
+  
   def collection
     @collection ||= end_of_association_chain.saved.by(@current_user)
   end

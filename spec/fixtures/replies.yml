@@ -285,3 +285,9 @@ reply14_for_survey_planA_3:
   id: 54
   survey_id: 8
   user_id: 3
+
+reply1_for_survey_planA_5:
+  id: 56
+  survey_id: 9
+  user_id: 3
+  status: complete

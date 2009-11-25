@@ -273,3 +273,77 @@ survey_planA_9_q9:
   name: Survey_8_Demographic_Question_2
   survey_id: 9
   question_type_id: 3 
+
+survey_planA_10_q1:
+  id: 41
+  name: Survey_10_Standard_Question_1
+  survey_id: 10
+  question_type_id: 1
+
+survey_planA_10_q2:
+  id: 42
+  name: Survey_10_Standard_Question_2
+  survey_id: 10
+  question_type_id: 1
+
+survey_planA_10_q3:
+  id: 43
+  name: Survey_10_Standard_Question_3
+  survey_id: 10
+  question_type_id: 1
+  
+survey_planA_10_q4:
+  id: 44
+  name: Survey_10_Standard_Question_4
+  survey_id: 10
+  question_type_id: 1
+  
+survey_planA_10_q5:
+  id: 45
+  name: Survey_10_Premium_Question_1
+  survey_id: 10
+  question_type_id: 2
+  complement: --- - Option1 - " Option2" - " Option3"
+  
+survey_planA_11_q1:
+  id: 46
+  name: Survey_11_Standard_Question_1
+  survey_id: 11
+  question_type_id: 1
+ 
+survey_planA_12_q1:
+  id: 47
+  name: Survey_12_Standard_Question_1
+  survey_id: 12
+  description: Description for Question 
+  question_type_id: 1
+
+survey_planA_12_q2:
+  id: 48
+  name: Survey_12_Standard_Question_2
+  survey_id: 12
+  description:  
+  question_type_id: 1
+
+survey_planA_12_q3:
+  id: 49
+  name: Survey_12_Standard_Question_3
+  survey_id: 12
+  description:  
+  question_type_id: 1
+  
+survey_planA_12_q4:
+  id: 50
+  name: Survey_12_Standard_Question_4
+  survey_id: 12
+  description:  
+  question_type_id: 1
+  
+survey_planA_12_q5:
+  id: 51
+  name: Survey_12_Premium_Question_1
+  survey_id: 12
+  description:  
+  question_type_id: 2
+  complement: --- - Option1 - " Option2" - " Option3"
+  

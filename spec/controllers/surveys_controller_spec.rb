@@ -1,59 +1,39 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# spec spec/controllers/surveys_controller_spec.rb
+
 describe SurveysController do
 
-  fixtures :users, :surveys
-
-  def setup
-    login_as :quentin
-  end
-
-  #def test_should_get_index
-  it "should get index" do
-    get :index
-    response.should be_success
-    assigns(:surveys).should_not == nil
-  end
-
-  #def test_should_get_new
-  it "should get new" do
-    get :new
-    response.should be_success
-  end
-
-  #def test_should_create_survey
-  it "should create survey" do
-      post :create, :survey => { :name => "new survey"}
-
-    response.should redirect_to(survey_path(assigns(:survey)))
-  end
-
-  #def test_should_show_survey
-  it "should show survey" do
-    get :show, :id => surveys(:one).id
-    response.should be_success
-  end
-
-  #def test_should_get_edit
-  it "should get edit" do
-    get :edit, :id => surveys(:one).id
-    response.should be_success
-  end
-
-  #def test_should_update_survey
-  it "should update survey" do
-    put :update, :id => surveys(:one).id, :survey => { }
-    response.should redirect_to(survey_path(assigns(:survey)))
-  end
-
-  #def test_should_destroy_survey
-  it "should destroy survey" do
-    delete :destroy, :id => surveys(:one).id
-    response.should redirect_to(surveys_path)
-  end
-  
-  protected
-    def login_as(user)
-      request.session[:user] = user ? users(user).id : nil
+    fixtures :users
+    
+    before(:each) do
+      assigns[:current_user] = users(:james)
     end
+  
+    context "A Customer (in general)" do
+      
+      describe "Saved Surveys" do
+        it "should be able to see list of surveys saved by him" do
+          get :index
+          assigns[:surveys] = Survey.saved.by(assigns[:current_user])
+          assigns[:surveys].each do |survey|
+            survey.publish_status.should == 'saved'
+            survey.owner_id.should == assigns[:current_user].id
+          end
+        end
+      end
+      
+      describe "Survey Reports" do
+        it "should get to see list of his surveys which are published" do
+          get :reports
+          assigns[:surveys] = assigns[:current_user].created_surveys.published
+          assigns[:surveys].each do |survey|
+            survey.publish_status.should == 'published'
+            survey.owner_id.should == assigns[:current_user].id
+          end
+        end
+      end
+    
+    end
+
 end

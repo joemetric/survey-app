@@ -89,5 +89,31 @@ survey_planA_4: # Contains Extra Responses
   owner_id: 2
   end_at: 2009-11-08
   responses: 30
-  package_id: 1   
+  package_id: 1
+
+survey_planA_5:
+  id: 10
+  name: Toyota and Honda
+  owner_id: 3
+  end_at: 2009-11-08
+  responses: 5
+  package_id: 1
+  publish_status: published
+
+survey_planA_6:
+  id: 11
+  name: Hyundai Sonata And Honda Accord
+  owner_id: 3
+  end_at: 2009-12-08
+  responses: 10
+  package_id: 1
+  publish_status: saved
   
+survey_planA_7:
+  id: 12
+  name: Yamaha And Ducati
+  owner_id: 3
+  end_at: 2009-12-08
+  responses: 10
+  package_id: 1
+  publish_status: published    

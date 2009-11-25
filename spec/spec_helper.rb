@@ -13,3 +13,9 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 end
+
+  def head_tag(tag_for)
+    with_tag('th.head') do
+      with_tag('h3', :text => tag_for)
+    end
+  end

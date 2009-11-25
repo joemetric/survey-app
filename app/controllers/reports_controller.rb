@@ -16,7 +16,8 @@ class ReportsController < ApplicationController
   private
   
   def find_survey
-    @survey = Survey.find(params[:id])
+    @survey = Survey.by(current_user).find(params[:id])
   end
   
 end
+

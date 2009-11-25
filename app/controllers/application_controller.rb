@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-
+  
   def require_admin
     unless current_admin
       redirect_to new_admin_admin_session_url
