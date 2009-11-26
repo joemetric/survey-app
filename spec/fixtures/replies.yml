@@ -16,7 +16,7 @@ reply1_for_survey_planA_1: # Reply by james for Nokia Phones Survey
   survey_id: 7
   user_id: 3
   
-reply15_for_survey_planA_3: # Reply by james for Plasma Televisions Survey
+reply2_for_survey_planA_5: # Reply by james for Plasma Televisions Survey
   id: 55
   survey_id: 9
   user_id: 3
@@ -286,8 +286,32 @@ reply14_for_survey_planA_3:
   survey_id: 8
   user_id: 3
 
-reply1_for_survey_planA_5:
+reply15_for_survey_planA_3:
   id: 56
+  survey_id: 8
+  user_id: 3  
+
+reply1_for_survey_planA_5:
+  id: 57
   survey_id: 9
   user_id: 3
   status: complete
+  
+reply1_for_completed_survey_1:
+  id: 58
+  survey_id: 14
+  user_id: 9
+  status: complete
+  
+reply2_for_completed_survey_1:
+  id: 59
+  survey_id: 14
+  user_id: 10
+  status: complete
+
+reply1_for_just_started_survey_1:
+  id: 60
+  survey_id: 15
+  user_id: 10
+  status: incomplete  
+      

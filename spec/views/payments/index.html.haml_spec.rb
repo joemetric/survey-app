@@ -14,8 +14,8 @@ describe "/payments/index" do
   it "should display a table containing past transaction (payment) details" do
     response.should have_tag('h3.heads', :text => 'Account History')
     response.should have_tag('table#table') do
-      have_tag('thead') do
-        have_tag('tr') do
+      response.should have_tag('thead') do
+        response.should have_tag('tr') do
            head_tag('Transaction ID')
            head_tag('Survey Name')
            head_tag('Number of Questions')

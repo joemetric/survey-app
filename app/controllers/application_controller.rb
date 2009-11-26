@@ -117,6 +117,10 @@ class String
   def remove_dollar_sym
     gsub!('$', '').to_f
   end
+  
+  def nil_or_empty?
+    empty?
+  end
 
 end
 
@@ -178,6 +182,10 @@ class NilClass
     define_method name do
       ''
     end
+  end
+  
+  def nil_or_empty?
+    true
   end
 
 end

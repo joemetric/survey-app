@@ -346,4 +346,55 @@ survey_planA_12_q5:
   description:  
   question_type_id: 2
   complement: --- - Option1 - " Option2" - " Option3"
+
+survey_planA_13_q1:
+  id: 52
+  name: Survey_13_Standard_Question_1
+  survey_id: 13
+  description: Description for Question 
+  question_type_id: 1
+
+survey_planA_13_q2:
+  id: 53
+  name: Survey_13_Standard_Question_2
+  survey_id: 13
+  description:  
+  question_type_id: 1
+
+survey_planA_13_q3:
+  id: 54
+  name: Survey_13_Standard_Question_3
+  survey_id: 13
+  description:  
+  question_type_id: 1
   
+survey_planA_13_q4:
+  id: 55
+  name: Survey_13_Standard_Question_4
+  survey_id: 13
+  description:  
+  question_type_id: 1
+
+completed_survey_1_q1:
+  id: 56
+  name: What do You want to do before 21st December 2012
+  survey_id: 14
+  question_type_id: 1
+
+just_started_1_q1:
+  id: 57
+  name: Which car would You buy If You want to select from Honda City and Maruti Suzuki Swift and Why ?
+  survey_id: 15
+  question_type_id: 1
+
+just_started_1_q2:
+  id: 58
+  name: Which bike would You buy If You want to select from Kawasaki Ninja and Yamaha R1 and Why ?
+  survey_id: 15
+  question_type_id: 1
+  
+just_started_1_q3:
+  id: 59
+  name: Send Us Your best design picture ?
+  survey_id: 15
+  question_type_id: 3   

@@ -15,8 +15,8 @@ describe "/surveys/reports" do
     do_render
     response.should have_tag('h3.heads', :text => 'Reports')
     response.should have_tag('table#table') do
-      have_tag('thead') do
-        have_tag('tr') do
+      response.should have_tag('thead') do
+        response.should have_tag('tr') do
            head_tag('Name')
            head_tag('Published At')
            head_tag('Responses')

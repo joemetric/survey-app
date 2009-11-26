@@ -14,8 +14,8 @@ Spec::Runner.configure do |config|
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 end
 
-  def head_tag(tag_for)
-    with_tag('th.head') do
+  def head_tag(tag_for, th_class='')
+    with_tag("th#{th_class}") do
       with_tag('h3', :text => tag_for)
     end
   end

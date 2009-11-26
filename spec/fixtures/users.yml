@@ -100,4 +100,35 @@ louis:
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
   created_at:                <%= 4.days.ago.to_s :db  %>
-  type:                      User         
+  type:                      User
+
+iphone_user_1:
+  id: 9
+  login:                     iphone_user_1
+  name:                      Iphone User 1
+  email:                     andrew@mac.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User
+
+iphone_user_2:
+  id: 10
+  login:                     iphone_user_2
+  name:                      Iphone User 2
+  email:                     ryan@mac.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User 
+ 
+iphone_user_3:
+  id: 11
+  login:                     iphone_user_3
+  name:                      Iphone User 3
+  email:                     patrick@mac.com
+  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      User 
+        

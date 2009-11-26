@@ -29,7 +29,9 @@ class Reply < ActiveRecord::Base
   named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
   
   def validate_on_create
-    errors.add_to_base('You cannot take this survey. It has expired.') if survey.reached_max_respondents?
+    if survey.reached_max_respondents? || survey.expired?
+      errors.add_to_base('You cannot take this survey. It has expired.')
+    end
   end
   
   def answers_with_question_type

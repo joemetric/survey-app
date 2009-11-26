@@ -25,7 +25,7 @@ class Answer < ActiveRecord::Base
   validates_uniqueness_of :question_id, :scope => "reply_id"
   validates_presence_of :answer, :reply_id, :question_id
   validates_attachment_content_type :image, :content_type => [ "image/gif", "image/jpeg", "image/png" ]
-  validate :presence_of_file_only_if_allowed
+  validate :presence_of_file_only_if_allowed, :unless => Proc.new { |a| a.question_id.nil? }
 
   named_scope :by_question, lambda { |q| { :conditions => { :question_id => q.id }}}
 

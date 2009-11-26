@@ -71,7 +71,7 @@ survey_planA_2: # Everything Included
   id: 7
   name: Nokia Phones
   owner_id: 2
-  end_at: 2009-11-08
+  end_at: 2010-11-08
   responses: 20
   package_id: 1
 
@@ -104,7 +104,7 @@ survey_planA_6:
   id: 11
   name: Hyundai Sonata And Honda Accord
   owner_id: 3
-  end_at: 2009-12-08
+  end_at: 2010-12-08
   responses: 10
   package_id: 1
   publish_status: saved
@@ -116,4 +116,31 @@ survey_planA_7:
   end_at: 2009-12-08
   responses: 10
   package_id: 1
-  publish_status: published    
+  publish_status: published
+      
+survey_planA_8:
+  id: 13
+  name: Sony or Panasonic
+  owner_id: 3
+  end_at: 2010-12-08
+  responses: 10
+  package_id: 1
+  publish_status: published
+  
+completed_survey_1:
+  id: 14
+  name: 21st December 2012
+  owner_id: 3
+  end_at: 2010-12-08
+  responses: 2
+  package_id: 1
+  publish_status: published
+  
+just_started_1:
+  id: 15
+  name: 21st December 2012
+  owner_id: 3
+  end_at: 2011-12-08
+  responses: 2
+  package_id: 2
+  publish_status: published     

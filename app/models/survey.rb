@@ -85,6 +85,10 @@ class Survey < ActiveRecord::Base
     }
   end
   
+  def expired?
+    end_at < Date.today
+  end
+  
   def self.surveys_for(user)
     user.has_camera? ? published : published.collect {|s| s unless s.question_type_ids.include?(3)}
   end
@@ -131,8 +135,8 @@ class Survey < ActiveRecord::Base
   end
   
   def question_ids_of_answers
-    returning [] do |question_ids|
-      replies.each {|r| question_ids << r.answers.attribute_values(:question_id)}
+    returning qids = [] do
+      replies.each {|r| qids << r.answers.attribute_values(:question_id)}
     end 
   end
 
