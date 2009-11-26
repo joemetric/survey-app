@@ -26,6 +26,18 @@ class Admin::UsersController < ApplicationController
     end
   end
   
+  def blacklist
+    blacklist_by = params[:blacklist_by]
+    if User.exists?(blacklist_by.to_sym => params[blacklist_by])
+      @user = User.find(:first, :conditions => {blacklist_by.to_sym => params[blacklist_by]})
+      @user.add_to_blacklist
+      flash[:notice] = "User of email address #{params[:email]} is blacklisted successfuly."
+    else
+      flash[:notice] = "User with #{blacklist_by.titleize} #{params[blacklist_by]} do not exists in the System."                  
+    end
+    redirect_to admin_clients_path
+  end
+  
   private
   
   def find_user

@@ -1,0 +1,60 @@
+%div{:class => 'form lar'}
+  %h3.heads1 Client Administration
+  = render_notice
+  .survey_by
+    %b Schedule System Downtime
+    .cols
+      .cal
+        On:
+        = text_field_tag :on, 'Feb 2009'
+      .time_f
+        From
+        %br
+        = text_field_tag :from, 'Feb 2009'
+      .time_t
+        To
+        %br
+        = text_field_tag :ti, 'Feb 2009'
+      .cls
+    %div{:align => 'left', :class => 'btns'}
+      = link_to 'Schedule', '#', :class => 'pos fl_right'
+      .cls
+  %br
+  
+  .survey_by
+    %b Warn Older iPhone Clients
+    %p.net1
+      %label The Current iPhone app version is:
+      = text_field_tag :version, 1.2
+    %p.net1
+    %p.net1
+      %label Custom Text
+      = text_area_tag 'custom_text', 'Your version is out of date Please go to', :rows => 1, :class => 'l_text'
+    %p.net1
+      = radio_button_tag 'always', 'always'
+      Always
+    %p.net1
+      = radio_button_tag 'once', 'once'
+      Once
+    %div{:align => 'left', :class => 'btns'}
+      = link_to 'Enable Warning', '#', :class => 'pos', :style => "width:125px"
+      .cls
+  %br
+  
+  .survey_by
+    %b Black Listing:
+    - form_tag(blacklist_admin_users_path, :id => 'blacklist_user', :method => :put) do
+      %p{:style => 'width: 460px;', :class => 'net1 btns'}
+        %label Blacklist user by Email:
+        = text_field_tag :email, '', :class => 'ltext', :onkeypress => "handleKeyPress(event, 'email')"
+        = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('email')", :class => "neg"
+      %p.net1
+/      %p{:style => 'width: 460px;', :class => 'net1 btns'}
+/        %label Blacklist device by MAC Address:
+/       = text_field_tag :mac_address, '', :class => 'ltext2'
+/       = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('mac_address')", :class => "neg"
+    
+      
+          
+    
+

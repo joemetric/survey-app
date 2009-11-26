@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys, 
     :member => {:reward => :get},
-    :collection => { :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :get } do |survey|
+    :collection => { :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :post } do |survey|
     survey.resources :questions
     survey.resources :restrictions
     survey.resources :replies
@@ -27,8 +27,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
+    admin.resources  :clients
     admin.resources :users,
-      :member => {:reset_password => :any, :change_type => :post}
+      :member => {:reset_password => :any, :change_type => :post},
+      :collection => {:blacklist => :put}
     admin.resources :maintenances
   end
   

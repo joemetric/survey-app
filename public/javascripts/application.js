@@ -5,6 +5,20 @@ function call_activate_form(id) {
 	$('form.edit_survey').submit();
 }
 
+function blacklist_user(blacklist_by) {
+   $('form#blacklist_user').append("<input type='hidden' name='blacklist_by' value='" + blacklist_by + "'>")
+   $('form#blacklist_user').submit(); 
+}
+
+function handleKeyPress(e, blacklist_by){
+    var key=e.keyCode || e.which;
+    if (key==13){
+        if (confirm('This action will blacklist the user.')){
+            blacklist_user(blacklist_by);
+        }
+    }
+}
+
 function loadSelectedPackage(){  
     var dropdown = document.getElementById("package");  
     var index = dropdown.selectedIndex;
@@ -56,7 +70,7 @@ $(document).ready(function(){
 });
 
 function updatePricing(){
-    $.post("/surveys/update_pricing", $('#survey_form').serialize(), 
+    $.post("/surveys/update_pricing", $('#survey_form').serialize(),
     function(data, textStatus) {
     var html = ''
     jQuery.each(data, function(i, question) {

@@ -6,9 +6,15 @@ class UserSession < Authlogic::Session::Base
     return true if attempted_record.nil?
     if attempted_record.respond_to?(:active?) && !attempted_record.active?
       errors.add_to_base("A validation email has been sent to your email account. Please use that to activate your JoeSurvey account.")
-      return false
+    end
+    if attempted_record.respond_to?(:blacklisted?) && attempted_record.blacklisted?
+      errors.add_to_base("Your Account is blocked.")
     end
   end 
+  
+  def blacklisted?
+    blacklisted
+  end
   
   private
   

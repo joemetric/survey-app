@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
   def is_admin?
     type == 'Admin'
   end
+  
+  def add_to_blacklist
+    update_attribute(:blacklisted, true)
+  end
 
   def change_type(type_name)
     update_attribute(:type, type_name)

@@ -75,7 +75,7 @@ class SurveysController < ResourceController::Base
   
   def object
     if ['show', 'edit', 'update'].include?(params[:action])
-      object = current_user.admin? ? super : Survey.by(current_user).find(params[:id])
+      object = Survey.by(current_user).find(params[:id])
     else
       super      
     end
