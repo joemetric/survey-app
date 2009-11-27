@@ -93,7 +93,11 @@ class ApplicationController < ActionController::Base
       page.alert(message)
     end
   end
-
+  
+  def correct_date(date)
+    date.gsub('/', '-').split('-').reverse.join('-')
+  end
+  
   def convert_date_format(date)
     date.to_s.gsub('-', '/').split('/').reverse.join('/') unless date.nil?
   end

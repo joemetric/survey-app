@@ -1,0 +1,24 @@
+.survey_by
+  - form_remote_for :maintenance, :html => {:id => 'maintenance_form'}, :url => admin_maintenances_path do |form|
+    %b Schedule System Downtime
+    .cols
+      .cal
+        On:
+        = text_field_tag 'on', '', :class => 'date-pick dp-applied', :readonly => true
+      .time_f
+        From
+        %br
+        = select_hour(maintenance.try(:start) ? maintenance.start : Time.now, :field_name => 'from_hour')
+        = ':'
+        = select_minute(maintenance.try(:start) ? maintenance.start : Time.now, :field_name => 'from_minute')
+      .time_t
+        To
+        %br
+        = select_hour(maintenance.try(:end) ? maintenance.end : Time.now, :field_name => 'to_hour')
+        = ':'
+        = select_minute(maintenance.try(:end) ? maintenance.end : Time.now, :field_name => 'to_minute')
+      .cls
+    %div{:align => 'left', :class => 'btns'}
+      = submit_tag 'Schedule', :class => 'but_bl', :style => 'float:right;'
+      .cls
+%br

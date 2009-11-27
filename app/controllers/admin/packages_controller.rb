@@ -57,10 +57,6 @@ private
                             :valid_until => correct_date(lifetime_attributes[:valid_until])})
   end
   
-  def correct_date(date)
-    date.gsub('/', '-').split('-').reverse.join('-')
-  end
-  
   def check_params_package
     if params[:package] && !Package.exists?(:name => params[:package])
       redirect_to admin_packages_url(:package => 'Default') and return

@@ -13,6 +13,7 @@ function blacklist_user(blacklist_by) {
 function handleKeyPress(e, blacklist_by){
     var key=e.keyCode || e.which;
     if (key==13){
+        $('form#blacklist_user').append("<input type='hidden' name='blacklist_by' value='" + blacklist_by + "'>")
         if (confirm('This action will blacklist the user.')){
             blacklist_user(blacklist_by);
         }

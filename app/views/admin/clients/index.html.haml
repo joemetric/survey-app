@@ -1,25 +1,9 @@
 %div{:class => 'form lar'}
   %h3.heads1 Client Administration
   = render_notice
-  .survey_by
-    %b Schedule System Downtime
-    .cols
-      .cal
-        On:
-        = text_field_tag :on, 'Feb 2009'
-      .time_f
-        From
-        %br
-        = text_field_tag :from, 'Feb 2009'
-      .time_t
-        To
-        %br
-        = text_field_tag :ti, 'Feb 2009'
-      .cls
-    %div{:align => 'left', :class => 'btns'}
-      = link_to 'Schedule', '#', :class => 'pos fl_right'
-      .cls
-  %br
+  %span#errors
+  
+  = render :partial => 'admin/maintenances/maintenance_form', :locals => {:maintenance => @maintenance}
   
   .survey_by
     %b Warn Older iPhone Clients
@@ -52,9 +36,7 @@
 /      %p{:style => 'width: 460px;', :class => 'net1 btns'}
 /        %label Blacklist device by MAC Address:
 /       = text_field_tag :mac_address, '', :class => 'ltext2'
-/       = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('mac_address')", :class => "neg"
+/       = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('mac_address')", :class => "neg"       
     
-      
-          
-    
-
+= render_datepicker_assets
+= init_calender_field(@maintenance.try(:start) ? @maintenance.start.to_date : Time.now.to_date)

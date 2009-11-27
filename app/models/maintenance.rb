@@ -12,10 +12,28 @@
 #
 
 class Maintenance < ActiveRecord::Base
-  validates_presence_of :start, :duration
-  validates_numericality_of :duration
+  
+  validates_presence_of :start, :end
   
   named_scope :not_passed, :conditions => { :passed => false }
+  
+  after_create :set_duration, :expire_old_maintenances
+  
+  def validate
+    errors.add_to_base('Please set time duration properly') if duration_in_minutes < 0
+  end
+  
+  def set_duration
+    update_attribute(:duration, duration_in_minutes)
+  end
+  
+  def expire_old_maintenances
+    self.class.update_all( "passed = 1", "id != #{id}" )  
+  end
+  
+  def duration_in_minutes
+    (send('end') - send('start')).round / 60
+  end
   
   def self.currently_under?
     Maintenance.not_passed.each do |m|

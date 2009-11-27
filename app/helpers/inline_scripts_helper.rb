@@ -28,4 +28,28 @@ module InlineScriptsHelper
     }
   end
   
+  def render_datepicker_assets
+    %Q{
+      #{javascript_include_tag 'date-select/date'}
+      #{javascript_include_tag 'date-select/jquery-1.3.2.min'}
+      #{javascript_include_tag 'date-select/jquery.datePicker'}
+      #{stylesheet_link_tag 'date-select/date-picker'}
+    }
+  end
+  
+  def init_calender_field(date)
+    %Q{
+      <script type='text/javascript'>
+        $(function()
+          {
+  	     $('.date-pick').datePicker({clickInput:true})
+          });
+        $(function()
+          {
+            $('.date-pick').datePicker().dpSetSelected('#{convert_date_format(date)}');
+          }); 
+      </script>
+    }
+  end
+  
 end
