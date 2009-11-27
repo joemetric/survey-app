@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: restrictions
 #

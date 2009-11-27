@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: maintenances
 #
@@ -9,6 +9,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  passed     :boolean(1)
+#  end        :datetime
 #
 
 class Maintenance < ActiveRecord::Base

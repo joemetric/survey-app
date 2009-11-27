@@ -1,29 +1,12 @@
 %div{:class => 'form lar'}
   %h3.heads1 Client Administration
   = render_notice
+  
   %span#errors
   
   = render :partial => 'admin/maintenances/maintenance_form', :locals => {:maintenance => @maintenance}
   
-  .survey_by
-    %b Warn Older iPhone Clients
-    %p.net1
-      %label The Current iPhone app version is:
-      = text_field_tag :version, 1.2
-    %p.net1
-    %p.net1
-      %label Custom Text
-      = text_area_tag 'custom_text', 'Your version is out of date Please go to', :rows => 1, :class => 'l_text'
-    %p.net1
-      = radio_button_tag 'always', 'always'
-      Always
-    %p.net1
-      = radio_button_tag 'once', 'once'
-      Once
-    %div{:align => 'left', :class => 'btns'}
-      = link_to 'Enable Warning', '#', :class => 'pos', :style => "width:125px"
-      .cls
-  %br
+  = render :partial => 'admin/clients/warn_clients'
   
   .survey_by
     %b Black Listing:

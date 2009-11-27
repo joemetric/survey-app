@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: users
 #
@@ -19,6 +19,7 @@
 #  type              :string(255)     default("User")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
+#  blacklisted       :boolean(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

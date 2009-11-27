@@ -1,12 +1,19 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: answers
 #
-#  id               :integer(4)      not null, primary key
-#  reply_id         :integer(4)
-#  question_id      :integer(4)
-#  answer           :text
+#  id                 :integer(4)      not null, primary key
+#  reply_id           :integer(4)
+#  question_id        :integer(4)
+#  answer             :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  image_file_name    :string(255)
+#  image_content_type :string(255)
+#  image_file_size    :integer(4)
+#  image_updated_at   :datetime
+#
 
 
 1_survey_6:

@@ -1,0 +1,22 @@
+%span#errors_warning
+.survey_by
+  %b Warn Older iPhone Clients
+  - form_remote_for :warning, :html => {:id => 'warning_form'}, :url => warn_admin_clients_path do |warning|
+    %p.net1
+      %label The Current iPhone app version is:
+      = warning.text_field :iphone_version
+    %p.net1
+    %p.net1
+      %label Custom Text
+      = warning.text_area :warning, :rows => 1, :class => 'l_text'
+    %p.net1
+      = warning.radio_button 'warn', 'always'
+      Always
+    %p.net1
+      = warning.radio_button 'warn', 'once'
+      Once
+    %div{:align => 'left'}
+      = submit_tag 'Enable Warning', :class => 'but_bl'
+      .cls
+
+%br

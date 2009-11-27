@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: replies
 #
@@ -8,7 +8,7 @@
 #  user_id    :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
-#  paid       :boolean(1)
+#  status     :string(255)     default("incomplete")
 #
 
 class Reply < ActiveRecord::Base

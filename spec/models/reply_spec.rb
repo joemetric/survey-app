@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: replies
 #
@@ -8,7 +8,8 @@
 #  user_id    :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
-#  status     :string
+#  status     :string(255)     default("incomplete")
+#
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091110082101
+# Schema version: 20091127040223
 #
 # Table name: payments
 #
@@ -12,7 +12,7 @@
 #  updated_at     :datetime
 #  transaction_id :string(255)
 #  owner_id       :integer(4)
-#  status         :string(255)
+#  status         :string(255)     default("incomplete")
 #
 
 class Payment < ActiveRecord::Base

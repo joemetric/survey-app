@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
-    admin.resources  :clients
+    admin.resources  :clients, :collection => { :warn => :post}
     admin.resources :users,
       :member => {:reset_password => :any, :change_type => :post},
       :collection => {:blacklist => :put}
