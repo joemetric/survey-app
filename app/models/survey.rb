@@ -172,19 +172,23 @@ class Survey < ActiveRecord::Base
   end
 
   def to_be_taken
-    percent_of((responses - replies.size), responses)
+     percent_of(responses - (incomplete_replies + complete_replies), responses)
+  end
+  
+  def incomplete_replies
+    replies.incomplete.size
+  end
+  
+  def complete_replies
+    replies.complete.size
   end
 
   def in_progress
-    pending = [ ]
-    replies.each { |reply| pending.push(reply) unless reply.complete? }
-    percent_of(pending.size, replies.size)
+    percent_of(incomplete_replies, responses)
   end
 
   def completed
-    completes = [ ]
-    replies.each { |reply| completes.push(reply) if reply.complete? }
-    percent_of(completes.size, responses.size)
+    percent_of(complete_replies, responses)
   end
 
   def save_pricing_info
@@ -209,8 +213,8 @@ class Survey < ActiveRecord::Base
 
   private
 
-  def percent_of(ammount, total)
-    (total == 0) ? 0 : ((ammount * 100 ) / total)
+  def percent_of(amount, total)
+    (total == 0) ? 0 : ((amount.to_f / total.to_f) * 100.0).round
   end
 
   def deliver_rejection_mail

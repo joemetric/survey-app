@@ -40,6 +40,9 @@ class Reply < ActiveRecord::Base
   end
   
   ['incomplete', 'complete', 'paid'].each do |s|
+    
+    named_scope s.to_sym, {:conditions => {:status => s}}
+    
     define_method "#{s}?" do
       status == s
     end
