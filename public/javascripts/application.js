@@ -140,3 +140,14 @@ function pricingText(question, question_type, scenario){
     }
     return para;
 }
+
+function copySurveyInfo(survey){
+    $("#survey_name").val(survey.name);
+    $("#survey_description").val(survey.description);
+    $("#survey_responses").val(survey.responses);
+    var end_at = survey.end_at.split('-');
+    $("#survey_end_at_1i").val('' + end_at[0] + '');
+    $("#survey_end_at_2i").val('' + end_at[1] + '');
+    $("#survey_end_at_3i").val('' + end_at[2] + '');
+}
+

@@ -5,11 +5,7 @@
     - form_for @survey, :html => {:id => 'survey_form'}  do |form|
       %h3.heads Edit a Survey
       = form.error_messages
-      .quick_select{ :style => "margin-top: -58px" }
-        Quick Create - Copy
-        %br
-        = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
-      
+
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
       = form.hidden_field :id
       .rounded

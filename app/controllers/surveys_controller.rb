@@ -49,7 +49,16 @@ class SurveysController < ResourceController::Base
   def reports
     @surveys = @current_user.created_surveys.published
   end
-
+  
+  def copy
+    @survey = Survey.by(current_user).find(params[:id]) rescue nil
+    unless @survey.nil?
+      @questions = []
+      @copying_survey = true
+      @survey.questions.each {|q| @questions << q.clone}
+    end
+  end
+  
   show do
     wants.json { render :json => @object.to_json(:user => current_user), :status => 200 }
   end

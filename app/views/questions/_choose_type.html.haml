@@ -1,13 +1,15 @@
 %p.cntrls{ :id => "container_#{temp_id = random_string }", :style => "margin:10px 0" }
 
   %label Question Type:
-  = select_tag "question_type_#{temp_id}", options_for_select([""] + question_type_options)
+  = select_tag "question_type_#{temp_id}", options_for_select([""] + question_type_options, :selected => @copying_survey ? object.question_type_id : nil)
   = observe_field "question_type_#{temp_id}", :url => choose_type_questions_path, :with => "'container=' + 'question_#{temp_id}' + '&question_type=' + value", :complete => 'updatePricing();'
 
   = link_to_function image_tag("/images/del.png", :border => 0) do |page|
     - page.remove "container_#{temp_id}"
     - page.remove "question_#{temp_id}"
     - page << "updatePricing();"
-
-  %div{ :id => "question_#{temp_id}" }
+  
+  %div{ :id => "question_#{temp_id}" }  
+  - if @copying_survey
+    = render :partial => "/questions/types/#{object.question_type.valid_name}", :locals => { :question => object }
     

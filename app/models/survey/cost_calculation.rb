@@ -46,7 +46,7 @@ class Survey < ActiveRecord::Base
         end
       end    
       discounted_questions = total_questions - extra_questions
-      if new_record? || return_hash
+      if new_record?
         {
          :normal => concerned_question_type.name.plural_form(extra_questions), 
          :standard => concerned_question_type.name.plural_form(discounted_questions),
@@ -103,12 +103,11 @@ class Survey < ActiveRecord::Base
       survey.package_id = params[:survey][:package_id]
       survey_package = Package.find(survey.package_id)
     end
-    survey.return_hash = true
     survey.responses = 0 if survey.responses.nil?
     survey.question_attributes = params[:survey][:questions_attributes]
     survey_configuration = {}
     survey_configuration[:total_cost] = survey_package.base_cost
-    QUESTION_TYPES.keys.each {|k| 
+    QUESTION_TYPES.keys.each {|k|
       survey_configuration[k.to_sym] = survey.send("#{k}_cost")
       survey_configuration[:total_cost] += survey_configuration[k.to_sym][:total_cost]
       survey_configuration[k.to_sym][:total_cost] = survey_configuration[k.to_sym][:total_cost].us_dollar 

@@ -12,8 +12,8 @@
       .quick_select{ :style => "margin-top: -58px" }
         Quick Create - Copy
         %br
-        = select_tag("quick_select", "<option>No Selection</option>", :class => "selected")
-
+        = select :surveys, :id, Survey.by(current_user).collect {|s| [ truncate(s.name, 12), s.id ] }, { :include_blank => 'Select' }
+        = observe_field "surveys_id", :url => copy_surveys_path, :with => "'id=' + value", :complete => 'updatePricing();'
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
         
       .rounded

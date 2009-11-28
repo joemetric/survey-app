@@ -1,7 +1,8 @@
 %p.cntrls{ :style => "margin-top:20px" }
   #restrictions
     %label Demographics:
-    = render :partial => "/restrictions/choose_type"
+    #restriction_list
+      = render :partial => "/restrictions/choose_type"
   %br
   %p
     = link_to_remote "ADD DEMOGRAPHIC RESTRICTION", :url => new_restriction_path, :method => :get, :html => { :class => "button button_la" } 
