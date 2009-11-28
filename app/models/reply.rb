@@ -53,6 +53,10 @@ class Reply < ActiveRecord::Base
     paid?
   end
   
+  def is_final?
+    survey.reached_max_respondents?
+  end
+  
   def all_answers_given?
     survey.questions.size == answers.size
   end

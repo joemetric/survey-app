@@ -1,7 +1,7 @@
 if @survey.nil?
   page.alert('Your request could not be completed...')
 else
-  page << "copySurveyInfo(#{@survey.to_json})"
+  page << "copySurveyInfo(#{@survey_json})"
   page.replace_html "questions", :partial => "/questions/choose_type", :collection => @questions
   page.replace_html "restriction_list", :partial => "/restrictions/choose_type", :collection => @survey.restrictions
 end

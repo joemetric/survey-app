@@ -28,6 +28,10 @@ Creates transfer objects for existing replies. Not required when Web app is depl
 6) rake survey:set_reply_status
 Update status of existing reply objects.  Not required when Web app is deployed for the first time.
 
+7) rake survey:temp:finish_surveys
+Update status of existing surveys who has already received MAX responses
+Not required when Web app is deployed for the first time.
+
 Cron job Configuration:
 
 1) Prepare Cron Job

@@ -43,6 +43,12 @@ class Answer < ActiveRecord::Base
   
   def mark_reply_as_complete
     reply.complete!
+    # After changing status of reply, mark survey as finished if all replies are received
+    mark_survey_as_finished if reply.is_final?
+  end
+  
+  def mark_survey_as_finished
+    reply.survey.finished!
   end
 
   def reward # Reward for answering each question

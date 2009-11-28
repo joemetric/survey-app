@@ -52,7 +52,9 @@ class SurveysController < ResourceController::Base
   
   def copy
     @survey = Survey.by(current_user).find(params[:id]) rescue nil
-    unless @survey.nil?
+    unless @survey.nil?    
+      ActiveRecord::Base.include_root_in_json = false
+      @survey_json = @survey.to_json
       @questions = []
       @copying_survey = true
       @survey.questions.each {|q| @questions << q.clone}
