@@ -172,7 +172,7 @@ class Survey < ActiveRecord::Base
   end
 
   def to_be_taken
-     percent_of(responses - (incomplete_replies + complete_replies), responses)
+     100 - (in_progress + completed)
   end
   
   def incomplete_replies
@@ -180,7 +180,7 @@ class Survey < ActiveRecord::Base
   end
   
   def complete_replies
-    replies.complete.size
+    replies.paid_or_complete.size
   end
 
   def in_progress

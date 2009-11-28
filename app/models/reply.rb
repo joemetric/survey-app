@@ -27,6 +27,7 @@ class Reply < ActiveRecord::Base
   accepts_nested_attributes_for :answers
   
   named_scope :by_user, lambda { |u| { :conditions => { :user_id => u.id }}}
+  named_scope :paid_or_complete,{ :conditions => ["status in (?,?)", "paid", "complete" ]}
   
   def validate_on_create
     if survey.reached_max_respondents? || survey.expired?
