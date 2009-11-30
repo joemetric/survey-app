@@ -23,7 +23,7 @@
 #
 
 class User < ActiveRecord::Base
-
+  
   attr_accessor :old_password, :security_token, :device
 
   acts_as_authentic do |authlogic|
@@ -35,8 +35,6 @@ class User < ActiveRecord::Base
 
   has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
 
-  has_many :completions
-  has_many :surveys, :through => :completions
   has_many :answers
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"
   has_many :replies
@@ -45,9 +43,7 @@ class User < ActiveRecord::Base
   after_create :setup_user
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
-
-  TYPES = ['Admin', 'User', 'Reviewer']
-
+  
   Incomes = {
     0 => "Under $15,000",
     1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
@@ -58,6 +54,28 @@ class User < ActiveRecord::Base
     10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
     12 => "$200,000 or more"
   }
+  
+  MartialStatus = {
+    1 => 'Single',
+    2 => 'Married',
+    3 => 'Widowed',
+    4 => 'Divorced'
+  }
+  
+  # Race Demographics taken from http://projects.allerin.com/attachments/820/mockup_Dashboard_new.png
+  
+  Race = {
+    1 => 'White/Caucasian',   
+    2 => 'African-American/Black',  
+    3 => 'Hispanic/Latino', 
+    4 => 'Asian',    
+    5 => 'American Indian/Alaska Native',
+    6 => 'Pacific Islander/Native Hawaiian',
+  }
+  
+  Demographics = Restriction::Kinds.push([:income, :martial_status, :race, :education, :occupation]).flatten
+  
+  TYPES = ['Admin', 'User', 'Reviewer']
 
   def income=(income_string)
     self.income_id = Incomes.invert[income_string]
