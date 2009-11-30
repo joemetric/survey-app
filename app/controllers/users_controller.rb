@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     render :json => nil
   end
   
-  def marital_statuses
+  def martial_statuses
     render :json => User::MartialStatus.sort_by { |key, vlu| key }, :status => 201
   end
   
