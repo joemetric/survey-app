@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
-  map.resources :users, :member => { :not_active => :get }, :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get, :incomes => :get } do |user|
+  map.resources :users, :member => { :not_active => :get }, :collection => { :forgot_password => :get, :send_reset => :post, :reset_password => :get, :incomes => :get, :races => :get, :educations => :get, :occupations => :get, :marital_statuses => :get } do |user|
     user.resources :transfers, :collection => { :pending => :get, :paid => :get }
   end
 
