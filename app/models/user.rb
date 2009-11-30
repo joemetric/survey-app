@@ -23,7 +23,7 @@
 #
 
 class User < ActiveRecord::Base
-  
+
   attr_accessor :old_password, :security_token, :device
 
   acts_as_authentic do |authlogic|
@@ -39,11 +39,11 @@ class User < ActiveRecord::Base
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"
   has_many :replies
   has_many :transfers, :through => :replies
-  
+
   after_create :setup_user
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
-  
+
   Incomes = {
     0 => "Under $15,000",
     1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
@@ -54,27 +54,27 @@ class User < ActiveRecord::Base
     10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
     12 => "$200,000 or more"
   }
-  
+
   MartialStatus = {
     1 => 'Single',
     2 => 'Married',
     3 => 'Widowed',
     4 => 'Divorced'
   }
-  
+
   # Race Demographics taken from http://projects.allerin.com/attachments/820/mockup_Dashboard_new.png
-  
+
   Race = {
-    1 => 'White/Caucasian',   
-    2 => 'African-American/Black',  
-    3 => 'Hispanic/Latino', 
-    4 => 'Asian',    
+    1 => 'White/Caucasian',
+    2 => 'African-American/Black',
+    3 => 'Hispanic/Latino',
+    4 => 'Asian',
     5 => 'American Indian/Alaska Native',
     6 => 'Pacific Islander/Native Hawaiian',
   }
-  
+
   Demographics = Restriction::Kinds.push([:income, :martial_status, :race, :education, :occupation]).flatten
-  
+
   TYPES = ['Admin', 'User', 'Reviewer']
 
   def income=(income_string)
@@ -83,6 +83,22 @@ class User < ActiveRecord::Base
 
   def income
     Incomes[income_id]
+  end
+
+  def race=(race_string)
+    self.race_id = Race.invert[race_string]
+  end
+
+  def race
+    Race[race_id]
+  end
+
+  def martial_status=(martial_string)
+    self.martial_status_id = MartialStatus.invert[martial_string]
+  end
+
+  def martial_status
+    MartialStatus[martial_status_id]
   end
 
   def activate(token)
@@ -106,7 +122,7 @@ class User < ActiveRecord::Base
   def is_admin?
     type == 'Admin'
   end
-  
+
   def add_to_blacklist
     update_attribute(:blacklisted, true)
   end
@@ -122,6 +138,8 @@ class User < ActiveRecord::Base
   def to_json(options = {})
     options[:methods] ||= []
     options[:methods] << :income unless options[:methods].include? :income
+    options[:methods] << :race unless options[:methods].include? :race
+    options[:methods] << :martial_status unless options[:methods].include? :martial_status
     super
   end
 
@@ -130,29 +148,29 @@ class User < ActiveRecord::Base
       amount += transfer.survey.total_payout
     end
   end
-  
+
 #  def completed_surveys
 #    replies.find(:all, :select => 'replies.survey_id AS id',
 #      :conditions => ['surveys.end_at > ?', Date.today],
 #      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id INNER JOIN questions ON surveys.id = questions.survey_id INNER JOIN answers ON replies.id = answers.reply_id'],
 #      :group => 'replies.id',
-#      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')  
+#      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')
 #  end
-   
+
   def completed_surveys
     replies.all(:select => 'replies.survey_id AS id',
       :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id'],
       :conditions => ['replies.status IN (?, ?) AND surveys.end_at > ?', 'paid', 'complete', Date.today])
   end
-  
+
   def has_camera?
     /iphone/.match(device).nil? ? false : true
   end
-  
+
   # Returns ids of un-replied and un-expired surveys
   # and those surveys that can be completed by user
   # Do not include surveys with photo-response-questions if user.has_camera? == false
-  
+
   def unreplied_surveys
     unreplied_survey_ids = Survey.surveys_for(self).collect{|s| s.id if s.try(:id)}.compact - completed_surveys.ids
     unreplied_survey_ids.empty? ? nil : unreplied_survey_ids
