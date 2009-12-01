@@ -23,11 +23,11 @@
 #
 
 class User < ActiveRecord::Base
-  
+
   ActiveRecord::Base.send(:extend, ConcernedWith) # If this line is not present 'concerned_with' is not recognized
-  
+
   concerned_with :demographics
-  
+
   attr_accessor :old_password, :security_token, :device
 
   acts_as_authentic do |authlogic|
@@ -49,30 +49,6 @@ class User < ActiveRecord::Base
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
 
   TYPES = ['Admin', 'User', 'Reviewer']
-
-  def income=(income_string)
-    self.income_id = Incomes.invert[income_string]
-  end
-
-  def income
-    Incomes[income_id]
-  end
-
-  def race=(race_string)
-    self.race_id = Race.invert[race_string]
-  end
-
-  def race
-    Race[race_id]
-  end
-
-  def martial_status=(martial_string)
-    self.martial_status_id = MartialStatus.invert[martial_string]
-  end
-
-  def martial_status
-    MartialStatus[martial_status_id]
-  end
 
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
@@ -110,9 +86,7 @@ class User < ActiveRecord::Base
 
   def to_json(options = {})
     options[:methods] ||= []
-    options[:methods] << :income unless options[:methods].include? :income
-    options[:methods] << :race unless options[:methods].include? :race
-    options[:methods] << :martial_status unless options[:methods].include? :martial_status
+    options[:methods] |= [:income, :race, :martial_status, :education, :occupation]
     super
   end
 

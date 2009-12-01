@@ -34,30 +34,30 @@ class User < ActiveRecord::Base
     10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
     12 => "$200,000 or more"
   }
-  
+
   MartialStatus = {
     1 => 'Single',
     2 => 'Married',
     3 => 'Widowed',
     4 => 'Divorced'
   }
-  
+
   # Race Demographics taken from http://projects.allerin.com/attachments/820/mockup_Dashboard_new.png
-  
+
   Race = {
     1 => 'White/Caucasian',
-    2 => 'African-American/Black',  
-    3 => 'Hispanic/Latino', 
-    4 => 'Asian',    
+    2 => 'African-American/Black',
+    3 => 'Hispanic/Latino',
+    4 => 'Asian',
     5 => 'American Indian/Alaska Native',
     6 => 'Pacific Islander/Native Hawaiian'
   }
-  
+
   Gender = {
    'male' => 'Male',
    'female' => 'Female'
   }
-  
+
   Occupation = {
     1 => 'Executive/Upper Management',
     2 => 'IT/MIS Professional',
@@ -78,15 +78,46 @@ class User < ActiveRecord::Base
     6 => 'Master\'s Degree',
     7 => 'Doctorate, Law or Professional Degree'
   }
-  
+
   Demographics = [:gender, :income, :martial_status, :race, :education, :occupation]
-  
+
   def self.demographic_data(params, group_by_column)
-    find(:all, 
-      :select => "users.*, #{params[:filter_column]} as filter_id, COUNT(#{params[:filter_column]}) AS count", 
+    find(:all,
+      :select => "users.*, #{params[:filter_column]} as filter_id, COUNT(#{params[:filter_column]}) AS count",
       :conditions => ["#{params[:filter_column]} IS NOT NULL"],
       :group => "#{group_by_column} ASC",
       :order => "#{params[:filter_column]} ASC" )
   end
-  
+
+  def income=(income_string)
+    self.income_id = Incomes.invert[income_string]
+  end
+
+  def income
+    Incomes[income_id]
+  end
+
+  def race=(race_string)
+    self.race_id = Race.invert[race_string]
+  end
+
+  def race
+    Race[race_id]
+  end
+
+  def martial_status=(martial_string)
+    self.martial_status_id = MartialStatus.invert[martial_string]
+  end
+
+  def martial_status
+    MartialStatus[martial_status_id]
+  end
+
+  def education
+    Education[education_id]
+  end
+
+  def occupation
+    Occupation[occupation_id]
+  end
 end

@@ -67,25 +67,25 @@ class UsersController < ApplicationController
   end
 
   def incomes
-    render :json => User::Incomes.sort_by { |key, vlu| key }, :status => 201
+    render :json => User::Incomes.sort_by { |key, vlu| key }, :status => 200
   end
-  
+
   def races
-    render :json => User::Race.sort_by { |key, vlu| key }, :status => 201
+    render :json => User::Race.sort_by { |key, vlu| key }, :status => 200
   end
-  
+
   def educations
-    render :json => nil
+    render :json => User::Education.sort_by { |key, vlu| key }, :status => 200
   end
-  
-  def ocupations
-    render :json => nil
+
+  def occupations
+    render :json => User::Occupation.sort_by { |key, vlu| key }, :status => 200
   end
-  
+
   def martial_statuses
-    render :json => User::MartialStatus.sort_by { |key, vlu| key }, :status => 201
+    render :json => User::MartialStatus.sort_by { |key, vlu| key }, :status => 200
   end
-  
+
   private
 
   def sign_in(person)
