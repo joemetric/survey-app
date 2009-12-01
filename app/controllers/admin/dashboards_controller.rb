@@ -16,7 +16,6 @@ class Admin::DashboardsController < ApplicationController
       @segments = eval "User::#{params[:segment_by] == 'martial_status' ? 'MartialStatus' : @segment_by}"
       @segment_column = params[:segment_column]
     end
-    logger.info @segments.inspect
     @results = User.demographic_data(params, (params[:segment_by] == 'Nothing' ? @filter_column : 'id'))
   end
   
@@ -27,9 +26,9 @@ private
       params.merge!({:filter_column => "#{d}_id"})  if params[:filter_by] == d.to_s
       params.merge!({:segment_column => "#{d}_id"}) if params[:segment_by] == d.to_s
     }
-    ['zip_code', 'gender', 'age'].each do |attr| # Special cases
-      params.merge!({:filter_column => attr})   if attr.gsub('_', '') == params[:filter_by]
-      params.merge!({:segment_column => "attr"})  if attr.gsub('_', '') == params[:segment_by]  
+    ['zip_code', 'gender', 'age'].each do |column| # Special cases
+      params.merge!({:filter_column => column})   if column.gsub('_', '') == params[:filter_by]
+      params.merge!({:segment_column => column})  if column.gsub('_', '') == params[:segment_by]  
     end
   end
   
