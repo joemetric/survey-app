@@ -75,11 +75,11 @@ class UsersController < ApplicationController
   end
   
   def educations
-    render :json => nil
+    render :json => User::Education.sort_by { |key, vlu| key}, :status => 201
   end
   
-  def ocupations
-    render :json => nil
+  def occupations
+    render :json => User::Occupation.sort_by { |key, vlu| key }, :status => 201
   end
   
   def martial_statuses
