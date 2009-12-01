@@ -24,6 +24,10 @@
 
 class User < ActiveRecord::Base
   
+  ActiveRecord::Base.send(:extend, ConcernedWith) # If this line is not present 'concerned_with' is not recognized
+  
+  concerned_with :demographics
+  
   attr_accessor :old_password, :security_token, :device
 
   acts_as_authentic do |authlogic|
@@ -44,43 +48,16 @@ class User < ActiveRecord::Base
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
   
-  Incomes = {
-    0 => "Under $15,000",
-    1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
-    3 => "$30,000 - $34,999", 4 => "$35,000 - $39,999",
-    5 => "$40,000 - $44,999", 6 => "$45,000 - $49,999",
-    7 => "$50,000 - $59,999",
-    8 => "$60,000 - $74,999", 9 => "$75,000 - $99,999",
-    10 => "$100,000 - $149,999", 11 => "$150,000 - $199,999",
-    12 => "$200,000 or more"
-  }
-  
-  MartialStatus = {
-    1 => 'Single',
-    2 => 'Married',
-    3 => 'Widowed',
-    4 => 'Divorced'
-  }
-  
-  # Race Demographics taken from http://projects.allerin.com/attachments/820/mockup_Dashboard_new.png
-  
-  Race = {
-    1 => 'White/Caucasian',   
-    2 => 'African-American/Black',  
-    3 => 'Hispanic/Latino', 
-    4 => 'Asian',    
-    5 => 'American Indian/Alaska Native',
-    6 => 'Pacific Islander/Native Hawaiian',
-  }
-  
-  Demographics = Restriction::Kinds.push([:income, :martial_status, :race, :education, :occupation]).flatten
-  
   TYPES = ['Admin', 'User', 'Reviewer']
-
+  
   def income=(income_string)
     self.income_id = Incomes.invert[income_string]
   end
-
+  
+  def gender_id
+    gender
+  end
+  
   def income
     Incomes[income_id]
   end

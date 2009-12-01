@@ -1,0 +1,16 @@
+%table{:cellpadding => 0, :cellspacing => 0, :border => 0, :id => 'table', :class => 'sortable'}
+  %thead
+    %tr
+      %th
+        %h3= @filter_by
+      - @segments.keys.sort.each do |s|
+        %th
+          %h3= @segments[s]
+  %tbody
+    - @filters.keys.sort.each do |f|
+      %tr
+        %td
+          = @filters[f]
+        - @segments.keys.sort.each do |s|
+          %td
+            = @results.count {|u| u.send(@filter_column) == f && u.send(@segment_column) == s}

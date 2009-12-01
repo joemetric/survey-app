@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.namespace(:admin) do |admin|
-    admin.resource :admin_session
+    admin.resource  :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
     admin.resources :packages
     admin.resources  :clients, :collection => { :warn => :post}
@@ -34,7 +34,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :maintenances
   end
   
-  map.resources :payments, 
+  map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
+    :collection => { :demographic_distribution => :post} 
+  
+  map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
   
   map.with_options :controller => 'payments' do |p|

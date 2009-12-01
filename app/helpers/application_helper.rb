@@ -16,6 +16,10 @@ module ApplicationHelper
     Restriction::Kinds.collect { |kind| [kind.to_s.titleize, kind] }
   end
   
+  def demographic_type_options
+    User::Demographics.collect { |kind| [kind.to_s.titleize, kind] }
+  end
+  
   def gender_options
     Gender::Values.collect { |kind| [kind.to_s.titleize, kind] }
   end

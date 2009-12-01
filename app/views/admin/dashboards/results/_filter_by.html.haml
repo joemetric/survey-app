@@ -1,0 +1,17 @@
+%table{:cellpadding => 0, :cellspacing => 0, :border => 0, :id => 'table', :class => 'sortable'}
+  %thead
+    %tr
+      %th
+        %h3
+          = @filter_by
+      %th
+        %h3 # of Users
+  %tbody
+    - @results.each do |u|
+      %tr
+        %td
+          = @filter_by == 'Zipcode' ? u.filter_id : (@filter_by == 'Gender' ? @filters[u.filter_id] : @filters[u.filter_id.to_i])
+        %td
+          = u.count
+      
+    
