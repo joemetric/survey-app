@@ -1,0 +1,5 @@
+unless (params[:finance] == 'Select' || params[:finance_range] == 'Nothing')
+  page.replace_html 'financial_distribution', :partial => 'admin/dashboards/financial_distribution/results'
+else
+  page.replace_html 'financial_distribution', 'Please select options from both the lists'
+end

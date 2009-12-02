@@ -5,7 +5,7 @@
       Show
     %br
     %br
-    = select_tag "filter_by", options_for_select([""] + demographic_type_options), :class => 'select_bg'
+    = select_tag "filter_by", options_for_select(['Select'] + demographic_type_options), :class => 'select_bg'
     = observe_demographic_field("filter_by")
   .segment_by
     %b

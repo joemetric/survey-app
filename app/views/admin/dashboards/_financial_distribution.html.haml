@@ -5,16 +5,18 @@
       Show
     %br
     %br
-    = finance_distribution_range
+    = finance_distribution
+    = observe_field 'finance', :url => financial_distribution_dashboard_path, :with => "'finance_range=' + $('#finance_range option:selected').val() + '&finance=' + $('#finance option:selected').val()"
   .segment_by
     %b Segment By last:
     %br
     %br
     = finance_distribution_range
+    = observe_field 'finance_range', :url => financial_distribution_dashboard_path, :with => "'finance_range=' + $('#finance_range option:selected').val() + '&finance=' + $('#finance option:selected').val()"
   .cls
   %br
   %br
   #financial_distribution
-    = render :partial => 'admin/dashboards/financial_distribution/results'
+    = render :partial => 'admin/dashboards/financial_distribution/results' if @results
         
 %br

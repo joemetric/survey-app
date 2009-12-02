@@ -31,6 +31,11 @@ class Survey < ActiveRecord::Base
     'year_by_months' => '1 Year by Months'
   }
   
+  FinanceOptions = [
+    ['paid_out', '$$ Paid Out'],
+    ['taken_in', '$$ Taken In']
+  ]
+  
   NumberWords = {'three' => 3, 'six' => 6}
   
   
@@ -79,6 +84,14 @@ class Survey < ActiveRecord::Base
       weeks += delta
     end
     weeks
+  end
+  
+  def self.taken_in
+    Payment.complete.all
+  end
+  
+  def self.paid_out
+    Transfer.paid.all
   end
   
 end

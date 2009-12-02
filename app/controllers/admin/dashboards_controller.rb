@@ -8,21 +8,31 @@ class Admin::DashboardsController < ApplicationController
   end
   
   def demographic_distribution
-    @filter_by = params[:filter_by] == 'martial_status' ? 'Martial Status' : params[:filter_by].titleize
-    @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"
-    @filter_column = params[:filter_column]
     unless params[:segment_by] == 'Nothing'
       @segment_by = params[:segment_by] == 'martial_status' ? 'Martial Status' : params[:segment_by].titleize
       @segments = eval "User::#{params[:segment_by] == 'martial_status' ? 'MartialStatus' : @segment_by}"
       @segment_column = params[:segment_column]
     end
-    @results = User.demographic_data(params, (params[:segment_by] == 'Nothing' ? @filter_column : 'id'))
+    unless params[:filter_by] == 'Select'
+      @filter_by = params[:filter_by] == 'martial_status' ? 'Martial Status' : params[:filter_by].titleize
+      @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"
+      @filter_column = params[:filter_column]
+      @results = User.demographic_data(params, (params[:segment_by] == 'Nothing' ? @filter_column : 'id'))
+    end
   end
   
   def survey_distribution
     unless params[:survey_range] == 'Nothing'
       @surveys = Survey.finished
       @segmented_data = eval "Survey.#{params[:survey_range]}"
+    end
+  end
+  
+  def financial_distribution
+    unless (params[:finance] == 'Select' || params[:finance_range] == 'Nothing')
+      @results = eval "Survey.#{params[:finance]}"
+      @header = params[:finance]
+      @segmented_data = eval "Survey.#{params[:finance_range]}"
     end
   end
   

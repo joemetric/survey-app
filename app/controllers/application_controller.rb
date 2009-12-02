@@ -140,6 +140,14 @@ class Float
 
 end
 
+class Fixnum
+  
+  def us_dollar
+    to_f.us_dollar
+  end
+  
+end
+
 class Array
 
   Survey::QUESTION_TYPES.each_pair { |key, value|
