@@ -174,6 +174,23 @@ class Array
     return count
   end
   
+  def to_range(number, step_by)
+    returning elements = [] do 
+      number.step(self.size, step_by) {|x| elements << x}
+    end
+  end
+  
+  def to_time_range(step_by, step_decreement=1)
+    time_range = {}
+    time_lap = Time.now.utc
+    self.each_with_index { |e, i|
+      time_increement = time_lap - step_decreement.send(step_by)
+      time_range[e] = {:start => time_increement, :end => time_lap}
+      time_lap = time_increement + 1.seconds
+    }
+    time_range.sort
+  end
+  
   def ids
     attribute_values(:id)
   end

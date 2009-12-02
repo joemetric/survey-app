@@ -19,6 +19,13 @@ class Admin::DashboardsController < ApplicationController
     @results = User.demographic_data(params, (params[:segment_by] == 'Nothing' ? @filter_column : 'id'))
   end
   
+  def survey_distribution
+    unless params[:survey_range] == 'Nothing'
+      @surveys = Survey.finished
+      @segmented_data = eval "Survey.#{params[:survey_range]}"
+    end
+  end
+  
 private
   
   def modify_params

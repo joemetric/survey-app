@@ -1,0 +1,5 @@
+if params[:survey_range] == 'Nothing'
+  page.replace_html 'survey_distribution', ''
+else
+  page.replace_html 'survey_distribution', :partial => 'admin/dashboards/survey_distribution/results'
+end

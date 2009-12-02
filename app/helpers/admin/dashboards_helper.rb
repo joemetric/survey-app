@@ -12,4 +12,31 @@ module Admin::DashboardsHelper
     }
   end
   
+  def survey_distribution
+  end
+  
+  def survey_distribution_range
+    distribution_list('survey_range')
+  end
+  
+  def finance_distribution
+  end
+  
+  def finance_distribution_range
+    distribution_list('finance_range')
+  end
+  
+  def distribution_list(element_id)
+    select_tag element_id, options_for_select(['Nothing'] + Survey::Distribution.sort_by { |id, label| id }.collect { |id, label| [label, id] }), :class => 'select_bg'
+  end
+ 
+  def table_rows_for(records, ranges)
+    table_rows = ''
+    ranges.each { |obj|
+     row_data = content_tag(:td, obj[0])
+     row_data += content_tag(:td, records.to_a.count {|r| r.finished_at.between?(obj[1][:start], obj[1][:end])} )
+     table_rows += content_tag(:tr, row_data)
+    }
+    table_rows
+  end
 end

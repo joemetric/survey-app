@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
-    :collection => { :demographic_distribution => :post} 
+    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post} 
   
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}

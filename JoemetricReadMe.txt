@@ -32,6 +32,10 @@ Update status of existing reply objects.  Not required when Web app is deployed 
 Update status of existing surveys who has already received MAX responses
 Not required when Web app is deployed for the first time.
 
+8) rake survey:temp:set_finishing_date_of_surveys
+Updates finished_at column of surveys table
+Not required when Web app is deployed for the first time.
+
 Cron job Configuration:
 
 1) Prepare Cron Job

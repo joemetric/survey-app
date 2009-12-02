@@ -22,7 +22,7 @@
 class Survey < ActiveRecord::Base
 
   include AASM
-  concerned_with :publish_state_machine, :cost_calculation
+  concerned_with :publish_state_machine, :cost_calculation, :distribution
 
   belongs_to :owner, :class_name => "User"
 
@@ -62,6 +62,7 @@ class Survey < ActiveRecord::Base
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
   
+  named_scope :finished, { :conditions => ["publish_status = ?", "finished"] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
   
   after_create :create_payment, :save_pricing_info
@@ -74,7 +75,7 @@ class Survey < ActiveRecord::Base
   end
   
   def self.not_to_be_given
-    published_and_finished.expired_surveys
+    published.expired_surveys
   end
   
   def self.mark_as_epxired

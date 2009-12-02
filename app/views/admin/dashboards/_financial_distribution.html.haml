@@ -1,0 +1,20 @@
+%h4.heads2 Financial Distribution
+.demo_dis
+  .show
+    %b
+      Show
+    %br
+    %br
+    = finance_distribution_range
+  .segment_by
+    %b Segment By last:
+    %br
+    %br
+    = finance_distribution_range
+  .cls
+  %br
+  %br
+  #financial_distribution
+    = render :partial => 'admin/dashboards/financial_distribution/results'
+        
+%br

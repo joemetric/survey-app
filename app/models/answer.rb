@@ -48,7 +48,9 @@ class Answer < ActiveRecord::Base
   end
   
   def mark_survey_as_finished
-    reply.survey.finished!
+    completed_survey = reply.survey
+    completed_survey.finished!
+    completed_survey.update_attribute(:finished_at, Time.now)
   end
 
   def reward # Reward for answering each question
