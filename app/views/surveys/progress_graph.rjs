@@ -6,5 +6,6 @@
     page["name_#{@survey.id}"].add_class "selected"
     page["graph_#{s_id}"].show
     page.replace_html "graph_#{@survey.id}", :partial => "surveys/graph"
+    page << "$('#name_#{@survey.id}').scrollTo(500);"
   end
 end

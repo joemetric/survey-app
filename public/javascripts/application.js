@@ -151,3 +151,13 @@ function copySurveyInfo(survey){
     $("#survey_end_at_3i").val('' + end_at[2] + '');
 }
 
+jQuery.fn.extend({
+  scrollTo : function(speed, easing) {
+    return this.each(function() {
+      var targetOffset = $(this).offset().top;
+      $('html,body').animate({scrollTop: targetOffset}, speed, easing);
+    });
+  }
+});
+
+
