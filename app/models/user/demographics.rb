@@ -78,15 +78,62 @@ class User < ActiveRecord::Base
     6 => 'Master\'s Degree',
     7 => 'Doctorate, Law or Professional Degree'
   }
+  
+  AgeGroupConditions = [
+    ['Under 18', ' < 18'],
+    ['18 to 24', '.between?(18, 24)'],
+    ['25 to 35', '.between?(25, 35)'],
+    ['36 to 46', '.between?(36, 46)'],
+    ['47 to 57', '.between?(47, 56)'],
+    ['57 to 68', '.between?(57, 68)'],
+    ['Over 68',  ' > 68']
+  ]
 
-  Demographics = [:gender, :income, :martial_status, :race, :education, :occupation]
+  Demographics = [:age, :income, :martial_status, :race, :education, :occupation]
 
-  def self.demographic_data(params, group_by_column)
+  def self.demographic_data(params)
+    group_by_column = params[:segment_by] == 'Nothing' ? params[:filter_column] : 'id'
     find(:all,
       :select => "users.*, #{params[:filter_column]} as filter_id, COUNT(#{params[:filter_column]}) AS count",
       :conditions => ["#{params[:filter_column]} IS NOT NULL"],
       :group => "#{group_by_column} ASC",
       :order => "#{params[:filter_column]} ASC" )
+  end
+  
+  def self.age_groups
+    AgeGroupConditions.collect { |x| x[0] }.compact
+  end
+  
+  def self.init_age_constant
+    User::const_set(:Age, user_age_list)
+  end
+  
+  def self.user_age_list
+    returning age_group_conditions = [] do
+      AgeGroupConditions.each do |g|
+        age_group_conditions << [g[0], age_range_count(g[1])]
+      end
+    end
+  end
+  
+  def self.age_range_count(conditions)
+    users = all.collect {|u| u if u.birthdate}.compact.to_a
+    users.count { |u| eval "u.age#{conditions}"}
+  end
+  
+  def age
+    Date.today.year - birthdate.year
+  end
+  
+  def age_id
+    if age < 18; 0
+    elsif age.between?(18, 24); 1
+    elsif age.between?(25, 35); 2
+    elsif age.between?(36, 46); 3
+    elsif age.between?(47, 57); 4
+    elsif age.between?(58, 68); 5
+    elsif age > 68; 6
+    end
   end
 
   def income=(income_string)
@@ -120,4 +167,5 @@ class User < ActiveRecord::Base
   def occupation
     Occupation[occupation_id]
   end
+  
 end

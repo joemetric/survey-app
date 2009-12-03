@@ -20,16 +20,15 @@
 
 class Survey < ActiveRecord::Base
   
-  
-  Distribution = {
-    'hours_by_minutes' => '5 Hours by 5 Minutes',
-    'days_by_hours' => '2 Days by Hours',
-    'week_by_hours' => '1 Week by Hours',
-    'month_by_days' => '1 Month by Days',
-    'three_months_by_weeks' => '3 Months by Weeks',
-    'six_months_by_weeks' => '6 Month by Weeks',
-    'year_by_months' => '1 Year by Months'
-  }
+  Distribution = [
+    ['hours_by_minutes', '5 Hours by 5 Minutes'],
+    ['days_by_hours', '2 Days by Hours'],
+    ['week_by_hours', '1 Week by Hours'],
+    ['month_by_days', '1 Month by Days'],
+    ['three_months_by_weeks', '3 Months by Weeks'],
+    ['six_months_by_weeks', '6 Month by Weeks'],
+    ['year_by_months', '1 Year by Months']
+  ]
   
   FinanceOptions = [
     ['paid_out', '$$ Paid Out'],
@@ -37,7 +36,6 @@ class Survey < ActiveRecord::Base
   ]
   
   NumberWords = {'three' => 3, 'six' => 6}
-  
   
   def self.hours_by_minutes(hours=5)
    {:ranges => (1..(hours * 60)).to_a.to_range(5, 5).to_time_range('minutes', 10), :header => 'Minute'}
@@ -61,7 +59,7 @@ class Survey < ActiveRecord::Base
   
   def self.month_by_weeks(months)
     time_lap = Time.now - months.send('months')
-    total_weeks = time_diff_in_weeks(Time.now, time_lap)
+    total_weeks = total_weeks_in(Time.now, time_lap)
     return {:ranges => (1..total_weeks).to_a.to_time_range('weeks'), :header => 'Week'}
   end
   
@@ -73,7 +71,7 @@ class Survey < ActiveRecord::Base
    (Date.new(Time.now.year,12,31).to_date<<(12-month_num)).day
   end
   
-  def self.time_diff_in_weeks(from_time, to_time)
+  def self.total_weeks_in(from_time, to_time)
     from_time = from_time.to_time if from_time.respond_to?(:to_time)
     to_time = to_time.to_time if to_time.respond_to?(:to_time)
     distance_in_seconds = ((to_time - from_time).abs).round

@@ -48,8 +48,8 @@ module Admin::DashboardsHelper
        if args[:column] == :finished_at
          count = args[:records].to_a.count {|r| r.finished_at.between?(obj[1][:start], obj[1][:end])}
        elsif args[:column] == :created_at
-         sum = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
-         count = sum.sum.us_dollar
+         amount = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
+         count = amount.sum.us_dollar
        end
      end
      row_data += content_tag(:td, count)

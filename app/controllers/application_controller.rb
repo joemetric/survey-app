@@ -125,6 +125,10 @@ class String
   def nil_or_empty?
     empty?
   end
+  
+  def titleize
+    eql?('martial_status') ? 'Martial Status' : super
+  end
 
 end
 
@@ -144,6 +148,10 @@ class Fixnum
   
   def us_dollar
     to_f.us_dollar
+  end
+  
+  def less_than(number)
+    self < number
   end
   
 end
@@ -203,6 +211,10 @@ class Array
     attribute_values(:id)
   end
   
+  def elements
+    collect {|x| x[0]}.compact
+  end
+  
 end
 
 class NilClass
@@ -217,4 +229,12 @@ class NilClass
     true
   end
 
+end
+
+class Hash
+  
+  def elements
+    keys.sort
+  end
+  
 end

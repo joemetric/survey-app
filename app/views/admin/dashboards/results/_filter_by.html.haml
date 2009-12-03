@@ -7,11 +7,19 @@
       %th
         %h3 # of Users
   %tbody
-    - @results.each do |u|
-      %tr
-        %td
-          = @filter_by == 'Zipcode' ? u.filter_id : (@filter_by == 'Gender' ? @filters[u.filter_id] : @filters[u.filter_id.to_i])
-        %td
-          = u.count
+    - if @filter_by == 'Age'
+      - @filters.each do |f|
+        %tr
+          %td
+            = f[0]
+          %td
+            = f[1]
+    - else
+      - @results.each do |u|
+        %tr
+          %td
+            = @filter_by == 'Gender' ? @filters[u.filter_id] : @filters[u.filter_id.to_i]
+          %td
+            = u.count
       
     
