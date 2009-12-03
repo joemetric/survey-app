@@ -2,23 +2,10 @@
 .m_content
   .form
     %h3.heads Monitor Progress
-    %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
-      %thead
-        %tr
-          %th{ :width => 170 }
-            %h3 Name
-
-          %th{ :width => 120 }
-            %h3 Published At
-
-          %th{ :width => 120 }
-            %h3 Responses
-          
-          %th{ :width => 120 }
-            %h3 Status
-            
-      %tbody
-        = render :partial => "/surveys/progress_survey", :collection => @surveys.collect { |s| s.completed? ? nil : s }.compact
+    .survey_type
+      %h4{ :style=>"margin-left:40px;" } Survey Name
+      %ul.survey
+        = link_to_survey(@surveys)
+        
 .cls
-
 = sortable_table_js

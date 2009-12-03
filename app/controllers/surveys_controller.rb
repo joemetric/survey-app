@@ -81,6 +81,11 @@ class SurveysController < ResourceController::Base
   def update_pricing
     render :json => Survey.pricing_details(params).to_json
   end
+  
+  def progress_graph
+    @survey = @current_user.created_surveys.find(params[:id])
+    @survey_ids = params[:ids].split(',')
+  end
 
   private
   

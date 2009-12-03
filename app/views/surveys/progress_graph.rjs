@@ -1,0 +1,10 @@
+@survey_ids.each do |s_id|
+  if s_id != "#{@survey.id}"
+    page["name_#{s_id}"].remove_class "selected" 
+    page["graph_#{s_id}"].hide
+  elsif s_id == "#{@survey.id}"
+    page["name_#{@survey.id}"].add_class "selected"
+    page["graph_#{s_id}"].show
+    page.replace_html "graph_#{@survey.id}", :partial => "surveys/graph"
+  end
+end
