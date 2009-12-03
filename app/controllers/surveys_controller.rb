@@ -47,11 +47,11 @@ class SurveysController < ResourceController::Base
   end
   
   def reports
-    @surveys = @current_user.created_surveys.published
+    @surveys = @current_user.created_surveys.published_and_finished
   end
   
   def copy
-    @survey = Survey.by(current_user).find(params[:id]) rescue nil
+    @survey = @current_user.created_surveys.find(params[:id]) rescue nil
     unless @survey.nil?    
       ActiveRecord::Base.include_root_in_json = false
       @survey_json = @survey.to_json
@@ -86,7 +86,7 @@ class SurveysController < ResourceController::Base
   
   def object
     if ['show', 'edit', 'update'].include?(params[:action])
-      object = Survey.by(current_user).find(params[:id])
+      object = @current_user.created_surveys.find(params[:id])
     else
       super      
     end
