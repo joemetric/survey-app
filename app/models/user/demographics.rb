@@ -88,6 +88,16 @@ class User < ActiveRecord::Base
     ['57 to 68', '.between?(57, 68)'],
     ['Over 68',  ' > 68']
   ]
+  
+  Age = {
+    1 => 'Under 18',
+    2 => '18 to 24',
+    3 => '25 to 35',
+    4 => '36 to 46',
+    5 => '47 to 57',
+    6 => '57 to 68',
+    7 => 'Over 68' 
+  }
 
   Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation]
 
@@ -104,7 +114,7 @@ class User < ActiveRecord::Base
     AgeGroupConditions.collect { |x| x[0] }.compact
   end
   
-  def self.init_age_constant
+  def self.init_age_constant # This method overwrites above defined constant User::Age
     User::const_set(:Age, user_age_list)
   end
   

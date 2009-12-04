@@ -10,19 +10,18 @@ class Admin::DashboardsController < ApplicationController
   def demographic_distribution
     unless params[:segment_by] == 'Nothing'
       @segment_by = params[:segment_by].titleize
-      @segment_column = params[:segment_by] ? 'age_id' : params[:segment_column]
-      @segments = if @segment_by == 'Age'
-        User.age_groups
-      else
-        eval "User::#{params[:segment_by] == 'martial_status' ? 'MartialStatus' : @segment_by}"
-      end
+      @segment_column = params[:segment_by] == 'age' ? 'age_id' : params[:segment_column]
+      @segments = eval "User::#{params[:segment_by] == 'martial_status' ? 'MartialStatus' : @segment_by}"
     end
     unless params[:filter_by] == 'Select'
+      if params[:filter_by] == 'age' && params[:segment_by] == 'Nothing'
+        User.init_age_constant
+      else
+        @results = User.demographic_data(params)
+      end
       @filter_by = params[:filter_by].titleize
-      User.init_age_constant if params[:filter_by] == 'age'
       @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"
       @filter_column = params[:filter_by] == 'age' ? 'age_id' : params[:filter_column]
-      @results = User.demographic_data(params) unless @filter_column == 'age'
     end
   end
   

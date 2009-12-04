@@ -3,21 +3,14 @@
     %tr
       %th
         %h3= @filter_by
-      - if @segment_by == 'Age'
-        - User.age_groups.each do |group|
-          %th
-            %h3= group
-      - else
-        - @segments.keys.sort.each do |s|
-          %th
-            %h3= @segments.is_a?(Hash) ? @segments[s] : s
+      - @segments.keys.sort.each do |s|
+        %th
+          %h3= @segments[s]
   %tbody
-    - @filters.elements.each_with_index do |f, fi|
+    - @filters.keys.sort.each do |f|
       %tr
         %td
-          - filter_value = @filters.is_a?(Hash) ? f : fi
-          = @filters.is_a?(Hash) ? @filters[f] : f
-        - @segments.elements.each_with_index do |s, si|
-          - segment_value = @segments.is_a?(Hash) ? s : si
+          = @filters[f]
+        - @segments.keys.sort.each do |s|
           %td
-            = @results.count {|u| u.send(@filter_column) == filter_value && u.send(@segment_column) == segment_value}       
+            = @results.count {|u| u.send(@filter_column) == f && u.send(@segment_column) == s}
