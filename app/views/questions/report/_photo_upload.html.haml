@@ -2,15 +2,13 @@
 %div{:id => "gallery_#{photo_upload.id}"}
   .cls
   .ques
-    .que_des= photo_upload.description
+    - unless photo_upload.description.blank?
+      .que_des{ :style => "margin-top: 0px; height:auto !important;" }= photo_upload.description
     .que_details
       %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
         %thead
           %tr
-            %th{ :width => "100%" }
+            %th{ :colspan => "4" }
               %h3 Individual Responses
         %tbody
-          - @survey.answers.by_question(photo_upload).each do |a|
-            %tr
-              %td{ :style => "text-align:left; text-indent:5px" }
-                = link_to image_tag(a.image_url, :width => 119, :height => 119), a.image_url, :title => a.answer
+          = photo_responses(@survey.answers.by_question(photo_upload))

@@ -1,42 +1,42 @@
 %p.normal
   %label.label2 Base Cost:
-  = text_field :package, :base_cost, :value => @package.base_cost.to_decimal
+  = text_field :package, :base_cost, :value => number_with_precision(@package.base_cost.to_decimal, :precision => 2), :style=>"width:33px;"
 
 %p.normal
   %label.label2 Responses:
   = select(:package, :total_responses, select_integer)
 
 %p.normal
-  %label Upto:
+  %label up to:
   = select('pricings[1]', 'total_questions', select_integer, :selected => @pricings[0].try(:total_questions))
   %label.label2 Standard Questions priced at:
-  = text_field 'pricings[1]', 'standard_price', :value => @pricings[0].try(:standard_price).to_decimal
+  = text_field 'pricings[1]', 'standard_price', :value => number_with_precision(@pricings[0].try(:standard_price).to_decimal, :precision => 2)
   %label.label2 Normally:
-  = text_field 'pricings[1]', 'normal_price', :value => @pricings[0].try(:normal_price).to_decimal
+  = text_field 'pricings[1]', 'normal_price', :value => number_with_precision(@pricings[0].try(:normal_price).to_decimal, :precision => 2)
 
 %p.normal
-  %label With Upto:
+  %label With up to:
   = select('pricings[2]', 'total_questions', select_integer, :selected => @pricings[1].try(:total_questions))
   %label.label2 Premium Questions priced at:
-  = text_field 'pricings[2]', 'standard_price', :value => @pricings[1].try(:standard_price).to_decimal
+  = text_field 'pricings[2]', 'standard_price', :value => number_with_precision(@pricings[1].try(:standard_price).to_decimal, :precision => 2)
   %label.label2 Normally:
-  = text_field 'pricings[2]', 'normal_price', :value => @pricings[1].try(:normal_price).to_decimal
+  = text_field 'pricings[2]', 'normal_price', :value => number_with_precision(@pricings[1].try(:normal_price).to_decimal, :precision => 2)
 
 %p.normal
-  %label With Upto:
+  %label With up to:
   = select('pricings[3]', 'total_questions', select_integer, :selected => @pricings[2].try(:total_questions))
-  %label.label2 Domographic(profile) restrictions priced at:
-  = text_field 'pricings[3]', 'standard_price', :value => @pricings[2].try(:standard_price).to_decimal
+  %label.label2 Demographic(profile) restrictions priced at:
+  = text_field 'pricings[3]', 'standard_price', :value => number_with_precision(@pricings[2].try(:standard_price).to_decimal, :precision => 2)
   %label.label2 Normally:
-  = text_field 'pricings[3]', 'normal_price', :value => @pricings[2].try(:normal_price).to_decimal
+  = text_field 'pricings[3]', 'normal_price', :value => number_with_precision(@pricings[2].try(:normal_price).to_decimal, :precision => 2)
   
 %p.normal
-  %label With Upto:
+  %label With up to:
   = select('pricings[4]', 'total_questions', select_integer, :selected => @pricings[3].try(:total_questions))
   %label.label2 Locations restrictions priced at:
-  = text_field 'pricings[4]', 'standard_price', :value => @pricings[3].try(:standard_price).to_decimal
+  = text_field 'pricings[4]', 'standard_price', :value => number_with_precision(@pricings[3].try(:standard_price).to_decimal, :precision => 2)
   %label.label2 Normally:
-  = text_field 'pricings[4]', 'normal_price', :value => @pricings[3].try(:normal_price).to_decimal
+  = text_field 'pricings[4]', 'normal_price', :value => number_with_precision(@pricings[3].try(:normal_price).to_decimal, :precision => 2)
   
 %br
 %br

@@ -1,6 +1,7 @@
 .cls
 .ques
-  .que_des= multiple_choice.description
+  - unless multiple_choice.description.blank? 
+    .que_des{ :style => "margin-top: 0px; height:auto !important;" }= multiple_choice.description
   .que_details
     %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
       %thead

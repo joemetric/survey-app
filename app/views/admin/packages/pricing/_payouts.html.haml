@@ -3,19 +3,19 @@
 
 %p.normal
   %label.label3 Standard Questions (T/F, MC, Free Text)
-  = text_field 'payouts[1]', 'amount', :value => @payouts[0].try(:amount).to_decimal
+  = text_field 'payouts[1]', 'amount', :value => number_with_precision(@payouts[0].try(:amount).to_decimal, :precision => 2)
   
 %p.normal
   %label.label3 Premium Questions (photo response, GPS location)
-  = text_field 'payouts[2]', 'amount', :value => @payouts[1].try(:amount).to_decimal
+  = text_field 'payouts[2]', 'amount', :value => number_with_precision(@payouts[1].try(:amount).to_decimal, :precision => 2)
+
+%p.normal
+  %label.label3 Standard Demographic Restrictions (Profile Data, Time)
+  = text_field 'payouts[3]', 'amount', :value => number_with_precision(@payouts[2].try(:amount).to_decimal, :precision => 2)
 
 %p.normal
   %label.label3 Premium Demographic Restrictions (location, prev. survey resp)
-  = text_field 'payouts[3]', 'amount', :value => @payouts[2].try(:amount).to_decimal
-
-%p.normal
-  %label.label3 Standard Questions (T/F, MC, Free Text)
-  = text_field 'payouts[4]', 'amount', :value => @payouts[3].try(:amount).to_decimal                                
+  = text_field 'payouts[4]', 'amount', :value => number_with_precision(@payouts[3].try(:amount).to_decimal, :precision => 2)                                
 
 %br
 %br

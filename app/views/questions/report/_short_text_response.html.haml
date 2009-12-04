@@ -1,6 +1,7 @@
 .cls
 .ques
-  .que_des= short_text_response.description
+  - unless short_text_response.description.blank?
+    .que_des{ :style => "margin-top: 0px; height:auto !important;" }= short_text_response.description
   .que_details
     %table.sortable.nomargin{ :cellspacing => 0, :cellpadding => 0, :border => 0, :width => 540 }
       %thead
