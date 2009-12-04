@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
     ['Over 68',  ' > 68']
   ]
 
-  Demographics = [:age, :income, :martial_status, :race, :education, :occupation]
+  Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation]
 
   def self.demographic_data(params)
     group_by_column = params[:segment_by] == 'Nothing' ? params[:filter_column] : 'id'
