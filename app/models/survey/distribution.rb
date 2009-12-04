@@ -35,6 +35,11 @@ class Survey < ActiveRecord::Base
     ['taken_in', '$$ Taken In']
   ]
   
+  SurveyOptions = [
+    ['completed_surveys', '# Completed Surveys'],
+    ['registered_respondents', '# Registered Respondents']
+  ]
+  
   NumberWords = {'three' => 3, 'six' => 6}
   
   def self.hours_by_minutes(hours=5)
@@ -90,6 +95,14 @@ class Survey < ActiveRecord::Base
   
   def self.paid_out
     Transfer.paid.all
+  end
+  
+  def self.completed_surveys
+    finished
+  end
+  
+  def self.registered_respondents
+    User.consumers
   end
   
 end

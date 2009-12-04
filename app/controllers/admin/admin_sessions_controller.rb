@@ -1,4 +1,7 @@
 class Admin::AdminSessionsController < AdminController
+  
+  skip_before_filter :require_admin
+  
   resource_controller
   layout false
   

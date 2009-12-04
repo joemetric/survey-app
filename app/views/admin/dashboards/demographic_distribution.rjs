@@ -1,6 +1,6 @@
 if params[:filter_by] == 'Select'
   page.replace_html 'demographic_distribution', 'Please select a option from the list'
 else
-  page.replace_html 'select_segment', select_segment_by(User::Demographics.collect{|d| d unless d == params[:filter_by].to_sym})
+  page.replace_html 'select_segment', select_segment_by(User::Demographics.collect{|d| d unless d == params[:filter_by].to_sym}, params[:segment_by])
   page.replace_html 'demographic_distribution', :partial => "admin/dashboards/results/#{params[:segment_by] == 'Nothing' ? 'filter_by' : 'filter_by_with_segment_by'}"
 end

@@ -4,6 +4,6 @@
       %th
         %h3= @segmented_data[:header]
       %th
-        %h3 # Completed Surveys
+        %h3= @header.humanize
   %tbody
-    = survey_distribution_results({:records => @surveys, :ranges => @segmented_data[:ranges]})
+    = survey_distribution_results({:records => @results, :ranges => @segmented_data[:ranges], :class => @results_class})

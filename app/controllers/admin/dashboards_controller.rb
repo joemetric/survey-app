@@ -27,9 +27,11 @@ class Admin::DashboardsController < ApplicationController
   end
   
   def survey_distribution
-    unless params[:survey_range] == 'Nothing'
-      @surveys = Survey.finished
+    unless (params[:survey] == 'Select' || params[:survey_range] == 'Nothing')
+      @results = eval "Survey.#{params[:survey]}"
       @segmented_data = eval "Survey.#{params[:survey_range]}"
+      @header = params[:survey]
+      @results_class = params[:survey] == 'finished' ? 'Survey' : 'Consumer'
     end
   end
   

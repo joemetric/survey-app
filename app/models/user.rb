@@ -47,7 +47,9 @@ class User < ActiveRecord::Base
   after_create :setup_user
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
-
+  
+  named_scope :consumers, :conditions => {:type => 'Consumer'}
+  
   TYPES = ['Admin', 'User', 'Reviewer']
 
   def activate(token)
@@ -95,14 +97,6 @@ class User < ActiveRecord::Base
       amount += transfer.survey.total_payout
     end
   end
-
-#  def completed_surveys
-#    replies.find(:all, :select => 'replies.survey_id AS id',
-#      :conditions => ['surveys.end_at > ?', Date.today],
-#      :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id INNER JOIN questions ON surveys.id = questions.survey_id INNER JOIN answers ON replies.id = answers.reply_id'],
-#      :group => 'replies.id',
-#      :having => 'COUNT(DISTINCT(answers.id)) = COUNT(DISTINCT(questions.id))')
-#  end
 
   def completed_surveys
     replies.all(:select => 'replies.survey_id AS id',

@@ -4,15 +4,16 @@ module Admin::DashboardsHelper
     observe_field field_id, :url => demographic_distribution_dashboard_path, :with => "'segment_by=' + $('#segment_by option:selected').val() + '&filter_by=' + $('#filter_by option:selected').val()"
   end
   
-  def select_segment_by(options=[])
+  def select_segment_by(options=[], selected='Nothing')
     options = options.compact.collect { |kind| [kind.to_s.titleize, kind] } unless options.empty?
     %Q{
-      #{select_tag 'segment_by', options_for_select(['Nothing'] + options), :class => 'select_bg'}
+      #{select_tag 'segment_by', options_for_select(['Nothing'] + options, selected.to_sym), :class => 'select_bg'}
       #{observe_demographic_field('segment_by')}
     }
   end
   
-  def survey_distribution
+  def survey_distribution_list
+    select_tag 'survey', options_for_select(['Select'] + Survey::SurveyOptions.collect { |id, label| [label, id] }), :class => 'select_bg'
   end
   
   def survey_distribution_range
@@ -32,7 +33,7 @@ module Admin::DashboardsHelper
   end
   
   def survey_distribution_results(args)
-    table_rows(args.merge!({:column => :finished_at}))
+    table_rows(args)
   end
   
   def financial_distribution_results(args)
@@ -45,8 +46,9 @@ module Admin::DashboardsHelper
     args[:ranges].each { |obj|
      row_data = content_tag(:td, obj[0])
      unless args[:records].blank?
-       if args[:column] == :finished_at
-         count = args[:records].to_a.count {|r| r.finished_at.between?(obj[1][:start], obj[1][:end])}
+       if args.has_key?(:class)
+         column_name = args[:class] == 'Survey' ? 'finished_at' : 'created_at'
+         count = args[:records].to_a.count {|r| r.send(column_name).between?(obj[1][:start], obj[1][:end])}
        elsif args[:column] == :created_at
          amount = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
          count = amount.sum.us_dollar

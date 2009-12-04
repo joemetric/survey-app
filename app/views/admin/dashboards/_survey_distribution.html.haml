@@ -5,13 +5,14 @@
       Show
     %br
     %br
-    = select_tag 'survey_d', options_for_select(['# Completed Surveys']), :class => 'select_bg'
+    = survey_distribution_list
+    = observe_field 'survey', :url => survey_distribution_dashboard_path, :with => "'survey_range=' + $('#survey_range option:selected').val() + '&survey=' + $('#survey option:selected').val()"
   .segment_by
     %b Segment By last:
     %br
     %br
     = survey_distribution_range
-    = observe_field 'survey_range', :url => survey_distribution_dashboard_path, :with => "'survey_range=' + $('#survey_range option:selected').val() + '&survey_d=' + $('#filter_by option:selected').val()"
+    = observe_field 'survey_range', :url => survey_distribution_dashboard_path, :with => "'survey_range=' + $('#survey_range option:selected').val() + '&survey=' + $('#survey option:selected').val()"
   .cls
   %br
   %br
