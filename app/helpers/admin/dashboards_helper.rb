@@ -13,7 +13,7 @@ module Admin::DashboardsHelper
   end
   
   def survey_distribution_list
-    select_tag 'survey', options_for_select(['Select'] + Survey::SurveyOptions.collect { |id, label| [label, id] }), :class => 'select_bg'
+    dashboard_select_list({:id => 'survey', :default => 'Select', :options => Survey::SurveyOptions})
   end
   
   def survey_distribution_range
@@ -21,7 +21,7 @@ module Admin::DashboardsHelper
   end
   
   def finance_distribution
-    select_tag 'finance', options_for_select(['Select'] + Survey::FinanceOptions.collect { |id, label| [label, id] }), :class => 'select_bg'
+    dashboard_select_list({:id => 'finance', :default => 'Select', :options => Survey::FinanceOptions})
   end
   
   def finance_distribution_range
@@ -29,33 +29,44 @@ module Admin::DashboardsHelper
   end
   
   def distribution_list(element_id)
-    select_tag element_id, options_for_select(['Nothing'] + Survey::Distribution.collect { |id, label| [label, id] }), :class => 'select_bg'
+    dashboard_select_list({:id => element_id, :default => 'Nothing', :options => Survey::Distribution})
+  end
+    
+  def dashboard_select_list(args)
+    select_tag args[:id], options_for_select([args[:default]] + args[:options].collect { |id, label| [label, id] }), :class => 'select_bg'
   end
   
   def survey_distribution_results(args)
-    table_rows(args)
+    table_rows(args.merge!({:distribution_for => 'Survey'}))
   end
   
   def financial_distribution_results(args)
-    table_rows(args.merge!({:column => :created_at}))
+    table_rows(args.merge!({:distribution_for => 'Finance'}))
   end
  
   def table_rows(args)
+    args.merge!({:column => args[:class] == 'Survey' ? :finished_at : :created_at})
     table_rows = ''
     count = args[:column] == :finished_at ? 0 : 0.us_dollar if args[:records].blank?
     args[:ranges].each { |obj|
-     row_data = content_tag(:td, obj[0])
-     unless args[:records].blank?
-       if args.has_key?(:class)
-         column_name = args[:class] == 'Survey' ? 'finished_at' : 'created_at'
-         count = args[:records].to_a.count {|r| r.send(column_name).between?(obj[1][:start], obj[1][:end])}
-       elsif args[:column] == :created_at
-         amount = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
-         count = amount.sum.us_dollar
-       end
-     end
-     row_data += content_tag(:td, count)
-     table_rows += content_tag(:tr, row_data)
+      row_data = content_tag(:td, obj[0])
+      unless args[:records].blank?
+        if args[:distribution_for] == 'Survey'
+          count = args[:records].to_a.count {|r| r.send(args[:column]).between?(obj[1][:start], obj[1][:end])}  
+        else
+          if args[:column] == :created_at
+            amount = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
+            count = amount.sum.us_dollar
+          else
+            finished_surveys = args[:records].collect {|r| r if r.finished_at.between?(obj[1][:start], obj[1][:end])}.compact
+            margin_count = finished_surveys.collect {|r| r.gross_margin }
+            total = margin_count.sum / finished_surveys.size rescue 0
+            count = number_to_percentage(total, :precision => 0)
+          end
+        end
+      end
+      row_data += content_tag(:td, count)
+      table_rows += content_tag(:tr, row_data)
     }
     table_rows
   end

@@ -136,5 +136,13 @@ class Survey < ActiveRecord::Base
     QUESTION_TYPES.keys.each {|k| rewarded_amount += send("payout_for_#{k}")}
     rewarded_amount
   end
+  
+  def gross_margin # Returns gross_margin for survey
+    percent_of((chargeable_amount.to_f - award_for_complete_replies.to_f), chargeable_amount.to_f)
+  end
+  
+  def award_for_complete_replies # Returns total amount rewarded to users who completed the survey
+    replies.paid_or_complete.size * total_payout
+  end
    
 end

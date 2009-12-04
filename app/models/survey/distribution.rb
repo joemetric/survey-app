@@ -32,7 +32,8 @@ class Survey < ActiveRecord::Base
   
   FinanceOptions = [
     ['paid_out', '$$ Paid Out'],
-    ['taken_in', '$$ Taken In']
+    ['taken_in', '$$ Taken In'],
+    ['gross_margin', 'Gross Margin %']
   ]
   
   SurveyOptions = [
@@ -103,6 +104,10 @@ class Survey < ActiveRecord::Base
   
   def self.registered_respondents
     User.consumers
+  end
+  
+  def self.gross_margin
+    finished
   end
   
 end

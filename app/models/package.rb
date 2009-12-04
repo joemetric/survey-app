@@ -65,9 +65,17 @@ class Package < ActiveRecord::Base
   end
   
   def self.valid_packages
-    find(:all, 
-         :joins => ['LEFT JOIN package_lifetimes ON packages.id = package_lifetimes.package_id'],
-         :conditions => ['package_lifetimes.cancelled = FALSE'])
+    all.collect {|p| p if p.valid_package?}.compact
+  end
+  
+  def valid_package?
+    total_count = lifetime.total_uses || 0
+    validity_type = lifetime.validity_type_id
+    case validity_type
+      when 1; !lifetime.cancelled 
+      when 2; Survey.all.count {|s| s.package_id == id} < total_count
+      when 3; Date.today.between?(lifetime.valid_from, lifetime.valid_until)
+    end
   end
   
   def pricing_info

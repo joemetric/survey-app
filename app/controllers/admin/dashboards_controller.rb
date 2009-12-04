@@ -40,6 +40,7 @@ class Admin::DashboardsController < ApplicationController
       @results = eval "Survey.#{params[:finance]}"
       @header = params[:finance]
       @segmented_data = eval "Survey.#{params[:finance_range]}"
+      @results_class = params[:finance] == 'gross_margin' ? 'Survey' : ''
     end
   end
   

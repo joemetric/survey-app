@@ -6,4 +6,4 @@
       %th
         %h3= @header.humanize
   %tbody
-    = financial_distribution_results({:records => @results, :ranges => @segmented_data[:ranges]})
+    = financial_distribution_results({:records => @results, :ranges => @segmented_data[:ranges], :class => @results_class})
