@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys, 
     :member => {:reward => :get, :progress_graph => :get},
-    :collection => { :copy => :post, :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :post } do |survey|
+    :collection => { :copy => :post, :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :any } do |survey|
     survey.resources :questions
     survey.resources :restrictions
     survey.resources :replies

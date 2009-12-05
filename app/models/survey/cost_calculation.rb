@@ -57,7 +57,7 @@ class Survey < ActiveRecord::Base
         end
       end    
       discounted_questions = total_questions - extra_questions
-      if new_record?
+      if new_record? || return_hash
         {
          :normal => concerned_question_type.name.plural_form(extra_questions), 
          :standard => concerned_question_type.name.plural_form(discounted_questions),
@@ -114,6 +114,7 @@ class Survey < ActiveRecord::Base
       survey.package_id = params[:survey][:package_id]
       survey_package = Package.find(survey.package_id)
     end
+    survey.return_hash = true
     survey.standard_demographics = params[:survey][:genders_attributes].size rescue 0
     survey.standard_demographics += params[:survey][:zipcodes_attributes].size rescue survey.standard_demographics
     survey.responses = 0 if survey.responses.nil?
