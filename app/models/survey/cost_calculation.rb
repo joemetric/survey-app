@@ -15,14 +15,25 @@ class Survey < ActiveRecord::Base
       'RIGHT JOIN package_question_types ON question_types.package_question_type_id = package_question_types.id'])
     end
     
+    # Since cost calculation logic for questions and restrictions 
+    # is same it is done in the block below
+    
     define_method("#{key}_cost") do
       if new_record? # This block was added for #767
         survey_package = Package.find(package_id)
-        total_questions = question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")
+        if key == 'standard_demographic'
+          total_questions = standard_demographics
+        else
+          total_questions = question_attributes.nil? ? 0 : question_attributes.send("total_#{key}")
+        end
         concerned_question_type = survey_package.pricing_info.send(key.singularize)
       else
         survey_package = package
-        total_questions = send(key).size
+        if key == 'standard_demographic'
+          total_questions = restrictions.size
+        else
+          total_questions = send(key).size
+        end
         concerned_question_type = pricing_data.send(key.singularize)
       end
       standard_cost, cost, extra_questions, extra_questions_cost = 0.00, 0.00, 0, 0.00
@@ -103,6 +114,8 @@ class Survey < ActiveRecord::Base
       survey.package_id = params[:survey][:package_id]
       survey_package = Package.find(survey.package_id)
     end
+    survey.standard_demographics = params[:survey][:genders_attributes].size rescue 0
+    survey.standard_demographics += params[:survey][:zipcodes_attributes].size rescue survey.standard_demographics
     survey.responses = 0 if survey.responses.nil?
     survey.question_attributes = params[:survey][:questions_attributes]
     survey_configuration = {}

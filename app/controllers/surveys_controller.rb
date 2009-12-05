@@ -56,8 +56,10 @@ class SurveysController < ResourceController::Base
       ActiveRecord::Base.include_root_in_json = false
       @survey_json = @survey.to_json
       @questions = []
+      @restrictions = []
       @copying_survey = true
       @survey.questions.each {|q| @questions << q.clone}
+      @survey.restrictions.each {|r| @restrictions << r.clone}
     end
   end
   
