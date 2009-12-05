@@ -47,7 +47,13 @@ module Admin::DashboardsHelper
   def table_rows(args)
     args.merge!({:column => args[:class] == 'Survey' ? :finished_at : :created_at})
     table_rows = ''
-    count = args[:column] == :finished_at ? 0 : 0.us_dollar if args[:records].blank?
+    if args[:records].blank?
+      if args[:distribution_for] == 'Finance'
+        count = 0.us_dollar
+      else
+        count = [:finished_at, :created_at].include?(args[:column]) ?  0 : 0.us_dollar
+      end
+    end
     args[:ranges].each { |obj|
       row_data = content_tag(:td, obj[0])
       unless args[:records].blank?
