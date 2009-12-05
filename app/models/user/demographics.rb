@@ -84,8 +84,8 @@ class User < ActiveRecord::Base
     ['18 to 24', '.between?(18, 24)'],
     ['25 to 35', '.between?(25, 35)'],
     ['36 to 46', '.between?(36, 46)'],
-    ['47 to 57', '.between?(47, 56)'],
-    ['57 to 68', '.between?(57, 68)'],
+    ['47 to 57', '.between?(47, 57)'],
+    ['58 to 68', '.between?(58, 68)'],
     ['Over 68',  ' > 68']
   ]
   
@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     3 => '25 to 35',
     4 => '36 to 46',
     5 => '47 to 57',
-    6 => '57 to 68',
+    6 => '58 to 68',
     7 => 'Over 68' 
   }
 
