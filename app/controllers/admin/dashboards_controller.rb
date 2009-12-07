@@ -17,7 +17,7 @@ class Admin::DashboardsController < ApplicationController
       if params[:filter_by] == 'age' && params[:segment_by] == 'Nothing'
         User.init_age_constant
       else
-        @results = User.demographic_data(params)
+        @results = User.consumers.all
       end
       @filter_by = params[:filter_by].titleize
       @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"

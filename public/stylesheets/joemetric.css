@@ -789,7 +789,6 @@ body.popup{background:#fff;}
 .ques{margin-left:50px;}
 
 .que_des{
-	
 	width:270px;
 	overfolow:scroll;
 	height:122px;
@@ -799,6 +798,17 @@ body.popup{background:#fff;}
 	border:solid 1px #e4eaf1;
 	padding:10px 20px 5px 10px;
 }
+
+.que_name {
+    margin-top: 0px; 
+    height:auto !important;
+    margin-left:50px;
+    width:510px !important;
+    color:#fff; 
+    border:solid 1px #e4eaf1;
+    background:#0c273c;
+    font-size:10px;
+    } 
 
 .cols div{
 	float:left;
@@ -1045,4 +1055,10 @@ a.buynow_btn {
     position:fixed;
     left:10px;
     bottom:10px;
-}     
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ .form .bottom{
+margin-top:-13px;
+ }
+}

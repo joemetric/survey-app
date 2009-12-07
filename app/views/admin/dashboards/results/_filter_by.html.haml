@@ -15,11 +15,11 @@
           %td
             = f[1]
     - else
-      - @results.each do |u|
+      - @filters.keys.sort.each do |f|
         %tr
           %td
-            = @filter_by == 'Gender' ? @filters[u.filter_id] : @filters[u.filter_id.to_i]
+            = @filters[f]
           %td
-            = u.count
+            = @results.count {|u| u.send(@filter_column) == f}
       
     

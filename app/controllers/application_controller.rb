@@ -185,9 +185,13 @@ class Array
   end
   
   def count(&action)
-    count = 0
-    self.each { |x| count = count + 1 if action.call(x) }
-    return count
+    begin
+      count = 0
+      self.each { |x| count = count + 1 if action.call(x) }
+      return count
+    rescue
+      return 0
+    end
   end
   
   def to_range(number, step_by)

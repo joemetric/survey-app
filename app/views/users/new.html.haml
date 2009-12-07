@@ -18,11 +18,6 @@
         = form.label :password_confirmation
         = form.password_field :password_confirmation
         
-        = form.label :income
-        = form.select :income_id, income_options
-        
-        = form.label :zip_code
-        = form.text_field :zip_code
         
         %p.btns{ :align => "right" }
           = link_to "Cancel", login_path, :class => "button button_gr"

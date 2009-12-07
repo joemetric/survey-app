@@ -43,7 +43,7 @@ class SurveysController < ResourceController::Base
   end
 
   def progress
-    @surveys = @current_user.created_surveys.in_progress
+    @surveys = @current_user.created_surveys
   end
   
   def reports

@@ -101,15 +101,6 @@ class User < ActiveRecord::Base
 
   Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation]
 
-  def self.demographic_data(params)
-    group_by_column = params[:segment_by] == 'Nothing' ? params[:filter_column] : 'id'
-    find(:all,
-      :select => "users.*, #{params[:filter_column]} as filter_id, COUNT(#{params[:filter_column]}) AS count",
-      :conditions => ["#{params[:filter_column]} IS NOT NULL"],
-      :group => "#{group_by_column} ASC",
-      :order => "#{params[:filter_column]} ASC" )
-  end
-  
   def self.age_groups
     AgeGroupConditions.collect { |x| x[0] }.compact
   end
@@ -127,7 +118,7 @@ class User < ActiveRecord::Base
   end
   
   def self.age_range_count(conditions)
-    users = all.collect {|u| u if u.birthdate}.compact.to_a
+    users = consumers.all.collect {|u| u if u.birthdate}.compact.to_a
     users.count { |u| eval "u.age#{conditions}"}
   end
   
