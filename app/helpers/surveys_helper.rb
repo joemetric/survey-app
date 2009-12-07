@@ -11,4 +11,22 @@ module SurveysHelper
     return links 
   end
   
+  def survey_link(survey)
+    link_to survey.name, ( ( survey.completed? ) ? report_path(survey) : survey_path(survey)  )
+  end
+  
+  def published_at(survey)
+    survey.pending? ? 'Pending' : survey.published_at.to_date
+  end
+  
+  def completed_at(survey)
+    survey.published? ? 'In Progress' : (survey.rejected? ? 'Rejected' : survey.finished_at.to_date)
+  end
+  
+  def survey_amount(survey)
+    return unless survey.try(:payment)
+    amount = survey.payment.amount.us_dollar
+    survey.rejected? ? "-#{amount}" : amount
+  end
+  
 end

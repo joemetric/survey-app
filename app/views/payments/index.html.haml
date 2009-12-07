@@ -21,23 +21,23 @@
           %th{:width => 72}
             %h3 Amount
         %tbody
-          - @payments.each do |payment|
+          - @surveys.each do |survey|
             %tr
               %td 
-                = payment.transaction_id
+                = survey.payment.transaction_id if survey.try(:payment)
               %td 
-                = payment.survey.name
+                = survey_link(survey)
               %td
-                = payment.survey.questions.size
+                = survey.questions.size
               %td 
-                = payment.survey.created_at.to_date
+                = survey.created_at.to_date
               %td 
-                = payment.survey.published_at.to_date
+                = published_at(survey)
               %td 
-                = payment.survey.end_at
+                = completed_at(survey)
               %td
-                = payment.amount.us_dollar
-    = will_paginate @payments, :prev_label => 'Previous', :next_label => 'Next'            
+                = survey_amount(survey)
+    = will_paginate @surveys, :prev_label => 'Previous', :next_label => 'Next'            
 .cls
 
 = sortable_table_js

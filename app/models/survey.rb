@@ -56,16 +56,19 @@ class Survey < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions, :genders, :zipcodes 
 
-  named_scope :pending, { :conditions => { :publish_status => "pending" }}
+  
   named_scope :by_time, :order => :created_at
-  named_scope :saved, { :conditions => { :publish_status => "saved" }}
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
+  named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
-  named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
-  
-  named_scope :finished, { :conditions => ["publish_status = ?", "finished"] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
+  
+  named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
+  
+  [:rejected, :pending, :saved, :finished].each {|status|
+    named_scope status, { :conditions => { :publish_status => status.to_s }}
+  }
   
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
@@ -97,7 +100,11 @@ class Survey < ActiveRecord::Base
   end
   
   def published?
-    !published_at.blank?
+    publish_status == 'published'
+  end
+  
+  def rejected?
+    publish_status == 'rejected'
   end
 
   def publish!
@@ -156,7 +163,7 @@ class Survey < ActiveRecord::Base
   end
 
   def completed?
-    replies.size == responses or end_at < Time.now.to_date
+    publish_status == 'finished'
   end
   
   def status

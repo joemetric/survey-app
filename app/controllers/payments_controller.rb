@@ -4,7 +4,10 @@ class PaymentsController < ApplicationController
   before_filter :initialize_gateway, :except => :index
   
   def index
-    @payments = current_user.payments.complete.paginate(:all, :page => params[:page], :per_page => 10)
+    @surveys = @current_user.created_surveys.paginate(:all, 
+      :conditions => ['publish_status != ?', 'saved'], 
+      :page => params[:page], 
+      :per_page => 25)
   end
    
   def authorize
