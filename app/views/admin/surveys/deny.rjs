@@ -1,0 +1,1 @@
+page.replace_html 'dialog', :partial => 'deny_form', :locals => {:survey => @survey}

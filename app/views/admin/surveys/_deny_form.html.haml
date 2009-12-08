@@ -1,0 +1,20 @@
+.popup
+  .popup_d
+    %h3 Reason for deny
+    %span{:id => 'errors'}
+    - form_remote_for :survey, :url => reject_admin_survey_path(survey), :html => {:method => :put} do |form|
+      = form.select :reject_reason, reject_options
+      %br  
+      %br
+      .cls
+      %div
+        OR
+      %br
+      = form.text_area :other_reject_reason, :cols => 30, :rows => 5
+      .cls
+      %span{:class => 'btns', :align => 'center'}
+        = submit_tag 'Reject', :class => 'but_da', :id => 'submit_package'
+      %span OR
+      %span{:class => 'normal'}
+        = link_to_function 'Cancel', 'closeForm()', :class => 'close'
+    .cls

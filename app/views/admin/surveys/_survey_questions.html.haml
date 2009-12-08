@@ -1,0 +1,10 @@
+.survey_by
+  %b= "#{survey.name} by #{survey.owner.full_name} submitted on #{survey.created_at.to_date} at #{to_time(survey.created_at)}"
+  .questions
+    %ul
+      - survey.questions.each_with_index do |question, index|
+        %li= "##{index + 1}.&nbsp;#{question.name}"
+  .btns
+    = link_to "Approve", publish_admin_survey_path(survey), :method => :put, :class => "pos" unless survey.published?
+    = link_to_remote "Deny", :url => deny_admin_survey_path(survey), :complete => "showForm()", :html => {:class => "neg"} unless survey.rejected?
+  .cls  

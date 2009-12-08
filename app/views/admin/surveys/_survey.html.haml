@@ -1,5 +1,10 @@
 %tr
-  %td= link_to survey.name, admin_survey_path(survey)
-  %td= survey.updated_at.strftime("%b/%d/%Y")
-  %td= survey.owner.login
-  %td= link_to "Approve", publish_admin_survey_path(survey), :method => :put
+  %td= link_to_remote survey.name, :url => overview_admin_survey_path(survey)
+  %td= survey.owner.full_name
+  %td= survey.owner.last_name
+  %td= survey.created_at.to_date
+  %td
+    - if survey.refund_pending?
+      = link_to_remote 'Refund', :url => refund_admin_survey_path(survey), :complete => "showForm()"
+    - else
+      = check_box_tag "refund_#{survey.id}", 'Yes', true, :disabled => true

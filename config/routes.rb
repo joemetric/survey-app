@@ -26,7 +26,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:admin) do |admin|
     admin.resource  :admin_session
-    admin.resources :surveys, :member => { :publish => :put, :reject => :put }, :collection => { :pending => :get } 
+    admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post }, 
+      :collection => { :pending => :get } 
     admin.resources :packages
     admin.resources  :clients, :collection => { :warn => :post}
     admin.resources :users,
@@ -39,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post} 
   
   map.resources :payments,
-    :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :get}
+    :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}
   
   map.with_options :controller => 'payments' do |p|
     p.account_history '/account-history', :action => 'index'

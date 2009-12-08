@@ -1,7 +1,8 @@
 class PaymentsController < ApplicationController
   
-  before_filter :require_user
-  before_filter :initialize_gateway, :except => :index
+  before_filter :require_user, :except => :refund
+  before_filter :require_admin, :only => :refund
+  before_filter :initialize_gateway, :except => [:index, :refund]
   
   def index
     @surveys = @current_user.created_surveys.paginate(:all, 
@@ -39,6 +40,16 @@ class PaymentsController < ApplicationController
     end 
   end
   
+  def refund
+    survey = Survey.find(params[:id])
+    @response = Refund.process(survey)
+    @refund = survey.refunds.last
+    if @response
+      flash[:notice] = "Refund of Amount #{@refund.amount} has been "
+      ajax_redirect(admin_surveys_path) and return
+    end
+  end
+   
   def cancel
     @survey.payment.cancelled!
     flash[:notice] = "You have cancelled to make the payment for Survey: #{@survey.name}"

@@ -1,0 +1,1 @@
+page.replace_html 'overview', :partial => 'survey_questions', :locals => {:survey => @survey}

@@ -1,0 +1,1 @@
+page.replace_html 'dialog', :partial => 'refund_form', :locals => {:survey => @survey}

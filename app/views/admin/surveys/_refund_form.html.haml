@@ -1,0 +1,13 @@
+.popup
+  .popup_d
+    %h3 Refund Confirmation
+    %span{:id => 'response'}
+    %h2 Are you sure You wish to issue Refund
+    - form_remote_tag :url => refund_payment_path(survey), :html => {:id => 'refund', :method => :post} do
+      .cls
+      %span#submit_button
+        %span{:class => 'btns', :align => 'center'}
+          = submit_tag 'Yes', :class => 'but_da'
+      %span{:class => 'normal'}
+        = link_to_function 'Cancel', 'closeForm()', :class => 'close'
+    .cls

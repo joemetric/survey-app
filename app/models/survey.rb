@@ -59,6 +59,7 @@ class Survey < ActiveRecord::Base
 
   validates_presence_of :name, :owner_id
   validates_numericality_of :responses
+  validates_length_of :reject_reason, :in => 2..255, :unless => Proc.new {|s| s.reject_reason.blank?}, :on => :update
   
   accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races, 
                                 :educations, :incomes, :ages, :martial_statuses
@@ -80,7 +81,7 @@ class Survey < ActiveRecord::Base
   after_create :create_payment, :save_pricing_info
   after_save :total_cost # Calculates chargeable_amount to be paid by user
 
-  attr_accessor :question_attributes, :reply_by_user, :standard_demographics, :return_hash
+  attr_accessor :question_attributes, :reply_by_user, :standard_demographics, :return_hash, :other_reject_reason
   
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])
@@ -159,10 +160,12 @@ class Survey < ActiveRecord::Base
 
   def refund_complete(response)
     set_up_refund(response, true) 
+    true
   end
 
   def refund_incomplete(response) 
     set_up_refund(response, false) 
+    false
   end
 
   def refund_pending?

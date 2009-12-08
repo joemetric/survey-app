@@ -56,6 +56,14 @@ class User < ActiveRecord::Base
     consumers.all.size
   end
   
+  def full_name
+    (name.nil? || name.strip.empty?) ? login : name
+  end
+  
+  def last_name
+    name.split(' ').last unless name.nil? 
+  end
+  
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
