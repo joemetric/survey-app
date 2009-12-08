@@ -105,6 +105,7 @@ class SurveysController < ResourceController::Base
 
   def get_package
     @package = Package.find_by_code(params[:package] ?  params[:package] : 'default')
+    @package = Package.default if @package.nil?
   end
 
 end

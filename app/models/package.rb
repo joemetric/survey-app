@@ -41,6 +41,10 @@ class Package < ActiveRecord::Base
     PackageLifetime.create(:package_id => id, :cancelled => false, :validity_type_id => 1)
   end
   
+  def self.default
+    find_by_code('default')
+  end
+  
   def before_validation
     write_attribute(:code, code.strip)
   end
