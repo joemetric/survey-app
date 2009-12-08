@@ -11,11 +11,8 @@
 #  type       :string(255)
 #
 
-class Restriction < ActiveRecord::Base
-  
-  Kinds = [ :gender, :zipcode, :occupation, :race, :education, :income, :age, :martial_status ]
+class Age < Restriction
   
   belongs_to :survey
-  
+    
 end
-

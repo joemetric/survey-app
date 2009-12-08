@@ -23,7 +23,18 @@
 #
 
 class User < ActiveRecord::Base
-
+  
+  DemographicColumns = {
+    :age => 'age_id',
+    :education => 'education_id',
+    :occupation => 'occupation_id',
+    :race => 'race_id',
+    :income => 'income_id',
+    :martial_status => 'martial_status_id',
+    :gender => 'gender',
+    :zipcode => 'zip_code'
+  }
+  
   Income = Incomes = {
     0 => "Under $15,000",
     1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
@@ -168,5 +179,27 @@ class User < ActiveRecord::Base
   def occupation
     Occupation[occupation_id]
   end
+
+  def self.demographics_count(survey)
+    conditions = {}
+    DemographicColumns.each_pair {|key, value|
+      demographic_ids = survey["#{key.to_s.pluralize}_attributes"].values_of('value')
+      conditions[value] = demographic_ids unless demographic_ids.blank?
+    }
+    condition_block = Condition.block { |c|
+      conditions.each_pair { |key, value|
+        c.and key, 'IN', value  unless key == 'age_id'
+      }
+    }
+    if conditions.has_key?('age_id')
+      target_consumers(condition_block).count {|u| conditions['age_id'].include?(u.age_id)}
+    else
+      target_consumers(condition_block).size
+    end
+  end
   
+  def self.target_consumers(conditions)
+    consumers.all(:conditions => conditions)
+  end
+
 end

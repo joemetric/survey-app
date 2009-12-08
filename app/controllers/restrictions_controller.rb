@@ -7,7 +7,8 @@ class RestrictionsController < ApplicationController
 
   def choose_type
     if Restriction::Kinds.include?(params[:restriction_type].to_sym)
-      @restriction = eval "#{params[:restriction_type].titleize}.new"
+      restriction_type = params[:restriction_type] == 'martial_status' ? 'MartialStatus' : params[:restriction_type].titleize
+      @restriction = eval "#{restriction_type}.new"
     end
   end
   

@@ -1,5 +1,7 @@
 %p.cntrls
   - fields_for "survey[zipcodes_attributes][]", restriction do |form|
     %label Zipcode:
+    - restriction.id = random_number if restriction.id.nil?
     = form.hidden_field :type, :value => "Zipcode"
     = form.text_field :value
+    = observe_field "survey_zipcodes_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "'&params=' + $('#survey_form').serialize()"

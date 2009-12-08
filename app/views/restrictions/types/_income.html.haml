@@ -1,0 +1,7 @@
+%p.cntrls
+  - fields_for "survey[incomes_attributes][]", restriction do |form|
+    %label Income:
+    - restriction.id = random_number if restriction.id.nil?
+    = form.select :value, select_options(User::Income)
+    = observe_field "survey_incomes_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "'&params=' + $('#survey_form').serialize()"
+  

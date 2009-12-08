@@ -184,6 +184,12 @@ class Array
     end
   end
   
+  def values_of(key)
+    returning keys = [] do
+      self.each {|a| keys << a[key]}
+    end
+  end
+  
   def count(&action)
     begin
       count = 0
@@ -232,6 +238,10 @@ class NilClass
   def nil_or_empty?
     true
   end
+  
+  def values_of(key)
+    []
+  end
 
 end
 
@@ -239,6 +249,14 @@ class Hash
   
   def elements
     keys.sort
+  end
+  
+  def values_of(key)
+    returning value_elements = [] do
+      self.each_pair { |key, value|
+        value_elements << value['value']
+      }
+    end
   end
   
 end

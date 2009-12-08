@@ -49,12 +49,19 @@ class Survey < ActiveRecord::Base
   # Restrictions
   has_many :genders
   has_many :zipcodes
+  has_many :races
+  has_many :educations
+  has_many :occupations
+  has_many :incomes
+  has_many :ages
+  has_many :martial_statuses
 
 
   validates_presence_of :name, :owner_id
   validates_numericality_of :responses
-
-  accepts_nested_attributes_for :questions, :genders, :zipcodes 
+  
+  accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races, 
+                                :educations, :incomes, :ages, :martial_statuses
 
   
   named_scope :by_time, :order => :created_at

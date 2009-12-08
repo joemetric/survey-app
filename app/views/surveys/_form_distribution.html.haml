@@ -1,6 +1,18 @@
+%h4 
+  Survey Distribution
+  %span Available
+
+%p.net{:align => "right"}
+  = text_field_tag :total_consumers, User.total_consumers
+  %label
+  %b Joe Network: &nbsp;&nbsp;&nbsp;
+  %p.cls
+
 = form.label "Maximum # of respondents"
+  
 %p.corr
   = form.text_field :responses, :value => @object.try(:responses) ? @object.responses : 1, :class => "small_l"
+  = text_field_tag :demographic_targets, '', :class => "small_r"
   %p.cls
 
 %br

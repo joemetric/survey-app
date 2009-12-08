@@ -1,0 +1,2 @@
+page << "$('#demographic_targets').val(#{@count});"
+

@@ -1,7 +1,7 @@
 %p.cntrls{ :id => "container_#{temp_id = random_string }", :style => "margin:10px 0" }
 
   %label Criteria:
-  = select_tag "restriction_type_#{temp_id}", options_for_select([""] + restriction_type_options, :selected => @copying_survey ? object.type.to_s.downcase : nil)
+  = select_tag "restriction_type_#{temp_id}", options_for_select([""] + restriction_type_options, :selected => @copying_survey ? object.type.to_s.downcase.to_sym : nil)
   = observe_field "restriction_type_#{temp_id}", :url => choose_type_restrictions_path, :with => "'container=' + 'restriction_#{temp_id}' + '&restriction_type=' + value", :complete => 'updatePricing();'
   
   = link_to_function image_tag("/images/del.png", :border => 0) do |page|
@@ -11,5 +11,5 @@
     
   %div{ :id => "restriction_#{temp_id}" }
     - if @copying_survey
-      = render :partial => "/restrictions/types/#{object.type.to_s.downcase}", :locals => { :restriction => object }
+      = render :partial => "/restrictions/types/#{object.type.to_s.downcase}", :locals => { :restriction => object.clone }
   

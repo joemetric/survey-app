@@ -32,6 +32,10 @@ module ApplicationHelper
     (0...maximum_size).map{ ('a'..'z').to_a[rand(26)] }.join  
   end
   
+  def random_number
+    rand(Time.now.to_i)
+  end
+  
   def render_profile_and_signout
     link_to("Hi #{content_tag(:font, @current_user.name, :color => "#000")}", user_path(@current_user)) + " | " + link_to("Logout", user_session_path, :method => :delete)
   end

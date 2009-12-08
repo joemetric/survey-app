@@ -29,4 +29,8 @@ module SurveysHelper
     survey.rejected? ? "-#{amount}" : amount
   end
   
+  def select_options(options)
+    options.sort_by { |key, vlu| key}.collect { |id, label| [label, id] }
+  end
+  
 end

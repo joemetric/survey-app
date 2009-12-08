@@ -85,6 +85,10 @@ class UsersController < ApplicationController
   def martial_statuses
     render :json => User::MartialStatus.sort_by { |key, vlu| key }, :status => 200
   end
+  
+  def demographics_count
+    @count = User.demographics_count(params[:survey])
+  end
 
   private
 

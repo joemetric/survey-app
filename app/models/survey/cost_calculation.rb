@@ -117,6 +117,12 @@ class Survey < ActiveRecord::Base
     survey.return_hash = true
     survey.standard_demographics = params[:survey][:genders_attributes].size rescue 0
     survey.standard_demographics += params[:survey][:zipcodes_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:occupations_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:races_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:educations_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:incomes_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:ages_attributes].size rescue survey.standard_demographics
+    survey.standard_demographics += params[:survey][:martial_statuses_attributes].size rescue survey.standard_demographics
     survey.responses = 0 if survey.responses.nil?
     survey.question_attributes = params[:survey][:questions_attributes]
     survey_configuration = {}

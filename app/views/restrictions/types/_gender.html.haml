@@ -1,5 +1,7 @@
 %p.cntrls
   - fields_for "survey[genders_attributes][]", restriction do |form|
     %label Gender:
+    - restriction.id = random_number if restriction.id.nil?
     = form.select :value, restriction.options.collect { |r| [ r.to_s.titleize, r] }
+    = observe_field "survey_genders_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "'&params=' + $('#survey_form').serialize()"
   

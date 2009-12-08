@@ -51,7 +51,11 @@ class User < ActiveRecord::Base
   named_scope :consumers, :conditions => {:type => 'Consumer'}
   
   TYPES = ['Admin', 'User', 'Reviewer']
-
+  
+  def self.total_consumers
+    consumers.all.size
+  end
+  
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
