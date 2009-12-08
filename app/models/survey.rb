@@ -139,7 +139,7 @@ class Survey < ActiveRecord::Base
   end
 
   def unreceived_responses
-    responses - replies.size
+    responses - replies.complete.size
   end
   
   def reached_max_respondents?
