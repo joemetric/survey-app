@@ -116,10 +116,6 @@ class User < ActiveRecord::Base
     AgeGroupConditions.collect { |x| x[0] }.compact
   end
   
-  def self.init_age_constant # This method overwrites above defined constant User::Age
-    User::const_set(:Age, user_age_list)
-  end
-  
   def self.user_age_list
     returning age_group_conditions = [] do
       AgeGroupConditions.each do |g|

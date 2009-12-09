@@ -15,12 +15,14 @@ class Admin::DashboardsController < ApplicationController
     end
     unless params[:filter_by] == 'Select'
       if params[:filter_by] == 'age' && params[:segment_by] == 'Nothing'
-        User.init_age_constant
+        @filters = User.user_age_list
       else
         @results = User.consumers.all
       end
       @filter_by = params[:filter_by].titleize
-      @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"
+      unless defined?(@filters)
+        @filters = eval "User::#{params[:filter_by] == 'martial_status' ? 'MartialStatus' : @filter_by}"
+      end
       @filter_column = params[:filter_by] == 'age' ? 'age_id' : params[:filter_column]
     end
   end
