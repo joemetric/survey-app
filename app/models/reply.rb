@@ -13,6 +13,8 @@
 
 class Reply < ActiveRecord::Base
   
+  ActiveRecord::Base.send(:extend, ConcernedWith)
+  
   include AASM
   concerned_with :reply_state_machine
   

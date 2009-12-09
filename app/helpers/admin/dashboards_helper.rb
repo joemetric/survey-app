@@ -45,7 +45,7 @@ module Admin::DashboardsHelper
   end
  
   def table_rows(args)
-    args.merge!({:column => args[:class] == 'Survey' ? :finished_at : :created_at})
+    args.merge!({:column => args[:class] == 'Survey' ? :finished_at : (args[:class] == 'Reply' ? :completed_at : :created_at)})
     table_rows = ''
     if args[:records].blank?
       if args[:distribution_for] == 'Finance'
@@ -58,13 +58,13 @@ module Admin::DashboardsHelper
       row_data = content_tag(:td, obj[0])
       unless args[:records].blank?
         if args[:distribution_for] == 'Survey'
-          count = args[:records].to_a.count {|r| r.send(args[:column]).between?(obj[1][:start], obj[1][:end])}  
+          count = args[:records].to_a.count {|r| between_duration?(r.send(args[:column]), obj[1])}  
         else
           if args[:column] == :created_at
-            amount = args[:records].collect {|r| r.amount if r.try(:created_at) && r.created_at.between?(obj[1][:start], obj[1][:end])}.compact
+            amount = args[:records].collect {|r| r.amount if r.try(:created_at) && between_duration?(r.created_at, obj[1])}.compact
             count = amount.sum.us_dollar
           else
-            finished_surveys = args[:records].collect {|r| r if r.finished_at.between?(obj[1][:start], obj[1][:end])}.compact
+            finished_surveys = args[:records].collect {|r| r if between_duration?(r.finished_at, obj[1])}.compact
             margin_count = finished_surveys.collect {|r| r.gross_margin }
             total = margin_count.sum / finished_surveys.size rescue 0
             count = number_to_percentage(total, :precision => 0)
@@ -75,6 +75,10 @@ module Admin::DashboardsHelper
       table_rows += content_tag(:tr, row_data)
     }
     table_rows
+  end
+  
+  def between_duration?(time, range)
+    time.between?(range[:start], range[:end])
   end
   
 end

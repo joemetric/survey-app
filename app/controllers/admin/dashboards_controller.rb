@@ -30,7 +30,7 @@ class Admin::DashboardsController < ApplicationController
       @results = eval "Survey.#{params[:survey]}"
       @segmented_data = eval "Survey.#{params[:survey_range]}"
       @header = params[:survey]
-      @results_class = params[:survey] == 'finished' ? 'Survey' : 'Consumer'
+      @results_class = params[:survey] == 'completed_surveys' ? 'Reply' : 'Consumer'
     end
   end
   

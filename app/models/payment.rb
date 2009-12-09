@@ -17,6 +17,8 @@
 
 class Payment < ActiveRecord::Base
   
+  ActiveRecord::Base.send(:extend, ConcernedWith)
+  
   belongs_to :survey
   belongs_to :user, :foreign_key => "owner_id"
   

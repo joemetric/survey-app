@@ -91,17 +91,17 @@ class Survey < ActiveRecord::Base
   end
   
   def self.taken_in
-    Payment.complete.all
+    Payment.complete
   end
   
   def self.paid_out
-    Transfer.paid.all
+    Transfer.paid
   end
   
   def self.completed_surveys
-    finished
+    Reply.paid_or_complete
   end
-  
+
   def self.registered_respondents
     User.consumers
   end
