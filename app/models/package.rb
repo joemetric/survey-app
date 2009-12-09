@@ -27,7 +27,12 @@ class Package < ActiveRecord::Base
                             :greater_than => 0,
                             :if => Proc.new {|b| !b.base_cost.blank?},
                             :on => :update
-                            
+  
+  validates_numericality_of :total_responses,
+                            :only_integer => true,
+                            :greater_than => 0
+  
+                             
   has_one :lifetime, :class_name => 'PackageLifetime'
   has_many :payouts
   has_many :pricings, :class_name => 'PackagePricing'
