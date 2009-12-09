@@ -45,7 +45,7 @@ class PaymentsController < ApplicationController
     @response = Refund.process(survey)
     @refund = survey.refunds.last
     if @response
-      flash[:notice] = "Refund of Amount #{@refund.amount} has been "
+      flash[:notice] = "Refund of Amount #{@refund.amount} has been completed"
       ajax_redirect(admin_surveys_path) and return
     end
   end

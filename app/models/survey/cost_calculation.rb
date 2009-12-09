@@ -81,7 +81,11 @@ class Survey < ActiveRecord::Base
     
     define_method("refund_for_#{key}") do
       extra_questions, refund_cost = 0, 0.0
-      total_questions = send(key).size
+      if key == 'standard_demographic'
+        total_questions = restrictions.size
+      else
+        total_questions = send(key).size
+      end
       concerned_question_type = package_pricings.send(key.singularize)
       if concerned_question_type
         if total_questions > concerned_question_type.total_questions

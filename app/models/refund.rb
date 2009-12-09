@@ -25,8 +25,8 @@ class Refund < ActiveRecord::Base
     if payment.paid? && survey.refund_pending?
       verification = Payment.verify_token(payment.token)
       if verification.success?
-        verification = Payment.refund(survey, payment)
-        survey.refund_complete(verification) # REFUND complete
+        response = Payment.refund(survey, payment)
+        response.success? ? survey.refund_complete(response) : survey.refund_incomplete(response)
       else
         # Before refunding the payment amount, User has to accept the payment
         # and should complete IPR test from his Paypal account
