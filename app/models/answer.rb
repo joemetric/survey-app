@@ -37,6 +37,10 @@ class Answer < ActiveRecord::Base
     reply.all_answers_given?
   end
   
+  def photo_response?
+    !image_content_type.nil?
+  end
+  
   def create_transfer
     Transfer.create_for(reply)
   end
@@ -58,7 +62,7 @@ class Answer < ActiveRecord::Base
   end
 
   def image_url
-    "http://#{HOST}#{image.url}"
+    "http://#{HOST}#{image.url}".split('?').first
   end
 
   private

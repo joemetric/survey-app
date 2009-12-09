@@ -9,7 +9,10 @@ class Report
     CSV::Writer.generate(data, ',') do |questions|
       questions << ['Response #'].push(all_questions.attribute_values(:name)).flatten
       all_replies.each_with_index do |r, i|
-        questions << [i+ 1].push(r.answers_with_question_type.sort_by(&:question_id).to_array).flatten
+        answers = r.answers_with_question_type.each {|a| 
+          a.answer = "Question_#{i + 1}/#{a.image_url}" if a.photo_response?
+        }
+        questions << [i + 1].push(answers.sort_by(&:question_id).to_array).flatten
       end
     end
     data.rewind
