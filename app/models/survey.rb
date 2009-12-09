@@ -67,21 +67,28 @@ class Survey < ActiveRecord::Base
   
   named_scope :by_time, :order => :created_at
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
-  named_scope :not_taken_by, lambda { |user| { :conditions => ['id IN (?)', user.unreplied_surveys]} }
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
   
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
   
+  named_scope :not_taken_by, lambda { |user| 
+    { :include => :replies, 
+      :conditions => ['surveys.id IN (?)', user.unreplied_surveys],
+      :order => 'replies.id DESC, surveys.reward_amount DESC'
+    } 
+  }
+  
   [:rejected, :pending, :saved, :finished].each {|status|
     named_scope status, { :conditions => { :publish_status => status.to_s }}
   }
   
   after_create :create_payment, :save_pricing_info
-  after_save :total_cost # Calculates chargeable_amount to be paid by user
+  after_save :total_cost, :calculate_reward 
 
-  attr_accessor :question_attributes, :reply_by_user, :standard_demographics, :return_hash, :other_reject_reason
+  attr_accessor :question_attributes, :reply_by_user, :standard_demographics, 
+                :return_hash, :other_reject_reason
   
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])

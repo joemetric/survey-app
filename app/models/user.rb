@@ -111,9 +111,9 @@ class User < ActiveRecord::Base
   end
 
   def completed_surveys
-    replies.all(:select => 'replies.survey_id AS id',
+    replies.paid_or_complete.all(:select => 'replies.survey_id AS id',
       :joins => ['INNER JOIN surveys ON replies.survey_id = surveys.id'],
-      :conditions => ['replies.status IN (?, ?) AND surveys.end_at > ?', 'paid', 'complete', Date.today])
+      :conditions => ['surveys.end_at > ?', Date.today])
   end
 
   def has_camera?

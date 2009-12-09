@@ -36,6 +36,10 @@ Not required when Web app is deployed for the first time.
 Updates finished_at column of surveys table
 Not required when Web app is deployed for the first time.
 
+9) rake survey:temp:set_reward_amount_for_surveys
+Updates reward_amount column of surveys table
+Not required when Web app is deployed for the first time.
+
 Cron job Configuration:
 
 1) Prepare Cron Job
