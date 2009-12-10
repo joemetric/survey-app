@@ -23,14 +23,13 @@ class PackagePricing < ActiveRecord::Base
   
   validates_presence_of :package_id, :package_question_type_id, :total_questions, :standard_price, :normal_price
    
-  validates_numericality_of :total_questions, 
-                            :greater_than => 0,
+  validates_numericality_of :total_questions,
                             :only_integer => true,
                             :if => Proc.new {|t| !t.total_questions.blank?}
   
   validates_numericality_of :standard_price,
                             :only_integer => false,
-                            :if => Proc.new {|s| !s.standard_price.blank?}
+                            :if => Proc.new {|s| !s.standard_price.blank? && s.total_questions > 0}
                             
   
   validates_numericality_of :normal_price, 

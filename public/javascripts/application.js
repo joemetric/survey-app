@@ -75,7 +75,9 @@ function updatePricing(){
     function(data, textStatus) {
     var html = ''
     jQuery.each(data, function(i, question) {
-        html += pricingText(question, 'standard', '');
+        if (question['discounted_questions'] > 0){
+            html += pricingText(question, 'standard', '');
+        }
         if (question['extra_responses'] > 0 && question['extra_questions'] > 0){        
             html += pricingText(question, 'standard', 'extra_responses_questions');
             html += pricingText(question, 'normal', 'extra_responses_questions');
@@ -98,49 +100,47 @@ function updatePricing(){
 
 function pricingText(question, question_type, scenario){
     var para = ''
-    if (question['discounted_questions'] > 0){
-        para += '<p><b><i>'
+    para += '<p><b><i>'
+    if (scenario == 'extra_responses'){
+        para += question['standard']
+    }
+    else{
+        para += question[question_type]
+    }
+    var price = question_type + '_price';
+    if (question_type == 'standard' && scenario == ''){
+        para += ' (package discount applied)'
+        var responses = 'discounted_responses'
+        var cost = 'cost_with_discount'
+    }
+    else{
         if (scenario == 'extra_responses'){
-            para += question['standard']
-        }
-        else{
-            para += question[question_type]
-        }
-        var price = question_type + '_price';
-        if (question_type == 'standard' && scenario == ''){
-            para += ' (package discount applied)'
+            var price = 'standard_price'
+            var responses = 'extra_responses'
+            var cost = 'extra_responses_cost'
+         }
+         else if (scenario == 'extra_questions'){
             var responses = 'discounted_responses'
-            var cost = 'cost_with_discount'
+            var cost = 'extra_questions_cost'
         }
-        else{
-            if (scenario == 'extra_responses'){
-                var price = 'standard_price'
+        else if (scenario == 'extra_responses_questions'){
+            if (question_type == 'standard'){
                 var responses = 'extra_responses'
                 var cost = 'extra_responses_cost'
+                var price = 'normal_price'
             }
-            else if (scenario == 'extra_questions'){
-                var responses = 'discounted_responses'
-                var cost = 'extra_questions_cost'
-            }
-            else if (scenario == 'extra_responses_questions'){
-                if (question_type == 'standard'){
-                    var responses = 'extra_responses'
-                    var cost = 'extra_responses_cost'
-                    var price = 'normal_price'
-                }
-                else {
-                    var responses = 'responses'
-                    var cost = 'extra_responses_questions_cost'
-                    var price = 'normal_price'
-                }
+            else {
+                var responses = 'responses'
+                var cost = 'extra_responses_questions_cost'
+                var price = 'normal_price'
             }
         }
-        para += '</i></b><br />'
-        para += question[responses] + ' responses'
-        para += '<p>' + question[price] + ' per response</p>'
-        para += "<hr width='105' size='1' align='left''/>"
-        para += '<strong>' + question[cost] + ' </strong></p>'
     }
+    para += '</i></b><br />'
+    para += question[responses] + ' responses'
+    para += '<p>' + question[price] + ' per response</p>'
+    para += "<hr width='105' size='1' align='left''/>"
+    para += '<strong>' + question[cost] + ' </strong></p>'
     return para;
 }
 

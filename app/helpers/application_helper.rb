@@ -9,7 +9,7 @@ module ApplicationHelper
   end
   
   def select_integer(limit=50)
-    (1..limit).map {|i| [i, i]}
+    (0..limit).map {|i| [i, i]}
   end
   
   def restriction_type_options
