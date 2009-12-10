@@ -17,7 +17,7 @@
             .rounded
               .top
               .form_content
-                %h4 Please Enter Your name and password
+                %h4 Please Enter Your Login and Password
                 - form_for :user_session, :url => user_session_path, :id => "login_form" do |form|
                   = render_notice
                   = form.error_messages

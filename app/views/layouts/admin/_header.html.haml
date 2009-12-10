@@ -1,7 +1,7 @@
 .header
-  .logo= image_tag "/images/logo.png", :alt => "Logo"
+  .logo= image_tag "logo.png", :alt => "JoeMetric"
   .login
     .login_bg
       .login_content
-        = current_admin ? render_admin_signout : render_admin_login
+        = current_reviewer ?  reviewer_login_logout : admin_login_logout
   .cls

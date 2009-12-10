@@ -40,20 +40,16 @@ module ApplicationHelper
     timestamp.strftime("%H:%M")
   end
   
+  def user_login_logout
+    current_user ? render_profile_and_signout : render_signin_and_login
+  end
+  
   def render_profile_and_signout
-    link_to("Hi #{content_tag(:font, @current_user.name, :color => "#000")}", user_path(@current_user)) + " | " + link_to("Logout", user_session_path, :method => :delete)
+    link_to("Hi #{content_tag(:font, current_user.name, :color => "#000")}", "#") + " | " + link_to("Logout", user_session_path, :method => :delete)
   end
   
   def render_signin_and_login
     link_to("Login", new_user_session_path) + " | " + link_to("Sign in", new_user_path)
-  end
-  
-  def render_admin_login
-    link_to("Login", new_admin_admin_session_path)
-  end
-  
-  def render_admin_signout
-    link_to("Logout", admin_admin_session_path, :method => :delete)
   end
  
   def menu_selected?(actions)

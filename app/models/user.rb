@@ -50,7 +50,23 @@ class User < ActiveRecord::Base
   
   named_scope :consumers, :conditions => {:type => 'Consumer'}
   
-  TYPES = ['Admin', 'User', 'Reviewer']
+  TYPES = ['Admin', 'User', 'Reviewer', 'Consumer']
+  
+  def is_admin?
+    type == 'Admin'
+  end
+  
+  def is_consumer?
+    type == 'Consumer'
+  end
+  
+  def is_reviewer?
+    type == 'Reviewer'
+  end
+  
+  def is_user?
+    type == 'User'
+  end
   
   def self.total_consumers
     consumers.all.size
@@ -80,10 +96,6 @@ class User < ActiveRecord::Base
 
   def old_password_valid?
     valid_password? old_password
-  end
-
-  def is_admin?
-    type == 'Admin'
   end
 
   def add_to_blacklist

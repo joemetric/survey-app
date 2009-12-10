@@ -1,11 +1,11 @@
 class Admin::SurveysController < ApplicationController
   
-  before_filter :require_admin
+  before_filter :require_admin_or_reviewer
   before_filter :find_object, :only => [ :show, :publish, :reject, :overview, :deny, :refund ]
   layout 'admin'
   
   def index
-    @surveys = Survey.all
+    @surveys = Survey.except_saved.all
   end
   
   def show

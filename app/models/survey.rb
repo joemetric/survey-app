@@ -70,7 +70,7 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
-  
+  named_scope :except_saved, { :conditions => ['publish_status != ?', 'saved']}
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
   
   named_scope :not_taken_by, lambda { |user| 
@@ -185,8 +185,8 @@ class Survey < ActiveRecord::Base
   
   def status
     status = "Pending" if ( !published? )
-    status = "In Progress" if ( published? and !completed? )
-    status = "Completed" if ( published? and completed? )
+    status = "In Progress" if published?
+    status = "Completed" if completed?
     status
   end
 

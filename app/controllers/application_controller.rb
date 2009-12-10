@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper :all
-  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :convert_date_format
+  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :current_reviewer
+                :convert_date_format
   filter_parameter_logging :password, :password_confirmation
 
   ActiveRecord::Base.send(:extend, ConcernedWith)
@@ -47,9 +48,13 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
+  
+  def current_reviewer
+    current_user if current_user.try(:is_reviewer?)
+  end
 
   def require_user
-    unless current_user
+    unless current_user.try(:is_user?)
       redirect_to new_user_session_url
       return false
     end
@@ -57,6 +62,19 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     unless current_admin
+      redirect_to new_admin_admin_session_url
+    end
+  end
+  
+  def require_reviewer
+    unless current_user.try(:is_reviewer?)
+      redirect_to new_user_session_url
+      return false
+    end
+  end
+  
+  def require_admin_or_reviewer
+    unless (current_admin || current_user.try(:is_reviewer?))
       redirect_to new_admin_admin_session_url
     end
   end

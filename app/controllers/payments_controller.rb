@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   
   before_filter :require_user, :except => :refund
-  before_filter :require_admin, :only => :refund
+  before_filter :require_admin_or_reviewer, :only => :refund
   before_filter :initialize_gateway, :except => [:index, :refund]
   
   def index
