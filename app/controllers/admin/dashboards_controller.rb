@@ -32,7 +32,8 @@ class Admin::DashboardsController < ApplicationController
       @results = eval "Survey.#{params[:survey]}"
       @segmented_data = eval "Survey.#{params[:survey_range]}"
       @header = params[:survey]
-      @results_class = params[:survey] == 'completed_surveys' ? 'Reply' : 'Consumer'
+      @column = 'created_at' if params[:survey].eql?('submitted_surveys')
+      @results_class = Survey::SurveyOptionClass[params[:survey]]
     end
   end
   

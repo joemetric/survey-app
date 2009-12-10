@@ -45,7 +45,11 @@ module Admin::DashboardsHelper
   end
  
   def table_rows(args)
-    args.merge!({:column => args[:class] == 'Survey' ? :finished_at : (args[:class] == 'Reply' ? :completed_at : :created_at)})
+    if defined?(@column)
+      args.merge!({:column => @column})
+    else
+      args.merge!({:column => args[:class] == 'Survey' ? :finished_at : (args[:class] == 'Reply' ? :completed_at : :created_at)})
+    end
     table_rows = ''
     if args[:records].blank?
       if args[:distribution_for] == 'Finance'

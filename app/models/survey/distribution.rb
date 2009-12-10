@@ -38,8 +38,17 @@ class Survey < ActiveRecord::Base
   
   SurveyOptions = [
     ['completed_surveys', '# Completed Surveys'],
-    ['registered_respondents', '# Registered Respondents']
+    ['registered_respondents', '# Registered Respondents'],
+    ['submitted_surveys', '# Company Submitted Surveys'],
+    ['registered_companies', '# Registered Companies']
   ]
+  
+  SurveyOptionClass = {
+    'completed_surveys' => 'Survey',
+    'registered_respondents' => 'Consumer',
+    'submitted_surveys' => 'Survey',
+    'registered_companies' => 'User'
+  }  
   
   NumberWords = {'three' => 3, 'six' => 6}
   
@@ -104,6 +113,14 @@ class Survey < ActiveRecord::Base
 
   def self.registered_respondents
     User.consumers
+  end
+  
+  def self.submitted_surveys
+    pending
+  end
+  
+  def self.registered_companies
+    User.customers
   end
   
   def self.gross_margin

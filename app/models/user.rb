@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
   
   named_scope :consumers, :conditions => {:type => 'Consumer'}
+  named_scope :customers, :conditions => {:type => 'User'} # type == User means user is Customer
   
   TYPES = ['Admin', 'User', 'Reviewer', 'Consumer']
   
