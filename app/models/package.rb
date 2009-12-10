@@ -24,7 +24,6 @@ class Package < ActiveRecord::Base
   
   validates_numericality_of :base_cost,
                             :only_integer => false,
-                            :greater_than => 0,
                             :if => Proc.new {|b| !b.base_cost.blank?},
                             :on => :update
   

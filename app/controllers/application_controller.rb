@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper :all
-  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :current_reviewer
+  helper_method :current_user_session, :current_user, :current_admin_session, :current_admin, :current_reviewer,
                 :convert_date_format
   filter_parameter_logging :password, :password_confirmation
 

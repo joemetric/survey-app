@@ -35,7 +35,12 @@ class SurveysController < ResourceController::Base
       if RAILS_ENV == 'development' 
         redirect_to progress_surveys_path
       else
-        redirect_to authorize_payment_url(@survey.id)
+        if @survey.no_payment_required?
+          @survey.payment_without_paypal
+          redirect_to survey_url(@survey)
+        else
+          redirect_to authorize_payment_url(@survey.id)
+        end
       end
     else
       render :action => "new"

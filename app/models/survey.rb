@@ -136,18 +136,24 @@ class Survey < ActiveRecord::Base
     rejected!
     deliver_rejection_mail
   end
-
+  
+  def no_payment_required?
+    chargeable_amount <= 0
+  end
+  
   def save_payment_details(params, response)
-    pd = payment # pd refers to payment_details
-    pd.token = params['token']
-    pd.payer_id = params['PayerID']
-    pd.transaction_id = response.params['transaction_id']
-    pd.amount = chargeable_amount
-    pd.save
+    payment.save_details(params, response)
   end
 
   def create_payment
     Payment.create(:survey_id => id, :owner_id => owner_id, :created_at => Time.now)
+  end
+  
+  def payment_without_paypal
+    pd = payment
+    pd.amount = 0.00
+    pd.save
+    pd.paid!
   end
 
   def unreceived_responses

@@ -145,6 +145,7 @@ class Survey < ActiveRecord::Base
       total_payable = package.base_cost
       QUESTION_TYPES.keys.each {|k| total_payable += send("#{k}_cost") }
       connection.execute("UPDATE surveys SET chargeable_amount = #{total_payable} WHERE id = #{id};") if id
+      self.chargeable_amount = total_payable
       return total_payable
     end
   end

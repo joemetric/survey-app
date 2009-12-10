@@ -31,4 +31,12 @@ class Payment < ActiveRecord::Base
     status == 'paid'
   end
   
+  def save_details(params, response)
+    self.token = params['token']
+    self.payer_id = params['PayerID']
+    self.transaction_id = response.params['transaction_id']
+    self.amount = survey.chargeable_amount
+    self.save
+  end
+  
 end
