@@ -89,6 +89,9 @@ function updatePricing(){
     });
     $("#pricing_details").html(html);
     $("#total_amount").html(data['total_cost']);
+    if (data['total_cost'] == '$0.00'){
+        $("#paypal_btn").val("Submit for approval");
+    }
     }, 
     "json");
 }
