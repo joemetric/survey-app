@@ -90,6 +90,11 @@ class Survey < ActiveRecord::Base
   attr_accessor :question_attributes, :reply_by_user, :standard_demographics, 
                 :return_hash, :other_reject_reason
   
+  def name_with_status
+    "#{name} (#{publish_status})"
+  end
+  
+  
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])
   end
