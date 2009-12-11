@@ -19,7 +19,6 @@
 #  type              :string(255)     default("User")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
-#  blacklisted       :boolean(1)
 #
 
 class Consumer < User

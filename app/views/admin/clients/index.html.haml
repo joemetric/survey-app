@@ -16,10 +16,10 @@
         = text_field_tag :email, '', :class => 'ltext', :onkeypress => "handleKeyPress(event, 'email')"
         = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('email')", :class => "neg"
       %p.net1
-/      %p{:style => 'width: 460px;', :class => 'net1 btns'}
-/        %label Blacklist device by MAC Address:
-/       = text_field_tag :mac_address, '', :class => 'ltext2'
-/       = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('mac_address')", :class => "neg"       
+      %p{:style => 'width: 460px;', :class => 'net1 btns'}
+        %label Blacklist device by MAC Address:
+        = text_field_tag :device, '', :class => 'ltext2'
+        = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('device')", :class => "neg"       
     
 = render_datepicker_assets
 = init_calender_field(@maintenance.try(:start) ? @maintenance.start.to_date : Time.now.to_date)
