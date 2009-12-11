@@ -19,11 +19,10 @@
 #  type              :string(255)     default("User")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
-#  blacklisted       :boolean(1)
 #
 
 class User < ActiveRecord::Base
-  
+
   DemographicColumns = {
     :age => 'age_id',
     :education => 'education_id',
@@ -34,7 +33,7 @@ class User < ActiveRecord::Base
     :gender => 'gender',
     :zipcode => 'zip_code'
   }
-  
+
   Income = Incomes = {
     0 => "Under $15,000",
     1 => "$15,000 - $24,999", 2 => "$25,000 - $29,999",
@@ -89,7 +88,7 @@ class User < ActiveRecord::Base
     6 => 'Master\'s Degree',
     7 => 'Doctorate, Law or Professional Degree'
   }
-  
+
   AgeGroupConditions = [
     ['Under 18', ' < 18'],
     ['18 to 24', '.between?(18, 24)'],
@@ -99,7 +98,7 @@ class User < ActiveRecord::Base
     ['58 to 68', '.between?(58, 68)'],
     ['Over 68',  ' > 68']
   ]
-  
+
   Age = {
     1 => 'Under 18',
     2 => '18 to 24',
@@ -107,7 +106,14 @@ class User < ActiveRecord::Base
     4 => '36 to 46',
     5 => '47 to 57',
     6 => '58 to 68',
-    7 => 'Over 68' 
+    7 => 'Over 68'
+  }
+
+  Sort = {
+    1 => 'Highest Price',
+    2 => 'Fewest Questions',
+    3 => 'Oldest First',
+    4 => 'Newest First'
   }
 
   Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation]
@@ -115,7 +121,7 @@ class User < ActiveRecord::Base
   def self.age_groups
     AgeGroupConditions.collect { |x| x[0] }.compact
   end
-  
+
   def self.user_age_list
     returning age_group_conditions = [] do
       AgeGroupConditions.each do |g|
@@ -123,16 +129,16 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def self.age_range_count(conditions)
     users = consumers.all.collect {|u| u if u.birthdate}.compact.to_a
     users.count { |u| eval "u.age#{conditions}"}
   end
-  
+
   def age
     Date.today.year - birthdate.year
   end
-  
+
   def age_id
     if age < 18; 0
     elsif age.between?(18, 24); 1
@@ -176,6 +182,10 @@ class User < ActiveRecord::Base
     Occupation[occupation_id]
   end
 
+  def sort
+    Sort[sort_id]
+  end
+
   def self.demographics_count(survey)
     conditions = {}
     DemographicColumns.each_pair {|key, value|
@@ -193,7 +203,7 @@ class User < ActiveRecord::Base
       target_consumers(condition_block).size
     end
   end
-  
+
   def self.target_consumers(conditions)
     consumers.all(:conditions => conditions)
   end

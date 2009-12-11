@@ -19,11 +19,10 @@
 #  type              :string(255)     default("User")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
-#  blacklisted       :boolean(1)
 #
 
 class Customer < User
-  
+
   # All customer specific methods should be included in this class. Ex: complete_survey, age, income
-  
+
 end

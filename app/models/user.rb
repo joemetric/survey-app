@@ -19,7 +19,6 @@
 #  type              :string(255)     default("User")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
-#  blacklisted       :boolean(1)
 #
 
 class User < ActiveRecord::Base
@@ -47,40 +46,40 @@ class User < ActiveRecord::Base
   after_create :setup_user
 
   validates_numericality_of :zip_code, :if => Proc.new { |user| !user.zip_code.blank? }
-  
+
   named_scope :consumers, :conditions => {:type => 'Consumer'}
   named_scope :customers, :conditions => {:type => 'User'} # type == User means user is Customer
-  
+
   TYPES = ['Admin', 'User', 'Reviewer', 'Consumer']
-  
+
   def is_admin?
     type == 'Admin'
   end
-  
+
   def is_consumer?
     type == 'Consumer'
   end
-  
+
   def is_reviewer?
     type == 'Reviewer'
   end
-  
+
   def is_user?
     type == 'User'
   end
-  
+
   def self.total_consumers
     consumers.all.size
   end
-  
+
   def full_name
     (name.nil? || name.strip.empty?) ? login : name
   end
-  
+
   def last_name
-    name.split(' ').last unless name.nil? 
+    name.split(' ').last unless name.nil?
   end
-  
+
   def activate(token)
     update_attribute(:active, true) if token == perishable_token
     active?
@@ -99,10 +98,6 @@ class User < ActiveRecord::Base
     valid_password? old_password
   end
 
-  def add_to_blacklist
-    update_attribute(:blacklisted, true)
-  end
-
   def change_type(type_name)
     update_attribute(:type, type_name)
   end
@@ -113,7 +108,7 @@ class User < ActiveRecord::Base
 
   def to_json(options = {})
     options[:methods] ||= []
-    options[:methods] |= [:income, :race, :martial_status, :education, :occupation]
+    options[:methods] |= [:income, :race, :martial_status, :education, :occupation, :sort]
     super
   end
 
