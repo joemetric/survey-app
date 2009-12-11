@@ -1,4 +1,4 @@
-%p.cntrls
+%p{:class => 'cntrls cntrls_new'}
   - fields_for "survey[zipcodes_attributes][]", restriction do |form|
     %label Zipcode:
     - restriction.id = random_number if restriction.id.nil?

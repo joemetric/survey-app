@@ -3,14 +3,13 @@
   %label Criteria:
   = select_tag "restriction_type_#{temp_id}", options_for_select([""] + restriction_type_options, :selected => @copying_survey ? object.type.to_s.downcase.to_sym : nil)
   = observe_field "restriction_type_#{temp_id}", :url => choose_type_restrictions_path, :with => "'container=' + 'restriction_#{temp_id}' + '&constraint_id=' + 'constraint_#{temp_id}' + '&restriction_type=' + value", :complete => 'updatePricing();'
+ 
+  = text_field_tag "constraint_#{temp_id}", '', :class => 'small_r_new', :readonly => true
   
   = link_to_function image_tag("/images/del.png", :border => 0) do |page|
     - page.remove "container_#{temp_id}"
     - page.remove "restriction_#{temp_id}"
     - page << "updatePricing();"
-  
-  = text_field_tag "constraint_#{temp_id}", '', :class => 'small_r', :readonly => true
-  
   
   %div{ :id => "restriction_#{temp_id}" }
     - if @copying_survey

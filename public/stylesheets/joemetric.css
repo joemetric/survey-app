@@ -1082,6 +1082,22 @@ a.buynow_btn {
 	margin-top:-16px;
 }
 
+.cntrls_new input[type="text"]
+{
+	width:109px;
+	height:15px;
+	font-size:12px;
+	padding:5px 0 5px 5px;
+}
+
+.small_r_new {
+	float:right;
+	width:50px !important;
+	margin-top: 0px !important;
+	text-align:center;
+}
+
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   .signin_bottom {
     margin-top:-30px !important;
