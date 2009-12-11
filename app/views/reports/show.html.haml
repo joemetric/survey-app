@@ -47,7 +47,10 @@
             %td= q.name
             %td= q.question_type.name
     
-    = link_to "<font color='#000000'>Download Survey Analysis Data in CSV</font>", csv_report_url(@survey)
+    = link_to "Download Survey Analysis Data in CSV", csv_report_url(@survey), :class => 'black_link'
+    - unless @photo_response_questions.empty?
+      %br
+      = link_to "Download Photo Archive", zip_archive_report_url(@survey), :class => 'black_link'
               
     - @survey.questions.each_with_index do |q, i|
       .que_list
@@ -57,9 +60,7 @@
         .cls
         .que_des.que_name= q.name
         = render :partial => "/questions/report/#{q.question_type.valid_name}", :object => q, :locals => { :survey => @survey }
-          
-            
-        
+
 .cls
 
 = sortable_table_js

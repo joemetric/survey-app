@@ -30,6 +30,7 @@ class Survey < ActiveRecord::Base
 
   has_many :questions
   has_many :question_types, :through => :questions
+  has_many :photo_response_questions, :conditions => { :question_type_id => 3 }, :class_name => 'Question'
   has_many :completions
   has_many :users, :through => :completions
   has_one :payment #  This can be changed to has_many :payments if user can re-open the closed survey for which he has to pay again
@@ -94,6 +95,9 @@ class Survey < ActiveRecord::Base
     "#{name} (#{publish_status})"
   end
   
+  def image_archive
+    ImageZip.bundle(self)
+  end
   
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])

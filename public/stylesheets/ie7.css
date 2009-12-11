@@ -2,6 +2,7 @@
 /* CSS Document */
 .login_content{
 	padding-bottom:9px;
+	padding-top:3px !important;
 }
 
 .main_content .form{
@@ -19,4 +20,4 @@
 
 .center{margin-left:100px; !important}
 
-
+.errorExplanation{border:solid 1px #A3c02a;padding-bottom:10px;margin:10px 0;}

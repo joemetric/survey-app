@@ -7,21 +7,18 @@ module ReportsHelper
   end
   
   def photo_responses(answers)
-    rows = ''
-    td = ''
+    return if answers.blank?
+    html_text = '<tr>'
     answers.each_with_index do |a, i|
       i += 1
-      td += content_tag(:td, link_to_photo(a), :style => "text-align:left; text-indent:5px")
-      if i % 4 == 0
-        rows += content_tag(:tr, td)
-        td = ''
-      end
+      html_text += content_tag(:td, link_to_photo(a), :style => "text-align:left; text-indent:5px")
+      html_text += '</tr>' if i % 4 == 0 
     end
-    rows
+    return html_text
   end
   
   def link_to_photo(reponse)
-    link_to image_tag(reponse.image_url, :width => 119, :height => 119), reponse.image_url, :title => reponse.answer
+    link_to image_tag(reponse.image_url, :width => 119, :height => 119, :border => 0), reponse.image_url, :title => reponse.answer
   end
   
 end
