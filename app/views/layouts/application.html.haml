@@ -3,12 +3,13 @@
   %head
     %title Joemetric Survey
     %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=EmulateIE7" }
     = stylesheet_link_tag "joemetric"
     = stylesheet_link_tag "style"
     = javascript_include_tag "jquery"
     = javascript_include_tag "jrails"
     = javascript_include_tag "application"
-    /[if IE7]
+    /[if lte IE 7]
       = stylesheet_link_tag "ie7"
   %body
     .main

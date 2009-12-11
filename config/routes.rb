@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     survey.resources :restrictions
     survey.resources :replies
   end
-  map.resources :reports, :member => {:csv => :get}
+  map.resources :reports, :member => {:csv => :get, :zip_archive => :get}
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end

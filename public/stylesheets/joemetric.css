@@ -895,7 +895,7 @@ p.net1 input[type="text"]{
 
 /* Error Messages */
 	
-.errorExplanation{border:solid 1px #A3c02a;padding-bottom:10px;margin:10px 0;}
+.errorExplanation{border:solid 1px #A3c02a;padding-bottom:10px;margin:0px 0;}
 .errorExplanation h2{text-align:center;background-color:#A3c02a;color:#fff;}
 .errorExplanation ul{list-style:inside decimal;padding:0 10px;}
 .errorExplanation p{padding:10px;}
@@ -1064,8 +1064,29 @@ a.buynow_btn {
     text-align:left !important;
 }
 
+.black_link {
+    color:#000000;
+}
+
+/* sign in page  */
+.form .signin_bottom{
+	background:url(../images/bottom.png) no-repeat;
+}
+
+.signin_bottom{
+	height:11px;
+	width:374px;
+	margin-top:-16px;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
- .form .bottom{
-margin-top:-13px;
- }
+  .signin_bottom {
+    margin-top:-30px !important;
+  }
+  .session_new_bottom {
+    margin-top:-13px !important;
+  }
+  .login_content{
+	  padding-top:3px !important;
+  }
 }
