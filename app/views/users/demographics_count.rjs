@@ -1,2 +1,3 @@
 page << "$('#demographic_targets').val(#{@count});"
+page << "$('##{params[:constraint_id]}').val(#{@constraint_count});"
 

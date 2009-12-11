@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
       }
     }
     if conditions.has_key?('age_id')
-      target_consumers(condition_block).count {|u| conditions['age_id'].include?(u.age_id)}
+      target_consumers(condition_block).to_a.count {|u| conditions['age_id'].include?(u.age_id)}
     else
       target_consumers(condition_block).size
     end
@@ -206,6 +206,14 @@ class User < ActiveRecord::Base
 
   def self.target_consumers(conditions)
     consumers.all(:conditions => conditions)
+  end
+  
+  def self.count_by_criteria(constraint, demographic)
+    if constraint == 'age_id'
+      consumers.to_a.count {|u| u.age_id == demographic}
+    else
+      consumers.count(:conditions => "#{constraint} = '#{demographic}'")
+    end
   end
 
 end

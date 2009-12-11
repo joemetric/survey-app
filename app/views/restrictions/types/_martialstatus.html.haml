@@ -3,5 +3,5 @@
     %label Martial Status:
     - restriction.id = random_number if restriction.id.nil?
     = form.select :value, select_options(User::MartialStatus), { :include_blank => true }
-    = observe_field "survey_martial_statuses_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "'&params=' + $('#survey_form').serialize()"
+    = observe_field "survey_martial_statuses_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "$('#survey_form').serialize() + '&constraint_id=' + '#{constraint_id}' + '&demographic=' + value + '&constraint=' + 'martial_status_id'"
   

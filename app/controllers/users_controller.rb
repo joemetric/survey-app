@@ -92,6 +92,7 @@ class UsersController < ApplicationController
 
   def demographics_count
     @count = User.demographics_count(params[:survey])
+    @constraint_count  = User.count_by_criteria(params[:constraint], params[:demographic])
   end
 
   private

@@ -3,5 +3,5 @@
     %label Education:
     - restriction.id = random_number if restriction.id.nil?
     = form.select :value, select_options(User::Education), { :include_blank => true }
-    = observe_field "survey_educations_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "'&params=' + $('#survey_form').serialize()"
+    = observe_field "survey_educations_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "$('#survey_form').serialize() + '&constraint_id=' + '#{constraint_id}' + '&demographic=' + value + '&constraint=' + 'education_id'"
   

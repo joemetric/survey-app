@@ -506,6 +506,9 @@ h4 span{
 
 .small_r{
 	float:right;
+	width:50px !important;
+	margin-top:-26px !important;
+	text-align:center;
 }
 
 .survey_details{
