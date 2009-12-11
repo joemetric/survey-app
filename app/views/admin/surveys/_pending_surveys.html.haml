@@ -1,0 +1,32 @@
+%div{:class => 'form lar'}
+  
+  %h3.heads1 Survey Administration
+  %h4.head2 Pending Approvals
+  
+  #overview
+  %br
+  %h4.head2 Historical Surveys
+  
+  %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
+    %thead
+      %tr
+        %th{ :width => 170 }
+          %h3 Survey Name
+        %th{ :width => 120 }
+          %h3 Username
+        %th{ :width => 120 }
+          %h3 Last name  
+        %th
+          %h3 Date Submitted
+        %th
+          %h3 Issue Refund  
+    %tbody
+      = render :partial => "/admin/surveys/survey", :collection => @surveys
+
+#mask
+
+#boxes
+  #dialog.window 
+
+
+= sortable_table_js 

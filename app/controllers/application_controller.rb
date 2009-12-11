@@ -105,6 +105,10 @@ class ApplicationController < ActionController::Base
       page.replace_html options.empty? ? 'errors' : options[:div], error_messages_for(item)
     end
   end
+  
+  def conditional_redirect
+    session[:reviewer] ? review_admin_surveys_path : admin_surveys_path
+  end
 
   def alert_message(message)
     render :update do |page|

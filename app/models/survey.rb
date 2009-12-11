@@ -71,6 +71,7 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
+  named_scope :except_saved_and_expired, { :conditions => ["publish_status NOT IN (?,?)", "saved", "expired" ]}
   named_scope :except_saved, { :conditions => ['publish_status != ?', 'saved']}
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
   

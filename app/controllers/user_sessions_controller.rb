@@ -15,6 +15,7 @@ class UserSessionsController < ApplicationController
   end
 
   create.after do
+    session[:reviewer] = true if current_user.is_reviewer?
     object.user.update_attribute(:device_id, params[:device_id])
   end
 
@@ -30,7 +31,7 @@ class UserSessionsController < ApplicationController
   end
 
   def next_page
-    (current_user.is_admin? || current_user.is_reviewer?) ? admin_surveys_path : surveys_path
+    current_user.is_reviewer? ? review_admin_surveys_path : surveys_path
   end
 
   def destroy

@@ -19,6 +19,7 @@
               .form_content
                 %h4 Please enter your Login and Password
                 - form_for :admin_session, :url => admin_admin_session_path do |form|
+                  = form.error_messages
                   = form.label :login
                   = form.text_field :login
                   = form.label :password

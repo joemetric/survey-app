@@ -1,9 +1,6 @@
 %div.tabs
   %ul
-    - if current_admin
-      %li.item= link_to 'Client', '#'
-      %li.item= link_to 'Reviewer', '#'
-      %li.selected= link_to 'Administrator', '#'
-    - elsif current_reviewer
-      %li.selected= link_to 'Reviewer', admin_surveys_path
+    %li.item= link_to 'Client', '#'
+    %li.item= link_to 'Reviewer', '#'
+    %li.selected= link_to 'Administrator', '#'
   .cls

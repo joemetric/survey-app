@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.resource  :admin_session
     admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post },
-      :collection => { :pending => :get }
+      :collection => { :pending => :get, :review => :get }
     admin.resources :packages
     admin.resources  :clients, :collection => { :warn => :post}
     admin.resources :users,

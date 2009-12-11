@@ -2,10 +2,15 @@ class Admin::SurveysController < ApplicationController
   
   before_filter :require_admin_or_reviewer
   before_filter :find_object, :only => [ :show, :publish, :reject, :overview, :deny, :refund ]
-  layout 'admin'
+  layout 'admin', :except => 'review'
   
   def index
-    @surveys = Survey.except_saved.all
+    @surveys = Survey.except_saved_and_expired
+  end
+  
+  def review
+    index
+    render :template => 'admin/surveys/index', :layout => 'reviewer'
   end
   
   def show
@@ -13,7 +18,7 @@ class Admin::SurveysController < ApplicationController
     
   def publish
     @survey.publish!
-    redirect_to admin_surveys_path
+    redirect_to conditional_redirect
   end
   
   def reject
@@ -22,7 +27,7 @@ class Admin::SurveysController < ApplicationController
     end
     if @survey.update_attributes(params[:survey])
       @survey.reject! if @survey.valid?
-      ajax_redirect(admin_surveys_path)
+      ajax_redirect(conditional_redirect)
     else
       show_error_messages(:survey)
     end
