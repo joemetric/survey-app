@@ -1,3 +1,4 @@
+= load_survey if defined?(@survey_id)
 = render :partial => "/layouts/menu"
 .m_content
   .form
@@ -5,7 +6,8 @@
     .survey_type
       %h4{ :style=>"margin-left:40px;" } Survey Name
       %ul.survey
-        = link_to_survey(@surveys)
+        = link_to_surveys(@surveys)
         
 .cls
+
 = sortable_table_js

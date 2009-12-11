@@ -1,6 +1,6 @@
 module SurveysHelper
 
-  def link_to_survey(surveys)
+  def link_to_surveys(surveys)
     survey_ids = surveys.collect{|s| s.id}
     links = ''
     surveys.each do |s| 

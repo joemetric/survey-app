@@ -33,8 +33,8 @@ class PaymentsController < ApplicationController
       response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
       @survey.payment.paid!
       @survey.save_payment_details(params, response)
-      flash[:notice] = "Thank You. You have successfully made the payment for the Your Survey."
-      redirect_to survey_url(@survey) and return
+      session[:survey_id] = @survey.id
+      redirect_to progress_surveys_url
     else
       error_in_payment(response, @survey) 
     end 

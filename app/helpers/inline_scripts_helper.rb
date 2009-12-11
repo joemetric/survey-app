@@ -1,5 +1,9 @@
 module InlineScriptsHelper
   
+  def load_survey
+    javascript_tag("$.ajax({type: 'GET', url:'/surveys/#{@survey_id}/progress_graph?ids=#{@surveys.ids.join(',')}', dataType: 'script'});")
+  end
+  
   def sortable_table_js
     %Q{
       <script type="text/javascript" src="/javascripts/sortable_table.js"></script>

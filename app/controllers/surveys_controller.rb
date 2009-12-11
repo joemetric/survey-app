@@ -2,6 +2,7 @@ class SurveysController < ResourceController::Base
 
   before_filter :require_user
   before_filter :get_package, :only => [:new, :create, :activate]
+  skip_before_filter :verify_authenticity_token, :only => [:progress_graph]
    
   new_action.before do
     object.end_at = Time.now + 7.days
@@ -37,7 +38,8 @@ class SurveysController < ResourceController::Base
       else
         if @survey.no_payment_required?
           @survey.payment_without_paypal
-          redirect_to survey_url(@survey)
+          session[:survey_id] = @survey.id
+          redirect_to progress_surveys_url
         else
           redirect_to authorize_payment_url(@survey.id)
         end
@@ -49,6 +51,7 @@ class SurveysController < ResourceController::Base
 
   def progress
     @surveys = @current_user.created_surveys
+    @survey_id, session[:survey_id] = session[:survey_id], nil  if session[:survey_id]
   end
   
   def reports
