@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
 
   def to_json(options = {})
     options[:methods] ||= []
-    options[:methods] |= [:income, :race, :martial_status, :education, :occupation, :sort]
+    options[:methods] |= [:income, :race, :martial_status, :education, :occupation, :sort, :warn_preference]
     super
   end
 
