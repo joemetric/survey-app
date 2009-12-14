@@ -96,6 +96,15 @@ class SurveysController < ResourceController::Base
     @survey = @current_user.created_surveys.find(params[:id])
     @survey_ids = params[:ids].split(',')
   end
+  
+  def sort
+    respond_to do |format|
+      format.json do
+        @surveys = Survey.list_for(current_user)
+        render :json => @surveys.to_json(:user => current_user), :status => 200
+      end
+    end
+  end
 
   private
   

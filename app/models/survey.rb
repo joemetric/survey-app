@@ -199,6 +199,25 @@ class Survey < ActiveRecord::Base
     publish_status == 'finished'
   end
   
+  def self.list_for(user)
+    find(:all, 
+         :select => 'surveys.*, COUNT(questions.id) AS total_questions',
+         :joins => ['LEFT JOIN questions ON surveys.id = questions.survey_id'],
+         :conditions => ['surveys.id IN (?)', user.unreplied_surveys],
+         :group => 'surveys.id',
+         :order => sort_by(user.sort_id)
+      )
+  end
+  
+  def self.sort_by(sort_id)
+    case sort_id
+      when 1; 'chargeable_amount DESC'
+      when 2; 'total_questions ASC'
+      when 3; 'published_at ASC'
+      when 4; 'published_at DESC'
+    end
+  end
+  
   def status
     status = "Pending" if ( !published? )
     status = "In Progress" if published?
@@ -215,7 +234,7 @@ class Survey < ActiveRecord::Base
   end
 
   def to_be_taken
-     100 - (in_progress + completed)
+    100 - (in_progress + completed)
   end
   
   def incomplete_replies
