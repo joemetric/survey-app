@@ -10,10 +10,10 @@
       %label Custom Text
       = warning.text_area :warning, :rows => 1, :class => 'l_text'
     %p.net1
-      = warning.radio_button 'warn', 'always'
+      = warning.radio_button 'warn_preference', 'always'
       Always
     %p.net1
-      = warning.radio_button 'warn', 'once'
+      = warning.radio_button 'warn_preference', 'once'
       Once
     %div{:align => 'left'}
       = submit_tag 'Enable Warning', :class => 'but_bl'

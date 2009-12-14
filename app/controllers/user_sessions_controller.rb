@@ -35,7 +35,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user_session.destroy
+    current_user_session.destroy if current_user_session
     render :action => "new"
   end
 

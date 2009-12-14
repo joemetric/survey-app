@@ -8,6 +8,8 @@
   
   = render :partial => 'admin/clients/warn_clients'
   
+  = render :partial => 'admin/clients/disable_clients'
+  
   .survey_by
     %b Black Listing:
     - form_tag(blacklist_admin_users_path, :id => 'blacklist_user', :method => :put) do

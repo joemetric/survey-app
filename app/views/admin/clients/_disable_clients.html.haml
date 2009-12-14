@@ -1,0 +1,24 @@
+%span#errors_disability
+.survey_by
+  %b Disable Older iPhone Clients
+  - form_remote_for :disability, :html => {:id => 'disability_form'}, :url => disable_admin_clients_path do |warning|
+    %p.net1
+      %label The Current iPhone app version is:
+      = warning.text_field :current_iphone_version
+      %br
+      %br
+    %p.net1
+      %label Disable client if app version is less than:
+      = warning.text_field :older_iphone_version
+      %br
+      %br
+    %p.net1
+      %label Custom Text
+      = warning.text_area :warning, :rows => 1, :class => 'l_text'
+    %br
+    %br
+    %div{:align => 'left'}
+      = submit_tag 'Enable Disable', :class => 'but_bl'
+      .cls
+
+%br

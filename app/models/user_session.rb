@@ -1,6 +1,6 @@
 class UserSession < Authlogic::Session::Base
 
-  validate :under_maintenance, :check_iphone_version, :blacklisted?
+  validate :under_maintenance, :check_iphone_version, :blacklisted?, :has_older_iphone_app?
 
   attr_accessor :iphone_version, :device_id
 
@@ -13,14 +13,24 @@ class UserSession < Authlogic::Session::Base
 
   def check_iphone_version
     warning = Warning.activated
+    return true if attempted_record.nil? || warning.nil?
     if self.iphone_version && warning.iphone_version.to_f > self.iphone_version.to_f
       errors.add_to_base(warning.warning)
     end
   end
 
   def blacklisted?
+    return true if attempted_record.nil?
     if BlackListing.exists?(:email => attempted_record.email) || (self.device_id && BlackListing.exists?(:device => self.device_id))
       errors.add_to_base("Your access to complete surveys has been revoked. If you have any questions please contact customer-service@joemetric.com.")
+    end
+  end
+  
+  def has_older_iphone_app?
+    disability = Disability.activated
+    return true if attempted_record.nil? || disability.nil?
+    if self.iphone_version && disability.older_iphone_version.to_f > self.iphone_version.to_f
+      errors.add_to_base(disability.warning)
     end
   end
 

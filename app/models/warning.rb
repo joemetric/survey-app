@@ -15,7 +15,7 @@
 
 class Warning < ActiveRecord::Base
   
-  validates_presence_of :warning, :iphone_version, :warn
+  validates_presence_of :warning, :iphone_version, :warn_preference
   
   after_create :deactivate_old_warnings
   
