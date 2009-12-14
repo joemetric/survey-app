@@ -23,7 +23,8 @@
 
 class User < ActiveRecord::Base
 
-  ActiveRecord::Base.send(:extend, ConcernedWith) # If this line is not present 'concerned_with' is not recognized
+  # If this line is not present 'concerned_with' is not recognized
+  ActiveRecord::Base.send(:extend, ConcernedWith)
 
   concerned_with :demographics
 
@@ -66,6 +67,10 @@ class User < ActiveRecord::Base
 
   def is_user?
     type == 'User'
+  end
+  
+  def warn_preference
+    Warning.warn_preference
   end
 
   def self.total_consumers
@@ -162,3 +167,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
