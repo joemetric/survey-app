@@ -3,7 +3,11 @@ class UsersController < ApplicationController
 
   before_filter :require_user, :only => [ :edit, :update, :show_current ]
   skip_before_filter :verify_authenticity_token, :only => [:create, :update]
-
+  
+  create.before do
+    object.type = 'User' if params[:user].key? :type
+  end
+  
   create do
     wants.html do
       sign_in object
