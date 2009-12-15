@@ -5,25 +5,5 @@
     .survey_type
       %ul.survey
         %li.selected
-          = image_tag @survey.graph
-          .cls
-          %table#table{ :cellpadding => 0, :cellspacing => 0, :class => "sortable one" }
-            %thead
-              %tr
-                %th 
-                  %h3 Question
-                %th 
-                  %h3 To Be Taken
-                %th
-                  %h3 Completed
-            %tbody
-              - @survey.questions.each do |question|
-                %tr
-                  %td{ :style => "text-align:left;" }= question.name
-                  %td
-                    = @survey.responses - question.answers.size
-                    = "(#{percent_of((@survey.responses - question.answers.size), @survey.responses)}%)"
-                  %td
-                    = question.answers.size
-                    = "(#{percent_of(question.answers.size, @survey.responses)}%)"      
+          = render :partial => 'surveys/graph'  
 .cls

@@ -1,6 +1,6 @@
 class UserSession < Authlogic::Session::Base
 
-  validate :under_maintenance, :check_iphone_version, :blacklisted?, :has_older_iphone_app?
+  validate :under_maintenance, :blacklisted?, :has_older_iphone_app?
 
   attr_accessor :iphone_version, :device_id
 

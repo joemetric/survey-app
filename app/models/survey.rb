@@ -76,9 +76,9 @@ class Survey < ActiveRecord::Base
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
   
   named_scope :not_taken_by, lambda { |user| 
-    { :include => :replies, 
-      :conditions => ['surveys.id IN (?)', user.unreplied_surveys],
-      :order => 'replies.id DESC, surveys.reward_amount DESC'
+    { :include => :replies,
+      :conditions => ["surveys.id IN (?)", user.unreplied_surveys],
+      :order => "replies.id DESC, #{sort_by(user.sort_id)}"
     } 
   }
   
@@ -200,13 +200,17 @@ class Survey < ActiveRecord::Base
   end
   
   def self.list_for(user)
-    find(:all, 
-         :select => 'surveys.*, COUNT(questions.id) AS total_questions',
-         :joins => ['LEFT JOIN questions ON surveys.id = questions.survey_id'],
-         :conditions => ['surveys.id IN (?)', user.unreplied_surveys],
-         :group => 'surveys.id',
-         :order => sort_by(user.sort_id)
-      )
+    if user.sort_id == 2
+      find(:all, 
+           :select => "surveys.*, COUNT(questions.id) AS total_questions",
+           :joins => ["LEFT JOIN questions ON surveys.id = questions.survey_id LEFT JOIN replies ON surveys.id = replies.survey_id"],
+           :conditions => ["surveys.id IN (?)", user.unreplied_surveys],
+           :group => "surveys.id",
+           :order => "replies.id DESC, #{sort_by(user.sort_id)}"
+        )
+    else
+      not_taken_by(user)
+    end
   end
   
   def self.sort_by(sort_id)
@@ -215,6 +219,7 @@ class Survey < ActiveRecord::Base
       when 2; 'total_questions ASC'
       when 3; 'published_at ASC'
       when 4; 'published_at DESC'
+      else;   'reward_amount DESC'
     end
   end
   
