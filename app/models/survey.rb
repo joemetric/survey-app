@@ -20,9 +20,9 @@
 #
 
 class Survey < ActiveRecord::Base
-  
+
   ActiveRecord::Base.send(:extend, ConcernedWith)
-  
+
   include AASM
   concerned_with :publish_state_machine, :cost_calculation, :distribution
 
@@ -61,11 +61,11 @@ class Survey < ActiveRecord::Base
   validates_presence_of :name, :owner_id
   validates_numericality_of :responses
   validates_length_of :reject_reason, :in => 2..255, :unless => Proc.new {|s| s.reject_reason.blank?}, :on => :update
-  
-  accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races, 
+
+  accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races,
                                 :educations, :incomes, :ages, :martial_statuses
 
-  
+
   named_scope :by_time, :order => :created_at
   named_scope :by, lambda { |user| { :conditions => { :owner_id => user.id }} }
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
@@ -74,60 +74,60 @@ class Survey < ActiveRecord::Base
   named_scope :except_saved_and_expired, { :conditions => ["publish_status NOT IN (?,?)", "saved", "expired" ]}
   named_scope :except_saved, { :conditions => ['publish_status != ?', 'saved']}
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
-  
-  named_scope :not_taken_by, lambda { |user| 
+
+  named_scope :not_taken_by, lambda { |user|
     { :include => :replies,
       :conditions => ["surveys.id IN (?)", user.unreplied_surveys],
       :order => "replies.id DESC, #{sort_by(user.sort_id)}"
-    } 
+    }
   }
-  
+
   [:rejected, :pending, :saved, :finished].each {|status|
     named_scope status, { :conditions => { :publish_status => status.to_s }}
   }
-  
-  after_create :create_payment, :save_pricing_info
-  after_save :total_cost, :calculate_reward 
 
-  attr_accessor :question_attributes, :reply_by_user, :standard_demographics, 
+  after_create :create_payment, :save_pricing_info
+  after_save :total_cost, :calculate_reward
+
+  attr_accessor :question_attributes, :reply_by_user, :standard_demographics,
                 :return_hash, :other_reject_reason
-  
+
   def name_with_status
     "#{name} (#{publish_status})"
   end
-  
+
   def image_archive
     ImageZip.bundle(self)
   end
-  
+
   def self.expired_surveys
     all(:conditions => ['end_at < ?', Date.today])
   end
-  
+
   def self.not_to_be_given
     published.expired_surveys
   end
-  
+
   def self.mark_as_epxired
-    not_to_be_given.each {|s| 
+    not_to_be_given.each {|s|
       Survey.skip_callback(:total_cost) do
         s.expired!
       end
     }
   end
-  
+
   def expired?
     end_at < Date.today
   end
-  
+
   def self.surveys_for(user)
     user.has_camera? ? published : published.collect {|s| s unless s.question_type_ids.include?(3)}
   end
-  
+
   def published?
     publish_status == 'published'
   end
-  
+
   def rejected?
     publish_status == 'rejected'
   end
@@ -141,11 +141,11 @@ class Survey < ActiveRecord::Base
     rejected!
     deliver_rejection_mail
   end
-  
+
   def no_payment_required?
     chargeable_amount <= 0
   end
-  
+
   def save_payment_details(params, response)
     payment.save_details(params, response)
   end
@@ -153,7 +153,7 @@ class Survey < ActiveRecord::Base
   def create_payment
     Payment.create(:survey_id => id, :owner_id => owner_id, :created_at => Time.now)
   end
-  
+
   def payment_without_paypal
     pd = payment
     pd.amount = 0.00
@@ -164,30 +164,30 @@ class Survey < ActiveRecord::Base
   def unreceived_responses
     responses - replies.complete.size
   end
-  
+
   def reached_max_respondents?
     responses == complete_replies_count
   end
-  
+
   def complete_replies_count # Returns count of replies that contains answers to all the questions
     i = 0
     question_ids_of_answers.each{|q_ids| i += 1 if q_ids == question_ids}
     i
   end
-  
+
   def question_ids_of_answers
     returning qids = [] do
       replies.each {|r| qids << r.answers.attribute_values(:question_id)}
-    end 
+    end
   end
 
   def refund_complete(response)
-    set_up_refund(response, true) 
+    set_up_refund(response, true)
     true
   end
 
-  def refund_incomplete(response) 
-    set_up_refund(response, false) 
+  def refund_incomplete(response)
+    set_up_refund(response, false)
     false
   end
 
@@ -198,10 +198,10 @@ class Survey < ActiveRecord::Base
   def completed?
     publish_status == 'finished'
   end
-  
+
   def self.list_for(user)
     if user.sort_id == 2
-      find(:all, 
+      find(:all,
            :select => "surveys.*, COUNT(questions.id) AS total_questions",
            :joins => ["LEFT JOIN questions ON surveys.id = questions.survey_id LEFT JOIN replies ON surveys.id = replies.survey_id"],
            :conditions => ["surveys.id IN (?)", user.unreplied_surveys],
@@ -212,17 +212,17 @@ class Survey < ActiveRecord::Base
       not_taken_by(user)
     end
   end
-  
+
   def self.sort_by(sort_id)
     case sort_id
-      when 1; 'chargeable_amount DESC'
+      when 1; 'reward_amount DESC'
       when 2; 'total_questions ASC'
       when 3; 'published_at ASC'
       when 4; 'published_at DESC'
       else;   'reward_amount DESC'
     end
   end
-  
+
   def status
     status = "Pending" if ( !published? )
     status = "In Progress" if published?
@@ -241,11 +241,11 @@ class Survey < ActiveRecord::Base
   def to_be_taken
     100 - (in_progress + completed)
   end
-  
+
   def incomplete_replies
     replies.incomplete.size
   end
-  
+
   def complete_replies
     replies.paid_or_complete.size
   end
@@ -271,7 +271,7 @@ class Survey < ActiveRecord::Base
       :joins => ['LEFT JOIN package_question_types ' +
                  'ON package_pricings.package_question_type_id = package_question_types.id'])
   end
-  
+
   def to_json(options = {})
     self.reply_by_user = ( replies.by_user(options[:user]).first rescue nil ) if options[:user]
     options.merge!(:methods => [ :reply_by_user, :total_payout ])
