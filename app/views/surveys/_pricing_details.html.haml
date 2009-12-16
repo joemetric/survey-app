@@ -2,7 +2,7 @@
   .std_sur
     %h4
       = package.name
-      Survey
+      Package
     Includes:
     %br
     = package.total_responses
@@ -25,7 +25,14 @@
         %em{:id => 'total_amount'} 
           = package.base_cost.us_dollar
       %b &nbsp;&nbsp;
-    .loader
-      = image_tag('loader.gif', :alt => 'Loading...', :style => 'display:none;', :id => 'loader')
+      %br
+      %center
+      = link_to_function 'Promotion Code', 'showForm()', :class => 'black_link', :name => 'modal', :title => 'Click here to use Promotion code, Gift Certificate'
     .cls
 .cls
+
+#mask
+
+#boxes
+  #dialog.window 
+    = render :partial => 'surveys/promotion_code_form'

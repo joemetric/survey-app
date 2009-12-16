@@ -105,6 +105,11 @@ class SurveysController < ResourceController::Base
       end
     end
   end
+  
+  def apply_discount_code
+    @package = Package.find_by_code(params[:code]) rescue nil
+    alert_message('Invalid Promotion Code. Please check and Try again.') if @package.nil?
+  end
 
   private
   

@@ -1,0 +1,4 @@
+page.replace_html 'package_details', :partial => 'pricing_details', :locals => { :package => @package}
+page << "$('#survey_package_id').val(#{@package.id});"
+page << "updatePricing();"
+page << "closeForm();"

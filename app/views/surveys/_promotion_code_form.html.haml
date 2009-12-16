@@ -1,0 +1,17 @@
+.popup
+  .popup_d
+    %h4 Do You have a Promotion Code or Gift Certificate ?
+    %span{:id => 'response'}
+    %h5 If so, please enter the code here to have it applied to your survey order 
+    - form_remote_tag :url => apply_discount_code_surveys_path, :html => {:id => 'promotion_code', :method => :post} do
+      .cls
+      %br
+      = text_field_tag :code
+      .cls
+      %span#submit_button
+        %span{:class => 'btns', :align => 'center'}
+          = submit_tag 'Apply', :class => 'but_da'
+      %b or
+      %span{:class => 'normal'}
+        = link_to_function 'Cancel', 'closeForm()', :class => 'close'
+    .cls

@@ -166,6 +166,8 @@ jQuery.fn.extend({
 function closeForm(){
     $('#mask').hide();
     $('.window').hide();
+    $("#code").val("");
+    $('#wait').hide();
 }
 
 

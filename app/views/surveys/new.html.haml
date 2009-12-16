@@ -37,4 +37,5 @@
         - page << '$("#survey_form").attr("action", "/surveys/activate");'
         - page << '$("#survey_form").submit();'
 
-= render :partial => 'pricing_details', :locals => { :package => @package}      
+#package_details
+  = render :partial => 'pricing_details', :locals => { :package => @package}      

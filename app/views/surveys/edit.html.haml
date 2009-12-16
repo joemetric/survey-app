@@ -27,6 +27,7 @@
       
       = form.submit "Update", :class => "button button_gr"
 
-= render :partial => 'pricing_details', :locals => { :package => @survey.package}
+#package_details
+  = render :partial => 'pricing_details', :locals => { :package => @survey.package}
 
 = javascript_tag('updatePricing();')
