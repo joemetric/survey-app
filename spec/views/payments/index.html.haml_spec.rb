@@ -7,7 +7,7 @@ describe "/payments/index" do
   fixtures :users
   
   before(:each) do
-    assigns[:payments] = users(:quentin).payments.complete.paginate(:all, :page => params[:page], :per_page => 10)
+    assigns[:surveys] = users(:quentin).created_surveys.paginate(:all, :conditions => ['publish_status != ?', 'saved'], :page => params[:page], :per_page => 25)
     do_render
   end
   
@@ -30,17 +30,16 @@ describe "/payments/index" do
   
   it "should display transaction list in table" do
     response.should have_tag('tbody') do
-      if assigns[:payments].size > 0
-        assigns[:payments].each do |payment|
-          payment.transaction_id.should_not be_nil
-          have_tag('tr') do
-            have_tag('td', :text => payment.transaction_id)
-            have_tag('td', :text => payment.survey.name)
-            have_tag('td', :text => payment.survey.questions.size)
-            have_tag('td', :text => payment.survey.created_at.to_date)
-            have_tag('td', :text => payment.survey.published_at.to_date)
-            have_tag('td', :text => payment.survey.end_at.to_date)
-            have_tag('td', :text => payment.amount.us_dollar)
+      if assigns[:surveys].size > 0
+        assigns[:surveys].each do |survey|
+          response.should have_tag('tr') do
+            have_tag('td', :text => survey.payment.transaction_id)
+            have_tag('td', :text => survey_link(survey))
+            have_tag('td', :text => survey.questions.size)
+            have_tag('td', :text => survey.created_at.to_date)
+            have_tag('td', :text => published_at(survey))
+            have_tag('td', :text => survey.end_at.to_date)
+            have_tag('td', :text => completed_at(survey))
           end
         end
       end

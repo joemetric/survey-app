@@ -94,6 +94,9 @@ function updatePricing(){
     if (data['total_cost'] == '$0.00'){
         $("#paypal_btn").val("Submit for approval");
     }
+    else {
+        $("#paypal_btn").val("Purchase via Paypal");
+    }
     }, 
     "json");
 }
