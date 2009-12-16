@@ -3,7 +3,7 @@
   %span Available
 
 %p.net{:align => "right"}
-  = text_field_tag :total_consumers, User.total_consumers, :style => 'text-align:center;', :readonly => true
+  = text_field_tag :demographic_targets, '', :style => 'text-align:center;', :readonly => true
   %label
   %b Joe Network: &nbsp;&nbsp;&nbsp;
   %p.cls
@@ -12,7 +12,6 @@
   
 %p.corr
   = form.text_field :responses, :value => @object.try(:responses) ? @object.responses : 1, :class => "small_l"
-  = text_field_tag :demographic_targets, '', :class => "small_r", :readonly => true
   %p.cls
 
 %br

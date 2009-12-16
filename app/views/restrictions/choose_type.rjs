@@ -1,1 +1,3 @@
 page.replace_html params[:container], :partial => "/restrictions/types/#{@restriction.type.to_s.downcase}", :locals => { :restriction => @restriction, :constraint_id => params[:constraint_id] }
+page << "$('##{params[:constraint_id]}').val(#{@constraint_count});"
+page << "$('#demographic_targets').val(#{@count});"

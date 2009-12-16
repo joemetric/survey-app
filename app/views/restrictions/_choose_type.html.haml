@@ -2,7 +2,7 @@
 
   %label Criteria:
   = select_tag "restriction_type_#{temp_id}", options_for_select([""] + restriction_type_options, :selected => @copying_survey ? object.type.to_s.downcase.to_sym : nil)
-  = observe_field "restriction_type_#{temp_id}", :url => choose_type_restrictions_path, :with => "'container=' + 'restriction_#{temp_id}' + '&constraint_id=' + 'constraint_#{temp_id}' + '&restriction_type=' + value", :complete => 'updatePricing();'
+  = observe_field "restriction_type_#{temp_id}", :url => choose_type_restrictions_path, :with => "$('#survey_form').serialize() + '&container=' + 'restriction_#{temp_id}' + '&constraint_id=' + 'constraint_#{temp_id}' + '&restriction_type=' + value", :complete => 'updatePricing();'
  
   = text_field_tag "constraint_#{temp_id}", '', :class => 'small_r_new', :readonly => true
   

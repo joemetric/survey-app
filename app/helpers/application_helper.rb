@@ -49,7 +49,7 @@ module ApplicationHelper
   end
   
   def render_signin_and_login
-    link_to("Login", new_user_session_path) + " | " + link_to("Sign in", new_user_path)
+    link_to("Login", new_user_session_path) + " | " + link_to("Sign Up", new_user_path)
   end
  
   def menu_selected?(actions)
