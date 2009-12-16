@@ -16,11 +16,9 @@ describe PaymentsController do
     
       it "should be able to view details of all the past transactions made to pay for surveys" do
         get :index
-        assigns[:payments] = assigns[:current_user].payments.complete.paginate(:all, :page => params[:page], :per_page => 10)
-        assigns[:payments].each do |payment|
-          payment.owner_id.should == assigns[:current_user].id
-          payment.transaction_id.should_not be_nil
-          payment.status.should == 'paid'
+        assigns[:surveys] = assigns[:current_user].created_surveys.paginate(:all, :conditions => ['publish_status != ?', 'saved'], :page => params[:page], :per_page => 25)
+        assigns[:surveys].each do |survey|
+          survey.publish_status.should_not == 'paid'
         end
       end
     
