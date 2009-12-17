@@ -2,18 +2,18 @@
 .main_content
   = render :partial => "/surveys/preview_tabs"
   .form
-    - form_for @survey, :url => surveys_path, :html => {:id => 'survey_form'} do |form|
+    - form_remote_for @survey, :html => {:id => 'survey_form'} do |form|
   
       = hidden_field_tag 'package', params[:package] || @package.code
       = form.hidden_field :package_id, :value => @package.id
   
       %h3.heads Create a Survey
-      = form.error_messages
       .quick_select{ :style => "margin-top: -58px" }
         Quick Create - Copy
         %br
         = select :surveys, :id, Survey.by(current_user).collect {|s| [ truncate(s.name, 12), s.id ] }, { :include_blank => 'Select' }
         = observe_field "surveys_id", :url => copy_surveys_path, :with => "'id=' + value", :complete => 'updatePricing();'
+      #errors
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
         
       .rounded
@@ -33,9 +33,7 @@
       
       = form.submit "Save for Later", :class => "button button_la"
       
-      = button_to_function "Purchase via Paypal", :class => "button button_la", :id => "paypal_btn" do |page|
-        - page << '$("#survey_form").attr("action", "/surveys/activate");'
-        - page << '$("#survey_form").submit();'
+      = link_to_function "Purchase via Paypal", ajax_submit(activate_surveys_url), :class => "button button_la", :id => "paypal_btn"
 
 #package_details
-  = render :partial => 'pricing_details', :locals => { :package => @package}      
+  = render :partial => 'pricing_details', :locals => { :package => @package}

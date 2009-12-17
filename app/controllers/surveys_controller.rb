@@ -8,15 +8,27 @@ class SurveysController < ResourceController::Base
     object.end_at = Time.now + 7.days
     2.times { object.questions.build }
   end
-
-  create.before do
-    object.owner = current_user
+  
+  def create
+    @survey = Survey.new(params[:survey])
+    @survey.owner = current_user
+    if @survey.save
+      @survey.saved!
+      ajax_redirect(surveys_path)
+    else
+      show_error_messages(:survey)
+    end
   end
-
-  create.after do
-    object.saved!
+  
+  def update
+    @survey = Survey.find(params[:survey][:id])
+    if @survey.update_attributes(params[:survey])
+      ajax_redirect(surveys_path)
+    else
+      show_error_messages(:survey)
+    end
   end
-
+  
   create.wants.html { redirect_to surveys_path }
 
   def pricing
@@ -34,18 +46,18 @@ class SurveysController < ResourceController::Base
       @survey.save
       @survey.pending!
       if RAILS_ENV == 'development' 
-        redirect_to progress_surveys_path
+        ajax_redirect(progress_surveys_path)
       else
         if @survey.no_payment_required?
           @survey.payment_without_paypal
           session[:survey_id] = @survey.id
-          redirect_to progress_surveys_url
+          ajax_redirect(progress_surveys_path)
         else
-          redirect_to authorize_payment_url(@survey.id)
+          ajax_redirect(authorize_payment_path(@survey))
         end
       end
     else
-      render :action => "new"
+      show_error_messages(:survey)
     end
   end
 

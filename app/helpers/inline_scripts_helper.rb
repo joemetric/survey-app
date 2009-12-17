@@ -4,6 +4,10 @@ module InlineScriptsHelper
     javascript_tag("$.ajax({type: 'GET', url:'/surveys/#{@survey_id}/progress_graph?ids=#{@surveys.ids.join(',')}', dataType: 'script'});")
   end
   
+  def ajax_submit(submit_url)
+    "$.ajax({data:$.param($('#survey_form').serializeArray()) + '&amp;authenticity_token=' + encodeURIComponent('#{form_authenticity_token}'), dataType:'script', type:'post', url:'#{submit_url}'}); return false;"
+  end
+  
   def sortable_table_js
     %Q{
       <script type="text/javascript" src="/javascripts/sortable_table.js"></script>

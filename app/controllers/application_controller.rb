@@ -101,8 +101,10 @@ class ApplicationController < ActionController::Base
   end
 
   def show_error_messages(item, options={})
+    target_div = options.empty? ? 'errors' : options[:div]
     render :update do |page|
-      page.replace_html options.empty? ? 'errors' : options[:div], error_messages_for(item)
+      page.replace_html target_div, error_messages_for(item)
+      page << "$('##{target_div}').scrollTo(500);"
     end
   end
   

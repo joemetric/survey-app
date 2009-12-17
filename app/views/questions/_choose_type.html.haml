@@ -10,6 +10,6 @@
     - page << "updatePricing();"
   
   %div{ :id => "question_#{temp_id}" }  
-  - if @copying_survey
-    = render :partial => "/questions/types/#{object.question_type.valid_name}", :locals => { :question => object }
+    - if @copying_survey
+      = render :partial => "/questions/types/#{object.question_type.valid_name}", :locals => { :question => object }
     

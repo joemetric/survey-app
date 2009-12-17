@@ -2,9 +2,9 @@
 .main_content
   = render :partial => "/surveys/preview_tabs"
   .form
-    - form_for @survey, :html => {:id => 'survey_form'}  do |form|
+    - form_remote_for @survey, :html => {:id => 'survey_form'}  do |form|
       %h3.heads Edit a Survey
-      = form.error_messages
+      #errors
 
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
       = form.hidden_field :id
@@ -18,12 +18,10 @@
       .rounded
         .top
         .form_content1
-          %h4 Survey Distribution
           = render :partial => "/surveys/form_distribution", :locals => { :form => form, :survey => @survey }
         .bottom
       
-      = link_to_function "Activate", :class => "button button_bl" do |page|
-        - page << "call_activate_form('#{@survey.id}');"
+      = link_to_function "Activate", ajax_submit(activate_surveys_url), :class => "button button_la", :id => "paypal_btn"
       
       = form.submit "Update", :class => "button button_gr"
 

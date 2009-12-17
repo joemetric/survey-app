@@ -29,7 +29,7 @@ class Package < ActiveRecord::Base
   
   validates_numericality_of :total_responses,
                             :only_integer => true,
-                            :greater_than => 0
+                            :greater_than => 0, :on => :update
   
                              
   has_one :lifetime, :class_name => 'PackageLifetime'
