@@ -147,7 +147,8 @@ function pricingText(question, question_type, scenario){
     return para;
 }
 
-function copySurveyInfo(survey){
+function copySurveyInfo(survey_json){
+    var survey = survey_json.survey;
     $("#survey_name").val(survey.name);
     $("#survey_description").val(survey.description);
     $("#survey_responses").val(survey.responses);

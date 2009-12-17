@@ -3,12 +3,12 @@ class SurveysController < ResourceController::Base
   before_filter :require_user
   before_filter :get_package, :only => [:new, :create, :activate]
   skip_before_filter :verify_authenticity_token, :only => [:progress_graph]
-   
+
   new_action.before do
     object.end_at = Time.now + 7.days
     2.times { object.questions.build }
   end
-  
+
   def create
     @survey = Survey.new(params[:survey])
     @survey.owner = current_user
@@ -19,7 +19,7 @@ class SurveysController < ResourceController::Base
       show_error_messages(:survey)
     end
   end
-  
+
   def update
     @survey = Survey.find(params[:survey][:id])
     if @survey.update_attributes(params[:survey])
@@ -28,13 +28,13 @@ class SurveysController < ResourceController::Base
       show_error_messages(:survey)
     end
   end
-  
+
   create.wants.html { redirect_to surveys_path }
 
   def pricing
     @packages = Package.valid_packages.in_groups_of(2, false)
   end
-  
+
   def reward
     amount = Survey.find(params[:id]).replies.by_user(current_user).first.total_payout
   end
@@ -45,7 +45,7 @@ class SurveysController < ResourceController::Base
     if @survey.valid?
       @survey.save
       @survey.pending!
-      if RAILS_ENV == 'development' 
+      if RAILS_ENV == 'development'
         ajax_redirect(progress_surveys_path)
       else
         if @survey.no_payment_required?
@@ -65,15 +65,14 @@ class SurveysController < ResourceController::Base
     @surveys = @current_user.created_surveys
     @survey_id, session[:survey_id] = session[:survey_id], nil  if session[:survey_id]
   end
-  
+
   def reports
     @surveys = @current_user.created_surveys.published_and_finished
   end
-  
+
   def copy
     @survey = @current_user.created_surveys.find(params[:id]) rescue nil
-    unless @survey.nil?    
-      ActiveRecord::Base.include_root_in_json = false
+    unless @survey.nil?
       @survey_json = @survey.to_json
       @questions = []
       @restrictions = []
@@ -82,7 +81,7 @@ class SurveysController < ResourceController::Base
       @survey.restrictions.each {|r| @restrictions << r.clone}
     end
   end
-  
+
   show do
     wants.json { render :json => @object.to_json(:user => current_user), :status => 200 }
   end
@@ -93,22 +92,22 @@ class SurveysController < ResourceController::Base
         @surveys = Survey.saved.by(@current_user)
       end
       format.json do
-        current_user.device = params[:device].downcase
+        current_user.device = "iphone"#params[:device].downcase
         @surveys = Survey.list_for(current_user)
         render :json => @surveys.to_json(:user => current_user), :status => 200
       end
     end
   end
-  
+
   def update_pricing
     render :json => Survey.pricing_details(params).to_json
   end
-  
+
   def progress_graph
     @survey = @current_user.created_surveys.find(params[:id])
     @survey_ids = params[:ids].split(',')
   end
-  
+
   def sort
     respond_to do |format|
       format.json do
@@ -117,22 +116,22 @@ class SurveysController < ResourceController::Base
       end
     end
   end
-  
+
   def apply_discount_code
     @package = Package.find_by_code(params[:code]) rescue nil
     alert_message('Invalid Promotion Code. Please check and Try again.') if @package.nil?
   end
 
   private
-  
+
   def object
     if ['show', 'edit', 'update'].include?(params[:action])
       object = @current_user.created_surveys.find(params[:id])
     else
-      super      
+      super
     end
   end
-  
+
   def collection
     @collection ||= end_of_association_chain.saved.by(@current_user)
   end
