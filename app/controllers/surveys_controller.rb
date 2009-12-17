@@ -92,7 +92,7 @@ class SurveysController < ResourceController::Base
         @surveys = Survey.saved.by(@current_user)
       end
       format.json do
-        current_user.device = "iphone"#params[:device].downcase
+        current_user.device = params[:device].downcase
         @surveys = Survey.list_for(current_user)
         render :json => @surveys.to_json(:user => current_user), :status => 200
       end
