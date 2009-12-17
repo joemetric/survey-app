@@ -5,7 +5,7 @@ class Admin::SurveysController < ApplicationController
   layout 'admin', :except => 'review'
   
   def index
-    @surveys = Survey.except_saved_and_expired
+    @surveys = Survey.for_approval
   end
   
   def review
@@ -17,7 +17,7 @@ class Admin::SurveysController < ApplicationController
   end
     
   def publish
-    @survey.publish!
+    @survey.published!
     redirect_to conditional_redirect
   end
   
@@ -26,7 +26,7 @@ class Admin::SurveysController < ApplicationController
       params[:survey].merge!(:reject_reason => params[:survey][:other_reject_reason])
     end
     if @survey.update_attributes(params[:survey])
-      @survey.reject! if @survey.valid?
+      @survey.rejected!
       ajax_redirect(conditional_redirect)
     else
       show_error_messages(:survey)

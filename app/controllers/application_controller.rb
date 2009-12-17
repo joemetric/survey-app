@@ -52,11 +52,23 @@ class ApplicationController < ActionController::Base
   def current_reviewer
     current_user if current_user.try(:is_reviewer?)
   end
+  
+  def current_consumer
+    current_user if current_user.try(:is_consumer?)
+  end
 
   def require_user
-    unless current_user.try(:is_user?)
+    #TODO Temp Fix - Use require_user_or_consumer instead
+    unless (current_user.try(:is_user?) || current_user.try(:is_consumer?))
       redirect_to new_user_session_url
       return false
+    end
+  end
+  
+  # TODO - Check which sections are accessed by User and Consumer and apply this filter
+  def require_user_or_consumer
+    unless (current_user || current_consumer)
+      redirect_to new_user_session_url
     end
   end
   

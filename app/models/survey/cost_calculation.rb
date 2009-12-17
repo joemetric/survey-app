@@ -119,7 +119,7 @@ class Survey < ActiveRecord::Base
       survey_package = Package.find(survey.package_id)
     end
     survey.return_hash = true
-    survey.standard_demographics = params[:survey][:genders_attributes].size rescue 0
+    survey.standard_demographics =  params[:survey][:genders_attributes].size rescue 0
     survey.standard_demographics += params[:survey][:zipcodes_attributes].size rescue survey.standard_demographics
     survey.standard_demographics += params[:survey][:occupations_attributes].size rescue survey.standard_demographics
     survey.standard_demographics += params[:survey][:races_attributes].size rescue survey.standard_demographics

@@ -5,8 +5,8 @@ class Survey < ActiveRecord::Base
   
   aasm_state :pending
   aasm_state :saved
-  aasm_state :published
-  aasm_state :rejected
+  aasm_state :published, :after => :set_published_at
+  aasm_state :rejected,  :after => :deliver_rejection_mail
   aasm_state :finished
   aasm_state :expired
   
@@ -19,11 +19,11 @@ class Survey < ActiveRecord::Base
   end
   
   aasm_event :published do
-    transitions :to => :published, :from => [ :pending, :saved, :rejected ]
+    transitions :to => :published, :from => [ :pending, :rejected ]
   end
   
   aasm_event :rejected do
-    transitions :to => :rejected, :from => [ :published, :finished, :pending, :saved ]
+    transitions :to => :rejected, :from => [ :published, :pending ]
   end
   
   aasm_event :finished do
@@ -33,5 +33,9 @@ class Survey < ActiveRecord::Base
   aasm_event :expired do
     transitions :to => :expired, :from => [ :published, :finished ]
   end  
+  
+  def set_published_at
+    update_attribute(:published_at, Time.now)
+  end
           
 end

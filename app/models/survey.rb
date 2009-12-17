@@ -71,7 +71,7 @@ class Survey < ActiveRecord::Base
   named_scope :in_progress, { :conditions => ["publish_status in (?,?)", "published", "pending" ]}
   named_scope :published, { :conditions => ["publish_status = ? and end_at > ?", "published", Time.now] }
   named_scope :published_and_finished, { :conditions => ["publish_status in (?,?)", "published", "finished" ]}
-  named_scope :except_saved_and_expired, { :conditions => ["publish_status NOT IN (?,?)", "saved", "expired" ]}
+  named_scope :for_approval, { :conditions => ["publish_status IN (?,?)", "pending", "rejected" ]}
   named_scope :except_saved, { :conditions => ['publish_status != ?', 'saved']}
   named_scope :not_pending, { :conditions => ['publish_status != ?', 'pending']}
 
@@ -132,12 +132,12 @@ class Survey < ActiveRecord::Base
     publish_status == 'rejected'
   end
 
-  def publish!
+  def publish! # Can be removed see publish_state_machine.rb
     published!
     update_attribute(:published_at, Time.now)
   end
-
-  def reject!
+ 
+  def reject! # Can be removed see publish_state_machine.rb
     rejected!
     deliver_rejection_mail
   end
