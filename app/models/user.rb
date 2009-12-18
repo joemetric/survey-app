@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   concerned_with :demographics
 
-  attr_accessor :old_password, :security_token, :device
+  attr_accessor :old_password, :security_token, :device, :iphone_version
 
   acts_as_authentic do |authlogic|
     authlogic.check_passwords_against_database = false
@@ -68,9 +68,9 @@ class User < ActiveRecord::Base
   def is_user?
     type == 'User'
   end
-  
+
   def warn_preference
-    Warning.warn_preference
+    Warning.warn_preference(self)
   end
 
   def self.total_consumers

@@ -17,7 +17,14 @@
 
 class Answer < ActiveRecord::Base
 
-  has_attached_file :image
+  if ENV["RAILS_ENV"] == "production"
+    has_attached_file :image,
+      :storage        => :s3,
+      :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+      :path           => lambda { |attachment| ":attachment/#{attachment.instance.random_secret}/:id/:style.:extension" }
+  else
+    has_attached_file :image
+  end
 
   belongs_to :reply
   belongs_to :question
@@ -36,21 +43,21 @@ class Answer < ActiveRecord::Base
   def final_answer?
     reply.all_answers_given?
   end
-  
+
   def photo_response?
     !image_content_type.nil?
   end
-  
+
   def create_transfer
     Transfer.create_for(reply)
   end
-  
+
   def mark_reply_as_complete
     reply.complete!
     # After changing status of reply, mark survey as finished if all replies are received
     mark_survey_as_finished if reply.is_final?
   end
-  
+
   def mark_survey_as_finished
     completed_survey = reply.survey
     completed_survey.finished!

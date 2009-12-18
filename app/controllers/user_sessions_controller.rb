@@ -23,6 +23,7 @@ class UserSessionsController < ApplicationController
     flash "Successfully logged!"
     wants.html { redirect_to next_page }
     wants.json {
+      object.user.iphone_version = params[:client_version] if params.key? :client_version
       render :json => object.user, :status => 201
     }
     failure do

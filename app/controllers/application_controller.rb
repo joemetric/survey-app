@@ -7,21 +7,21 @@ class ApplicationController < ActionController::Base
 
   ActiveRecord::Base.send(:extend, ConcernedWith)
 
-  def rescue_action_in_public(exception)
+  def rescue_action_in_public_without_hoptoad(exception)
     case exception
     when ActiveRecord::RecordNotFound
       respond_to do |format|
-        format.json { render :json => "Object Not Found", :header => 404 }
+        format.json { render :json => {"base" => "The item you were looking for doesn't exist."}, :header => 404 }
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :header => 404 }
       end
     when NoMethodError
       respond_to do |format|
-        format.json { render :json => "No Method Found", :header => 500 }
+        format.json { render :json => {"base" => "We're sorry, but something went wrong.\nWe've been notified about this issue and we'll take a look at it shortly."}, :header => 500 }
         format.html { render :file => "#{RAILS_ROOT}/public/500.html", :header => 500 }
       end
     else
       respond_to do |format|
-        format.json { render :json => "Not Identified Error", :header => 500 }
+        format.json { render :json => {"base" => "We're sorry, but something went wrong.\nWe've been notified about this issue and we'll take a look at it shortly."}, :header => 500 }
         format.html { render :text => "#{RAILS_ROOT}/public/500.html", :header => 500 }
       end
     end
@@ -48,11 +48,11 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
-  
+
   def current_reviewer
     current_user if current_user.try(:is_reviewer?)
   end
-  
+
   def current_consumer
     current_user if current_user.try(:is_consumer?)
   end
@@ -64,27 +64,27 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-  
+
   # TODO - Check which sections are accessed by User and Consumer and apply this filter
   def require_user_or_consumer
     unless (current_user || current_consumer)
       redirect_to new_user_session_url
     end
   end
-  
+
   def require_admin
     unless current_admin
       redirect_to new_admin_admin_session_url
     end
   end
-  
+
   def require_reviewer
     unless current_user.try(:is_reviewer?)
       redirect_to new_user_session_url
       return false
     end
   end
-  
+
   def require_admin_or_reviewer
     unless (current_admin || current_user.try(:is_reviewer?))
       redirect_to new_admin_admin_session_url
@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
       page << "$('##{target_div}').scrollTo(500);"
     end
   end
-  
+
   def conditional_redirect
     session[:reviewer] ? review_admin_surveys_path : admin_surveys_path
   end
@@ -129,15 +129,15 @@ class ApplicationController < ActionController::Base
       page.alert(message)
     end
   end
-  
+
   def correct_date(date)
     date.gsub('/', '-').split('-').reverse.join('-')
   end
-  
+
   def convert_date_format(date)
     date.to_s.gsub('-', '/').split('/').reverse.join('/') unless date.nil?
   end
-  
+
 end
 
 class String
@@ -157,11 +157,11 @@ class String
   def remove_dollar_sym
     gsub!('$', '').to_f
   end
-  
+
   def nil_or_empty?
     empty?
   end
-  
+
   def titleize
     eql?('martial_status') ? 'Martial Status' : super
   end
@@ -181,15 +181,15 @@ class Float
 end
 
 class Fixnum
-  
+
   def us_dollar
     to_f.us_dollar
   end
-  
+
   def less_than(number)
     self < number
   end
-  
+
 end
 
 class Array
@@ -209,23 +209,23 @@ class Array
       select {|p| p.package_question_type_id == value}.compact.first
     end
   }
-  
+
   def attribute_values(attr)
     collect {|a| a.send(attr)}
   end
-  
+
   def to_array # Return array of answers for each question
     returning values = [] do
       self.each {|a| values << (a.question_type_id.eql?(3) ? a.image_url : a.answer)}
     end
   end
-  
+
   def values_of(key)
     returning keys = [] do
       self.each {|a| keys << a[key]}
     end
   end
-  
+
   def count(&action)
     begin
       count = 0
@@ -235,13 +235,13 @@ class Array
       return 0
     end
   end
-  
+
   def to_range(number, step_by)
-    returning elements = [] do 
+    returning elements = [] do
       number.step(self.size, step_by) {|x| elements << x}
     end
   end
-  
+
   def to_time_range(step_by, step_decreement=1)
     time_range = {}
     time_lap = Time.now.utc
@@ -252,15 +252,15 @@ class Array
     }
     time_range.sort
   end
-  
+
   def ids
     attribute_values(:id)
   end
-  
+
   def elements
     collect {|x| x[0]}.compact
   end
-  
+
 end
 
 class NilClass
@@ -270,11 +270,11 @@ class NilClass
       ''
     end
   end
-  
+
   def nil_or_empty?
     true
   end
-  
+
   def values_of(key)
     []
   end
@@ -282,11 +282,11 @@ class NilClass
 end
 
 class Hash
-  
+
   def elements
     keys.sort
   end
-  
+
   def values_of(key)
     returning value_elements = [] do
       self.each_pair { |key, value|
@@ -294,5 +294,5 @@ class Hash
       }
     end
   end
-  
+
 end
