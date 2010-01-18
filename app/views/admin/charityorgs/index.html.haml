@@ -1,0 +1,32 @@
+.m_content
+  .form
+    - form_tag(admin_charityorgs_path, :id => 'charity_orgs', :method => :put) do
+      %h3.heads Non-profit Organization Administration
+      %table#table{ :cellpadding => 7 , :cellspacing => 4, :border => 0, :width => '100%' }
+        %thead
+          %tr
+            %th{ :width => '50%', :colspan => 2, :valign => 'top' }
+              %h3 List of Non-Profit Organizations Available
+            
+            %th{ :width => '50%', :valign => 'top' }
+              %h3 Active Organizations (Limited to 5)
+          %tr
+            - if @inActiveNonProfitOrgs.length == 0
+              %th{ :width => '50%', :colspan => 2, :valign => 'top' }
+                There are no organizations added at this moment
+                
+              %th{ :width => '50%', :valign => 'top' }
+                There are no active organizations 
+                
+            - else
+              %th{ :width => '50%', :colspan => 2, :valign => 'top' }
+                There are organizations available and we are listing them sortly
+            
+              %th{ :width => '50%', :valign => 'top' }
+                There are organizations available and we are listing them sortly
+          %tr
+            %th{ :width => '100%', :align => 'center', :colspan => 3 }
+              = link_to "Create a New Organization", create_admin_charityorgs_path, :class => "button button_la"
+              - if @inActiveNonProfitOrgs.length > 0
+                = link_to_remote "Edit Organization", :url => admin_charityorgs_path, :method => :get, :html => { :class => "button button_la" }
+                

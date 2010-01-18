@@ -1,0 +1,2 @@
+module Admin::CharityorgsHelper
+end

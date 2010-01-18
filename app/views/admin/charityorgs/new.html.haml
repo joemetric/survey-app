@@ -1,0 +1,142 @@
+.m_content
+  .form
+    %h3.heads Non-profit Organization Administration
+    %hr
+      - form_remote_for :organization, :url => create_admin_charityorgs_path, :html => {:method => :post, :id => "create_charity_orgs_form"} do |form|
+        %table#table{ :cellpadding => 3 , :cellspacing => 0, :border => 0, :width => '100%' }
+          %thead
+            %tr
+              %th{ :width => '100%', :colspan => 2, :valign => 'top', :align => 'left' }
+                Add a new organization
+            %tr
+              %th{ :width => '100%', :colspan => 2, :valign => 'top', :align => 'left' }
+                %span{:id => 'charityorgs_errors'}
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Name:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :name
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Address 1:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :address1
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label City:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :city1
+            
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label State:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :state1
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Zip Code:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :zipcode1
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Address 2:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :address2
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label City:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :city2
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label State:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :state2
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Zip Code:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :zipcode2
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Phone:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :phone
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Email:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :email
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Tax Status:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :tax_status
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Tax ID #:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :tax_id
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Contact Name:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :contact_name
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Contact Phone:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :contact_phone
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Website:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_field :website
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Description:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_area :description, :rows => 3, :cols => 30 
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Notes:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.text_area :notes, :rows => 3, :cols => 30
+                
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Logo:
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.file_field :logo
+            
+            %tr
+              %th{ :width => '30%', :valign => 'top', :align => 'left' }
+                %label Attach File(s):
+              %th{ :width => '70%', :valign => 'top', :align => 'left' }
+                = form.file_field :org_files
+                = link_to "Attach", create_admin_charityorgs_path, :class => "button button_la"
+              
+            %tr
+              %th{ :width => '100%', :align => 'center', :colspan => 2 }
+                %span
+                  = submit_tag 'Add Organization', :class => 'but_co', :id => 'save_organization'
+                %span
+                  or  
+                  = link_to 'Cancel', admin_charityorgs_path, :confirm => 'Are You sure ?', :style => "color: rgb(0, 0, 255);"
+                
