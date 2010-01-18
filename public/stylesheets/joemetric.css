@@ -366,7 +366,7 @@ hr{color:#000;}
 }
 
 .menu li:hover{
-	border:none;
+	/*border:none;*/
 }
 
 .menu li.selected{
@@ -376,15 +376,11 @@ hr{color:#000;}
 	padding-right:15px;
 }
 
-.menu li.item a:hover{
+.menu li.item:hover{
 	background:url(../images/select.png) no-repeat;
 	background-position:0px center;
-	margin-left:-3px;
+	margin-left:0px;
 	padding-right:15px;
-	margin-bottom:-7px;
-	height:23px;
-	width:120px;
-	
 }
 
 .menu1{
@@ -394,7 +390,7 @@ hr{color:#000;}
 
 .menu1{
 	margin-top:75px;
-	background:url(../images/side_bar.png) repeat-x;
+	background:#0C273C url(../images/side_bar.png) repeat-x scroll 0 100%;
 	text-align:right;
 	font-size:11px;
 
@@ -406,18 +402,18 @@ hr{color:#000;}
 	text-decoration:none;
 	margin-right:8px;
 	display:block;
-	width:145px;
+	width:163px;
 }
 
 .menu1 li{
 	list-style:none;
-	padding:3px 10px 3px 20px;
+	padding:3px 20px 3px 0;
 	border-bottom:solid 1px #000;
 	
 }
 
 .menu1 li:hover{
-	border:none;
+	/*border:none;*/
 }
 
 .menu1 li.selected{
@@ -427,12 +423,11 @@ hr{color:#000;}
 	padding-right:15px;
 }
 
-.menu1 li.item a:hover{
+.menu1 li.item:hover{
 	background:url(../images/select1.png) no-repeat;
 	background-position:0px center;
-	height:18px;	
-	padding:0px 10px 0px 20px;
-	margin-left:-20px !important;
+	margin-left:0px;
+	padding-right:15px;
 }
 .quick_select{
 	font-size:10px;
@@ -496,7 +491,7 @@ p.net label{
 h4 span{
 	float:right;
 	font-size:10px;
-	margin-top:6px;
+	margin-top:0px;
 }
 
 .corr input[type="text"]{
@@ -510,9 +505,9 @@ h4 span{
 
 .small_r{
 	float:right;
-	width:50px !important;
+	/*width:50px !important;
 	margin-top:-26px !important;
-	text-align:center;
+	text-align:center;*/
 }
 
 .survey_details{
@@ -901,6 +896,14 @@ p.net1 input[type="text"]{
 	float:left;
 	}
 
+.but_co{
+    background:#539AC8;
+    padding:2px 25px;
+	color:#fff;
+	font-weight:bold;
+	border:medium none;
+	}
+	
 .but_da{
     background:#0c273c;
 	color:#fff;
