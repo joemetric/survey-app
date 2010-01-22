@@ -103,6 +103,7 @@ class Survey < ActiveRecord::Base
       concerned_question_type = payouts.send(key.singularize)
       payout = 0.0
       payout += send(key).size * concerned_question_type.amount if concerned_question_type 
+      return payout
     end
     
   }
