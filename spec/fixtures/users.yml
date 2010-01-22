@@ -29,8 +29,14 @@ admin:
   email:                     admin@joemetric.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      Admin
+  active:                    1
+  birthdate:                 1990-02-05
+  gender:                    Male
+  education_id:              1
   
 quentin:
   id: 2
@@ -39,9 +45,15 @@ quentin:
   email:                     quentin@example.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 5.days.ago.to_s :db  %>
   type:                      User
-
+  active:                    1
+  birthdate:                 1995-02-05
+  gender:                    Male
+  education_id:              6
+      
 james:
   id: 3
   login:                     james
@@ -49,20 +61,31 @@ james:
   email:                     james@anderson.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
+  active:                    1
+  birthdate:                 1980-02-05
+  gender:                    Male
+  education_id:              6
   
 mark:
   id: 4
-  login:                     mark
+  login:                     steve
   name:                      Mark Waugh
   email:                     mark@waugh.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-
-
+  active:                    1
+  birthdate:                 1995-02-05
+  gender:                    Male
+  education_id:              9
+  
 adam:
   id: 5
   login:                     adam
@@ -70,8 +93,14 @@ adam:
   email:                     adam@gilchrist.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
+  active:                    1
+  birthdate:                 1998-02-05
+  gender:                    Male
+  education_id:              9
   
 brain:
   id: 6
@@ -80,8 +109,14 @@ brain:
   email:                     brain@lara.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
+  active:                    1
+  birthdate:                 1993-02-05
+  gender:                    Male
+  education_id:              6
   
 brett:
   id: 7
@@ -90,9 +125,15 @@ brett:
   email:                     brett@lee.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-
+  active:                    1
+  birthdate:                 1991-02-05
+  gender:                    Female
+  education_id:              4
+  
 louis:
   id: 8
   login:                     louis
@@ -100,9 +141,15 @@ louis:
   email:                     louis@duckworth.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-
+  active:                    1
+  birthdate:                 1993-02-05
+  gender:                    Female
+  education_id:              5
+ 
 iphone_user_1:
   id: 9
   login:                     iphone_user_1
@@ -110,18 +157,28 @@ iphone_user_1:
   email:                     andrew@mac.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
+  active:                    1
+  birthdate:                 1991-02-05
+  gender:                    Female
 
 iphone_user_2:
   id: 10
   login:                     iphone_user_2
   name:                      Iphone User 2
   email:                     ryan@mac.com
-  password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
-  crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  password_salt:             00q9WJrFUvJKUJMQ-RE2 # SHA1('0')
+  crypted_password:          2bfe45f3e19611f434ef4a2ee47bb695a978bac6 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
+  active:                    1
+  birthdate:                 1991-02-05
+  gender:                    Female
  
 iphone_user_3:
   id: 11
@@ -130,6 +187,41 @@ iphone_user_3:
   email:                     patrick@mac.com
   password_salt:             356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
   crypted_password:          11dbf7b243f49f3a963c04af4dd72c5221387025 # 'monkey'
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-        
+  active:                    1
+  birthdate:                 1999-02-05
+  gender:                    Female
+  
+reviewer_1:
+  id: 12
+  login:                     reviewer_1
+  name:                      Reviewer One
+  email:                     reviewer@one.com
+  password_salt:             00q9WJrFUvJKUJMQ-RE2 # SHA1('0') 00q9WJrFUvJKUJMQ-RE2
+  crypted_password:          2bfe45f3e19611f434ef4a2ee47bb695a978bac6 # 'monkey' 
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      Reviewer     
+  active:                    1
+  birthdate:                 1986-02-05
+  gender:                    Female
+
+blacklisted_1:
+
+  id: 13
+  login:                     blacklisted
+  name:                      Reviewer One
+  email:                     black_listed@one.com
+  password_salt:             00q9WJrFUvJKUJMQ-RE2 # SHA1('0') 00q9WJrFUvJKUJMQ-RE2
+  crypted_password:          2bfe45f3e19611f434ef4a2ee47bb695a978bac6 # 'monkey' 
+  persistence_token:         936d017e5f2901f98e7f05b65ff0cff166a11cee3aba7194c3e91eefef04f4e67858a6abadced914d6def2f02179fb6336ef8b63a0a53130361dbfc3bc8bd4e0
+  perishable_token:          RMaBkf21vWgurbh46z0V
+  created_at:                <%= 4.days.ago.to_s :db  %>
+  type:                      Reviewer     
+  active:                    1
+  birthdate:                 1986-02-05
+  gender:                    Female

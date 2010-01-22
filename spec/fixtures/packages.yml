@@ -32,4 +32,11 @@ planB:
   name: Plan B
   code: planb
   base_cost: 150
-  total_responses: 20 
+  total_responses: 20
+  
+planC:
+  id: 3
+  name: Plan C
+  code: planc
+  base_cost: 0
+  total_responses: 500

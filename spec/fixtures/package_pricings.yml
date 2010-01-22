@@ -44,3 +44,35 @@ package_pricing_planA_4:
   total_questions: 1
   standard_price: 5
   normal_price: 6
+  
+package_pricing_planB_1:
+  id: 5
+  package_id: 3
+  package_question_type_id: 1
+  total_questions: 1
+  standard_price: 0.00
+  normal_price: 0.80
+
+package_pricing_planB_2:
+  id: 6
+  package_id: 3
+  package_question_type_id: 2
+  total_questions: 0
+  standard_price: 1.60
+  normal_price: 1.60
+  
+package_pricing_planB_3:
+  id: 7
+  package_id: 3
+  package_question_type_id: 3
+  total_questions: 0
+  standard_price: 0.80
+  normal_price: 0.80
+  
+package_pricing_planB_4:
+  id: 8
+  package_id: 3
+  package_question_type_id: 4
+  total_questions: 0
+  standard_price: 1.60
+  normal_price: 1.60

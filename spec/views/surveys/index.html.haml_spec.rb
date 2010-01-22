@@ -1,12 +1,13 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-# spec spec/views/surveys/index.html.haml_spec.rb
+# spec spec/views/surveys/progress.html.haml_spec.rb
 
 describe "/surveys/index" do
   
   fixtures :users
   
   before(:each) do
+    Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(SurveysController)
     assigns[:current_user] = users(:james)
     assigns[:surveys] = Survey.saved.by(assigns[:current_user])
   end
@@ -26,21 +27,24 @@ describe "/surveys/index" do
     end
   end
 
-  it "should display survey data in a table" do
-    template.should_receive(:render).with(:partial => "/surveys/saved_survey", :collection => assigns[:surveys])
+  it "should render survey partial with surveys saved by user" do
+    template.should_receive(:render).with(hash_including(:partial => "/surveys/saved_survey", :collection => assigns[:surveys]))
     do_render
-    response.should have_tag('tbody') do
+  end
+    
+  it "should display survey data in a table" do
+    template.stub!(:render).with(hash_including(:partial => "/surveys/saved_survey", :collection => assigns[:surveys]))
+    render :partial => "surveys/saved_survey", :collection => assigns[:surveys]
       if assigns[:surveys].size > 0
         assigns[:surveys].each do |survey|
-          have_tag('tr') do
-            have_tag('td') do
-              have_tag('a[href=?]', edit_survey_path(survey), :text => survey.name)
+          response.should have_tag('tr') do |row|
+            row.should have_tag('td') do |cell|
+              cell.should have_tag('a[href=?]', edit_survey_path(survey), :text => survey.name)
             end
-            response.have_tag('td', :text => survey.created_at.strftime("%b/%d/%Y"))
-            response.have_tag('td', :text => survey.updated_at.strftime("%b/%d/%Y"))
-            response.have_tag('td', :text => surveys.questions.size)
+            row.should have_tag('td', :text => survey.created_at.strftime("%b/%d/%Y"))
+            row.should have_tag('td', :text => survey.updated_at.strftime("%b/%d/%Y"))
+            row.should have_tag('td', :text => survey.questions.size) 
           end
-        end
       end
     end
   end

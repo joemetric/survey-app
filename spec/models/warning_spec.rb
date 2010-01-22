@@ -15,14 +15,22 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# spec spec/models/warning_spec.rb
+
 describe Warning do
   before(:each) do
-    @valid_attributes = {
-      
-    }
+    @invalid_attributes = { :warn_preference => "always", :warning => "", :iphone_version =>" "}
+    @valid_attributes = { :warn_preference => "always", :warning => "Warning !!", :iphone_version =>"1.0"}
   end
 
-  it "should create a new instance given valid attributes" do
-    Warning.create!(@valid_attributes)
+  it "should save a new instance given valid attributes" do
+    warning = Warning.new(@valid_attributes)
+    warning.save.should == true
+    warning.should == Warning.activated
+  end
+  
+  it "should not save a new instance given valid attributes" do
+    warning = Warning.new(@invalid_attributes)
+    warning.save.should == false
   end
 end

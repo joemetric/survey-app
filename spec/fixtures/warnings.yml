@@ -20,3 +20,10 @@
 #
 # two:
 #   column: value
+one:
+
+  warning:           I-phone client is older.
+  warn_preference:   I-phone client is older.
+  active:            true
+  iphone_version:    0.5
+  

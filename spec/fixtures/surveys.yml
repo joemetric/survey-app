@@ -26,7 +26,8 @@ one:
   end_at: 2011-08-01
   responses: 25
   package_id: 1
-
+  publish_status: pending
+  
 two:
   id: 2
   name: Incomplete Survey
@@ -34,7 +35,8 @@ two:
   end_at: 2010-08-01
   responses: 10
   package_id: 1
-
+  publish_status: pending
+  
 three:
   id: 3
   name: Test Survey Two
@@ -42,7 +44,8 @@ three:
   end_at: 2010-08-04
   responses: 20
   package_id: 1
-
+  publish_status: saved
+  
 four:
   id: 4
   name: Test Survey Three
@@ -50,7 +53,8 @@ four:
   end_at: 2010-09-01
   responses: 15
   package_id: 1
-
+  publish_status: pending
+  
 survey_1:
   id: 5
   name: Example Survey
@@ -58,7 +62,8 @@ survey_1:
   end_at: 2010-08-01
   responses: 10
   package_id: 1
-
+  publish_status: pending
+  
 survey_planA_1: # Contains Additional Standard Questions and Extra Responses
   id: 6
   name: Comparison of Android Phones and Iphones
@@ -66,6 +71,7 @@ survey_planA_1: # Contains Additional Standard Questions and Extra Responses
   end_at: 2009-11-08
   responses: 30
   package_id: 1
+  publish_status: pending
   
 survey_planA_2: # Everything Included
   id: 7
@@ -74,7 +80,8 @@ survey_planA_2: # Everything Included
   end_at: 2010-11-08
   responses: 20
   package_id: 1
-
+  publish_status: pending
+  
 survey_planA_3: # Contains Extra Standard Questions
   id: 8
   name: LCD Telivisions
@@ -82,7 +89,8 @@ survey_planA_3: # Contains Extra Standard Questions
   end_at: 2009-11-08
   responses: 20
   package_id: 1   
-
+  publish_status: pending
+  
 survey_planA_4: # Contains Extra Responses
   id: 9
   name: Plasma Televisions
@@ -90,7 +98,8 @@ survey_planA_4: # Contains Extra Responses
   end_at: 2009-11-08
   responses: 30
   package_id: 1
-
+  publish_status: pending
+  
 survey_planA_5:
   id: 10
   name: Toyota and Honda
@@ -99,7 +108,7 @@ survey_planA_5:
   responses: 5
   package_id: 1
   publish_status: published
-
+  
 survey_planA_6:
   id: 11
   name: Hyundai Sonata And Honda Accord
