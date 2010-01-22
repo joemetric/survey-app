@@ -26,14 +26,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:admin) do |admin|
     admin.resource  :admin_session
-    admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post }, :collection => { :pending => :get, :review => :get }
+    admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post },
+      :collection => { :pending => :get, :review => :get }
     admin.resources :packages
     admin.resources  :clients, :collection => { :disable => :post, :warn => :post}
     admin.resources :users,
       :member => {:reset_password => :any, :change_type => :post},
       :collection => {:blacklist => :put}
     admin.resources :maintenances
-    admin.resources :charityorgs, :collection => { :create => :get }
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
