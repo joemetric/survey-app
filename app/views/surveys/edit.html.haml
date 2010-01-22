@@ -8,6 +8,7 @@
 
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
       = form.hidden_field :id
+      = form.hidden_field :package_id
       .rounded
         .top
         .form_content1
@@ -19,6 +20,7 @@
         .top
         .form_content1
           = render :partial => "/surveys/form_distribution", :locals => { :form => form, :survey => @survey }
+          = render :partial => "/surveys/form_restriction" , :locals => { :form => form, :survey => @survey }
         .bottom
       
       = link_to_function "Activate", ajax_submit(activate_surveys_url), :class => "button button_la", :id => "paypal_btn"

@@ -261,6 +261,10 @@ class Array
     collect {|x| x[0]}.compact
   end
 
+  def nil_or_empty?
+    empty?
+  end
+
 end
 
 class NilClass

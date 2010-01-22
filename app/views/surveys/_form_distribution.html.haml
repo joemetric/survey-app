@@ -11,7 +11,7 @@
 = form.label "Maximum # of respondents"
   
 %p.corr
-  = form.text_field :responses, :value => @object.try(:responses) ? @object.responses : 1, :class => "small_l"
+  = form.text_field :responses, :value => @survey.try(:responses) ? @survey.responses : 1, :class => "small_l"
   %p.cls
 
 %br

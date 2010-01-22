@@ -1,0 +1,19 @@
+This document will guide You on how to run the test suite written for Joemetric application
+
+1) Prepare Test database 
+rake db:test:prepare
+
+2) Load spec fixtures
+rake db:spec:fixtures:load RAILS_ENV=test
+
+3) Run all the tests written in Cucumber
+rake features
+
+4) Run all the unit tests
+rake spec:models
+
+5) Run all the controller tests
+rake spec:controllers
+
+6) Run all view tests
+rake spec:views

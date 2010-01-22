@@ -2,7 +2,7 @@
   #restrictions
     %label Demographics:
     #restriction_list
-      = render :partial => "/restrictions/choose_type"
+      = render :partial => "/restrictions/choose_type", :collection => survey.restrictions
   %br
   %p
     = link_to_remote "ADD DEMOGRAPHIC RESTRICTION", :url => new_restriction_path, :method => :get, :html => { :class => "button button_la" } 

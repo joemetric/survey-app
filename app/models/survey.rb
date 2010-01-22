@@ -63,7 +63,7 @@ class Survey < ActiveRecord::Base
   validates_length_of :reject_reason, :in => 2..255, :unless => Proc.new {|s| s.reject_reason.blank?}, :on => :update
 
   accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races,
-                                :educations, :incomes, :ages, :martial_statuses
+                                :educations, :incomes, :ages, :martial_statuses, :allow_destroy => true
 
 
   named_scope :by_time, :order => :created_at
@@ -90,8 +90,11 @@ class Survey < ActiveRecord::Base
   after_save :total_cost, :calculate_reward
 
   attr_accessor :question_attributes, :reply_by_user, :standard_demographics,
-                :return_hash, :other_reject_reason
-
+                :return_hash, :other_reject_reason, :deleted_questions
+  
+  before_save :clear_restrictions
+  after_save  :delete_removed_questions, :unless => Proc.new {|s| s.deleted_questions.nil_or_empty? }
+  
   def name_with_status
     "#{name} (#{publish_status})"
   end
@@ -200,12 +203,15 @@ class Survey < ActiveRecord::Base
   end
 
   def self.list_for(user)
+    # columns_all added as a fix for postgres sql order_by
+    columns_all = Survey.column_names.collect{|c| "surveys.#{c}"}
+    columns_all << Reply.column_names.collect{|c| "replies.#{c}"}
     if user.sort_id == 2
       find(:all,
            :select => "surveys.*, COUNT(questions.id) AS total_questions",
            :joins => ["LEFT JOIN questions ON surveys.id = questions.survey_id LEFT JOIN replies ON surveys.id = replies.survey_id"],
            :conditions => ["surveys.id IN (?)", user.unreplied_surveys],
-           :group => "surveys.id",
+           :group => columns_all.join(','),
            :order => "replies.id DESC, #{sort_by(user.sort_id)}"
         )
     else
@@ -286,6 +292,14 @@ class Survey < ActiveRecord::Base
 
   def deliver_rejection_mail
     UserMailer.deliver_survey_rejection_mail(self)
+  end
+  
+  def clear_restrictions
+    restrictions.clear if self.valid?
+  end
+  
+  def delete_removed_questions
+    Question.destroy(deleted_questions)
   end
 
   def set_up_refund(response, status)

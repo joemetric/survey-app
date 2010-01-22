@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys,
     :member => {:reward => :get, :progress_graph => :get},
-    :collection => { :apply_discount_code => :post, :sort => :get, :copy => :post, :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :any } do |survey|
+    :collection => { :apply_discount_code => :post, :sort => :get, :copy => :post, :pricing => :get, :activate => :any, :progress => :get, :reports => :get, :update_pricing => :any } do |survey|
     survey.resources :questions
     survey.resources :restrictions
     survey.resources :replies
@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end
-  map.resources :restrictions, :collection => { :choose_type => :post }
+  map.resources :restrictions, :collection => { :choose_type => :any }
   map.resource :user_session
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"

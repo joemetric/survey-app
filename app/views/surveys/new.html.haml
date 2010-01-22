@@ -1,7 +1,7 @@
 = render :partial => "/layouts/menu"
 .main_content
   = render :partial => "/surveys/preview_tabs"
-  .form#customizeContent
+  .form
     - form_remote_for @survey, :html => {:id => 'survey_form'} do |form|
   
       = hidden_field_tag 'package', params[:package] || @package.code
@@ -35,8 +35,7 @@
       
       = link_to_function "Purchase via Paypal", ajax_submit(activate_surveys_url), :class => "button button_la", :id => "paypal_btn"
 
-  .form#previewContent.hidden
-    = render :partial => "preview_content"
-
 #package_details
   = render :partial => 'pricing_details', :locals => { :package => @package}
+
+=javascript_tag("updateButtonText();")  

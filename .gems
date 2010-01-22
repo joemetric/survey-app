@@ -4,7 +4,7 @@ rspec-rails
 giraffesoft-resource_controller --source http://gems.github.com
 jscruggs-metric_fu --source http://gems.github.com
 haml
-ambethia-smtp-tls --source http://gems.github.com/
+ambethia-smtp-tls --source http://gems.github.com
 webrat
 cucumber --source http://gems.github.com
 activemerchant

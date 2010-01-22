@@ -31,10 +31,6 @@ body{
 	margin-top:10px;
 }
 
-.hidden {
-    display:none;
-}
-
 .cls{
 	clear:both;
 	height:1px;
@@ -365,8 +361,11 @@ hr{color:#000;}
 	border-bottom:solid 1px #000;
 }
 
-.menu li:hover{
-	border:none;
+.menu li.item a{
+	height:14px;
+}
+.menu1 li.item a{
+	height:14px;
 }
 
 .menu li.selected{
@@ -381,9 +380,11 @@ hr{color:#000;}
 	background-position:0px center;
 	margin-left:-3px;
 	padding-right:15px;
-	margin-bottom:-7px;
-	height:23px;
+	margin-bottom:-2px;
+	margin-top:-3px;
+	height:17px;
 	width:120px;
+	padding-top:2px;
 	
 }
 
@@ -397,7 +398,6 @@ hr{color:#000;}
 	background:url(../images/side_bar.png) repeat-x;
 	text-align:right;
 	font-size:11px;
-
 }
 
 .menu1 a{
@@ -416,10 +416,6 @@ hr{color:#000;}
 	
 }
 
-.menu1 li:hover{
-	border:none;
-}
-
 .menu1 li.selected{
 	background:url(../images/select1.png) no-repeat;
 	background-position:0px center;
@@ -430,9 +426,13 @@ hr{color:#000;}
 .menu1 li.item a:hover{
 	background:url(../images/select1.png) no-repeat;
 	background-position:0px center;
-	height:18px;	
-	padding:0px 10px 0px 20px;
-	margin-left:-20px !important;
+	margin-left:-20px;
+	padding-right:30px;
+	margin-bottom:-2px;
+	margin-top:-3px;
+	height:18px;
+	padding:1px 10px 0px 20px;
+	width:145px;
 }
 .quick_select{
 	font-size:10px;
@@ -457,8 +457,7 @@ hr{color:#000;}
 
 p.cntrls label
 {
-	float:left;
-	
+	float:left;	
 }
 
 p.cntrls .select{
@@ -480,7 +479,6 @@ p.opt{
 	float:left;
 	width:50px;
 	margin-left:10px;
-
 }
 
 p.net input[type="text"]{
@@ -490,7 +488,7 @@ p.net input[type="text"]{
 }
 
 p.net label{
-		float:right;
+	float:right;
 }
 
 h4 span{
@@ -611,7 +609,7 @@ margin-left:-4px;
 }
 
 .graph_code{
-float:right;	
+    float:right;	
 }
 
 .survey li a{
@@ -633,6 +631,7 @@ float:right;
     background:none !important;
     padding-left:0px;
 	padding-top:3px;
+	padding-bottom:9px;
 }
 
 
@@ -1113,65 +1112,14 @@ a.buynow_btn {
 
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  .signin_bottom {
+  /*.signin_bottom {
     margin-top:-30px !important;
-  }
-  .session_new_bottom {
+  }*/
+  /*.session_new_bottom {
     margin-top:-13px !important;
-  }
+  }*/
   .login_content{
 	  padding-top:3px !important;
   }
-}
-
-.iphonePreview {
-    background:url(/images/iphone/iphone_background.png) no-repeat;
-    width: 383px;
-    height: 585px;
-    padding: 200px 0 0 40px;
-    font-size: 14px;
-    color: white;
-}
-
-.iphonePreview #previewImage {
-    background:url(/images/iphone/green-btn.png) no-repeat;
-    height: 30px;
-    width: 60px;
-    text-align: center;
-    padding: 6px 0 6px 0; 
-}
-
-.iphonePreview #previewTitle {
-    font-size: 16px;
-    min-height: 26px;
-    margin-bottom: 4px;
-}
-
-.iphonePreview #previewDescription {
-    font-size: 14px;
-    min-height: 26px;
-    margin-bottom: 4px;
-}
-
-.iphonePreview #previewButton {
-    background:url(/images/iphone/arrow-blue-btn2.png) no-repeat;
-    height: 30px;
-    width: 107px;
-    text-align:center;
-    margin-bottom: 6px;
-    padding: 6px 0 6px 0;
-}
-
-.iphonePreview #previewQuestions {
-    width: 310px;
-}
-
-.iphonePreview .questionCell {
-    margin-bottom: 4px;
-    font-size: 16px;
-    border-bottom: 1px solid;
-}
-
-.iphonePreview .question {
-    padding-left: 80px;
+  .form_content{padding-bottom:1px;}
 }

@@ -9,3 +9,5 @@
     
     = form.label :description
     = form.text_field :description
+    - if defined?(question_id) && question_id
+      = form.hidden_field :id, :value => question_id

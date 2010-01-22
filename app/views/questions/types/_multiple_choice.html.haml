@@ -13,4 +13,6 @@
     
     = form.label :options
     = form.text_field :options
+    - if defined?(question_id) && question_id
+      = form.hidden_field :id, :value => question_id
     

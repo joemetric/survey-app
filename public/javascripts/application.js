@@ -91,14 +91,20 @@ function updatePricing(){
     });
     $("#pricing_details").html(html);
     $("#total_amount").html(data['total_cost']);
-    if (data['total_cost'] == '$0.00'){
-        $("#paypal_btn").val("Submit for approval");
-    }
-    else {
-        $("#paypal_btn").val("Purchase via Paypal");
-    }
+    updateButtonText();
     }, 
     "json");
+}
+
+function updateButtonText()
+{
+    total_cost = jQuery.trim($("#total_amount").text());
+    if (total_cost == '$0.00'){
+        $("#paypal_btn").text("Submit for approval");
+    }
+    else {
+        $("#paypal_btn").text("Purchase via Paypal");
+    }
 }
 
 function pricingText(question, question_type, scenario){
@@ -147,9 +153,10 @@ function pricingText(question, question_type, scenario){
     return para;
 }
 
-function copySurveyInfo(survey_json){
-    var survey = survey_json.survey;
+function copySurveyInfo(data){    
+    survey = data['survey']
     $("#survey_name").val(survey.name);
+    $("#errors").html('');
     $("#survey_description").val(survey.description);
     $("#survey_responses").val(survey.responses);
     var end_at = survey.end_at.split('-');
@@ -202,38 +209,4 @@ function showForm(){
 	
 	//transition effect
 	$(id).fadeIn(2000);    
-}
-
-function showCustomizeContent() {
-    if ($("#previewTab").hasClass("selected")) {
-        $("#previewTab").removeClass("selected");
-        $("#previewTab").addClass("item");
-        $("#customizeTab").addClass("selected");
-        $("#customizeTab").removeClass("item");
-        $("#previewContent").addClass("hidden");
-        $("#customizeContent").removeClass("hidden");
-    }
-}
-
-function showPreviewContent() {
-    if ($("#customizeTab").hasClass("selected")) {
-        $("#customizeTab").removeClass("selected");
-        $("#customizeTab").addClass("item");
-        $("#previewTab").addClass("selected");
-        $("#previewTab").removeClass("item");
-        $("#customizeContent").addClass("hidden");
-        $("#previewContent").removeClass("hidden");
-
-        $("#previewTitle").html($("#survey_name").val());
-        $("#previewDescription").html($("#survey_description").val());
-
-        var questionHtml = "";
-        $("#questions > div").each(function(idx) {
-            var nameCol = $(this).find("input[type=text]")[0];
-            if (nameCol) {
-                questionHtml += "<div class='questionCell'><div class='question'>" + $(nameCol).attr('value') + "</div></div>";
-            }
-        });
-        $("#previewQuestions").html(questionHtml);
-    }
 }

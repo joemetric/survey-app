@@ -17,7 +17,7 @@ class Admin::SurveysController < ApplicationController
   end
     
   def publish
-    @survey.published!
+    @survey.publish!
     redirect_to conditional_redirect
   end
   

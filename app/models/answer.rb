@@ -70,7 +70,7 @@ class Answer < ActiveRecord::Base
   end
 
   def image_url
-    "http://#{HOST}#{image.url}".split('?').first
+    image.url
   end
 
   private

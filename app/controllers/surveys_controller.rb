@@ -9,6 +9,10 @@ class SurveysController < ResourceController::Base
     2.times { object.questions.build }
   end
 
+  edit.before do
+    @copying_survey = true
+  end
+  
   def create
     @survey = Survey.new(params[:survey])
     @survey.owner = current_user
@@ -21,7 +25,8 @@ class SurveysController < ResourceController::Base
   end
 
   def update
-    @survey = Survey.find(params[:survey][:id])
+    @survey = @current_user.created_surveys.find(params[:survey][:id])
+    @survey.deleted_questions = deleted_questions
     if @survey.update_attributes(params[:survey])
       ajax_redirect(surveys_path)
     else
@@ -40,8 +45,9 @@ class SurveysController < ResourceController::Base
   end
 
   def activate
-    @survey = params[:id].blank? ? Survey.new(params[:survey]) : Survey.find(params[:id])
+    @survey = params[:survey][:id].blank? ? Survey.new(params[:survey]) : @current_user.created_surveys.find(params[:survey][:id])
     @survey.owner = current_user if @survey.owner.blank?
+    @survey.deleted_questions = deleted_questions unless @survey.new_record?
     if @survey.valid?
       @survey.save
       @survey.pending!
@@ -73,12 +79,12 @@ class SurveysController < ResourceController::Base
   def copy
     @survey = @current_user.created_surveys.find(params[:id]) rescue nil
     unless @survey.nil?
-      @survey_json = @survey.to_json
       @questions = []
       @restrictions = []
       @copying_survey = true
       @survey.questions.each {|q| @questions << q.clone}
       @survey.restrictions.each {|r| @restrictions << r.clone}
+      ActiveRecord::Base.include_root_in_json = true      
     end
   end
 
@@ -125,7 +131,7 @@ class SurveysController < ResourceController::Base
   private
 
   def object
-    if ['show', 'edit', 'update'].include?(params[:action])
+    if ['show', 'edit'].include?(params[:action])
       object = @current_user.created_surveys.find(params[:id])
     else
       super
@@ -139,6 +145,19 @@ class SurveysController < ResourceController::Base
   def get_package
     @package = Package.find_by_code(params[:package] ?  params[:package] : 'default')
     @package = Package.default if @package.nil?
+  end
+
+  def question_ids
+    return [] if params[:survey][:questions_attributes].nil?
+    returning ids = [] do 
+      params[:survey][:questions_attributes].each {|question|
+        ids << question['id'].to_i if question.key? :id
+      }
+    end
+  end
+  
+  def deleted_questions
+    question_ids.empty? ? @survey.question_ids : @survey.question_ids - question_ids 
   end
 
 end
