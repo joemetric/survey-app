@@ -5,3 +5,4 @@ db/schema.rb
 tmp/*
 coverage/*
 public/system
+public/images/logos/
