@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :answers
   map.resources :surveys,
     :member => {:reward => :get, :progress_graph => :get},
-    :collection => { :apply_discount_code => :post, :sort => :get, :copy => :post, :pricing => :get, :activate => :any, :progress => :get, :reports => :get, :update_pricing => :any } do |survey|
+    :collection => { :apply_discount_code => :post, :sort => :get, :copy => :post, :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :any } do |survey|
     survey.resources :questions
     survey.resources :restrictions
     survey.resources :replies
@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end
-  map.resources :restrictions, :collection => { :choose_type => :any }
+  map.resources :restrictions, :collection => { :choose_type => :post }
   map.resource :user_session
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
@@ -26,14 +26,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:admin) do |admin|
     admin.resource  :admin_session
-    admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post },
-      :collection => { :pending => :get, :review => :get }
+    admin.resources :surveys, :member => { :publish => :put, :reject => :put, :overview => :post, :deny => :post, :refund => :post }, :collection => { :pending => :get, :review => :get }
     admin.resources :packages
     admin.resources  :clients, :collection => { :disable => :post, :warn => :post}
     admin.resources :users,
       :member => {:reset_password => :any, :change_type => :post},
       :collection => {:blacklist => :put}
     admin.resources :maintenances
+    admin.resources :charityorgs, :collection => { :create => :get, :updateOrganization => :put, :editOrganization => :put }
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",

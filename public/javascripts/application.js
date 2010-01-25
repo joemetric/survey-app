@@ -210,3 +210,170 @@ function showForm(){
 	//transition effect
 	$(id).fadeIn(2000);    
 }
+
+function showCustomizeContent() {
+    if ($("#previewTab").hasClass("selected")) {
+        $("#previewTab").removeClass("selected");
+        $("#previewTab").addClass("item");
+        $("#customizeTab").addClass("selected");
+        $("#customizeTab").removeClass("item");
+        $("#previewContent").addClass("hidden");
+        $("#customizeContent").removeClass("hidden");
+    }
+}
+
+function showPreviewContent() {
+    if ($("#customizeTab").hasClass("selected")) {
+        $("#customizeTab").removeClass("selected");
+        $("#customizeTab").addClass("item");
+        $("#previewTab").addClass("selected");
+        $("#previewTab").removeClass("item");
+        $("#customizeContent").addClass("hidden");
+        $("#previewContent").removeClass("hidden");
+
+        $("#previewTitle").html($("#survey_name").val());
+        $("#previewDescription").html($("#survey_description").val());
+
+        var questionHtml = "";
+        $("#questions > div").each(function(idx) {
+            var nameCol = $(this).find("input[type=text]")[0];
+            if (nameCol) {
+                questionHtml += "<div class='questionCell'><div class='question'>" + $(nameCol).attr('value') + "</div></div>";
+            }
+        });
+        $("#previewQuestions").html(questionHtml);
+    }
+}
+
+function activate_organization() {
+	document.getElementById("spanOrganizationErr").innerHTML = '';
+	if(document.getElementById('inactiveorg_ids').value == "") {
+		document.getElementById("spanOrganizationErr").innerHTML = "Please select at least one organization to move";
+		setTimeout("$('#wait').hide()", 100);
+	}
+	else {
+		document.getElementById("spanOrganizationErr").innerHTML = "";
+		var obj = document.getElementById('inactiveorg_ids');
+		var obj2 = document.getElementById('activeorg_ids');
+		var obj_cnt = 0;
+		var obj2_cnt = 0;
+		for (var i = 0; i < obj.options.length; i++) {
+			if (obj.options[i].selected) {
+				obj_cnt++;
+			}
+		}
+		for (var i = 0; i < obj2.options.length; i++) {
+			obj2_cnt++;
+		}
+	
+		if(obj2_cnt >= 5 || parseInt(obj_cnt+obj2_cnt) > 5) {
+			document.getElementById("spanOrganizationErr").innerHTML = "Limit your selection to five!";
+			setTimeout("$('#wait').hide()", 100);
+		}
+		else {
+			for (var i = 0; i < obj.options.length; i++) {
+				if (obj.options[i].selected) {
+					var opt = document.createElement("option");
+					opt.text = obj.options[i].text;
+					opt.value = obj.options[i].value;
+					var isExist = false;
+				
+					for (var j = 0; j < obj2.options.length; j++) {
+						if (obj2.options[j].text == opt.text) {
+							isExist = true;						
+							break;
+						}
+					}
+					if (!isExist) {
+						document.getElementById('activeorg_ids').options.add(opt);
+						document.getElementById('inactiveorg_ids').remove(i);
+					}
+				}
+			}
+			setTimeout("$('#wait').hide()", 100);
+		}
+	}	
+}
+
+function deactivate_organization() {
+	document.getElementById("spanOrganizationErr").innerHTML = '';
+	if(document.getElementById('activeorg_ids').value == "") {
+		document.getElementById("spanOrganizationErr").innerHTML = "Please select at least one active organization to move";
+		setTimeout("$('#wait').hide()", 100);
+	}
+	else {
+		document.getElementById("spanOrganizationErr").innerHTML = "";
+		var obj = document.getElementById('activeorg_ids');
+		var obj2 = document.getElementById('inactiveorg_ids');
+		for (var i = obj.options.length - 1; i >= 0 ; i--) {
+			if (obj.options[i].selected) {
+				var opt = document.createElement("option");
+				opt.text = obj.options[i].text;
+				opt.value = obj.options[i].value;
+				var isExist = false;
+			
+				for (var j = 0; j < obj2.options.length; j++) {
+					if (obj2.options[j].text == opt.text) {
+						isExist = true;						
+						break;
+					}
+				}
+				if (!isExist) {
+					document.getElementById('inactiveorg_ids').options.add(opt);
+					document.getElementById('activeorg_ids').remove(i);
+				}
+			}
+		}
+		setTimeout("$('#wait').hide()", 100);
+	}
+}
+
+function select_organizations() {
+	var obj = document.getElementById('activeorg_ids');
+	var obj2 = document.getElementById('inactiveorg_ids');
+	if(obj.options.length != 0) {
+		for (var i = 0; i < obj.options.length; i++) {
+			obj.options[i].selected = "true";
+		}
+		return true;
+	}
+	if(obj2.options.length != 0) {
+		for (var i = 0; i < obj2.options.length; i++) {
+			obj2.options[i].selected = "true";
+		}
+		return true;
+	}
+}
+
+function edit_organization() {
+	document.getElementById("spanOrganizationErr").innerHTML = "";
+	var obj = document.getElementById('activeorg_ids');
+	var obj2 = document.getElementById('inactiveorg_ids');
+	var obj_cnt = 0;
+	var obj2_cnt = 0;
+	for (var i = 0; i < obj.options.length; i++) {
+		if (obj.options[i].selected) {
+			obj_cnt++;
+		}
+	}
+	for (var i = 0; i < obj2.options.length; i++) {
+		if (obj2.options[i].selected) {
+			obj2_cnt++;
+		}
+	}
+	if(obj.value == "" && obj2.value == "") {
+		document.getElementById("spanOrganizationErr").innerHTML = "Please select an organization to edit";
+		setTimeout("$('#wait').hide()", 100);
+	}
+	else if(parseInt(obj_cnt+obj2_cnt) > 1) {
+		document.getElementById("spanOrganizationErr").innerHTML = "Please select only one organization to edit";
+		setTimeout("$('#wait').hide()", 100);
+	}
+	else {
+		var id = (obj.value != "")?obj.value:obj2.value;
+		$('form#charity_orgs').attr('action','/admin/charityorgs/editOrganization');
+		$('form#charity_orgs').append("<input type='hidden' name='id' value='" + id + "'>")
+		$('input[name=_method]').attr('value','post');
+		$('form#charity_orgs').submit();
+	}
+}

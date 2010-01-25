@@ -2,7 +2,7 @@
   .form
     %h3.heads Non-profit Organization Administration
     %hr
-      - form_remote_for :organization, :url => create_admin_charityorgs_path, :html => {:method => :post, :id => "create_charity_orgs_form"} do |form|
+      - form_for :organization, @organization, :url => create_admin_charityorgs_path, :html => {:method => :post, :id => "create_charity_orgs_form", :multipart => true} do |form|
         %table#table{ :cellpadding => 3 , :cellspacing => 0, :border => 0, :width => '100%' }
           %thead
             %tr
@@ -11,6 +11,8 @@
             %tr
               %th{ :width => '100%', :colspan => 2, :valign => 'top', :align => 'left' }
                 %span{:id => 'charityorgs_errors'}
+                  = error_messages_for :organization
+                
             %tr
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label Name:

@@ -5,4 +5,4 @@
     %li{:class => menu_selected?(["admin/surveys_index","admin/surveys_show"])}= link_to 'Survey Administration', admin_surveys_path
     %li{:class => current_tab_is?('Pricing Administration')}= link_to 'Pricing Administration', admin_packages_path
     %li{:class => menu_selected?(["admin/clients_index"])}= link_to "Client Administration", admin_clients_path
-      
+    %li{:class => menu_selected?(["admin/charityorgs_index", "admin/charityorgs_create", "admin/charityorgs_updateOrganization", "admin/charityorgs_editOrganization"])}= link_to "CharityOrgAdministration", admin_charityorgs_path      

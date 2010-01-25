@@ -1123,3 +1123,61 @@ a.buynow_btn {
   }
   .form_content{padding-bottom:1px;}
 }
+
+.iphonePreview {
+    background:url(/images/iphone/iphone_background.png) no-repeat;
+    width: 383px;
+    height: 585px;
+    padding: 200px 0 0 40px;
+    font-size: 14px;
+    color: white;
+}
+
+.iphonePreview #previewImage {
+    background:url(/images/iphone/green-btn.png) no-repeat;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    padding: 6px 0 6px 0; 
+}
+
+.iphonePreview #previewTitle {
+    font-size: 16px;
+    min-height: 26px;
+    margin-bottom: 4px;
+}
+
+.iphonePreview #previewDescription {
+    font-size: 14px;
+    min-height: 26px;
+    margin-bottom: 4px;
+}
+
+.iphonePreview #previewButton {
+    background:url(/images/iphone/arrow-blue-btn2.png) no-repeat;
+    height: 30px;
+    width: 107px;
+    text-align:center;
+    margin-bottom: 6px;
+    padding: 6px 0 6px 0;
+}
+
+.iphonePreview #previewQuestions {
+    width: 310px;
+}
+
+.iphonePreview .questionCell {
+    margin-bottom: 4px;
+    font-size: 16px;
+    border-bottom: 1px solid;
+}
+
+.iphonePreview .question {
+    padding-left: 80px;
+}
+
+a.next {width:34px;height:35px;background:url(/images/next.png) no-repeat;border:none;cursor:pointer;display:block;}
+a.next:hover {height:35px;width:34px;background:url(/images/next_h.png) no-repeat;border:none;display:block;}
+
+a.prev {width:34px;height:35px;background: url(/images/prev.png) no-repeat;border:none;cursor:pointer;display:block;}
+a.prev:hover {height:35px;width:34px;background:url(/images/prev_h.png) no-repeat;border:none;display:block;}
