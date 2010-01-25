@@ -31,6 +31,10 @@ body{
 	margin-top:10px;
 }
 
+.hidden {
+    display:none;
+}
+
 .cls{
 	clear:both;
 	height:1px;
@@ -361,11 +365,8 @@ hr{color:#000;}
 	border-bottom:solid 1px #000;
 }
 
-.menu li.item a{
-	height:14px;
-}
-.menu1 li.item a{
-	height:14px;
+.menu li:hover{
+	/*border:none;*/
 }
 
 .menu li.selected{
@@ -375,17 +376,11 @@ hr{color:#000;}
 	padding-right:15px;
 }
 
-.menu li.item a:hover{
+.menu li.item:hover{
 	background:url(../images/select.png) no-repeat;
 	background-position:0px center;
-	margin-left:-3px;
+	margin-left:0px;
 	padding-right:15px;
-	margin-bottom:-2px;
-	margin-top:-3px;
-	height:17px;
-	width:120px;
-	padding-top:2px;
-	
 }
 
 .menu1{
@@ -395,9 +390,10 @@ hr{color:#000;}
 
 .menu1{
 	margin-top:75px;
-	background:url(../images/side_bar.png) repeat-x;
+	background:#0C273C url(../images/side_bar.png) repeat-x scroll 0 100%;
 	text-align:right;
 	font-size:11px;
+
 }
 
 .menu1 a{
@@ -406,14 +402,18 @@ hr{color:#000;}
 	text-decoration:none;
 	margin-right:8px;
 	display:block;
-	width:145px;
+	width:163px;
 }
 
 .menu1 li{
 	list-style:none;
-	padding:3px 10px 3px 20px;
+	padding:3px 20px 3px 0;
 	border-bottom:solid 1px #000;
 	
+}
+
+.menu1 li:hover{
+	/*border:none;*/
 }
 
 .menu1 li.selected{
@@ -423,16 +423,11 @@ hr{color:#000;}
 	padding-right:15px;
 }
 
-.menu1 li.item a:hover{
+.menu1 li.item:hover{
 	background:url(../images/select1.png) no-repeat;
 	background-position:0px center;
-	margin-left:-20px;
-	padding-right:30px;
-	margin-bottom:-2px;
-	margin-top:-3px;
-	height:18px;
-	padding:1px 10px 0px 20px;
-	width:145px;
+	margin-left:0px;
+	padding-right:15px;
 }
 .quick_select{
 	font-size:10px;
@@ -457,7 +452,8 @@ hr{color:#000;}
 
 p.cntrls label
 {
-	float:left;	
+	float:left;
+	
 }
 
 p.cntrls .select{
@@ -479,6 +475,7 @@ p.opt{
 	float:left;
 	width:50px;
 	margin-left:10px;
+
 }
 
 p.net input[type="text"]{
@@ -488,13 +485,13 @@ p.net input[type="text"]{
 }
 
 p.net label{
-	float:right;
+		float:right;
 }
 
 h4 span{
 	float:right;
 	font-size:10px;
-	margin-top:6px;
+	margin-top:0px;
 }
 
 .corr input[type="text"]{
@@ -508,9 +505,9 @@ h4 span{
 
 .small_r{
 	float:right;
-	width:50px !important;
+	/*width:50px !important;
 	margin-top:-26px !important;
-	text-align:center;
+	text-align:center;*/
 }
 
 .survey_details{
@@ -609,7 +606,7 @@ margin-left:-4px;
 }
 
 .graph_code{
-    float:right;	
+float:right;	
 }
 
 .survey li a{
@@ -631,7 +628,6 @@ margin-left:-4px;
     background:none !important;
     padding-left:0px;
 	padding-top:3px;
-	padding-bottom:9px;
 }
 
 
@@ -900,6 +896,14 @@ p.net1 input[type="text"]{
 	float:left;
 	}
 
+.but_co{
+    background:#539AC8;
+    padding:2px 25px;
+	color:#fff;
+	font-weight:bold;
+	border:medium none;
+	}
+	
 .but_da{
     background:#0c273c;
 	color:#fff;
