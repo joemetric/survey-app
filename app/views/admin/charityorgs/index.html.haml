@@ -1,32 +1,42 @@
 .m_content
   .form
-    - form_tag(admin_charityorgs_path, :id => 'charity_orgs', :method => :put) do
+    - form_for :updateOrganization, @updateOrganization, :url => updateOrganization_admin_charityorgs_path, :html => {:method => :post, :id => "charity_orgs"} do |form|
       %h3.heads Non-profit Organization Administration
-      %table#table{ :cellpadding => 7 , :cellspacing => 4, :border => 0, :width => '100%' }
+      %table#table{ :cellpadding => 7 , :cellspacing => 4, :border => 0, :width => '610' }
         %thead
           %tr
-            %th{ :width => '50%', :colspan => 2, :valign => 'top' }
-              %h3 List of Non-Profit Organizations Available
-            
-            %th{ :width => '50%', :valign => 'top' }
-              %h3 Active Organizations (Limited to 5)
+            %th{ :width => '100%', :colspan => 3, :valign => 'top', :align => 'center' }
+              %span#spanOrganizationErr
+                = render_notice
+
           %tr
-            - if @inActiveNonProfitOrgs.length == 0
-              %th{ :width => '50%', :colspan => 2, :valign => 'top' }
-                There are no organizations added at this moment
-                
-              %th{ :width => '50%', :valign => 'top' }
-                There are no active organizations 
-                
-            - else
-              %th{ :width => '50%', :colspan => 2, :valign => 'top' }
-                There are organizations available and we are listing them sortly
+            %th{ :width => '280', :valign => 'top' }
+              %h3 List of Inactive Non-Profit Organizations
             
-              %th{ :width => '50%', :valign => 'top' }
-                There are organizations available and we are listing them sortly
+            %th{ :width => '50', :valign => 'top' }
+            
+            %th{ :width => '280', :valign => 'top' }
+              %h3 Active Non-Profit Organizations (Limited to 5)
+              
+          %tr
+            %th{ :width => '280', :valign => 'top', :align => 'center' }
+              = select_tag :inactiveorg_ids, options_for_select(@inActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:inactiveorg_ids]), :multiple => true, :size => 6, :style => "width:200px;"
+            
+            %th{ :width => '50', :valign => 'middle', :align => 'center' }
+              = link_to_function "", "activate_organization()", :class => 'next', :alt => 'Select', :title => 'Select'
+              %br
+              = link_to_function "", "deactivate_organization()", :class => 'prev', :alt => 'Remove', :title => 'Remove'
+            
+            %th{ :width => '280', :valign => 'top', :align => 'center' }
+              = select_tag :activeorg_ids, options_for_select(@ActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:activeorg_ids]), :multiple => true, :size => 6, :style => "width:200px;"
+                          
+          %tr
+            %th{ :width => '100%', :colspan => 3, :valign => 'top', :align => 'center' }
+              = form.submit 'Update', :class => 'but_co', :id => 'update_organization', :onClick => "select_organizations()"
+              
           %tr
             %th{ :width => '100%', :align => 'center', :colspan => 3 }
               = link_to "Create a New Organization", create_admin_charityorgs_path, :class => "button button_la"
-              - if @inActiveNonProfitOrgs.length > 0
-                = link_to_remote "Edit Organization", :url => admin_charityorgs_path, :method => :get, :html => { :class => "button button_la" }
+              - if @nonProfitOrgs.length > 0 
+                = link_to_function "Edit Organization", "edit_organization()", :class => "button button_la"  
                 
