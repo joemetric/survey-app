@@ -1,0 +1,12 @@
+.survey_by
+  %b Black Listing:
+  - form_tag(blacklist_admin_users_path, :id => 'blacklist_user', :method => :put) do
+    %p{:style => 'width: 460px;', :class => 'net1 btns'}
+      %label Blacklist user by Email:
+      = text_field_tag :email, '', :class => 'ltext', :onkeypress => "handleKeyPress(event, 'email')"
+      = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('email')", :class => "neg"
+    %p.net1
+/    %p{:style => 'width: 460px;', :class => 'net1 btns'}
+/      %label Blacklist device by MAC Address:
+/      = text_field_tag :mac_address, '', :class => 'ltext2'
+/      = link_to_function "Goodbye", "if (confirm('This action will blacklist the user.')) blacklist_user('mac_address')", :class => "neg"       

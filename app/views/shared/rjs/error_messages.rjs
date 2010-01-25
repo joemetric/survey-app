@@ -1,0 +1,2 @@
+page.replace_html target_div, error_messages_for(item)
+page << "$('##{target_div}').scrollTo(500);"
