@@ -4,7 +4,7 @@ def load_survey
   @survey = Factory(:survey)
 end
 
-Given /I am logged in as (.*) and I am on Create Survey Page/i do |login|
+Given /I am on Create Survey Page/i do
    visit '/surveys/new'
 end 
 

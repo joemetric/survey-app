@@ -1,5 +1,7 @@
+Background I am logged in as Admin
+
 Scenario: Create a Package and Save it
-	Given I am logged in as Admin user and I am on Pricing Administration Page
+	Given I am on Pricing Administration Page
 	And Pricing Administration Page should have link as Create New Package
 	
 	When I click on Create New Package

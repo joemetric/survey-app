@@ -1,6 +1,6 @@
 # rake features FEATURE=features/packages.feature
  
-Given /I am logged in as (.*) user and I am on Pricing Administration Page/i do |login|
+Given /I am on Pricing Administration Page/i do |login|
    visit '/admin/packages'
 end 
 
