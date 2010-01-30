@@ -6,4 +6,5 @@ tmp/*
 coverage/*
 public/system
 diff.txt
-public/images/logos/
+public/images/logos/*
+public/images/tmp_org_files/*

@@ -126,7 +126,24 @@
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label Logo:
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
-                = form.file_field :logo
+                %span{ :style => "float:left;margin:0 5px 0 0;"}
+                  = image_tag(@organization.logo.url(:small), :border => 0)
+                %span#changeLogo{ :style => "float:left;margin:0 5px;"}
+                  %br
+                  %br
+                  %br
+                  = link_to_function "Change", "showUploadLogo()", :style => "color: #0000FF;"
+                %span#cancelLogo{ :style => "display:none;float:left;margin:0 5px;"}
+                  %br
+                  %br
+                  %br    
+                  = link_to_function "Cancel", "cancelUploadLogo()", :style => "color: #0000FF;"
+                %br
+                %br
+                %br
+                %br  
+                %span#uploadLogo{ :style => "display:none;margin:0 5px 0 0;"}
+                  = form.file_field :logo
             
             %tr
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
@@ -141,4 +158,4 @@
                   = submit_tag 'Update Organization', :class => 'but_co', :id => 'update_organization'
                 %span
                   or  
-                  = link_to 'Cancel', admin_charityorgs_path, :confirm => 'Are You sure ?', :style => "color: rgb(0, 0, 255);"
+                  = link_to 'Cancel', admin_charityorgs_path, :confirm => 'Are You sure ?', :style => "color: #0000FF;"

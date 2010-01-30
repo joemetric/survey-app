@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
       :member => {:reset_password => :any, :change_type => :post},
       :collection => {:blacklist => :put}
     admin.resources :maintenances
-    admin.resources :charityorgs, :collection => { :create => :get, :updateOrganization => :put, :editOrganization => :put }
+    admin.resources :charityorgs, :collection => { :create => :get, :updateOrganization => :put, :editOrganization => :put, :attachFiles => :get }
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
