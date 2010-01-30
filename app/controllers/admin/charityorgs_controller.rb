@@ -99,6 +99,7 @@ class Admin::CharityorgsController < ApplicationController
         render :action=> "attach_files"  
       end
     else
+      @files = ""
       flash[:notice] = ""
       render :template => 'admin/charityorgs/attach_files'      
     end
