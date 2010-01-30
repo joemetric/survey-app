@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20100128134656
+#
+# Table name: disabilities
+#
+#  id                     :integer(4)      not null, primary key
+#  current_iphone_version :string(255)
+#  older_iphone_version   :string(255)
+#  warning                :text
+#  active                 :boolean(1)      default(TRUE)
+#  added_by               :integer(4)
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+
 class Disability < ActiveRecord::Base
   
   validates_presence_of :warning, :older_iphone_version, :current_iphone_version

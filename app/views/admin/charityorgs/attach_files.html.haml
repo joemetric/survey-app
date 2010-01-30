@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %title Login
+    = stylesheet_link_tag "joemetric"
+    /[if IE7]
+      = stylesheet_link_tag "ie7"
+  %body{:style => "background:#ffffff;"}
+    .content{:style => "margin:0px;padding:0px;"}
+      .form{:style => "margin:0px;padding:0px;width:350px;background:#ffffff;"}
+        - form_for :fileAttachments, @files, :url => attachFiles_admin_charityorgs_path, :html => {:method => :post, :id => "attachfile_charity_orgs_form", :multipart => true} do |form|
+          %span{:id => 'charityorgs_errors'}
+            = error_messages_for :fileAttachments
+            = render_notice
+          = form.file_field :org_file
+          = form.hidden_field :session_id, :value => session.session_id
+          = form.hidden_field :org_files, :value => ''
+          = submit_tag 'Attach', :class => 'but_co', :id => 'save_organization_file', :style => "padding:2px;"
+          - if @files.length > 0
+            - @files.each do |f|
+              %span{:style => "float:left; width:90%; text-align:left; padding:10px;"}
+                = file_name(f)
+                = link_to "X", attachFiles_admin_charityorgs_path, :class => "button button_la"
