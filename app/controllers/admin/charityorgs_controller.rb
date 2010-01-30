@@ -4,6 +4,7 @@ class Admin::CharityorgsController < ApplicationController
   before_filter :require_admin
   
   def index
+    flash[:notice] = ""
     @nonProfitOrgs = NonprofitOrg.find(:all) 
     @inActiveNonProfitOrgs = NonprofitOrg.find(:all, :conditions => ['active = ?', false])
     @ActiveNonProfitOrgs = NonprofitOrg.find(:all, :conditions => ['active = ?', true])
