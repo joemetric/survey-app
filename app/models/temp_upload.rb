@@ -25,7 +25,7 @@ class TempUpload < ActiveRecord::Base
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
       :path           => lambda { |attachment| ":session_id/:basename.:extension" },
-      :bucket         => 'JoeSurvey-NonProfitOrganization-TempFiles'
+      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration'
   else
     has_attached_file :org_file,
       :url  => "/images/tmp_org_files/:session_id/:basename.:extension",

@@ -53,7 +53,7 @@ class NonprofitOrg < ActiveRecord::Base
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
       :path           => lambda { |attachment| ":attachment/:id_:style.:extension" },
-      :bucket         => 'JoeSurvey-NonProfitOrganization-Logos'
+      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration'
     validates_attachment_presence :logo
     validates_attachment_size :logo, :less_than => 5.megabytes
     validates_attachment_content_type :logo, :content_type => ['image/gif', 'image/png', 'image/x-png', 'image/jpeg', 'image/pjpeg', 'image/jpg']

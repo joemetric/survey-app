@@ -22,7 +22,7 @@ class Answer < ActiveRecord::Base
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
       :path           => lambda { |attachment| ":attachment/:id/:style/:filename" },
-      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles'
+      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration'
   else
     has_attached_file :image
   end
