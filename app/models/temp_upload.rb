@@ -20,12 +20,11 @@ class TempUpload < ActiveRecord::Base
     attachment.instance.session_id
   end
   
-  if ENV["RAILS_ENV"] == "production"
+  if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
     has_attached_file :org_file,
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-      :path           => lambda { |attachment| ":session_id/:basename.:extension" },
-      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration'
+      :path           => lambda { |attachment| ":session_id/:basename.:extension" }
   else
     has_attached_file :org_file,
       :url  => "/images/tmp_org_files/:session_id/:basename.:extension",
