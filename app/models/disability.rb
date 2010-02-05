@@ -32,7 +32,7 @@ class Disability < ActiveRecord::Base
   end
   
   def deactivate_old_disabilities
-    self.class.update_all( "active = 0", "id != #{id}" )  
+    self.class.update_all( "active = false", "id != #{id}" )  
   end
   
   def self.older_iphone_version
