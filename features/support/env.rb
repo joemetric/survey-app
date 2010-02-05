@@ -3,6 +3,8 @@
 # newer version of cucumber-rails. Consider adding your own code to a new file 
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
+require 'factory_girl'
+Dir.glob(File.join(File.dirname(__FILE__), '../../spec/factories/*.rb')).each {|f| require f }  
 
 ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
@@ -51,4 +53,3 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 # http://github.com/bmabey/database_cleaner for more info.
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
-

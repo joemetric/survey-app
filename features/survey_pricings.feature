@@ -5,8 +5,8 @@ Scenario: I have created a survey with Plan A - Everything Included
 	Then total price for survey Nokia Phones will be $340
 
 Scenario: I have created a survey with Plan A - Extra Questions
-	When I create a Survey named LCD Telivisions which includes 20 responses for 5 Standard Questions, 3 Premium Questions, 2 Demographic Questions with Plan A 
-	Then total price for survey LCD Telivisions will be $370
+	When I create a Survey named LCD Televisions which includes 20 responses for 5 Standard Questions, 3 Premium Questions, 2 Demographic Questions with Plan A 
+	Then total price for survey LCD Televisions will be $370
 
 Scenario: I have a created a survey with Plan A - Extra Questions and Responses
 	When I create a Survey named Comparison of Android Phones and Iphones which includes 30 responses for 5 Standard Questions, 0 Premium Questions, 0 Demographic Questions with Plan A

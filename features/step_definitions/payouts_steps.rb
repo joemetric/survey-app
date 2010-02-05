@@ -1,13 +1,17 @@
 # rake features FEATURE=features/payouts.feature
 
 When /(.*) answered all the questions of Survey named (.*)/i do |login, survey|
-  User.exists?(:login => login).should equal true
-  Survey.exists?(:name => survey).should equal true
+  @user = Factory(:user, :login => login)
+  @survey = Factory(:survey, :name => name)
+  User.exists?(:login => login).should be true
+  Survey.exists?(:name => survey).should be true
 end
 
 When /(.*) did not answer all the questions of Survey named (.*)/i do |login, survey|
-  User.exists?(:login => login).should equal true
-  Survey.exists?(:name => survey).should equal true
+  @user = Factory(:user, :login => login)
+  @survey = Factory(:survey, :name => name)
+  User.exists?(:login => login).should be true
+  Survey.exists?(:name => survey).should be true
 end
 
 Then /reward of \$(.*) should be given to (.*) for completing (.*) survey/i do |amount, login, survey|

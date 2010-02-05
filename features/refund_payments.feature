@@ -6,6 +6,6 @@ Scenario: Calculating amount to be refunded for Comparison of Android Phones and
 	When survey named Comparison of Android Phones and Iphones will expire who has received 20 responses
 	Then refund amount should be $55.0 for Comparison of Android Phones and Iphones survey
 	
-Scenario: Calculating amount to be refunded for LCD Telivisions survey after survey expiration
-	When survey named LCD Telivisions will expire who has received 15 responses
-	Then refund amount should be $80.0 for LCD Telivisions survey
+Scenario: Calculating amount to be refunded for LCD Televisions survey after survey expiration
+	When survey named LCD Televisions will expire who has received 15 responses
+	Then refund amount should be $80.0 for LCD Televisions survey
