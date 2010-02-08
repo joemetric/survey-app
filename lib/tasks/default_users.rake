@@ -11,6 +11,16 @@ namespace :survey do
           puts "Error occured. Please check."
         end
       end
+      # User
+       if User.all.blank?
+          puts "Adding default administrative user"
+          @user = User.new({ :email => "test@joemetric.com", :name => "Test", :login => "Test", :password => "test", :password_confirmation => "test" })
+          if @user.save
+            puts "User added. Login: test"
+          else
+            puts "Error occured. Please check."
+          end
+        end
     end
   end
 end
