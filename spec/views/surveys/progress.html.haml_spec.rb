@@ -27,7 +27,7 @@ describe "/surveys/progress" do
   it "should display survey progress graph in span" do
     assigns[:survey] = assigns[:current_user].created_surveys.first
     render "/surveys/progress"
-    response.should have_tag("span#graph_3") 
+    response.should have_tag("span#graph_#{assigns[:survey].id}") 
   end 
   
   it "should display suvey questions in tabular format" do
