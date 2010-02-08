@@ -25,7 +25,7 @@ describe "/surveys/progress" do
   end
   
   it "should display survey progress graph in span" do
-    assigns[:survey] = assigns[:current_user].created_surveys.last
+    assigns[:survey] = assigns[:current_user].created_surveys.first
     render "/surveys/progress"
     response.should have_tag("span#graph_#{assigns[:survey].id}") 
     debugger; 0
