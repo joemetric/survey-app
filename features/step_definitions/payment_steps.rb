@@ -18,7 +18,6 @@ end
 
 Then /^I am shown Paypal Website page to make the payment$/ do
   visit authorize_payment_url(@survey)
-  debugger; 0
 end
 
 When /^I make payment on Paypal$/ do
@@ -41,5 +40,5 @@ Then /^survey payment status should be (.*)$/i do |payment_status|
 end
 
 def survey_payment_status(payment_status)
-  @survey.payment_status.should == payment_status
+  @survey.payment.status.should == payment_status
 end
