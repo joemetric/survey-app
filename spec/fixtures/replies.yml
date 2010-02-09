@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20091127040223
+# Schema version: 20100128134656
 #
 # Table name: replies
 #
-#  id         :integer(4)      not null, primary key
-#  survey_id  :integer(4)
-#  user_id    :integer(4)
-#  created_at :datetime
-#  updated_at :datetime
-#  status     :string(255)     default("incomplete")
+#  id           :integer(4)      not null, primary key
+#  survey_id    :integer(4)
+#  user_id      :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  status       :string(255)     default("incomplete")
+#  completed_at :datetime
 #
 
 reply1_for_survey_planA_1: # Reply by james for Nokia Phones Survey

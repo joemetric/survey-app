@@ -18,7 +18,7 @@ class PaymentsController < ApplicationController
       :return_url => capture_payment_url(@survey), 
       :cancel_return_url => cancel_payment_url(@survey), 
       :description => "Payment for Survey - #{@survey.name} (http://joemetric.com)"
-    ) 
+    )   
     if response.success? 
       @survey.payment.authorized!
       redirect_to @gateway.redirect_url_for(response.params["token"])
@@ -60,10 +60,10 @@ private
   
   def initialize_gateway
     @survey = Survey.find(params[:id])
-    if RAILS_ENV == 'development'
-      flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
-      redirect_to survey_url(@survey) and return
-    end
+    #if RAILS_ENV == 'development'
+     # flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
+      #redirect_to survey_url(@survey) and return
+    #end
     @gateway = GATEWAY
   end
   

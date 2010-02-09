@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091127040223
+# Schema version: 20100128134656
 #
 # Table name: surveys
 #
@@ -12,11 +12,13 @@
 #  end_at            :date
 #  responses         :integer(4)
 #  published_at      :datetime
-#  publish_status    :string(255)
+#  publish_status    :string(255)     default("pending")
 #  reject_reason     :string(255)
 #  package_id        :integer(4)
 #  chargeable_amount :float
 #  description       :text
+#  finished_at       :datetime
+#  reward_amount     :float
 #
 
 one:

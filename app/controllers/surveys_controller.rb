@@ -51,9 +51,9 @@ class SurveysController < ResourceController::Base
     if @survey.valid?
       @survey.save
       @survey.pending!
-      if RAILS_ENV == 'development'
-        ajax_redirect(progress_surveys_path)
-      else
+      #if RAILS_ENV == 'development'
+       # ajax_redirect(progress_surveys_path)
+      #else
         if @survey.no_payment_required?
           @survey.payment_without_paypal
           session[:survey_id] = @survey.id
@@ -61,7 +61,7 @@ class SurveysController < ResourceController::Base
         else
           ajax_redirect(authorize_payment_path(@survey))
         end
-      end
+      #end
     else
       show_error_messages(:survey)
     end

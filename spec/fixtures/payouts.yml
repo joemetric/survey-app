@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091127040223
+# Schema version: 20100128134656
 #
 # Table name: payouts
 #

@@ -1,30 +1,34 @@
 # == Schema Information
-# Schema version: 20100111122245
+# Schema version: 20100128134656
 #
 # Table name: nonprofit_orgs
 #
-#  id            :integer(4)      not null, primary key
-#  name          :string(255)
-#  address1      :string(255)
-#  city1         :string(100)
-#  state1        :string(100)
-#  zipcode1      :string(100)
-#  address2      :string(255)
-#  city2         :string(100)
-#  state2        :string(100)
-#  zipcode2      :string(100)
-#  phone         :string(100)
-#  email         :string(100)
-#  tax_status    :string(100)
-#  tax_id        :integer(4)
-#  contact_name  :string(255)
-#  contact_phone :string(100)
-#  website       :string(255)
-#  description   :text
-#  notes         :text
-#  active        :boolean(1)
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id                :integer(4)      not null, primary key
+#  name              :string(255)
+#  address1          :string(255)
+#  city1             :string(100)
+#  state1            :string(100)
+#  zipcode1          :string(100)
+#  address2          :string(255)
+#  city2             :string(100)
+#  state2            :string(100)
+#  zipcode2          :string(100)
+#  phone             :string(100)
+#  email             :string(100)
+#  tax_status        :string(100)
+#  tax_id            :integer(4)
+#  contact_name      :string(255)
+#  contact_phone     :string(100)
+#  website           :string(255)
+#  description       :text
+#  notes             :text
+#  active            :boolean(1)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  logo_file_name    :string(255)
+#  logo_content_type :string(255)
+#  logo_file_size    :integer(4)
+#  logo_updated_at   :datetime
 #
 
 class NonprofitOrg < ActiveRecord::Base
@@ -45,11 +49,14 @@ class NonprofitOrg < ActiveRecord::Base
   
   if ENV["RAILS_ENV"] == "production"
     has_attached_file :logo,
-      :styles => { :small => "55x55>" },
+      :styles => { :original => '250x250>', :small => "55x55#" },
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-      :path           => lambda { |attachment| ":attachment/:id/:style/:filename" },
-      :bucket         => 'JoeSurvey-NonProfitOrganization-Logos'
+      :path           => lambda { |attachment| ":attachment/:id_:style.:extension" },
+      :bucket         => 'JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration'
+    validates_attachment_presence :logo
+    validates_attachment_size :logo, :less_than => 5.megabytes
+    validates_attachment_content_type :logo, :content_type => ['image/gif', 'image/png', 'image/x-png', 'image/jpeg', 'image/pjpeg', 'image/jpg']
   else
     has_attached_file :logo, 
                       :styles => { :original => '250x250>', :small => "55x55#" },

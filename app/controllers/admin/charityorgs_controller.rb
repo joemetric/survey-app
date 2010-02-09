@@ -1,9 +1,10 @@
 class Admin::CharityorgsController < ApplicationController
   
-  layout 'admin'
+  layout 'admin', :except => 'attachFiles'
   before_filter :require_admin
   
   def index
+    flash[:notice] = ""
     @nonProfitOrgs = NonprofitOrg.find(:all) 
     @inActiveNonProfitOrgs = NonprofitOrg.find(:all, :conditions => ['active = ?', false])
     @ActiveNonProfitOrgs = NonprofitOrg.find(:all, :conditions => ['active = ?', true])
@@ -38,8 +39,7 @@ class Admin::CharityorgsController < ApplicationController
         flash[:notice] = "No organization is selected for editing"
         redirect_to admin_charityorgs_url
       end
-    end
-    
+    end    
   end
   
   def updateOrganization
@@ -75,6 +75,33 @@ class Admin::CharityorgsController < ApplicationController
         @ActiveNonProfitOrgs = NonprofitOrg.find(:all, :conditions => ['active = ?', true])
         render :action=> "index"
       end
+    end
+  end
+  
+  def attachFiles
+    if params[:commit] != nil
+      @fileAttachments = TempUpload.new(params[:fileAttachments])
+      if @fileAttachments.save
+        if ENV["RAILS_ENV"] == "production"
+          @files = Dir.glob("path-of-directory/*.*")
+        else
+          @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
+        end
+        flash[:notice] = "File Uploaded Successfully!"
+        render :action=> "attach_files"
+      else
+        if ENV["RAILS_ENV"] == "production"
+          @files = Dir.glob("path-of-directory/*.*")
+        else
+          @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
+        end
+        flash[:notice] = ""
+        render :action=> "attach_files"  
+      end
+    else
+      @files = ""
+      flash[:notice] = ""
+      render :template => 'admin/charityorgs/attach_files'      
     end
   end
   

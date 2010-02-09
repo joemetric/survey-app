@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091127040223
+# Schema version: 20100128134656
 #
 # Table name: users
 #
@@ -16,10 +16,16 @@
 #  persistence_token :string(255)
 #  perishable_token  :string(255)
 #  active            :boolean(1)
-#  type              :string(255)     default("User")
+#  type              :string(255)     default("Consumer")
 #  income_id         :integer(4)
 #  zip_code          :string(255)
-#  blacklisted       :boolean(1)
+#  race_id           :integer(4)
+#  education_id      :integer(4)
+#  occupation_id     :integer(4)
+#  martial_status_id :integer(4)
+#  sort_id           :integer(4)      default(1), not null
+#  device_id         :string(255)
+#  last_warned_at    :datetime
 #
 
 quentin:

@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20100128134656
+#
+# Table name: disabilities
+#
+#  id                     :integer(4)      not null, primary key
+#  current_iphone_version :string(255)
+#  older_iphone_version   :string(255)
+#  warning                :text
+#  active                 :boolean(1)      default(TRUE)
+#  added_by               :integer(4)
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # spec spec/models/disability_spec.rb

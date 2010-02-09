@@ -131,8 +131,8 @@
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label Attach File(s):
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
-                = form.file_field :org_files
-                = link_to "Attach", create_admin_charityorgs_path, :class => "button button_la"
+                %iframe{:id => 'attach_files', :name => 'attach_files', :src => attachFiles_admin_charityorgs_path, :frameborder => 0, :style => 'width:350px;height:28px;', :scrolling => 'off'}
+                  You don't support iframes. No preview for you.
               
             %tr
               %th{ :width => '100%', :align => 'center', :colspan => 2 }

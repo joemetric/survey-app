@@ -335,14 +335,13 @@ function select_organizations() {
 		for (var i = 0; i < obj.options.length; i++) {
 			obj.options[i].selected = "true";
 		}
-		return true;
 	}
 	if(obj2.options.length != 0) {
 		for (var i = 0; i < obj2.options.length; i++) {
 			obj2.options[i].selected = "true";
 		}
-		return true;
 	}
+	return true;
 }
 
 function edit_organization() {
@@ -376,4 +375,18 @@ function edit_organization() {
 		$('input[name=_method]').attr('value','post');
 		$('form#charity_orgs').submit();
 	}
+}
+
+function showUploadLogo() {
+	document.getElementById("changeLogo").style.display = "none";
+	document.getElementById("cancelLogo").style.display = "block";
+	document.getElementById("uploadLogo").style.display = "block";
+	setTimeout("$('#wait').hide()", 100);
+}
+
+function cancelUploadLogo() {
+	document.getElementById("cancelLogo").style.display = "none";
+	document.getElementById("changeLogo").style.display = "block";
+	document.getElementById("uploadLogo").style.display = "none";
+	setTimeout("$('#wait').hide()", 100);
 }
