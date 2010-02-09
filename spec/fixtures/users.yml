@@ -39,7 +39,7 @@ admin:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      Admin
-  active:                    1
+  active:                    true
   birthdate:                 1990-02-05
   gender:                    Male
   education_id:              1
@@ -55,7 +55,7 @@ quentin:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 5.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1995-02-05
   gender:                    Male
   education_id:              6
@@ -71,7 +71,7 @@ james:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-  active:                    1
+  active:                    true
   birthdate:                 1980-02-05
   gender:                    Male
   education_id:              6
@@ -87,7 +87,7 @@ mark:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1995-02-05
   gender:                    Male
   education_id:              9
@@ -103,7 +103,7 @@ adam:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1998-02-05
   gender:                    Male
   education_id:              9
@@ -119,7 +119,7 @@ brain:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1993-02-05
   gender:                    Male
   education_id:              6
@@ -135,7 +135,7 @@ brett:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-  active:                    1
+  active:                    true
   birthdate:                 1991-02-05
   gender:                    Female
   education_id:              4
@@ -151,7 +151,7 @@ louis:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1993-02-05
   gender:                    Female
   education_id:              5
@@ -167,7 +167,7 @@ iphone_user_1:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User
-  active:                    1
+  active:                    true
   birthdate:                 1991-02-05
   gender:                    Female
 
@@ -182,7 +182,7 @@ iphone_user_2:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-  active:                    1
+  active:                    true
   birthdate:                 1991-02-05
   gender:                    Female
  
@@ -197,7 +197,7 @@ iphone_user_3:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      User 
-  active:                    1
+  active:                    true
   birthdate:                 1999-02-05
   gender:                    Female
   
@@ -212,7 +212,7 @@ reviewer_1:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      Reviewer     
-  active:                    1
+  active:                    true
   birthdate:                 1986-02-05
   gender:                    Female
 
@@ -228,6 +228,6 @@ blacklisted_1:
   perishable_token:          RMaBkf21vWgurbh46z0V
   created_at:                <%= 4.days.ago.to_s :db  %>
   type:                      Reviewer     
-  active:                    1
+  active:                    true
   birthdate:                 1986-02-05
   gender:                    Female

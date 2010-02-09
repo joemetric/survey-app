@@ -24,7 +24,7 @@ class Warning < ActiveRecord::Base
   end
 
   def deactivate_old_warnings
-    self.class.update_all( "active = 0", "id != #{id}" )
+    self.class.update_all( "active = false", "id != #{id}" )
   end
 
   def self.warn_preference(user)
