@@ -45,6 +45,7 @@
           %tr
             %td= i + 1
             %td= q.name
+
             %td= q.question_type.name
     
     = link_to "Download Survey Analysis Data in CSV", csv_report_url(@survey), :class => 'black_link'
