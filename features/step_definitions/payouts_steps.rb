@@ -2,16 +2,12 @@
 
 When /(.*) answered all the questions of Survey named (.*)/i do |login, survey|
   @user = Factory(:user, :login => login)
-  @survey = Factory(:survey, :name => name)
-  User.exists?(:login => login).should be true
-  Survey.exists?(:name => survey).should be true
+  @survey = Factory(:finished_survey, :name => survey)
 end
 
 When /(.*) did not answer all the questions of Survey named (.*)/i do |login, survey|
   @user = Factory(:user, :login => login)
-  @survey = Factory(:survey, :name => name)
-  User.exists?(:login => login).should be true
-  Survey.exists?(:name => survey).should be true
+  @survey = Factory(:finished_survey, :name => survey)
 end
 
 Then /reward of \$(.*) should be given to (.*) for completing (.*) survey/i do |amount, login, survey|
