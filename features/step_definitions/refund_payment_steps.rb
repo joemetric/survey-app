@@ -2,6 +2,9 @@
 
 When /^survey named (.*) will expire when it has received (.*) responses/ do |name, responses|
   @survey = Factory(:survey, :name => name, :responses => responses)
+  @user = Factory(:user)
+  @reply = @user.replies.create(:survey_id => @survey)
+  @survey.reached_max_respondents.should == true
 end
 
 Then /refund amount should be \$(.*) for (.*) survey/i do |amount, name|

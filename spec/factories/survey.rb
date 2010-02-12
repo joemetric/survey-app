@@ -5,5 +5,5 @@ Factory.define :survey do |s|
   s.payment_status 'incomplete'
   s.package_id 1
   s.association :payment, :factory => :payment
-  s.questions {|questions| [questions.association(:question)]}
+  #s.question {|question| question.association(:question, :name => "Question Name")}
 end

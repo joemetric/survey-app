@@ -12,9 +12,10 @@ namespace :survey do
         end
       end
       # User
-       if User.all.blank?
-          puts "Adding default administrative user"
-          @user = User.new({ :email => "test@joemetric.com", :name => "Test", :login => "Test", :password => "test", :password_confirmation => "test" })
+       if !User.all.blank?
+          puts "Adding default user"
+          @user = User.new({ :email => "test@joemetric.com", :name => "Test", :login => "test", :password => "test", :password_confirmation => "test" })
+          @user.active = true
           if @user.save
             puts "User added. Login: test"
           else
