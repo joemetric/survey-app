@@ -1,6 +1,6 @@
 class ImageZip
-  require 'zip/zip'
-  require 'zip/zipfilesystem'
+  #require 'zip/zip'
+  #require 'zip/zipfilesystem'
   require 'ftools'
   require 'net/http'
   

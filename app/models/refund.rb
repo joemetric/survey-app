@@ -23,6 +23,7 @@ class Refund < ActiveRecord::Base
   def self.process(survey)
     payment = survey.payment
     if payment.paid? && survey.refund_pending?
+      debugger; 0
       verification = Payment.verify_token(payment.token)
       if verification.success?
         response = Payment.refund(survey, payment)

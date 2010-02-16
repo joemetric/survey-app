@@ -1,4 +1,4 @@
-Factory.define :default_package_survey do |s|
+Factory.define :survey do |s|
   s.name 'Comparison of IPhone and Android Phones'
   s.owner_id 1
   s.responses 1

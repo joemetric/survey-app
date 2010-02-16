@@ -1,5 +1,3 @@
-Background I am logged in as quentin
-	
 Scenario Outline: Calculating amount to be refunded for a survey using the Default Package after survey expiration
 	Given I have created a survey using the <Package Type> Package
 	And I have used <Standard Questions> Standard Questions, <Premium Questions> Premium Questions, <Standard Demographic Restrictions> Standard Demographic Restrictions, and <Premium Demographic Restrictions> Premium Demographic Restrictions
@@ -8,5 +6,5 @@ Scenario Outline: Calculating amount to be refunded for a survey using the Defau
 	
 Scenarios:
 	|Standard Questions|Premium Questions|Standard Demographic Restrictions|Premium Demographic Restrictions|Responses|Refund Amount|Package Type|
-	|		4		   |        3        |                2                |                 1              |   20    |    0.0      |   Default  |
-	|		4		   |        3        |                2                |                 1              |   0     |    50.0     |   Default  |
+	| 4 | 3 | 2 | 1 | 20 | 0.0  | Default |
+	| 4 | 3 | 2 | 1 | 0  | 50.0 | Default |
