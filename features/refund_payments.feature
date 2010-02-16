@@ -1,11 +1,12 @@
-Scenario: Calculating amount to be refunded for Nokia Phones survey after survey expiration
-	When survey named Nokia Phones will expire when it has received 1 responses 
-	Then refund amount should be $0.0 for Nokia Phones survey
+Background I am logged in as quentin
 	
-Scenario: Calculating amount to be refunded for Comparison of Android Phones and Iphones survey after survey expiration
-	When survey named Comparison of Android Phones and Iphones will expire when it has received 20 responses
-	Then refund amount should be $55.0 for Comparison of Android Phones and Iphones survey
+Scenario Outline: Calculating amount to be refunded for a survey using the Default Package after survey expiration
+	Given I have created a survey using the <Package Type> Package
+	And I have used <Standard Questions> Standard Questions, <Premium Questions> Premium Questions, <Standard Demographic Restrictions> Standard Demographic Restrictions, and <Premium Demographic Restrictions> Premium Demographic Restrictions
+	When the survey expires with <Responses> responses
+	Then the refund amount should be <Refund Amount> for the survey
 	
-Scenario: Calculating amount to be refunded for LCD Televisions survey after survey expiration
-	When survey named LCD Televisions will expire when it has received 15 responses
-	Then refund amount should be $80.0 for LCD Televisions survey
+Scenarios:
+	|Standard Questions|Premium Questions|Standard Demographic Restrictions|Premium Demographic Restrictions|Responses|Refund Amount|Package Type|
+	|		4		   |        3        |                2                |                 1              |   20    |    0.0      |   Default  |
+	|		4		   |        3        |                2                |                 1              |   0     |    50.0     |   Default  |
