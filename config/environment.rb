@@ -44,10 +44,10 @@ Rails::Initializer.run do |config|
   }
   
   config.after_initialize do 
-    ActiveMerchant::Billing::Base.gateway_mode = :test
-    GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
-                                                                         :password => "QY557JKYHNW5D5ZQ",
-                                                                         :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
+    ActiveMerchant::Billing::Base.gateway_mode = :production
+    GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "paypal_api1.joemetric.com", 
+                                                                         :password => "4R8VBNZCGD63BKEV",
+                                                                         :signature => "AcG8KBv9k5jply-iDvqY2JU0qhqMA9Qai0Lobcd7t4sSQcy-2ZPMqRcb")
   end
 
 end
