@@ -1,0 +1,116 @@
+# == Schema Information
+# Schema version: 20100128134656
+#
+# Table name: nonprofit_orgs
+#
+#  id                :integer(4)      not null, primary key
+#  name              :string(255)
+#  address1          :string(255)
+#  city1             :string(100)
+#  state1            :string(100)
+#  zipcode1          :string(100)
+#  address2          :string(255)
+#  city2             :string(100)
+#  state2            :string(100)
+#  zipcode2          :string(100)
+#  phone             :string(100)
+#  email             :string(100)
+#  tax_status        :string(100)
+#  tax_id            :integer(4)
+#  contact_name      :string(255)
+#  contact_phone     :string(100)
+#  website           :string(255)
+#  description       :text
+#  notes             :text
+#  active            :boolean(1)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  logo_file_name    :string(255)
+#  logo_content_type :string(255)
+#  logo_file_size    :integer(4)
+#  logo_updated_at   :datetime
+#
+
+one:
+  id: 1
+  name: Testing Organization Created
+  address1: Testing Organization Address One
+  city1: Testing Organization City One 
+  state1: CA 
+  zipcode1: 12345 
+  address2: Testing Organization Address Two
+  city2: Testing Organization City Two 
+  state2: CA 
+  zipcode2: 45678
+  phone: 1234567890
+  email: testingorg@domain.com
+  tax_status: Approved
+  tax_id: 12345
+  contact_name: Testing Contact Person Name
+  contact_phone: 1234548292
+  website: http://www.testingorgdomain.com
+  description: Testing Organization Description
+  notes: Testing Organization Notes
+  
+two:
+  id: 2
+  name: Another Testing Organization Created
+  address1: Another Testing Organization Address One
+  city1: Another Testing Organization City One 
+  state1: CA 
+  zipcode1: 12345 
+  address2: Another Testing Organization Address Two
+  city2: Another Testing Organization City Two 
+  state2: CA 
+  zipcode2: 45678
+  phone: 1234567890
+  email: testingorg@domain.com
+  tax_status: Approved
+  tax_id: 45678
+  contact_name: Another Testing Contact Person Name
+  contact_phone: 1234548292
+  website: http://www.testingorgdomain.com
+  description: Another Testing Organization Description
+  notes: Another Testing Organization Notes
+  
+three:
+  id: 3
+  name: Third Testing Organization Created
+  address1: Third Testing Organization Address One
+  city1: Third Testing Organization City One 
+  state1: CA 
+  zipcode1: 12345 
+  address2: Third Testing Organization Address Two
+  city2: Third Testing Organization City Two 
+  state2: CA 
+  zipcode2: 45678
+  phone: 1234567890
+  email: testingorg@domain.com
+  tax_status: Approved
+  tax_id: 67890
+  contact_name: Third Testing Contact Person Name
+  contact_phone: 1234548292
+  website: http://www.testingorgdomain.com
+  description: Third Testing Organization Description
+  notes: Third Testing Organization Notes
+  
+four:
+  id: 4
+  name: Fourth Testing Organization Created
+  address1: Fourth Testing Organization Address One
+  city1: Fourth Testing Organization City One 
+  state1: CA 
+  zipcode1: 12345 
+  address2: Fourth Testing Organization Address Two
+  city2: Fourth Testing Organization City Two 
+  state2: CA 
+  zipcode2: 45678
+  phone: 1234567890
+  email: testingorg@domain.com
+  tax_status: Approved
+  tax_id: 234567
+  contact_name: Fourth Testing Contact Person Name
+  contact_phone: 1234548292
+  website: http://www.testingorgdomain.com
+  description: Fourth Testing Organization Description
+  notes: Fourth Testing Organization Notes
