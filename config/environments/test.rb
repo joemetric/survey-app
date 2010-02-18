@@ -25,3 +25,10 @@ config.action_mailer.delivery_method = :test
 HOST = "localhost"
 
 config.gem 'rspec-rails', :version => '>= 1.3.2', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+
+config.after_initialize do 
+  ActiveMerchant::Billing::Base.gateway_mode = :test
+  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
+                                                                       :password => "QY557JKYHNW5D5ZQ",
+                                                                       :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
+end
