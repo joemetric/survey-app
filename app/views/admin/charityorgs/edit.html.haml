@@ -8,6 +8,7 @@
             %tr
               %th{ :width => '100%', :colspan => 2, :valign => 'top', :align => 'left' }
                 Edit organization
+            
             %tr
               %th{ :width => '100%', :colspan => 2, :valign => 'top', :align => 'left' }
                 %span{:id => 'charityorgs_errors'}
@@ -18,6 +19,7 @@
                 %label Name:
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
                 = form.text_field :name
+                = hidden_field_tag 'id', @organization.id
                 = form.hidden_field :id, :value => @organization.id
                 
             %tr
@@ -149,8 +151,8 @@
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label Attach File(s):
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
-                = form.file_field :org_files
-                = link_to "Attach", create_admin_charityorgs_path, :class => "button button_la"
+                %iframe{:id => 'attach_files', :name => 'attach_files', :src => attachFilesEdit_admin_charityorgs_path(:id => @organization.id), :frameborder => 0, :style => 'width:350px;height:28px;', :scrolling => 'off'}
+                  You don't support iframes. No preview for you.
               
             %tr
               %th{ :width => '100%', :align => 'center', :colspan => 2 }

@@ -1,0 +1,9 @@
+- if @files.length > 0
+  %p.normal{:style => "margin:0;"}
+    %span{:id => 'charityorgs_errors'}
+      = error_messages_for :fileAttachments
+    - @files.each do |fl|
+      %span{:style => "float:left; width:90%; text-align:left; padding:5px;"}
+        %span{:style => "float:left; min-width:100px; text-decoration:underline; padding: 5px;"}
+          = file_name(fl)
+        = link_to_remote "X", :url => { :controller => 'admin/charityorgs', :action => :destroyEdit, :org_file_file_name => file_name(fl), :session_id => request.session_options[:id], :org_id => params[:id] }, :confirm => 'Are you sure you want to delete this file ?', :html => {:class => 'neg', :style => 'min-width: 0; padding: 5px;'}

@@ -24,7 +24,9 @@ class TempUpload < ActiveRecord::Base
     has_attached_file :org_file,
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-      :path           => lambda { |attachment| ":session_id/:basename.:extension" }
+      :path           => "tmp_:attachment/:session_id/:basename.:extension"
+    validates_attachment_presence :org_file
+    validates_attachment_size :org_file, :less_than => 5.megabytes
   else
     has_attached_file :org_file,
       :url  => "/images/tmp_org_files/:session_id/:basename.:extension",

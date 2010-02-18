@@ -18,7 +18,9 @@ Rails::Initializer.run do |config|
   config.gem "packet"
   config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com"
   config.gem "money"
-  
+  config.gem "factory_girl", :source => "http://gemcutter.org"
+  config.gem "aws-s3", :version => ">= 0.6.2", :lib => "aws/s3"
+
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.
   # Carlos already updated on git but not as gem. So the edge version is installed as plugin

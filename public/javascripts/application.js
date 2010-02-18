@@ -390,3 +390,17 @@ function cancelUploadLogo() {
 	document.getElementById("uploadLogo").style.display = "none";
 	setTimeout("$('#wait').hide()", 100);
 }
+
+function check_uploaded_files(filesCount, error_msg) {
+	var max_height = 28;
+	if(error_msg != "" && filesCount != 0) {
+		max_height = filesCount*max_height+140;
+	}
+	else if(error_msg == "" && filesCount != 0) {
+		max_height = filesCount*max_height+60;
+	}
+	else if(error_msg != "" && filesCount == 0) {
+		max_height = max_height+140;
+	}
+	parent.document.getElementById('attach_files').style.height = max_height+"px";
+}
