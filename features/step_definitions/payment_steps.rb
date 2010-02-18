@@ -9,6 +9,8 @@ Given /I am visiting the Create Survey Page/i do
    fill_in("user_session_login", :with => "test")
    fill_in("user_session_password", :with => "test")
    click_button("user_session_submit")
+   package = Package.new(:name => "Default", :code => "default", :base_cost => '50', :total_responses => 20)
+   package.save
    visit '/surveys/new'
 end 
 
