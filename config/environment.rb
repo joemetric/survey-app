@@ -44,12 +44,5 @@ Rails::Initializer.run do |config|
   :password => 'odd71;humble',
   :authentication => :plain
   }
-  
-  config.after_initialize do 
-    ActiveMerchant::Billing::Base.gateway_mode = :test
-    GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
-                                                                         :password => "QY557JKYHNW5D5ZQ",
-                                                                         :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
-  end
 
 end
