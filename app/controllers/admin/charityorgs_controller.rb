@@ -18,7 +18,7 @@ class Admin::CharityorgsController < ApplicationController
           @temp_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| key_data[:key]}
           if @temp_files.length > 0
             @temp_files.each do |file|
-              s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{@organization.id}/#{file_name(file)}")
+              s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{@organization.id}/#{File.basename(file)}")
             end
             s3.delete_folder(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "tmp_org_files/#{request.session_options[:id]}/")
           end
@@ -115,7 +115,7 @@ class Admin::CharityorgsController < ApplicationController
       if @fileAttachments.save
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
         end
@@ -124,7 +124,7 @@ class Admin::CharityorgsController < ApplicationController
       else
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
         end
@@ -133,7 +133,7 @@ class Admin::CharityorgsController < ApplicationController
     else
       if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
         s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*")
       end
@@ -151,10 +151,10 @@ class Admin::CharityorgsController < ApplicationController
           @temp_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| key_data[:key]}
           if @temp_files.length > 0
             @temp_files.each do |file|
-              s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{file_name(file)}")
+              s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{File.basename(file)}")
             end
           end
-          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           FileUtils.mkdir_p "#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/"
           FileUtils.cp_r Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*"), "#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/"
@@ -165,7 +165,7 @@ class Admin::CharityorgsController < ApplicationController
       else
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/*.*")
         end
@@ -174,7 +174,7 @@ class Admin::CharityorgsController < ApplicationController
     else
       if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
         s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/org_files/#{params[:id]}/*.*")
       end
@@ -189,7 +189,7 @@ class Admin::CharityorgsController < ApplicationController
       if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
         s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
         s3.delete(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "tmp_org_files/#{request.session_options[:id]}/#{params[:org_file_file_name]}")
-        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*")
       end
@@ -203,15 +203,15 @@ class Admin::CharityorgsController < ApplicationController
   def destroyEdit
     if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
       s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-      @temp_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
-      @org_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+      @temp_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
+      @org_files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
       if @temp_files.length > 0
         @temp_file = TempUpload.find(:first, :conditions => "org_file_file_name = '#{params[:org_file_file_name]}' AND session_id = '#{params[:session_id]}'")
         if TempUpload.destroy(@temp_file.id)
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
           s3.delete(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "tmp_org_files/#{request.session_options[:id]}/#{params[:org_file_file_name]}")
           s3.delete(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{params[:org_file_file_name]}")
-          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+          @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
           flash[:notice] = "The file deleted successfully!"
           ajax_redirect(attachFilesEdit_admin_charityorgs_path(:id => params[:org_id]))
         else
@@ -220,7 +220,7 @@ class Admin::CharityorgsController < ApplicationController
       elsif @org_files.length > 0
         s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
         s3.delete(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{params[:org_file_file_name]}")
-        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         flash[:notice] = "The file deleted successfully!"
         ajax_redirect(attachFilesEdit_admin_charityorgs_path(:id => params[:org_id]))
       else
