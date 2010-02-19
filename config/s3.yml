@@ -19,15 +19,9 @@ joemetric_integration:
   secret_access_key: /O+tbpKk0HTYnhVB2L9Pxn70AFat+FlorAq7vQJw
   
 development:
-<<<<<<< HEAD:config/s3.yml
   bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Development
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
-=======
-  bucket_name: 
-  access_key_id: 
-  secret_access_key: 
->>>>>>> 786172f2e0386e11ccd0f16dc15efe597b49b81a:config/s3.yml
 
 testing:
   bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Testing

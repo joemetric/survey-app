@@ -19,9 +19,9 @@ config.action_mailer.raise_delivery_errors = false
 # Configure App Address
 HOST = "203.129.204.130:3000"
 
-#config.after_initialize do 
-#  ActiveMerchant::Billing::Base.gateway_mode = :test
-#  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
-#                                                                       :password => "QY557JKYHNW5D5ZQ",
-#                                                                       :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
-#end
+config.after_initialize do 
+  ActiveMerchant::Billing::Base.gateway_mode = :test
+  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
+                                                                       :password => "QY557JKYHNW5D5ZQ",
+                                                                       :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
+end
