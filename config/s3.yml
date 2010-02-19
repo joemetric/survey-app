@@ -19,19 +19,19 @@ joemetric_integration:
   secret_access_key: /O+tbpKk0HTYnhVB2L9Pxn70AFat+FlorAq7vQJw
   
 development:
-  bucket_name: Chitta
-  access_key_id: 
-  secret_access_key: 
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Development
+  access_key_id: AKIAJCTYQ54LT47X2YIQ
+  secret_access_key: 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
 
 testing:
-  bucket_name:
-  access_key_id:
-  secret_access_key: 
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Testing
+  access_key_id: AKIAJCTYQ54LT47X2YIQ
+  secret_access_key: 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
   
 cucumber:
-  bucket_name:
-  access_key_id:
-  secret_access_key:
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Cucumber
+  access_key_id: AKIAJCTYQ54LT47X2YIQ
+  secret_access_key: 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
   
 
   
