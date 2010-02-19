@@ -133,7 +133,7 @@ class Admin::CharityorgsController < ApplicationController
     else
       if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
         s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
-        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
+        @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{request.session_options[:id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| file_name(key_data[:key])}
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*")
       end
