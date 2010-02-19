@@ -46,12 +46,16 @@ class NonprofitOrg < ActiveRecord::Base
   validates_uniqueness_of :tax_id, :if => Proc.new { |org| !org.tax_id.blank? }
   
   validates_length_of :name, :within => 2..255, :if => Proc.new {|org| !org.name.blank? }
+  validates_length_of :zipcode1, :is => 5, :if => Proc.new {|org| !org.zipcode1.blank? }
+  validates_length_of :zipcode2, :is => 5, :if => Proc.new {|org| !org.zipcode2.blank? }
+  validates_length_of :phone, :is => 10, :if => Proc.new {|org| !org.phone.blank? }
+  validates_length_of :contact_phone, :is => 10, :if => Proc.new {|org| !org.contact_phone.blank? }
   
-  validates_numericality_of :zipcode1, :within => 1..5, :if => Proc.new { |org| !org.zipcode1.blank? }
-  validates_numericality_of :zipcode2, :within => 1..5, :if => Proc.new { |org| !org.zipcode2.blank? }
-  validates_numericality_of :phone, :within => 1..10, :if => Proc.new { |org| !org.phone.blank? }
-  validates_numericality_of :tax_id, :if => Proc.new { |org| !org.tax_id.blank? }
-  validates_numericality_of :contact_phone, :within => 1..10, :if => Proc.new { |org| !org.contact_phone.blank? }
+  validates_numericality_of :zipcode1, :if => Proc.new { |org| !org.zipcode1.blank? }
+  validates_numericality_of :zipcode2, :if => Proc.new { |org| !org.zipcode2.blank? }
+  validates_numericality_of :phone, :if => Proc.new { |org| !org.phone.blank? }
+  validates_numericality_of :tax_id, :only_integer => true, :if => Proc.new { |org| !org.tax_id.blank? }
+  validates_numericality_of :contact_phone, :if => Proc.new { |org| !org.contact_phone.blank? }
   
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :if => Proc.new { |org| !org.email.blank? }
   validates_format_of :website, :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :if => Proc.new { |org| !org.website.blank? }

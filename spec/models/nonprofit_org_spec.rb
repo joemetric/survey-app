@@ -56,14 +56,14 @@ describe NonprofitOrg do
     should_validate_numericality_of :zipcode1, :if => Proc.new { |org| !org.zipcode1.blank? }
     should_validate_numericality_of :zipcode2, :if => Proc.new { |org| !org.zipcode2.blank? }
     should_validate_numericality_of :phone, :if => Proc.new { |org| !org.phone.blank? }
-    should_validate_numericality_of :tax_id, :if => Proc.new { |org| !org.tax_id.blank? }
+    should_validate_numericality_of :tax_id, :only_integer => true, :if => Proc.new { |org| !org.tax_id.blank? }
     should_validate_numericality_of :contact_phone, :if => Proc.new { |org| !org.contact_phone.blank? }
     
-    #should_validate_length_of :name, :within => 2..255, :if => Proc.new { |org| !org.name.blank? }
-    #should_validate_length_of :zipcode1, :within => 1..5, :if => Proc.new { |org| !org.zipcode1.blank? }
-    #should_validate_length_of :zipcode2, :within => 1..5, :if => Proc.new { |org| !org.zipcode2.blank? }
-    #should_validate_length_of :phone, :within => 1..10, :if => Proc.new { |org| !org.phone.blank? }
-    #should_validate_length_of :contact_phone, :within => 1..10, :if => Proc.new { |org| !org.contact_phone.blank? }
+    should_validate_length_of :name, :within => 2..255, :if => Proc.new { |org| !org.name.blank? }
+    should_validate_length_of :zipcode1, :is => 5, :if => Proc.new { |org| !org.zipcode1.blank? }
+    should_validate_length_of :zipcode2, :is => 5, :if => Proc.new { |org| !org.zipcode2.blank? }
+    should_validate_length_of :phone, :is => 10, :if => Proc.new { |org| !org.phone.blank? }
+    should_validate_length_of :contact_phone, :is => 10, :if => Proc.new { |org| !org.contact_phone.blank? }
 
     it "All entries should be valid" do
       @organization.valid?.should be(true)

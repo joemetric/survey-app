@@ -19,7 +19,8 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com"
   config.gem "money"
   config.gem "factory_girl", :source => "http://gemcutter.org"
-  config.gem "right_aws"
+  config.gem "aws-s3", :lib => "aws/s3"
+  config.gem 'right_aws', :version => '1.10.0'
 
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.
