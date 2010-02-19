@@ -15,4 +15,5 @@ thoughtbot-paperclip --source http://gems.github.com
 money
 factory_girl --source http://gemcutter.org
 right_aws
+aws-s3
 rubyzip
