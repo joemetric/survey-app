@@ -15,6 +15,7 @@ class Admin::CharityorgsController < ApplicationController
       s3 = RightAws::S3.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"])
       env_bucket = s3.bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"])
       puts env_bucket
+      puts S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]
       if @organization.save
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"])
