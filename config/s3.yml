@@ -19,7 +19,7 @@ joemetric_integration:
   secret_access_key: /O+tbpKk0HTYnhVB2L9Pxn70AFat+FlorAq7vQJw
   
 development:
-  bucket_name: Chitta
+  bucket_name: 
   access_key_id: 
   secret_access_key: 
 
