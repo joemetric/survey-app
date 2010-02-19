@@ -19,7 +19,6 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com"
   config.gem "money"
   config.gem "factory_girl", :source => "http://gemcutter.org"
-  config.gem "aws-s3", :version => ">= 0.6.2", :lib => "aws/s3"
   config.gem "right_aws"
 
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
@@ -45,5 +44,12 @@ Rails::Initializer.run do |config|
   :password => 'odd71;humble',
   :authentication => :plain
   }
+  
+  config.after_initialize do 
+    ActiveMerchant::Billing::Base.gateway_mode = :test
+    GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 
+                                                                         :password => "QY557JKYHNW5D5ZQ",
+                                                                         :signature => "AbmqUIwrIt8wU2gVWKdQdoCuN1bWAb9FQERQS0OSCvpgJou-rCTkYq54")
+  end
 
 end
