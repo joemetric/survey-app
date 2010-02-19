@@ -12,9 +12,15 @@ class Admin::CharityorgsController < ApplicationController
   def create
     if params[:organization] != nil
       @organization = NonprofitOrg.new(params[:organization])
+      s3 = RightAws::S3.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"])
+      env_bucket = s3.bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"])
+      puts env_bucket
       if @organization.save
-        if ENV["RAILS_ENV"] == "production"
-          @files = Dir.glob("path-of-directory/*.*")
+        if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
+          s3 = RightAws::S3.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"])
+          env_bucket = s3.bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"])
+          puts env_bucket
+          #@files = Dir.glob("path-of-directory/*.*")
         else
           if File.exists?("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}") && File.directory?("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}")
             FileUtils.mkdir_p "#{RAILS_ROOT}/public/images/org_files/#{@organization.id}/"

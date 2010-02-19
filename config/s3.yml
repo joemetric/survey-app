@@ -1,35 +1,35 @@
 production:
-  bucket: JoeSurvey-Respondent-SurveyResponseFiles
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
   
 staging:
-  bucket: JoeSurvey-Respondent-SurveyResponseFiles-Staging
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Staging
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
   
 gniyes_integration:
-  bucket: JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
   
 joemetric_integration:
-  bucket: JoeSurvey-Respondent-SurveyResponseFiles-JoeMetric-Integration
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-JoeMetric-Integration
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
   
 development:
-  bucket:
+  bucket_name: Chitta
   access_key_id: 
   secret_access_key: 
 
 testing:
-  bucket:
+  bucket_name:
   access_key_id:
   secret_access_key: 
   
 cucumber:
-  bucket:
+  bucket_name:
   access_key_id:
   secret_access_key:
   

@@ -20,6 +20,7 @@ Rails::Initializer.run do |config|
   config.gem "money"
   config.gem "factory_girl", :source => "http://gemcutter.org"
   config.gem "aws-s3", :version => ">= 0.6.2", :lib => "aws/s3"
+  config.gem "right_aws"
 
   # The new rails version (2.3.4) deprecated a config in AR that raises exceptions when you 
   # run rake spec.
