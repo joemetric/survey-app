@@ -1,0 +1,6 @@
+= render :partial => '/layouts/menu'
+.main_content
+  .form
+    %h3.heads Confirm Payment
+    %h4= 'Total Amount: ' + "#{@survey.chargeable_amount}"
+    = link_to 'Do it', confirm_payment_path(@survey)
