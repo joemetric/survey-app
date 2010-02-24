@@ -1,0 +1,24 @@
+%h4.heads2 Non Profit Organizations Earnings
+.demo_dis
+  .show
+    %span{:style => "padding-right:10px;"}
+      %b
+        = link_to 'Download as PDF', nonprofit_organization_details_dashboard_path, :style => "color: #0000FF;"
+      = link_to image_tag("pdf_icon.gif", :border => 0), nonprofit_organization_details_dashboard_path, :alt => "Download as PDF"
+    %span
+      %b
+        = link_to 'Download as XLS', nonprofit_organization_details_dashboard_path, :style => "color: #0000FF;"
+      = link_to image_tag("excel_icon.gif", :border => 0), nonprofit_organization_details_dashboard_path, :alt => "Download as XLS"
+    %br
+    %br
+  .segment_by
+    %b Range:
+    = nonprofit_org_time_range
+    = observe_field 'time_range', :url => nonprofit_organization_details_dashboard_path, :with => "'time_range=' + $('#time_range option:selected').val()"
+  .cls
+  %br
+  %br
+  #nonprofit_organization_details
+    - if @results
+      = render :partial => 'admin/dashboards/nonprofit_organization_details/results'
+%br
