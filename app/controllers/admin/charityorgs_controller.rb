@@ -14,6 +14,7 @@ class Admin::CharityorgsController < ApplicationController
   def create
     if params[:organization] != nil
       @organization = NonprofitOrg.new(params[:organization])
+      
       if @organization.save
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})

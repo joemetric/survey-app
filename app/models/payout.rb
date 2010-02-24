@@ -22,7 +22,7 @@ class Payout < ActiveRecord::Base
   validates_presence_of :amount
   
   validates_numericality_of :amount, 
-                            :greater_than => 0,
+                            :greater_than_or_equal_to => 0,
                             :only_integer => false,
                             :if => Proc.new {|a| !a.amount.blank?}
   
