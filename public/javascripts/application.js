@@ -279,7 +279,7 @@ function activate_organization() {
 					var isExist = false;
 				
 					for (var j = 0; j < obj2.options.length; j++) {
-						if (obj2.options[j].text == opt.text) {
+						if (obj2.options[j].value == opt.value) {
 							isExist = true;						
 							break;
 						}
@@ -313,7 +313,7 @@ function deactivate_organization() {
 				var isExist = false;
 			
 				for (var j = 0; j < obj2.options.length; j++) {
-					if (obj2.options[j].text == opt.text) {
+					if (obj2.options[j].value == opt.value) {
 						isExist = true;						
 						break;
 					}

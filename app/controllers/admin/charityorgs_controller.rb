@@ -1,6 +1,8 @@
 class Admin::CharityorgsController < ApplicationController
   
   before_filter :require_admin
+  #skip_before_filter :attachFiles
+  #skip_before_filter :attachFilesEdit
   layout 'admin', :except => [:attachFiles, :destroy, :attachFilesEdit, :destroyEdit]
   
   def index

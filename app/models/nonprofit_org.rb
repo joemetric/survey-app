@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100128134656
+# Schema version: 20100222134333
 #
 # Table name: nonprofit_orgs
 #
@@ -32,6 +32,8 @@
 #
 
 class NonprofitOrg < ActiveRecord::Base
+  
+  has_many :nonprofit_orgs_earnings
   
   validates_presence_of :name
   validates_presence_of :address1

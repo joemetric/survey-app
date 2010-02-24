@@ -46,6 +46,13 @@ class Admin::DashboardsController < ApplicationController
     end
   end
   
+  def nonprofit_organization_details
+    unless (params[:time_range] == 'Select')
+      @results = eval "NonprofitOrgsEarning.#{params[:time_range]}"
+      @segmented_data = params[:time_range]
+    end
+  end
+  
 private
   
   def modify_params # TODO - Refactor

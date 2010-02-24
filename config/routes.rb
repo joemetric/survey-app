@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :restrictions, :collection => { :choose_type => :post }
   map.resource :user_session
+  map.resource :charityorgs, :collection => { :activeCharityOrgs => :get, :create => :post }
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
   map.resources :users, :member => { :not_active => :get },
@@ -37,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
-    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post}
+    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post, :nonprofit_organization_details => :post}
 
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}

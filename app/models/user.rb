@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100128134656
+# Schema version: 20100222134333
 #
 # Table name: users
 #
@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :created_surveys, :foreign_key => "owner_id", :class_name => "Survey"
+  has_many :nonprofit_orgs_earnings
 
   has_many :answers
   has_many :payments, :foreign_key => "owner_id", :class_name => "Payment"

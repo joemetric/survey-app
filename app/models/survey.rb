@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100128134656
+# Schema version: 20100222134333
 #
 # Table name: surveys
 #
@@ -39,7 +39,9 @@ class Survey < ActiveRecord::Base
   has_many :replies
   has_many :answers, :through => :replies
   has_many :refunds # While refunding from Paypal, transaction may fail. Failed transactions are also logged. So survey can have multiple transactions
-
+  
+  has_many :nonprofit_orgs_earnings
+  
   has_one :package, :class_name => 'SurveyPackage'
 
   has_many :survey_pricings

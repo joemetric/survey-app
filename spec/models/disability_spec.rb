@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100128134656
+# Schema version: 20100222134333
 #
 # Table name: disabilities
 #
