@@ -38,8 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
-    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post, :nonprofit_organization_details => :post}
-
+    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post}
+ 
+  map.confirm_payment '/confirm_purchase/:id', :controller => 'payments', :action => 'confirm'
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}
 

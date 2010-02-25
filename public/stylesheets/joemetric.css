@@ -1185,3 +1185,17 @@ a.next:hover {height:35px;width:34px;background:url(/images/next_h.png) no-repea
 
 a.prev {width:34px;height:35px;background: url(/images/prev.png) no-repeat;border:none;cursor:pointer;display:block;}
 a.prev:hover {height:35px;width:34px;background:url(/images/prev_h.png) no-repeat;border:none;display:block;}
+
+/* Complete Payment Starts */
+
+ul.payment_actions {
+  margin: 30px 0 0 0;
+}
+
+ul.payment_actions li {
+  display: inline;
+}
+
+p.complete_payment {
+  color: green;
+}

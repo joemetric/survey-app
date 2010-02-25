@@ -27,15 +27,18 @@ class PaymentsController < ApplicationController
     end
   end    
 
+  def confirm
+    response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
+    @survey.payment.paid!
+    @survey.save_payment_details(params, response)
+    session[:survey_id] = @survey.id
+    flash[:notice] = "Thanks! Check back often to see the progress on your survey."
+    redirect_to progress_surveys_url
+  end
+
   def capture
     response = @gateway.details_for(params["token"]) 
-    if response.success? 
-      response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
-      @survey.payment.paid!
-      @survey.save_payment_details(params, response)
-      session[:survey_id] = @survey.id
-      redirect_to progress_surveys_url
-    else
+    if !response.success? 
       error_in_payment(response, @survey) 
     end 
   end
