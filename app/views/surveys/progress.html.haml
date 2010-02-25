@@ -2,6 +2,7 @@
 = render :partial => "/layouts/menu"
 .m_content
   .form
+    %p.complete_payment= flash[:notice]
     %h3.heads Monitor Progress
     .survey_type
       %h4{ :style=>"margin-left:40px;" } Survey Name

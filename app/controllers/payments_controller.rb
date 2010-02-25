@@ -32,6 +32,7 @@ class PaymentsController < ApplicationController
     @survey.payment.paid!
     @survey.save_payment_details(params, response)
     session[:survey_id] = @survey.id
+    flash[:notice] = "Thanks! Check back often to see the progress on your survey."
     redirect_to progress_surveys_url
   end
 
