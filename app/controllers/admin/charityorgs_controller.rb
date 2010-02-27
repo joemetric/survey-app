@@ -1,9 +1,7 @@
 class Admin::CharityorgsController < ApplicationController
   
   before_filter :require_admin
-  #skip_before_filter :attachFiles
-  #skip_before_filter :attachFilesEdit
-  layout 'admin', :except => [:attachFiles, :destroy, :attachFilesEdit, :destroyEdit]
+  layout 'admin', :except => [:attachFiles, :attachFilesEdit, :destroy, :destroyEdit, :downloadFile]
   
   def index
     @nonProfitOrgs = NonprofitOrg.find(:all) 
@@ -14,7 +12,6 @@ class Admin::CharityorgsController < ApplicationController
   def create
     if params[:organization] != nil
       @organization = NonprofitOrg.new(params[:organization])
-      
       if @organization.save
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
           s3 = RightAws::S3Interface.new(S3_CONFIG[ENV["RAILS_ENV"]]["access_key_id"], S3_CONFIG[ENV["RAILS_ENV"]]["secret_access_key"], {:multi_thread => true, :logger => Logger.new(STDOUT)})
@@ -122,7 +119,11 @@ class Admin::CharityorgsController < ApplicationController
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
         end
-        flash[:notice] = "File Uploaded Successfully!"
+        if @files.length == 5
+          flash[:notice] = "File Uploaded Successfully! You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
+        else
+          flash[:notice] = "File Uploaded Successfully!"
+        end
         render :action => "attach_files"
       else
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
@@ -130,6 +131,9 @@ class Admin::CharityorgsController < ApplicationController
           @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"tmp_org_files/#{params[:fileAttachments][:session_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:fileAttachments][:session_id]}/*.*")
+        end
+        if @files.length == 5
+          flash[:notice] = "You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
         end
         render :action => "attach_files"
       end
@@ -140,7 +144,11 @@ class Admin::CharityorgsController < ApplicationController
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*")
       end
-      flash[:notice] = ""
+      if @files.length == 5
+        flash[:notice] = "You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
+      else
+        flash[:notice] = ""
+      end
       render :template => 'admin/charityorgs/attach_files'
     end
   end
@@ -163,7 +171,11 @@ class Admin::CharityorgsController < ApplicationController
           FileUtils.cp_r Dir.glob("#{RAILS_ROOT}/public/images/tmp_org_files/#{request.session_options[:id]}/*.*"), "#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/"
           @files = Dir.glob("#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/*.*")
         end
-        flash[:notice] = "File Uploaded Successfully!"
+        if @files.length == 5
+          flash[:notice] = "File Uploaded Successfully! You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
+        else
+          flash[:notice] = "File Uploaded Successfully!"
+        end
         render :action => "attach_files_edit"
       else
         if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
@@ -171,6 +183,9 @@ class Admin::CharityorgsController < ApplicationController
           @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
         else
           @files = Dir.glob("#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/*.*")
+        end
+        if @files.length == 5
+          flash[:notice] = "You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
         end
         render :action => "attach_files_edit"
       end
@@ -181,7 +196,11 @@ class Admin::CharityorgsController < ApplicationController
       else
         @files = Dir.glob("#{RAILS_ROOT}/public/images/org_files/#{params[:id]}/*.*")
       end
-      flash[:notice] = ""
+      if @files.length == 5
+        flash[:notice] = "You have reached the file attachment limit. Remove any of the attached files if you want to attach any other file."
+      else
+        flash[:notice] = ""
+      end
       render :template => 'admin/charityorgs/attach_files_edit'
     end
   end
@@ -255,6 +274,24 @@ class Admin::CharityorgsController < ApplicationController
           flash[:notice] = "The file you are trying to delete does not exists any more!"
           ajax_redirect(attachFilesEdit_admin_charityorgs_path(:id => params[:org_id]))
         end
+      end
+    end
+  end
+  
+  def downloadFile
+    if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
+      if params[:form_type] == "add"
+        data = open("http://s3.amazonaws.com/#{S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]}/tmp_org_files/#{params[:temp_org_id]}/#{params[:file_name]}").read
+        send_data data, :filename => params[:file_name], :disposition => 'attachment'
+      elsif params[:form_type] == "edit"
+        data = open("http://s3.amazonaws.com/#{S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]}/org_files/#{params[:org_id]}/#{params[:file_name]}").read
+        send_data data, :filename => params[:file_name], :disposition => 'attachment'
+      end
+    else
+      if params[:form_type] == "add"
+        send_file "#{RAILS_ROOT}/public/images/tmp_org_files/#{params[:temp_org_id]}/#{params[:file_name]}"
+      elsif params[:form_type] == "edit"
+        send_file "#{RAILS_ROOT}/public/images/org_files/#{params[:org_id]}/#{params[:file_name]}"
       end
     end
   end

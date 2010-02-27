@@ -1,5 +1,7 @@
 unless (params[:time_range] == 'Select')
+  page.replace_html 'nonprofit_organization_details_download_links', :partial => 'admin/dashboards/nonprofit_organization_details/links'
   page.replace_html 'nonprofit_organization_details', :partial => 'admin/dashboards/nonprofit_organization_details/results'
 else
+  page.replace_html 'nonprofit_organization_details_download_links', ''
   page.replace_html 'nonprofit_organization_details', 'Please select the time range from the list'
 end

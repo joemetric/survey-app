@@ -16,4 +16,5 @@ money
 factory_girl --source http://gemcutter.org
 right_aws
 aws-s3
+prawn
 rubyzip

@@ -95,7 +95,60 @@ module Admin::DashboardsHelper
   
   def table_organization_earning_rows(args)
     table_rows = ''
-    row_data = ''
+    args[:records].each { |record|
+      orgEarningDetails = getOrgEarningDetails(record.nonprofit_org.id, args[:ranges])
+      row_data = content_tag(:td, record.nonprofit_org.name)
+      row_data += content_tag(:td, orgEarningDetails[:total_amount])
+      row_data += content_tag(:td, orgEarningDetails[:total_surveys])
+      row_data += content_tag(:td, orgEarningDetails[:percentage_changed])
+      table_rows += content_tag(:tr, row_data)
+    }
+    table_rows
+  end
+  
+  def getOrgEarningDetails(org_id, range)
+    date_range = getStartEndDateRanges(range)
+    organization_surveys = NonprofitOrgsEarning.find(:all, :conditions => ['nonprofit_org_id = ? AND created_at BETWEEN ? AND ?', org_id, date_range[:start_from], date_range[:end_at]])
+    amount_earned = organization_surveys.collect {|r| r.amount_earned }
+    total_amount = amount_earned.sum.us_dollar
+    organization_surveys_prevperiod = NonprofitOrgsEarning.find(:all, :conditions => ['nonprofit_org_id = ? AND created_at BETWEEN ? AND ?', org_id, date_range[:chnaged_start_from], date_range[:changed_end_at]])
+    prev_amount_earned = organization_surveys_prevperiod.collect {|r| r.amount_earned }
+    if prev_amount_earned.sum == 0
+      total_percent_changed = "N/A"
+    else
+      total_percent_changed = number_to_percentage(((amount_earned.sum-prev_amount_earned.sum)/prev_amount_earned.sum)*100, :precision => 0)
+    end
+    {:total_amount => total_amount, :total_surveys => organization_surveys.length, :percentage_changed => total_percent_changed}
+  end
+  
+  def getTimeRange(args)
+    time_range = ''
+    @quater_start = Date.today.beginning_of_quarter - 2.days
+    @quarter_start_arr = @quater_start.to_s.split('-')
+    @last_quarter_stat = Date.new(@quarter_start_arr[0].to_i, @quarter_start_arr[1].to_i, @quarter_start_arr[2].to_i).beginning_of_quarter.to_datetime
+    if args[:ranges] == "today"
+      time_range = Time.now.beginning_of_day.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.end_of_day.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "this_week"
+      time_range = Time.now.beginning_of_week.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.end_of_week.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "last_week"
+      time_range = 1.week.ago.beginning_of_week.strftime('%Y %b %d %I:%M%p %Z')+" to "+1.week.ago.end_of_week.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "this_month"
+      time_range = Time.now.beginning_of_month.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.end_of_month.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "last_month"
+      time_range = Time.now.last_month.beginning_of_month.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.last_month.end_of_month.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "this_quarter"
+      time_range = Time.now.beginning_of_quarter.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.end_of_quarter.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "last_quarter"
+      time_range = @last_quarter_stat.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.beginning_of_quarter.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "this_year"
+      time_range = Time.now.beginning_of_year.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.end_of_year.strftime('%Y %b %d %I:%M%p %Z')
+    elsif args[:ranges] == "last_year"
+      time_range = Time.now.last_year.beginning_of_year.strftime('%Y %b %d %I:%M%p %Z')+" to "+Time.now.last_year.end_of_year.strftime('%Y %b %d %I:%M%p %Z')
+    end
+    time_range
+  end
+  
+  def getStartEndDateRanges(args)
     @quater_start = Date.today.beginning_of_quarter - 2.days
     @quarter_start_arr = @quater_start.to_s.split('-')
     @last_quarter_stat = Date.new(@quarter_start_arr[0].to_i, @quarter_start_arr[1].to_i, @quarter_start_arr[2].to_i).beginning_of_quarter.to_datetime
@@ -103,72 +156,25 @@ module Admin::DashboardsHelper
     @last_quarter_start_arr = @last_quarter_start.to_s.split('-')
     @last_last_quarter_stat = Date.new(@last_quarter_start_arr[0].to_i, @last_quarter_start_arr[1].to_i, @last_quarter_start_arr[2].to_i).beginning_of_quarter.to_datetime
     
-    if args[:ranges] == "today"
-      start_from = Time.now.beginning_of_day 
-      end_at = Time.now.end_of_day
-      chnaged_start_from = 1.days.ago.beginning_of_day
-      changed_end_at = 1.days.ago.end_of_day
-    elsif args[:ranges] == "this_week"
-      start_from = Time.now.beginning_of_week 
-      end_at = Time.now.end_of_week
-      chnaged_start_from = 1.week.ago.beginning_of_week
-      changed_end_at = 1.week.ago.end_of_week
-    elsif args[:ranges] == "last_week"
-      start_from = 1.week.ago.beginning_of_week
-      end_at = 1.week.ago.end_of_week
-      chnaged_start_from = 2.weeks.ago.beginning_of_week
-      changed_end_at = 2.weeks.ago.end_of_week
-    elsif args[:ranges] == "this_month"
-      start_from = Time.now.beginning_of_month 
-      end_at = Time.now.end_of_month
-      chnaged_start_from = Time.now.last_month.beginning_of_month
-      changed_end_at = Time.now.last_month.end_of_month
-    elsif args[:ranges] == "last_month"
-      start_from = Time.now.last_month.beginning_of_month
-      end_at = Time.now.last_month.end_of_month
-      chnaged_start_from = 2.months.ago.beginning_of_month
-      changed_end_at = 2.months.ago.end_of_month
-    elsif args[:ranges] == "this_quarter"
-      start_from = Time.now.beginning_of_quarter 
-      end_at = Time.now.end_of_quarter
-      chnaged_start_from = @last_quarter_stat
-      changed_end_at = Time.now.beginning_of_quarter
-    elsif args[:ranges] == "last_quarter"
-      start_from = @last_quarter_stat
-      end_at = Time.now.beginning_of_quarter
-      chnaged_start_from = @last_last_quarter_stat
-      changed_end_at = @last_quarter_stat
-    elsif args[:ranges] == "this_year"
-      start_from = Time.now.beginning_of_year 
-      end_at = Time.now.end_of_year
-      chnaged_start_from = Time.now.last_year.beginning_of_year
-      changed_end_at = Time.now.last_year.end_of_year
-    elsif args[:ranges] == "last_year"
-      start_from = Time.now.last_year.beginning_of_year
-      end_at = Time.now.last_year.end_of_year
-      chnaged_start_from = 2.years.ago.beginning_of_year
-      changed_end_at = 2.years.ago.end_of_year
-    end
-    
-    args[:records].each do |records|
-      row_data += content_tag(:td, records.nonprofit_org.name)
-      organization_surveys = NonprofitOrgsEarning.find(:all, :conditions => ['nonprofit_org_id = ? AND created_at BETWEEN ? AND ?', records.nonprofit_org.id, start_from, end_at])
-      amount_earned = organization_surveys.collect {|r| r.amount_earned }
-      total_amount = amount_earned.sum.us_dollar
-      row_data += content_tag(:td, total_amount)
-      row_data += content_tag(:td, organization_surveys.length)
-      organization_surveys_prevperiod = NonprofitOrgsEarning.find(:all, :conditions => ['nonprofit_org_id = ? AND created_at BETWEEN ? AND ?', records.nonprofit_org.id, chnaged_start_from, changed_end_at])
-      prev_amount_earned = organization_surveys_prevperiod.collect {|r| r.amount_earned }
-      if prev_amount_earned.sum == "" || prev_amount_earned.sum == 0
-        total_percent_changed = amount_earned.sum*100
-      else
-        total_percent_changed = (amount_earned.sum/prev_amount_earned.sum)*100
-      end
-      percent_changed = number_to_percentage(total_percent_changed, :precision => 0)
-      row_data += content_tag(:td, percent_changed)
-      table_rows += content_tag(:tr, row_data)
-    end
-    table_rows
+    if args == "today"
+      {:start_from => Time.now.beginning_of_day, :end_at => Time.now.end_of_day, :chnaged_start_from => 1.days.ago.beginning_of_day, :changed_end_at => 1.days.ago.end_of_day}
+    elsif args == "this_week"
+      {:start_from => Time.now.beginning_of_week, :end_at => Time.now.end_of_week, :chnaged_start_from => 1.week.ago.beginning_of_week, :changed_end_at => 1.week.ago.end_of_week}
+    elsif args == "last_week"
+      {:start_from => 1.week.ago.beginning_of_week, :end_at => 1.week.ago.end_of_week, :chnaged_start_from => 2.weeks.ago.beginning_of_week, :changed_end_at => 2.weeks.ago.end_of_week}
+    elsif args == "this_month"
+      {:start_from => Time.now.beginning_of_month, :end_at => Time.now.end_of_month, :chnaged_start_from => Time.now.last_month.beginning_of_month, :changed_end_at => Time.now.last_month.end_of_month}
+    elsif args == "last_month"
+      {:start_from => Time.now.last_month.beginning_of_month, :end_at => Time.now.last_month.end_of_month, :chnaged_start_from => 2.months.ago.beginning_of_month, :changed_end_at => 2.months.ago.end_of_month}
+    elsif args == "this_quarter"
+      {:start_from => Time.now.beginning_of_quarter, :end_at => Time.now.end_of_quarter, :chnaged_start_from => @last_quarter_stat, :changed_end_at => Time.now.beginning_of_quarter}
+    elsif args == "last_quarter"
+      {:start_from => @last_quarter_stat, :end_at => Time.now.beginning_of_quarter, :chnaged_start_from => @last_last_quarter_stat, :changed_end_at => @last_quarter_stat}
+    elsif args == "this_year"
+      {:start_from => Time.now.beginning_of_year, :end_at => Time.now.end_of_year, :chnaged_start_from => Time.now.last_year.beginning_of_year, :changed_end_at => Time.now.last_year.end_of_year}
+    elsif args == "last_year"
+      {:start_from => Time.now.last_year.beginning_of_year, :end_at => Time.now.last_year.end_of_year, :chnaged_start_from => 2.years.ago.beginning_of_year, :changed_end_at => 2.years.ago.end_of_year}
+    end    
   end
   
   def between_duration?(time, range)

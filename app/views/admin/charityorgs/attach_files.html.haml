@@ -10,19 +10,18 @@
     = javascript_include_tag "application"
     /[if IE7]
       = stylesheet_link_tag "ie7"
-  %body{:style => "background:#ffffff;", :onLoad => "check_uploaded_files(#{@files.length}, document.getElementById('error_messages').value);"}
+  %body{:style => "background:#ffffff;", :onLoad => "check_uploaded_files();"}
     .content{:style => "margin:0px;padding:0px;"}
       .form{:style => "margin:0px;padding:0px;width:350px;background:#ffffff;"}
         - form_for :fileAttachments, @files, :url => attachFiles_admin_charityorgs_path, :html => {:method => :post, :id => "attachfile_charity_orgs_form", :multipart => true} do |form|
           %span{:id => 'charityorgs_errors'}
             = error_messages_for :fileAttachments
             = render_notice
-            - errors = error_messages_for :fileAttachments
-            = hidden_field_tag 'error_messages', errors
-          = form.file_field :org_file
-          = form.hidden_field :session_id, :value => request.session_options[:id]
-          = form.hidden_field :org_files, :value => ''
-          = submit_tag 'Attach', :class => 'but_co', :id => 'save_organization_file', :style => "padding:2px;"
+          - if @files.length < 5
+            = form.file_field :org_file
+            = form.hidden_field :session_id, :value => request.session_options[:id]
+            = form.hidden_field :org_files, :value => ''
+            = submit_tag 'Attach', :class => 'but_co', :id => 'save_organization_file', :style => "padding:2px;"
         - form_remote_for :fileAttachments, @files, :url => attachFiles_admin_charityorgs_path, :html => {:method => :put} do |f|
           #attachedFiles
             = render :partial => "/admin/charityorgs/org_files", :locals => {:f => f} if @files

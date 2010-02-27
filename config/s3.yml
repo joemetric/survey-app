@@ -19,7 +19,7 @@ joemetric_integration:
   secret_access_key: /O+tbpKk0HTYnhVB2L9Pxn70AFat+FlorAq7vQJw
   
 development:
-  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-Development
+  bucket_name: JoeSurvey-Respondent-SurveyResponseFiles-GniYes-Integration
   access_key_id: AKIAJCTYQ54LT47X2YIQ
   secret_access_key: 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
 
