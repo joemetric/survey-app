@@ -1,0 +1,18 @@
+%table{:cellpadding => 0, :cellspacing => 0, :border => 1, :style => "border:1px solid #c6d5e1; margin:0 25px 15px;font-size:10px;"}
+  %thead
+    %tr
+      %th{:colspan => 4, :style => "text-align:left; color:#fff; border:1px solid #fff; border-right:none;background:#0c273c;"}
+        %h3{:style => "font-size:10px;padding:10px 4px;font-weight:bold;"} 
+          Non-Profit Organizations Earning Report 
+          %br from #{getTimeRange({:ranges => @segmented_data})}
+    %tr
+      %th{:style => "text-align:left; color:#fff; border:1px solid #fff; border-right:none;background:#0c273c;"}
+        %h3{:style => "font-size:10px;padding:8px 4px;font-weight:bold;"} Organization Name
+      %th{:style => "text-align:left; color:#fff; border:1px solid #fff; border-right:none;background:#0c273c;"}
+        %h3{:style => "font-size:10px;padding:8px 4px;font-weight:bold;"} Amount Earned
+      %th{:style => "text-align:left; color:#fff; border:1px solid #fff; border-right:none;background:#0c273c;"}
+        %h3{:style => "font-size:10px;padding:8px 4px;font-weight:bold;"} Total Survey Responses
+      %th{:style => "text-align:left; color:#fff; border:1px solid #fff; border-right:none;background:#0c273c;"}
+        %h3{:style => "font-size:10px;padding:8px 4px;font-weight:bold;"} Percentage Changed
+  %tbody
+    = nonprofit_orgs_results({:records => @results, :ranges => @segmented_data})
