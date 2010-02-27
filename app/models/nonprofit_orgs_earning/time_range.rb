@@ -25,41 +25,5 @@ class NonprofitOrgsEarning < ActiveRecord::Base
     ['this_year', 'This Year'],
     ['last_year', 'Last Year']
   ]
-  
-  def self.today
-    today
-  end
-  
-  def self.this_week
-    this_week
-  end
-  
-  def self.last_week
-    last_week
-  end
-  
-  def self.this_month
-    this_month
-  end
-  
-  def self.last_month
-    last_month
-  end
-  
-  def self.this_quarter
-    this_quarter
-  end
-  
-  def self.last_quarter
-    last_quarter
-  end
-  
-  def self.this_year
-    this_year
-  end
-  
-  def self.last_year
-    last_year
-  end
-  
+
 end
