@@ -22,7 +22,9 @@ class NonprofitOrgsEarning < ActiveRecord::Base
   @quarter_start_arr = @quater_start.to_s.split('-')
   @last_quarter_stat = Date.new(@quarter_start_arr[0].to_i, @quarter_start_arr[1].to_i, @quarter_start_arr[2].to_i).beginning_of_quarter.to_datetime
 
-  named_scope :today, { :group => :nonprofit_org_id, :conditions => ['created_at BETWEEN ? AND ?', Time.now.beginning_of_day, Time.now.end_of_day], }
+  cols = NonprofitOrgsEarning.column_names.collect {|c| "nonprofit_orgs_earnings.#{c}"}.join(",")
+  
+  named_scope :today, { :select => "DISTINCT ON (nonprofit_orgs_earnings.nonprofit_org_id) #{cols}", :conditions => ['created_at BETWEEN ? AND ?', Time.now.beginning_of_day, Time.now.end_of_day], }
   named_scope :this_week, { :group => :nonprofit_org_id, :conditions => ['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now.end_of_week]}
   named_scope :last_week, { :group => :nonprofit_org_id, :conditions => ['created_at BETWEEN ? AND ?', 1.week.ago.beginning_of_week, 1.week.ago.end_of_week]}
   named_scope :this_month, { :group => :nonprofit_org_id, :conditions => ['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now.end_of_month]}
