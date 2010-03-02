@@ -19,8 +19,8 @@ class Admin::CharityorgsController < ApplicationController
           if @temp_files.length > 0
             @temp_files.each do |file|
               s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{@organization.id}/#{File.basename(file)}")
-              s3.get_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file)
-              s3.put_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{@organization.id}/#{File.basename(file)}")
+              old_acl = s3.get_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file)
+              s3.put_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{@organization.id}/#{File.basename(file)}", old_acl[:object])
             end
             s3.delete_folder(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "tmp_org_files/#{request.session_options[:id]}/")
           end
@@ -165,8 +165,8 @@ class Admin::CharityorgsController < ApplicationController
           if @temp_files.length > 0
             @temp_files.each do |file|
               s3.copy(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file, S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{File.basename(file)}")
-              s3.get_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file)
-              s3.put_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{File.basename(file)}")
+              old_acl = s3.get_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], file)
+              s3.put_acl(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], "org_files/#{params[:org_id]}/#{File.basename(file)}", old_acl[:object])
             end
           end
           @files = s3.list_bucket(S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"], { 'prefix'=>"org_files/#{params[:org_id]}/", 'marker'=>'', 'max-keys'=>'', 'delimiter'=>'' }).map{|key_data| File.basename(key_data[:key])}
