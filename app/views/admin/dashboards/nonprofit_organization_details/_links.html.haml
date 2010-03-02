@@ -1,0 +1,11 @@
+- if @results.length != 0
+  %span{:style => "padding-right:10px;"}
+    %b
+      = link_to 'Download as PDF', {:controller => "admin/dashboards", :action => "downloadPDF", 'time_range' => "#{@segmented_data}", "format" => "pdf"}, :post => true, :style => "color: #0000FF;"
+      = link_to image_tag("pdf_icon.gif", :alt => "Download as PDF", :border => 0), {:controller => "admin/dashboards", :action => "downloadPDF", 'time_range' => "#{@segmented_data}", "format" => "pdf"}, :post => true
+  %span
+    %b
+      = link_to 'Download as XLS', {:controller => "admin/dashboards", :action => "downloadXLS", 'time_range' => "#{@segmented_data}"}, :post => true, :style => "color: #0000FF;"
+      = link_to image_tag("excel_icon.gif", :alt => "Download as XLS", :border => 0), {:controller => "admin/dashboards", :action => "downloadXLS", 'time_range' => "#{@segmented_data}"}, :post => true
+  %br
+  %br

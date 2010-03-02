@@ -1,15 +1,11 @@
-class CharityorgsController < ApplicationController
-  resource_controller
+class CharityorgsController < ResourceController::Base
   
-  before_filter :require_user
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  before_filter :require_user 
+  before_filter :find_survey, :find_organization, :find_user, :only => [:updateCharityOrgsEarning]
+  skip_before_filter :verify_authenticity_token, :only => [:updateCharityOrgsEarning]
   
-  def new
-    @earnings = NonprofitOrgsEarning.new
-  end
-
-  def create
-    if @nonprofit_org && @survey && @user
+  def updateCharityOrgsEarning
+    if params[:earnings][:amount_earned] != ""
       @earnings = NonprofitOrgsEarning.new params[:earnings]
       response, header = @earnings.save ? [@earnings.to_json, 201] : [@earnings.errors.to_json, 422]
       render :json => response, :status => header
@@ -31,7 +27,18 @@ class CharityorgsController < ApplicationController
     render :json => @ActiveNonProfitOrgs, :status => 200
   end
   
-  def updateCharityOrgsEarning
+  private
+  
+  def find_survey
+    @survey = Survey.find(params[:earnings][:survey_id])
+  end
+  
+  def find_organization
+    @organization = NonprofitOrg.find(params[:earnings][:nonprofit_org_id])
+  end
+  
+  def find_user
+    @user = User.find(params[:earnings][:user_id])
   end
   
 end

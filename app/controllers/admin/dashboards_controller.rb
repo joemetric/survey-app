@@ -1,9 +1,9 @@
 class Admin::DashboardsController < ApplicationController
   
-  layout 'admin'
+  layout 'admin', :except => [:downloadPDF, :downloadXLS]
   before_filter :require_admin
   before_filter :modify_params, :only => :demographic_distribution
-  
+
   def index
   end
   
@@ -53,6 +53,27 @@ class Admin::DashboardsController < ApplicationController
     end
   end
   
+  def downloadPDF
+    @results = eval "NonprofitOrgsEarning.#{params[:time_range]}"
+    @segmented_data = params[:time_range]
+    respond_to do |format|
+      format.pdf do
+        send_data(render(:template => 'admin/dashboards/downloadPDF.pdf.prawn', :layout => false),
+          :filename => "JoeMetric_Report_for_#{getFileName(params[:time_range])}.pdf",
+          :type => 'application/pdf',
+          :disposition => 'attachment')
+      end
+    end
+  end
+  
+  def downloadXLS
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="JoeMetric_Report_for_'"#{getFileName(params[:time_range])}"'.xls"'
+    headers['Cache-Control'] = ''
+    @results = eval "NonprofitOrgsEarning.#{params[:time_range]}"
+    @segmented_data = params[:time_range]
+  end
+  
 private
   
   def modify_params # TODO - Refactor
@@ -64,6 +85,32 @@ private
     params.merge!({:segment_column => 'birthdate'}) if params[:segment_by] == 'age'
     params.merge!({:filter_column => 'gender'})     if params[:filter_by] == 'gender'
     params.merge!({:segment_column => 'gender'})    if params[:segment_by] == 'gender'
+  end
+  
+  def getFileName(args)
+    @quater_start = Date.today.beginning_of_quarter - 2.days
+    @quarter_start_arr = @quater_start.to_s.split('-')
+    @last_quarter_stat = Date.new(@quarter_start_arr[0].to_i, @quarter_start_arr[1].to_i, @quarter_start_arr[2].to_i).beginning_of_quarter.to_datetime
+    
+    if args == "today"
+      Time.now.beginning_of_day.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.end_of_day.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "this_week"
+      Time.now.beginning_of_week.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.end_of_week.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "last_week"
+      1.week.ago.beginning_of_week.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+1.week.ago.end_of_week.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "this_month"
+      Time.now.beginning_of_month.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.end_of_month.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "last_month"
+      Time.now.last_month.beginning_of_month.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.last_month.end_of_month.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "this_quarter"
+      Time.now.beginning_of_quarter.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.end_of_quarter.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "last_quarter"
+      @last_quarter_stat.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.beginning_of_quarter.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "this_year"
+      Time.now.beginning_of_year.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.end_of_year.strftime('%Y%b%d_%I%M%p%Z')
+    elsif args == "last_year"
+      Time.now.last_year.beginning_of_year.strftime('%Y%b%d_%I%M%p%Z')+"_to_"+Time.now.last_year.end_of_year.strftime('%Y%b%d_%I%M%p%Z')
+    end
   end
   
 end

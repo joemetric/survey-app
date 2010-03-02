@@ -391,16 +391,18 @@ function cancelUploadLogo() {
 	setTimeout("$('#wait').hide()", 100);
 }
 
-function check_uploaded_files(filesCount, error_msg) {
-	var max_height = 28;
-	if(error_msg != "" && filesCount != 0) {
-		max_height = filesCount*max_height+140;
-	}
-	else if(error_msg == "" && filesCount != 0) {
-		max_height = filesCount*max_height+60;
-	}
-	else if(error_msg != "" && filesCount == 0) {
-		max_height = max_height+140;
-	}
-	parent.document.getElementById('attach_files').style.height = max_height+"px";
+function check_uploaded_files() {
+	if (window.innerHeight && window.scrollMaxY) {// Firefox
+		yWithScroll = window.innerHeight + window.scrollMaxY;
+		//xWithScroll = window.innerWidth + window.scrollMaxX;
+	} 
+	else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
+		yWithScroll = document.body.scrollHeight;
+		//xWithScroll = document.body.scrollWidth;
+	} 
+	else { // works in Explorer 6 Strict, Mozilla (not FF) and Safari
+		yWithScroll = document.body.offsetHeight + document.body.offsetTop;
+		//xWithScroll = document.body.offsetWidth + document.body.offsetLeft;
+  	}
+	parent.document.getElementById('attach_files').style.height = yWithScroll+"px";
 }

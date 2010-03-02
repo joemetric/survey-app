@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :restrictions, :collection => { :choose_type => :post }
   map.resource :user_session
-  map.resource :charityorgs, :collection => { :activeCharityOrgs => :get, :create => :post }
+  map.resource :charityorgs, :collection => { :activeCharityOrgs => :get, :updateCharityOrgsEarning => :post }
 
   map.current_user_formatted "/users/current.:format", :controller => "users", :action => "show_current"
   map.resources :users, :member => { :not_active => :get },
@@ -34,13 +34,19 @@ ActionController::Routing::Routes.draw do |map|
       :member => {:reset_password => :any, :change_type => :post},
       :collection => {:blacklist => :put}
     admin.resources :maintenances
-    admin.resources :charityorgs, :collection => { :create => :get, :updateOrganization => :put, :editOrganization => :put, :attachFiles => :get, :attachFilesEdit => :get }
+    admin.resources :charityorgs, :collection => { :create => :get, :updateOrganization => :put, :editOrganization => :put, :attachFiles => :get, :attachFilesEdit => :get, :downloadFile => :get }
+    admin.resources :dashboard, :collection => { :downloadPDF => :post, :downloadXLS => :post }
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
+<<<<<<< HEAD:config/routes.rb
     :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post}
  
   map.confirm_payment '/confirm_purchase/:id', :controller => 'payments', :action => 'confirm'
+=======
+    :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post, :nonprofit_organization_details => :post }
+
+>>>>>>> 508f58dc8662d5bdbe6997886316351f64b42aef:config/routes.rb
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}
 

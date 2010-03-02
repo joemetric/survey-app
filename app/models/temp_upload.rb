@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100222134333
+# Schema version: 20100302105306
 #
 # Table name: temp_uploads
 #
@@ -24,6 +24,7 @@ class TempUpload < ActiveRecord::Base
     has_attached_file :org_file,
       :storage        => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+      :s3_permissions => 'public-read',
       :path           => "tmp_org_files/:session_id/:basename.:extension",
       :bucket         => "#{S3_CONFIG[ENV["RAILS_ENV"]]['bucket_name']}"
     validates_attachment_presence :org_file

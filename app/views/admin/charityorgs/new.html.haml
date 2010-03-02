@@ -36,7 +36,7 @@
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label State:
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
-                = form.text_field :state1
+                = form.select :state1, US_STATES.collect {|p| [ p[0], p[1] ] }, { :include_blank => 'Select State' }, :style => "width:263px;padding:5px 0 5px 5px"
                 
             %tr
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
@@ -60,8 +60,8 @@
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label State:
               %th{ :width => '70%', :valign => 'top', :align => 'left' }
-                = form.text_field :state2
-                
+                = form.select :state2, US_STATES.collect {|p| [ p[0], p[1] ] }, { :include_blank => 'Select State' }, :style => "width:263px;padding:5px 0 5px 5px"
+
             %tr
               %th{ :width => '30%', :valign => 'top', :align => 'left' }
                 %label Zip Code:

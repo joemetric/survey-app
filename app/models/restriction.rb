@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100222134333
+# Schema version: 20100302105306
 #
 # Table name: restrictions
 #
@@ -13,7 +13,7 @@
 
 class Restriction < ActiveRecord::Base
   
-  Kinds = [ :gender, :zipcode, :occupation, :race, :education, :income, :age, :martial_status ]
+  Kinds = [ :gender, :zipcode, :occupation, :race, :education, :income, :age, :martial_status, :geographic_location ]
   
   belongs_to :survey
   

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100222134333
+# Schema version: 20100302105306
 #
 # Table name: nonprofit_orgs
 #
@@ -68,6 +68,7 @@ class NonprofitOrg < ActiveRecord::Base
         :styles => { :original => '250x250>', :small => "55x55#" },
         :storage        => :s3,
         :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+        :s3_permissions => 'public-read',
         :path           => lambda { |attachment| ":attachment/:id_:style.:extension" },
         :bucket         => S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]
       validates_attachment_presence :logo

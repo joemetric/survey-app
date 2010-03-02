@@ -1,24 +1,25 @@
 # == Schema Information
-# Schema version: 20100222134333
+# Schema version: 20100302105306
 #
 # Table name: surveys
 #
-#  id                :integer(4)      not null, primary key
-#  name              :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  owner_id          :integer(4)
-#  payment_status    :string(255)
-#  end_at            :date
-#  responses         :integer(4)
-#  published_at      :datetime
-#  publish_status    :string(255)     default("pending")
-#  reject_reason     :string(255)
-#  package_id        :integer(4)
-#  chargeable_amount :float
-#  description       :text
-#  finished_at       :datetime
-#  reward_amount     :float
+#  id                            :integer(4)      not null, primary key
+#  name                          :string(255)
+#  created_at                    :datetime
+#  updated_at                    :datetime
+#  owner_id                      :integer(4)
+#  payment_status                :string(255)
+#  end_at                        :date
+#  responses                     :integer(4)
+#  published_at                  :datetime
+#  publish_status                :string(255)     default("pending")
+#  reject_reason                 :string(255)
+#  package_id                    :integer(4)
+#  chargeable_amount             :float
+#  description                   :text
+#  finished_at                   :datetime
+#  reward_amount                 :float
+#  physical_location_restriction :boolean(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
