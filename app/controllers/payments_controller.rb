@@ -72,7 +72,7 @@ private
      # flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
       #redirect_to survey_url(@survey) and return
     #end
-    @gateway = GATEWAY
+    @gateway = ::GATEWAY
   end
   
   def error_in_payment(response, survey)
