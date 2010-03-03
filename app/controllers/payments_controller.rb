@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
       flash[:notice] = "Thanks! Check back often to see the progress on your survey."
       redirect_to progress_surveys_url
     else
-      error_in_payment(reponse, @survey)
+      error_in_payment(response, @survey)
     end
   end
 
