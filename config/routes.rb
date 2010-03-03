@@ -45,6 +45,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}
 
+  map.confirm_payment '/confirm_purchase/:id', :controller => 'payments', :action => 'confirm'
+  
   map.with_options :controller => 'payments' do |p|
     p.account_history '/account-history', :action => 'index'
   end
