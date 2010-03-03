@@ -45,7 +45,7 @@ class PaymentsController < ApplicationController
     response = @gateway.details_for(params["token"]) 
     if !response.success? 
       error_in_payment(response, @survey) 
-    end yeah but that just checks
+    end
   end
   
   def refund
