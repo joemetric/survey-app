@@ -22,7 +22,7 @@ class CharityorgsController < ResourceController::Base
     @nonProfiltOrgs.each do |charityOrgs|
       @tempArr = []
       if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
-        logoURL = "http://s3.amazonaws.com/#{S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]}/logos/#{File.basename(charityOrgs.logo.url(:small)}"
+        logoURL = "http://s3.amazonaws.com/#{S3_CONFIG[ENV["RAILS_ENV"]]["bucket_name"]}/logos/#{File.basename(charityOrgs.logo.url(:small))}"
       else
         logoURL = "http://#{HOST}#{charityOrgs.logo.url(:small)}"
       end
