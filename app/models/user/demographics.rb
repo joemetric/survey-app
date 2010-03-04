@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
     :income => 'income_id',
     :martial_status => 'martial_status_id',
     :gender => 'gender',
-    :zipcode => 'zip_code'
+    :zipcode => 'zip_code',
+    :geographic_location => 'get_geographical_location_targeted_surveys'
   }
 
   Income = Incomes = {
@@ -116,7 +117,7 @@ class User < ActiveRecord::Base
     4 => 'Newest First'
   }
 
-  Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation]
+  Demographics = [:age, :gender, :income, :martial_status, :race, :education, :occupation, :geographic_location]
 
   def self.age_groups
     AgeGroupConditions.collect { |x| x[0] }.compact
@@ -211,6 +212,8 @@ class User < ActiveRecord::Base
   def self.count_by_criteria(constraint, demographic)
     if constraint == 'age_id'
       consumers.to_a.count {|u| u.age_id == demographic}
+    elsif constraint == 'get_geographical_location_targeted_surveys'
+      consumers.count(:conditions => ["#{constraint} = ?", true])
     else
       consumers.count(:conditions => "#{constraint} = '#{demographic}'")
     end

@@ -61,6 +61,7 @@ class Survey < ActiveRecord::Base
   has_many :incomes
   has_many :ages
   has_many :martial_statuses
+  has_many :geographic_locations
 
 
   validates_presence_of :name, :owner_id
@@ -68,7 +69,7 @@ class Survey < ActiveRecord::Base
   validates_length_of :reject_reason, :in => 2..255, :unless => Proc.new {|s| s.reject_reason.blank?}, :on => :update
 
   accepts_nested_attributes_for :questions, :genders, :zipcodes, :occupations, :races,
-                                :educations, :incomes, :ages, :martial_statuses, :allow_destroy => true
+                                :educations, :incomes, :ages, :martial_statuses, :geographic_locations, :allow_destroy => true
 
 
   named_scope :by_time, :order => :created_at

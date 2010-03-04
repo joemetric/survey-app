@@ -127,7 +127,11 @@ class SurveysController < ResourceController::Base
     @package = Package.find_by_code(params[:code]) rescue nil
     alert_message('Invalid Promotion Code. Please check and Try again.') if @package.nil?
   end
-
+  
+  def gMaps
+    render :layout => false
+  end
+  
   private
 
   def object

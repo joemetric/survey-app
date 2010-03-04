@@ -20,7 +20,7 @@
               
           %tr
             %th{ :width => '280', :valign => 'top', :align => 'center' }
-              = select_tag :inactiveorg_ids, options_for_select(@inActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:inactiveorg_ids]), :multiple => true, :size => 6, :style => "width:200px;"
+              = select_tag :inactiveorg_ids, options_for_select(@inActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:inactiveorg_ids]), :multiple => true, :size => 6, :style => "width:200px;", :onClick => "removeAlternateSelection('activeorg_ids');"
             
             %th{ :width => '50', :valign => 'middle', :align => 'center' }
               = link_to_function "", "activate_organization()", :class => 'next', :alt => 'Select', :title => 'Select'
@@ -28,7 +28,7 @@
               = link_to_function "", "deactivate_organization()", :class => 'prev', :alt => 'Remove', :title => 'Remove'
             
             %th{ :width => '280', :valign => 'top', :align => 'center' }
-              = select_tag :activeorg_ids, options_for_select(@ActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:activeorg_ids]), :multiple => true, :size => 6, :style => "width:200px;"
+              = select_tag :activeorg_ids, options_for_select(@ActiveNonProfitOrgs.collect{|n| [n.name, n.id]}, params[:activeorg_ids]), :multiple => true, :size => 6, :style => "width:200px;", :onClick => "removeAlternateSelection('inactiveorg_ids');"
                           
           %tr
             %th{ :width => '100%', :colspan => 3, :valign => 'top', :align => 'center' }

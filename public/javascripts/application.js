@@ -391,7 +391,7 @@ function cancelUploadLogo() {
 	setTimeout("$('#wait').hide()", 100);
 }
 
-function check_uploaded_files() {
+function setIframeHeight(divID) {
 	if (window.innerHeight && window.scrollMaxY) {// Firefox
 		yWithScroll = window.innerHeight + window.scrollMaxY;
 		//xWithScroll = window.innerWidth + window.scrollMaxX;
@@ -404,5 +404,14 @@ function check_uploaded_files() {
 		yWithScroll = document.body.offsetHeight + document.body.offsetTop;
 		//xWithScroll = document.body.offsetWidth + document.body.offsetLeft;
   	}
-	parent.document.getElementById('attach_files').style.height = yWithScroll+"px";
+	parent.document.getElementById(divID).style.height = yWithScroll+"px";
+}
+
+function removeAlternateSelection(altSelectID) {
+	var obj = document.getElementById(altSelectID);
+	for (var i = 0; i < obj.options.length; i++) {
+		if (obj.options[i].selected) {
+			obj.options[i].selected = false;
+		}
+	}
 }

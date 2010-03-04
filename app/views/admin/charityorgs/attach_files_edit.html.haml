@@ -10,7 +10,7 @@
     = javascript_include_tag "application"
     /[if IE7]
       = stylesheet_link_tag "ie7"
-  %body{:style => "background:#ffffff;", :onLoad => "check_uploaded_files();"}
+  %body{:style => "background:#ffffff;", :onLoad => "setIframeHeight('attach_files');"}
     .content{:style => "margin:0px;padding:0px;"}
       .form{:style => "margin:0px;padding:0px;width:350px;background:#ffffff;"}
         - form_for :fileAttachments, @files, :url => attachFilesEdit_admin_charityorgs_path, :html => {:method => :post, :id => "attachfile_charity_orgs_form", :multipart => true} do |form|
