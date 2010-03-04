@@ -1,0 +1,31 @@
+= render :partial => '/layouts/menu'
+.main_content
+  .form
+    %h3.heads Confirm Payment
+    .top
+    .form_content1
+      %h4 Purchase Information:
+      %b
+        %label
+          = "#{@survey.name}" + " - " + "#{@survey.package.name}"
+          Package
+      Includes:
+      %br
+      %label
+        = @survey.package.total_responses
+        responses
+      %b
+        - @survey.package.try(:questions_info).each do |q|
+          %i 
+            = q.skip_info
+            %br
+      %hr
+      %label
+        = 'Total Amount: ' + "#{@survey.chargeable_amount.us_dollar}"
+      %br
+      %ul.payment_actions
+        %li 
+          - # link_to 'Edit Survey', edit_survey_path(@survey), :class => 'button button_la' 
+        %li
+          = link_to 'Authorize Payment', confirm_payment_path(@survey, @payer_id, @token), :class => 'button button_la'
+    .bottom

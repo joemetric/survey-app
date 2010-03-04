@@ -10,3 +10,5 @@ rerun.txt
 public/images/logos/*
 public/images/tmp_org_files/*
 public/images/org_files/*
+*.swp
+*.swo

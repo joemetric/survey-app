@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
   before_filter :require_user, :except => :refund
   before_filter :require_admin_or_reviewer, :only => :refund
   before_filter :initialize_gateway, :except => [:index, :refund]
+  attr_accessor :token, :payerID
   
   def index
     @surveys = @current_user.created_surveys.paginate(:all, 
@@ -27,17 +28,28 @@ class PaymentsController < ApplicationController
     end
   end    
 
-  def capture
-    response = @gateway.details_for(params["token"]) 
-    if response.success? 
-      response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
+  def confirm
+    response = @gateway.purchase(@survey.cost_in_cents, :token => params[:token], :payer_id => params[:payer_id])
+
+    if response.success?
       @survey.payment.paid!
       @survey.save_payment_details(params, response)
       session[:survey_id] = @survey.id
+      flash[:notice] = "Thanks! Check back often to see the progress on your survey."
       redirect_to progress_surveys_url
     else
+      flash[:notice] = response.message
+      error_in_payment(response, @survey)
+    end
+  end
+
+  def capture
+    @token = params["token"]
+    @payer_id = params["PayerID"]
+    response = @gateway.details_for(params["token"]) 
+    if !response.success? 
       error_in_payment(response, @survey) 
-    end 
+    end
   end
   
   def refund
@@ -64,7 +76,7 @@ private
      # flash[:notice] = "#{@survey.name} is created successfully. (Payment Process is Skipped in Development Mode.)"
       #redirect_to survey_url(@survey) and return
     #end
-    @gateway = GATEWAY
+    @gateway = ::GATEWAY
   end
   
   def error_in_payment(response, survey)

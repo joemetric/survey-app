@@ -40,11 +40,14 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :dashboard, :path_prefix => 'survey', :controller => "admin/dashboards",
+
     :collection => { :demographic_distribution => :post, :survey_distribution => :post, :financial_distribution => :post, :nonprofit_organization_details => :post }
 
   map.resources :payments,
     :member => {:authorize => :get, :capture => :get, :cancel => :get, :refund => :post}
 
+  map.confirm_payment '/confirm_purchase/:id/:payer_id/:token', :controller => 'payments', :action => 'confirm'
+  
   map.with_options :controller => 'payments' do |p|
     p.account_history '/account-history', :action => 'index'
   end

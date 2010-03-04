@@ -27,6 +27,6 @@ HOST = "survey.joemetric.com"
 config.after_initialize do 
   ActiveMerchant::Billing::Base.gateway_mode = :production
   ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "paypal_api1.joemetric.com", 
-                                                                       :password => "4R8VBNZCGD63BKEV",
-                                                                       :signature => "AcG8KBv9k5jply-iDvqY2JU0qhqMA9Qai0Lobcd7t4sSQcy-2ZPMqRcb")
+                                                                       :password => "8JQYJCB8YVJZN75A",
+                                                                       :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31AH0cqMfcV-TrlkJvGsKvlHa.H0Ev")
 end
