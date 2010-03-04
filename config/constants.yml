@@ -1,21 +1,28 @@
 production:
+  GMAP_API_FOR: http://survey.joemetric.com
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 staging:
+  GMAP_API_FOR: http://joesurvey-staging.heroku.com
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 gniyes_integration:
+  GMAP_API_FOR: http://joesurvey-gniyes.heroku.com
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 joemetric_integration:
+  GMAP_API_FOR: http://joesurvey-joemetric.heroku.com
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 development:
+  GMAP_API_FOR: http://203.129.204.130:3000
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 testing:
+  GMAP_API_FOR: http://localhost:3000
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 cucumber:
+  GMAP_API_FOR: http://localhost:3000
   GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   

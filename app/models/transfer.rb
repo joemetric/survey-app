@@ -61,7 +61,7 @@ class Transfer < ActiveRecord::Base
   def self.find_or_create_for(reply)
     transfer = reply.transfer || create_for(reply)
     @donation_details = NonprofitOrgsEarning.find(:first, :conditions => ['survey_id = ? AND user_id =?', reply.survey_id, reply.user_id])
-    if @donation_details.length > 0
+    if @donation_details
       transfer.amount = reply.total_payout - @donation_details.amount_donated
     else
       transfer.amount = reply.total_payout
