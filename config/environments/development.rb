@@ -19,6 +19,8 @@ config.action_mailer.raise_delivery_errors = false
 # Configure App Address
 HOST = "localhost:3000"
 
+require 'ruby-debug'
+
 config.after_initialize do 
   ActiveMerchant::Billing::Base.gateway_mode = :test
   ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:paypal_express).new(:login => "dev_1252207951_biz_api1.joemetric.com", 

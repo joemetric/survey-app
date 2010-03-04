@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
   before_filter :require_user, :except => :refund
   before_filter :require_admin_or_reviewer, :only => :refund
   before_filter :initialize_gateway, :except => [:index, :refund]
+  attr_accessor :token, :payerID
   
   def index
     @surveys = @current_user.created_surveys.paginate(:all, 
@@ -28,8 +29,8 @@ class PaymentsController < ApplicationController
   end    
 
   def confirm
-    response = @gateway.purchase(@survey.cost_in_cents, :token => params["token"], :payer_id => params["PayerID"])
-    
+    response = @gateway.purchase(@survey.cost_in_cents, :token => params[:token], :payer_id => params[:payer_id])
+
     if response.success?
       @survey.payment.paid!
       @survey.save_payment_details(params, response)
@@ -37,11 +38,14 @@ class PaymentsController < ApplicationController
       flash[:notice] = "Thanks! Check back often to see the progress on your survey."
       redirect_to progress_surveys_url
     else
+      flash[:notice] = response.message
       error_in_payment(response, @survey)
     end
   end
 
   def capture
+    @token = params["token"]
+    @payer_id = params["PayerID"]
     response = @gateway.details_for(params["token"]) 
     if !response.success? 
       error_in_payment(response, @survey) 

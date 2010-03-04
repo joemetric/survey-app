@@ -21,11 +21,11 @@
             %br
       %hr
       %label
-        = 'Total Amount: ' + "#{@survey.chargeable_amount}"
+        = 'Total Amount: ' + "#{@survey.chargeable_amount.us_dollar}"
       %br
       %ul.payment_actions
         %li 
           - # link_to 'Edit Survey', edit_survey_path(@survey), :class => 'button button_la' 
         %li
-          = link_to 'Authorize Payment', confirm_payment_path(@survey), :class => 'button button_la'
+          = link_to 'Authorize Payment', confirm_payment_path(@survey, @payer_id, @token), :class => 'button button_la'
     .bottom
