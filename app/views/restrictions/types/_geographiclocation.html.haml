@@ -1,0 +1,5 @@
+%p{:class => 'cntrls cntrls_new'}
+  - fields_for "survey[geographic_locations_attributes][]", restriction do |form|
+    = form.hidden_field :cordinates, :value => ""
+    - restriction.id = random_number if restriction.id.nil?
+  %iframe{:id => 'googleMaps', :name => 'googleMaps', :src => gMaps_surveys_path, :frameborder => 0, :style => 'width:340px;height:450px;', :scrolling => 'off'}

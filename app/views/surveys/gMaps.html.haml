@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %title Joemetric Survey
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=EmulateIE7" }
+    = stylesheet_link_tag "joemetric"
+    = stylesheet_link_tag "style"
+    %script{:src => "http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#{GMAPS_CONFIG[ENV["RAILS_ENV"]]["GMAP_API_KEY"]}", :type => "text/javascript"}
+    = javascript_include_tag "gmap"
+    = javascript_include_tag "application"
+    /[if IE7]
+      = stylesheet_link_tag "ie7"
+  %body{:style => "background:#DDEBF8;", :onload => "load();setIframeHeight('googleMaps');clearPoints();", :onunload => "GUnload();"}
+    .form{:style => "background:#DDEBF8; border: none; margin: 0; padding: 0;"}
+      %p{:class => 'cntrls cntrls_new'}
+        %label Enter Approximate Address or Zip Code:
+        - form_for :googleMaps, @googleMaps, :url => "#", :html => { :id => "gooogleMapsForm", :onSubmit => "showAddress(document.getElementById('googleMaps_addresszip').value); return false;" } do |form|
+          = form.text_field :addresszip, :value => "", :style => "width:285px;"
+          %br
+          = submit_tag "Find Address", :class => "button button_la"
+        %br
+        #map{:style => "width: 340px; height: 340px"}
+        %br
+        Click on any area on the map to place markers
+        %br
+        %br
+        = hidden_field_tag "coords_count", 0
+        = link_to_function "Select Area", "reShape()", :class => "button button_la"
+        = link_to_function "Clear Markers", "clearPoints()", :class => "button button_la"
+        = link_to_function "Save Area", "savePoints()", :class => "button button_la"
+        =# link_to_function "Delete last", "delLast()", :class => "button button_la"
+        =# link_to_function "As Array", "asArray()", :class => "button button_la"
+        =# link_to_function "As GLatLng", "asGLatLng()", :class => "button button_la"
+      %br
+      #output{:style => "font-size:9px;font-face:Courier"}    
+  
