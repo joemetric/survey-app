@@ -50,13 +50,9 @@ function load() {
         GEvent.addListener(new_marker,'dragend', function(){
           points[markers.indexOf(this)] = this.getPoint()
           reDraw()
-          //asArray()
         })
       } 
       points.push(point)
-      //alert(points)
-      //alert(point)
-      //asArray()
       reDraw()
     }
     )
@@ -133,14 +129,12 @@ function reShape() {
   reDraw()
 }
 
-function savePoints() {
+function savePoints(randNum) {
 	if (points != "") {
 		reShape();
-	  	var current_count = document.getElementById("coords_count").value;
-	  	var new_count = parseInt(current_count) + 1
-	  	document.getElementById("coords_count").value = new_count;
-		updateCordinates();
-		clearPoints();
+		parent.document.getElementById("survey_geographic_locations_attributes_"+randNum+"_value").value = points;
+		parent.document.getElementById("savedArea"+randNum).innerHTML = "Selected area has been recorded successfully!!";
+		setTimeout('hideIframe("'+randNum+'");', 1000);
 	}
 	else {
 		clearPoints();
@@ -148,12 +142,10 @@ function savePoints() {
 	}
 }
 
-function updateCordinates() {
-	var current_HTML = document.getElementById("output").innerHTML;
-	var current_count = document.getElementById("coords_count").value;
-	var new_HTML = current_HTML;
-	new_HTML += "Saved Area "+current_count+" <a href='#' onClick='removeArea("+current_count+")' class='button button_la'>X</a>";
-	new_HTML += "<input type='hidden' name='selected_cordinates"+current_count+"' id='selected_cordinates"+current_count+"' value='"+points+"'><br /><br />";
-	document.getElementById("output").innerHTML = new_HTML;
-	setIframeHeight('googleMaps');
+function hideIframe (arg) {
+	clearPoints();
+	parent.document.getElementById("googleMaps"+arg).style.height = "0px";
+	parent.document.getElementById("googleMaps"+arg).style.width = "0px";
+	parent.document.getElementById("googleMaps"+arg).src = "about:blank";
 }
+

@@ -63,7 +63,6 @@ class Survey < ActiveRecord::Base
   has_many :martial_statuses
   has_many :geographic_locations
 
-
   validates_presence_of :name, :owner_id
   validates_numericality_of :responses
   validates_length_of :reject_reason, :in => 2..255, :unless => Proc.new {|s| s.reject_reason.blank?}, :on => :update

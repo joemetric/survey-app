@@ -16,7 +16,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :questions, :collection => { :choose_type => :post } do |questions|
     questions.resources :answers
   end
+  
+  map.connect "/restrictions/choose_type", :controller => "restrictions", :action => "choose_type"
   map.resources :restrictions, :collection => { :choose_type => :post }
+  
   map.resource :user_session
   map.resource :charityorgs, :collection => { :activeCharityOrgs => :get, :updateCharityOrgsEarning => :post }
 

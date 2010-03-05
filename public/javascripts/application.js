@@ -399,7 +399,7 @@ function setIframeHeight(divID) {
 	else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
 		yWithScroll = document.body.scrollHeight;
 		//xWithScroll = document.body.scrollWidth;
-	} 
+	}
 	else { // works in Explorer 6 Strict, Mozilla (not FF) and Safari
 		yWithScroll = document.body.offsetHeight + document.body.offsetTop;
 		//xWithScroll = document.body.offsetWidth + document.body.offsetLeft;

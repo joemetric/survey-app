@@ -11,7 +11,7 @@
     = javascript_include_tag "application"
     /[if IE7]
       = stylesheet_link_tag "ie7"
-  %body{:style => "background:#DDEBF8;", :onload => "load();setIframeHeight('googleMaps');clearPoints();", :onunload => "GUnload();"}
+  %body{:style => "background:#DDEBF8;", :onload => "load();setIframeHeight('googleMaps#{params[:rand_id]}');clearPoints();", :onunload => "GUnload();"}
     .form{:style => "background:#DDEBF8; border: none; margin: 0; padding: 0;"}
       %p{:class => 'cntrls cntrls_new'}
         %label Enter Approximate Address or Zip Code:
@@ -25,13 +25,6 @@
         Click on any area on the map to place markers
         %br
         %br
-        = hidden_field_tag "coords_count", 0
         = link_to_function "Select Area", "reShape()", :class => "button button_la"
         = link_to_function "Clear Markers", "clearPoints()", :class => "button button_la"
-        = link_to_function "Save Area", "savePoints()", :class => "button button_la"
-        =# link_to_function "Delete last", "delLast()", :class => "button button_la"
-        =# link_to_function "As Array", "asArray()", :class => "button button_la"
-        =# link_to_function "As GLatLng", "asGLatLng()", :class => "button button_la"
-      %br
-      #output{:style => "font-size:9px;font-face:Courier"}    
-  
+        = link_to_function "Save Area", "savePoints('#{params[:rand_id]}')", :class => "button button_la"

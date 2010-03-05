@@ -1,19 +1,18 @@
 # == Schema Information
 # Schema version: 20100302105306
 #
-# Table name: geographic_locations
+# Table name: restrictions
 #
 #  id         :integer(4)      not null, primary key
 #  survey_id  :integer(4)
-#  user_id    :integer(4)
-#  cordinates :text
+#  value      :text
 #  created_at :datetime
 #  updated_at :datetime
+#  type       :string(255)
 #
 
-class GeographicLocation < ActiveRecord::Base
+class GeographicLocation < Restriction
   
   belongs_to :survey
-  belongs_to :user
   
 end
