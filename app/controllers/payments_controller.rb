@@ -55,7 +55,7 @@ class PaymentsController < ApplicationController
   def refund
     survey = Survey.find(params[:id])
     @response = Refund.process(survey)
-    @refund = survey.refunds.last
+    @refund = survey.refunds.find(:last, :order_by => "id ASC")
     if @response
       flash[:notice] = "Refund of Amount #{@refund.amount} has been completed"
       ajax_redirect(conditional_redirect) and return
