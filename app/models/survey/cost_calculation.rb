@@ -157,8 +157,8 @@ class Survey < ActiveRecord::Base
   
   def refundable_amount(payment)
     total_refundable = 0.0
-    #QUESTION_TYPES.keys.each {|k| total_refundable += send("refund_for_#{k}")} if unreceived_responses > 0
-    total_refundable = payment.amount
+    QUESTION_TYPES.keys.each {|k| total_refundable += send("refund_for_#{k}")} if unreceived_responses > 0
+    total_refundable
   end
   
   def total_payout
