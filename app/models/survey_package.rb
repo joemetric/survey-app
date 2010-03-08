@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100305003805
+# Schema version: 20100308160716
 #
 # Table name: survey_packages
 #

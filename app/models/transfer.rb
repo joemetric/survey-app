@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100305003805
+# Schema version: 20100308160716
 #
 # Table name: transfers
 #
@@ -62,7 +62,7 @@ class Transfer < ActiveRecord::Base
     transfer = reply.transfer || create_for(reply)
     @donation_details = NonprofitOrgsEarning.find(:first, :conditions => ['survey_id = ? AND user_id =?', reply.survey_id, reply.user_id])
     if @donation_details
-      transfer.amount = reply.total_payout - @donation_details.amount_donated
+      transfer.amount = reply.total_payout - @donation_details.amount_donated_by_user
     else
       transfer.amount = reply.total_payout
     end

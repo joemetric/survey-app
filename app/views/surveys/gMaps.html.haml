@@ -11,7 +11,7 @@
     = javascript_include_tag "application"
     /[if IE7]
       = stylesheet_link_tag "ie7"
-  %body{:style => "background:#DDEBF8;", :onload => "load();setIframeHeight('googleMaps#{params[:rand_id]}');clearPoints();", :onunload => "GUnload();"}
+  %body{:style => "background:#DDEBF8;", :onload => "load('#{params[:rand_id]}');setIframeHeight('googleMaps#{params[:rand_id]}');clearPoints();", :onunload => "GUnload();"}
     .form{:style => "background:#DDEBF8; border: none; margin: 0; padding: 0;"}
       %p{:class => 'cntrls cntrls_new'}
         %label Enter Approximate Address or Zip Code:

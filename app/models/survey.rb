@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100305003805
+# Schema version: 20100308160716
 #
 # Table name: surveys
 #
@@ -223,7 +223,43 @@ class Survey < ActiveRecord::Base
       not_taken_by(user)
     end
   end
-
+  
+  def self.list_geographical_surveys_for(user, latitude, longitude)
+    @total_unreplied_surveys = user.unreplied_surveys
+    @final_attending_surveys = Array.new
+    @total_unreplied_surveys.each do |unreplied_surveys|
+      @physical_location_restriction = Survey.find(:first, :select => "surveys.physical_location_restriction", :conditions => ["id = ?", unreplied_surveys])
+      @survey_restrictions = Restriction.find(:all, :conditions => ["survey_id = ? AND type = 'GeographicLocation'", unreplied_surveys])
+      if @survey_restrictions.length > 0
+        @survey_restrictions.each do |survey_restriction|
+          @tempCoordinatesArr = survey_restriction.value.split(",")
+          @coordinatesArr = Array.new
+          @tempCoordinatesArr.each do |coordinate|
+            @coordinatesArr.push(coordinate.gsub(/\'|\(|\)|\s/, ""))
+          end
+          @topLonBound = @coordinatesArr[@coordinatesArr.length-1]
+          @topLatBound = @coordinatesArr[@coordinatesArr.length-2]
+          @btmLonBound = @coordinatesArr[@coordinatesArr.length-3]
+          @btmLatBound = @coordinatesArr[@coordinatesArr.length-4]
+          if latitude < @topLonBound && latitude > @btmLatBound && longitude < @topLonBound && longitude > @btmLonBound
+            @final_attending_surveys.push(unreplied_surveys)
+            break
+          end
+        end
+      elsif @physical_location_restriction.physical_location_restriction == false
+        @final_attending_surveys.push(unreplied_surveys)
+      end
+    end
+    columns_all = Survey.column_names.collect{|c| "surveys.#{c}"}
+    columns_all << Reply.column_names.collect{|c| "replies.#{c}"}
+    find(:all,
+         :select => "surveys.*, COUNT(questions.id) AS total_questions",
+         :joins => ["LEFT JOIN questions ON surveys.id = questions.survey_id LEFT JOIN replies ON surveys.id = replies.survey_id"],
+         :conditions => ["surveys.id IN (?)", @final_attending_surveys],
+         :group => columns_all.join(','),
+         :order => "replies.id DESC, #{sort_by(user.sort_id)}")
+  end
+  
   def self.sort_by(sort_id)
     case sort_id
       when 1; 'reward_amount DESC'

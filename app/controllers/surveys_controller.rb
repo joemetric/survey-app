@@ -99,7 +99,11 @@ class SurveysController < ResourceController::Base
       end
       format.json do
         current_user.device = params[:device].downcase
-        @surveys = Survey.list_for(current_user)
+        if params["latitude"] && params["longitude"]
+          @surveys = Survey.list_geographical_surveys_for(current_user, params["latitude"], params["longitude"])
+        else
+          @surveys = Survey.list_for(current_user)
+        end
         render :json => @surveys.to_json(:user => current_user), :status => 200
       end
     end

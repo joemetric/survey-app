@@ -15,8 +15,8 @@ joemetric_integration:
   GMAP_API_KEY: ABQIAAAAhFKO9wj4BXnA9a9UFurJ7RSpqgpsf4TrKeOCcMY-RxAQ_ckpjBT5VnwjztLX94vW5_iUXSRSFq2WLQ
   
 development:
-  GMAP_API_FOR: http://localhost:3000
-  GMAP_API_KEY: ABQIAAAAhFKO9wj4BXnA9a9UFurJ7RTJQa0g3IQ9GZqIMmInSLzwtGDKaBTNmtCYk-fC2Aij8PHxOrrm-m1rJA
+  GMAP_API_FOR: http://203.129.204.130:3000
+  GMAP_API_KEY: ABQIAAAAHnawjS0K2ifno-FFkgwCWxRl37_C5WB6CqXSo-Ce963ze3FcYBT2Q2LAGWHWrqy1ZC-WhdPe1riXzw
   
 testing:
   GMAP_API_FOR: http://localhost:3000

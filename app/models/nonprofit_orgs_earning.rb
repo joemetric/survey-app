@@ -46,11 +46,10 @@ class NonprofitOrgsEarning < ActiveRecord::Base
     named_scope :last_year, { :group => :nonprofit_org_id, :conditions => ['created_at BETWEEN ? AND ?', Time.now.last_year.beginning_of_year, Time.now.last_year.end_of_year]}
   end
   
-  
-  
   validates_presence_of :nonprofit_org_id
   validates_presence_of :survey_id
   validates_presence_of :user_id
   validates_presence_of :amount_earned
+  validates_presence_of :amount_donated_by_user
   
 end
