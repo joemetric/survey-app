@@ -195,7 +195,12 @@ class User < ActiveRecord::Base
     }
     condition_block = Condition.block { |c|
       conditions.each_pair { |key, value|
-        c.and key, 'IN', value  unless key == 'age_id'
+        if key == 'get_geographical_location_targeted_surveys'
+          c.and key, '1'
+        else
+          c.and key, 'IN', value  unless key == 'age_id'
+        end
+        
       }
     }
     if conditions.has_key?('age_id')
