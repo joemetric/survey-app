@@ -5,7 +5,7 @@
     %small
       Please insert options in comma separated. Ex: Green, Yellow, Blue
     = form.hidden_field :question_type_id, :value => question.question_type_id
-    = form.label "Question", :name
+    = form.label :name, "Question"
     = form.text_field :name
     
     = form.label :description

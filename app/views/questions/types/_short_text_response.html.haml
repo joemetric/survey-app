@@ -4,7 +4,7 @@
       Question Text 
       %small (140 Characters)
     = form.hidden_field :question_type_id, :value => question.question_type_id
-    = form.label "Question", :name
+    = form.label :name, "Question"
     = form.text_field :name
     
     = form.label :description
