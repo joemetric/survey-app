@@ -6,8 +6,6 @@
     %table.sortable{:cellpadding => '0', :cellspacing => '0', :border => '0', :id => 'table'}
       %thead
         %tr
-          %th{:width => 100}
-            %h3 Transaction ID
           %th.nosort
             %h3 Survey Name
           %th{:width => 85}
@@ -20,11 +18,11 @@
             %h3 Date Completed
           %th{:width => 72}
             %h3 Amount
+          %th{:width => 100}
+            %h3 Transaction ID
         %tbody
           - @surveys.each do |survey|
             %tr
-              %td 
-                = survey.payment.transaction_id if survey.try(:payment)
               %td 
                 = survey_link(survey)
               %td
@@ -37,6 +35,8 @@
                 = completed_at(survey)
               %td
                 = survey_amount(survey)
+              %td 
+                = survey.payment.transaction_id if survey.try(:payment)
     = will_paginate @surveys, :prev_label => 'Previous', :next_label => 'Next'            
 .cls
 
