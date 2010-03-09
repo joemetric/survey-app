@@ -33,7 +33,7 @@ class Payment < ActiveRecord::Base
   
   def save_details(params, response)
     self.token = params['token']
-    self.payer_id = params['PayerID']
+    self.payer_id = params['payer_id']
     self.transaction_id = response.params['transaction_id']
     self.amount = survey.chargeable_amount
     self.save
