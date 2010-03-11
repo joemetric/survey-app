@@ -28,6 +28,7 @@ class PackagePricing < ActiveRecord::Base
                             :if => Proc.new {|t| !t.total_questions.blank?}
   
   validates_numericality_of :standard_price,
+                            :greater_than => 0,
                             :only_integer => false,
                             :if => Proc.new {|s| !s.standard_price.blank? && s.total_questions > 0}
                             
