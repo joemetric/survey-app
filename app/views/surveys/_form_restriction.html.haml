@@ -5,8 +5,8 @@
       = render :partial => "/restrictions/choose_type", :collection => survey.restrictions
   %br
   %p
-    = form.check_box :physical_location_restriction
-    Respondent should stay in physical location to take survey  
+    = #form.check_box :physical_location_restriction
+    <!--Respondent should stay in physical location to take survey-->  
   %br
   %p
     = link_to_remote "ADD DEMOGRAPHIC RESTRICTION", :url => new_restriction_path, :method => :get, :html => { :class => "button button_la" } 
