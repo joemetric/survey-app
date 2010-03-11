@@ -4,6 +4,10 @@
     %ul
       - survey.questions.each_with_index do |question, index|
         %li= "##{index + 1}.&nbsp;#{question.name}"
+        - if question.question_type_id == 2
+          %ul
+            - question.complement.each do |choice|
+              %li= choice
   .btns
     = link_to "Approve", publish_admin_survey_path(survey), :method => :put, :class => "pos" unless survey.published?
     = link_to_remote "Deny", :url => deny_admin_survey_path(survey), :complete => "showForm()", :html => {:class => "neg"} unless survey.rejected?
