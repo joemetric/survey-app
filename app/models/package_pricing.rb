@@ -24,6 +24,7 @@ class PackagePricing < ActiveRecord::Base
   validates_presence_of :package_id, :package_question_type_id, :total_questions, :standard_price, :normal_price
    
   validates_numericality_of :total_questions,
+                            :greater_than => 0,
                             :only_integer => true,
                             :if => Proc.new {|t| !t.total_questions.blank?}
   
