@@ -11,11 +11,10 @@ class Payment < ActiveRecord::Base
   end
   
   def self.refund(survey, payment)
-    refund_in_cents = survey.refundable_amount * 100
    ::GATEWAY.credit(
-     refund_in_cents, 
+     survey.refundable_amount.cost_in_cents, 
      payment.transaction_id,
-     {:note => 'www.joemetric.com - Payment Refund for Survey #ID:#{survey.id} - #{survey.name}'}
+     {:note => "www.joemetric.com - Payment Refund for Survey #ID:#{survey.id} - #{survey.name}"}
    )
   end
   
