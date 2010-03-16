@@ -21,7 +21,7 @@ class RestrictionsController < ApplicationController
   end
   
   def pre_selected_demographic
-    params[:restriction_type] == 'martial_status' ? 'Male' : 1
+    params[:restriction_type] == 'gender' ? 'Male' : 1
   end
   
 end
