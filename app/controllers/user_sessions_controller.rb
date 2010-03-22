@@ -32,7 +32,7 @@ class UserSessionsController < ApplicationController
   end
 
   def next_page
-    current_user.is_reviewer? ? review_admin_surveys_path : surveys_path
+    current_user.is_reviewer? ? review_admin_surveys_path : new_survey_path(:package => 'default')
   end
 
   def destroy

@@ -3,3 +3,4 @@
   %td= saved_survey.created_at.strftime("%b/%d/%Y")
   %td= saved_survey.updated_at.strftime("%b/%d/%Y")
   %td= saved_survey.questions.size
+  %td= link_to "Delete", saved_survey, :confirm => 'Are your sure?', :method => :delete

@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activation 'users/:id/activate/:key', :controller => "users", :action => "activate"
   map.reset_password 'users/:id/reset_password/:key', :controller => "users", :action => "reset_password"
 
-  map.root :controller => 'surveys'
+  map.root :controller => 'surveys', :action => 'new', :package => 'default'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
