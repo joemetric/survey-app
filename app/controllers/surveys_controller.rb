@@ -68,7 +68,12 @@ class SurveysController < ResourceController::Base
   end
 
   def progress
-    @surveys = @current_user.created_surveys
+    @surveys = []
+    @current_user.created_surveys.each do |survey|
+      if survey.payment.status == 'paid' && survey.publish_status != 'rejected' && survey.publish_status != 'finished'
+        @surveys << survey
+      end
+    end
     @survey_id, session[:survey_id] = session[:survey_id], nil  if session[:survey_id]
   end
 
