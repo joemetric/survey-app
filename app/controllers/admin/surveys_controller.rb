@@ -5,7 +5,14 @@ class Admin::SurveysController < ApplicationController
   layout 'admin', :except => 'review'
   
   def index
-    @surveys = Survey.for_approval
+    params[:survey_type].nil? ? @survey_status = 'pending' : @survey_status = params[:survey_type]
+    if params[:survey_type] == 'finished'
+      @surveys = Survey.published_and_finished
+    elsif params[:survey_type] == 'published'
+      @surveys = Survey.published
+    else
+      @surveys = Survey.for_approval
+    end
   end
   
   def review

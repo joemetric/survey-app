@@ -1199,3 +1199,33 @@ ul.payment_actions li {
 p.complete_payment {
   color: green;
 }
+
+/* Complete Payment Ends */
+
+/* Begin Admin Manage Surveys Menu */
+
+ul.survey_toggle {
+  list-style-type: none;
+  margin:0 0 25px 0;
+  padding: 15px 15px 15px 7px;
+  background-color: #0C273C;
+  text-align: center;
+}
+
+ul.survey_toggle li {
+  display: inline;
+  margin-right: 2px;
+  background-color: #87BD00;
+  padding: 10px 15px 10px 15px;
+}
+
+ul.survey_toggle li a {
+  outline:none;
+}
+
+ul.survey_toggle li a:hover {
+  color: #0C273C;
+}
+
+
+/* End Admin Manage Surveys Menu */

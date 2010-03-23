@@ -1,11 +1,16 @@
 %div{:class => 'form lar'}
   
   %h3.heads1 Survey Administration
-  %h4.head2 Pending Approvals
+  %br 
+  %ul.survey_toggle 
+    %li= link_to 'Active Surveys', admin_surveys_path(:survey_type => 'published')
+    %li= link_to 'Pending Surveys', admin_surveys_path(:survey_type => 'pending')
+    %li= link_to 'Finished Surveys', admin_surveys_path(:survey_type => 'finished')
+
+  %br
+  %h4.head2= "#{@survey_status.capitalize} Surveys"
   
   #overview
-  %br
-  %h4.head2 Historical Surveys
   
   %table#table.sortable{ :cellpadding => 0 , :cellspacing => 0, :border => 0}
     %thead
