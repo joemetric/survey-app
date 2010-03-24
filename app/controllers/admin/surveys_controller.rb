@@ -11,7 +11,10 @@ class Admin::SurveysController < ApplicationController
     elsif params[:survey_type] == 'published'
       @surveys = Survey.published
     else
-      @surveys = Survey.for_approval
+      @surveys = []
+      Survey.for_approval.each do |survey|
+        @surveys << survey if survey.payment.paid?
+      end
     end
   end
   
