@@ -60,7 +60,8 @@ class NonprofitOrg < ActiveRecord::Base
   validates_numericality_of :contact_phone, :if => Proc.new { |org| !org.contact_phone.blank? }
   
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :if => Proc.new { |org| !org.email.blank? }
-  validates_format_of :website, :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :if => Proc.new { |org| !org.website.blank? }
+  validates_format_of :website, :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :if => Proc.new { |org| !org.website.blank? }, 
+                                :message => 'is invalid, make sure it begins with http:// or https://'
   
   if ENV["RAILS_ENV"] != "test"
     if ["gniyes_integration", "staging", "joemetric_integration", "production"].include?(ENV["RAILS_ENV"])
