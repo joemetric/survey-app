@@ -96,5 +96,5 @@ class Reply < ActiveRecord::Base
   def set_status # This method is invoked from lib/tasks/set_reply_status.rake
     transfer.try(:complete?) ? paid! : (all_answers_given? ? complete! : incomplete!)
   end
-
+# Survey that was never paid for shows up as pending in the admin page, not refund can be made, and the survey remains on the admin screen pending approval.
 end
