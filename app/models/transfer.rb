@@ -72,7 +72,7 @@ class Transfer < ActiveRecord::Base
   
   def self.process(reply)
     transfer = find_or_create_for(reply)
-    response = Payment.transfer(transfer.amount * 100, reply.user.email) if transfer.status != 'complete'
+    response = Payment.transfer(transfer.amount * 100, reply.user.email)
     transfer.paypal_params = response.params
     if response.success?
       transfer.complete!
