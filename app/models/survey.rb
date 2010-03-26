@@ -206,6 +206,10 @@ class Survey < ActiveRecord::Base
   def completed?
     publish_status == 'finished'
   end
+  
+  def pending?
+    publish_status == 'pending'
+  end
 
   def self.list_for(user)
     # columns_all added as a fix for postgres sql order_by
