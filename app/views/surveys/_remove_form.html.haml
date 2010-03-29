@@ -1,0 +1,12 @@
+.popup
+  .popup_d
+    %h3 Deletion Confirmation
+    %span{:id => 'response'}
+    %h2 Are you sure you wish to delete this survey?
+    .cls
+    %span#submit_button
+      %span{:class => 'btns', :align => 'center'}
+        = link_to 'Yes', "/surveys/#{params[:id]}", :method => :delete, :class => 'but_da'
+    %span{:class => 'btns', :align => 'center', :style => 'float: right; margin-right: 20px; margin-top: 0;'}
+      = link_to_function 'Cancel', 'closeForm()', :class => 'but_da'
+  .cls

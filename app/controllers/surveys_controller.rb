@@ -54,13 +54,13 @@ class SurveysController < ResourceController::Base
       #if RAILS_ENV == 'development'
        # ajax_redirect(progress_surveys_path)
       #else
-        if @survey.no_payment_required?
+        #if @survey.no_payment_required?
           @survey.payment_without_paypal
           session[:survey_id] = @survey.id
           ajax_redirect(progress_surveys_path)
-        else
-          ajax_redirect(authorize_payment_path(@survey))
-        end
+        #else
+         # ajax_redirect(authorize_payment_path(@survey))
+        #end
       #end
     else
       show_error_messages(:survey)
@@ -176,6 +176,11 @@ class SurveysController < ResourceController::Base
   
   def deleted_questions
     question_ids.empty? ? @survey.question_ids : @survey.question_ids - question_ids 
+  end
+  
+  def remove
+    @survey = Survey.find(params[:id])
+    redirect_to :action => 'index'
   end
 
 end
