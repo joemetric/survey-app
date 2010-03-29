@@ -101,6 +101,11 @@ class SurveysController < ResourceController::Base
     respond_to do |format|
       format.html do
         @surveys = Survey.saved.by(@current_user)
+        
+        @current_user.created_surveys.find(:all, :conditions => {:publish_status => "pending"}).each do |survey|
+          @surveys << survey if survey.pending?
+        end
+        
       end
       format.json do
         current_user.device = params[:device].downcase
