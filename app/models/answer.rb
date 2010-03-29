@@ -35,7 +35,7 @@ class Answer < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => [ "image/gif", "image/jpeg", "image/png" ]
   validate :presence_of_file_only_if_allowed, :unless => Proc.new { |a| a.question_id.nil? }
 
-  named_scope :by_question, lambda { |q| { :conditions => { :question_id => q.object_id }}}
+  named_scope :by_question, lambda { |q| { :conditions => { :question_id => q.id }}}
 
   named_scope :answers_for, lambda { |r| { :conditions => { :reply_id => r.id }}}
 
