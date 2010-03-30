@@ -7,7 +7,9 @@ class RestrictionsController < ApplicationController
 
   def choose_type
     if Restriction::Kinds.include?(params[:restriction_type].to_sym)
-      if params[:restriction_type] == 'martial_status'
+      if params[:restriction_type] == 'marital_status'
+        # this is a fix to make up for the fact marital_status was mispelled
+        params[:restriction_type] = 'martial_status'
         restriction_type = 'MartialStatus'
       elsif params[:restriction_type] == 'geographic_location'
         restriction_type = 'GeographicLocation'

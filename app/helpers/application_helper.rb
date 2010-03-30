@@ -13,7 +13,14 @@ module ApplicationHelper
   end
   
   def restriction_type_options
-    Restriction::Kinds.collect { |kind| [kind.to_s.titleize, kind] }
+    options = Restriction::Kinds.collect { |kind| [kind.to_s.titleize, kind] }
+    # this is a fix to handle the mispelling of marital_status in the system, so it is 
+    # not displayed to the user.
+    if options.include?(:martial_status)
+      options.delete(:martial_status)
+      options << :marital_status
+    end
+    options
   end
   
   def demographic_type_options
