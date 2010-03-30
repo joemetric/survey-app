@@ -1,6 +1,6 @@
 %p.cntrls
   - fields_for "survey[martial_statuses_attributes][]", restriction do |form|
-    %label Martial Status:
+    %label Marital Status:
     - restriction.id = random_number if restriction.id.nil?
     = form.select :value, select_options(User::MartialStatus)
     = observe_field "survey_martial_statuses_attributes_#{restriction.try(:id)}_value", :url => demographics_count_users_path, :with => "$('#survey_form').serialize() + '&constraint_id=' + '#{constraint_id}' + '&demographic=' + value + '&constraint=' + 'martial_status_id'"
