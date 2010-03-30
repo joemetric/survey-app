@@ -92,7 +92,7 @@ body{
 	margin-top:50px;
 	margin-left:120px;
 	border:solid 2px #FFFFFF;
-	width:400px;
+	width:600px;
 	color:#31434f;
 	
 }
@@ -511,6 +511,7 @@ h4 span{
 }
 
 .survey_details{
+	display: none;
 	margin:70px 0;
 	float:left;
 	border:solid 2px #d8d8d8;
