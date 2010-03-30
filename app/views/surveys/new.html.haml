@@ -15,7 +15,7 @@
         = observe_field "surveys_id", :url => copy_surveys_path, :with => "'id=' + value", :complete => 'updatePricing();'
       #errors
       = render :partial => "/surveys/form_general", :locals => { :form => form, :survey => @survey }
-        
+
       .rounded
         .top
         .form_content1
@@ -39,3 +39,8 @@
   = render :partial => 'pricing_details', :locals => { :package => @package}
 
 =javascript_tag("updateButtonText();")  
+
+#mask
+
+#boxes
+  #dialog.window

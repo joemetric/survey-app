@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :completions
   map.resources :answers
   map.resources :surveys,
-    :member => {:reward => :get, :progress_graph => :get, :remove => :post},
+    :member => {:reward => :get, :progress_graph => :get, :remove => :post, :preview => :get},
     :collection => { :apply_discount_code => :post, :sort => :get, :copy => :post, :pricing => :get, :activate => :post, :progress => :get, :reports => :get, :update_pricing => :any, :gMaps => :get } do |survey|
     survey.resources :questions
     survey.resources :restrictions

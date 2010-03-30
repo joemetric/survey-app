@@ -6,8 +6,8 @@ class PaypalProcessor
   require 'application_controller'
   
   def self.execute
-     refund
-     transfer
+     #refund
+     #transfer
   end
   
   def self.refund

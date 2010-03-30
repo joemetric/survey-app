@@ -5,6 +5,6 @@ task :cron => :environment do
  end
  if Time.now.hour == 0 # Run at Midnight
    puts "Paypal Process: Executed At: #{Time.now}"
-   PaypalProcessor.execute
+   #PaypalProcessor.execute
  end
 end

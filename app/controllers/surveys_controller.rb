@@ -182,5 +182,8 @@ class SurveysController < ResourceController::Base
     @survey = Survey.find(params[:id])
     redirect_to :action => 'index'
   end
+  
+  def preview
+  end
 
 end

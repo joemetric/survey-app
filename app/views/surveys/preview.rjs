@@ -1,0 +1,2 @@
+page << "showPreviewContent()"
+page.replace_html 'dialog', :partial => 'preview_content'
