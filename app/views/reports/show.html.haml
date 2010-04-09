@@ -60,7 +60,16 @@
         .cls
         .que_des.que_name= q.name
         = render :partial => "/questions/report/#{q.question_type.valid_name}", :object => q, :locals => { :survey => @survey }
-
+   
+    - if @survey.restrictions.type == 'GeographicLocation'
+      
+      = render :partial => "/geometric_restriction_report", collection => @survey 
+ 
+    
+          
+  
+         
+ 
 .cls
 
 = sortable_table_js

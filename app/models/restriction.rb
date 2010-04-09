@@ -13,7 +13,7 @@
 
 class Restriction < ActiveRecord::Base
   # :geographic_location removed for now
-  Kinds = [ :gender, :zipcode, :occupation, :race, :education, :income, :age, :marital_status ]
+  Kinds = [ :gender, :zipcode, :occupation, :race, :education, :income, :age, :marital_status, :geographic_location ]
   
   belongs_to :survey
   
